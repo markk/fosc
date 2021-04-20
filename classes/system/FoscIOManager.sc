@@ -99,7 +99,6 @@ FoscIOManager : FoscObject {
             throw("%:%: path does not exist: %.".format(this.name, thisMethod.name, path));
         };
         path = shellQuote(path);
-        returnCode = systemCmd("open %".format(path));
         returnCode = Platform.case(
             \osx,       { systemCmd("open %".format(path)) },
             \linux,     { systemCmd("xdg-open %".format(path)) },
