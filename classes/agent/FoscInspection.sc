@@ -6,16 +6,23 @@ TITLE:: FoscInspection
 SUMMARY:: Returns a FoscInspection.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Inspection agent.
 
 
 USAGE::
 
 '''
+code::
+a = FoscInspection('blerk');
 
-• FoscInspection
+post::
+ERROR: Meta_FoscInspection: client must be component, spanner, or nil: blerk.
+'''
 
-Inspection agent.
+'''
+code::
+a = FoscInspection(FoscNote(60, 1));
+a.client;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscInspection : FoscObject {
@@ -23,8 +30,6 @@ FoscInspection : FoscObject {
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    •
     def __init__(self, client=None):
             from abjad.tools import scoretools
             from abjad.tools import spannertools
@@ -34,14 +39,6 @@ FoscInspection : FoscObject {
                 message = message.format(client)
                 raise TypeError(message)
             self._client = client
-    
-    code::
-    a = FoscInspection('blerk');
-
-    code::
-    a = FoscInspection(FoscNote(60, 1));
-    a.client;
-    '''
     -------------------------------------------------------------------------------------------------------- */
     var <client;
     *new { |client|
@@ -57,36 +54,36 @@ FoscInspection : FoscObject {
         client = argClient;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS
+    // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • afterGraceContainer
 
     Gets after grace containers attached to leaf.
 
     Returns after grace container or none.
-    
+
+    '''
+    '''
+
     abjad 2.21
 
     def get_after_grace_container(self):
         return self._client._after_grace_container
-    '''
     -------------------------------------------------------------------------------------------------------- */
     afterGraceContainer {
         ^this.client.afterGraceContainer;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • annotation
 
     Gets value of annotation with name attached to client.
 
     Returns default when no annotation with name is attached to client.
-    
+
     Raises exception when more than one annotation with name is attached to client.
 
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.annotate('clef', FoscClef('bass'));
@@ -98,10 +95,6 @@ FoscInspection : FoscObject {
 
     p = "%/fosc/docs/img/agent-inspection-1".format(Platform.userExtensionDir);
     a.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     annotation { |annotation, default, unwrap=true|
         this.annotationWrappers.do { |wrapper|
@@ -112,9 +105,9 @@ FoscInspection : FoscObject {
         ^default
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • annotationWrappers
 
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.annotate('clef', FoscClef('bass'));
@@ -126,38 +119,38 @@ FoscInspection : FoscObject {
         result = [];
         if (client.respondsTo('wrappers') && { client.wrappers.notNil }) {
             client.wrappers.do { |wrapper|
-                if (wrapper.annotation.notNil) { result = result.add(wrapper) }; 
+                if (wrapper.annotation.notNil) { result = result.add(wrapper) };
             };
         };
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • badlyFormedComponents
 
     Gets badly formed components in client.
 
     Returns array.
-    
+
+    '''
+    '''
     staff = Staff("c'8 d'8 e'8 f'8")
     staff[1].written_duration = Duration(1, 4)
     beam = spannertools.Beam()
     attach(beam, staff[:])
-    
+
     f(staff)
-    code::
     \new Staff {
         c'8 [
         d'4
         e'8
         f'8 ]
     }
-    
+
     inspect_(staff).get_badly_formed_components()
     [Note("d'4")]
-    
+
     (Beamed quarter notes are not well formed.)
-    
+
 
     def get_badly_formed_components(self):
         from abjad.tools import systemtools
@@ -166,19 +159,19 @@ FoscInspection : FoscObject {
         for current_violators, total, check_name in manager(self._client):
             violators.extend(current_violators)
         return violators
-    '''
     -------------------------------------------------------------------------------------------------------- */
     badlyFormedComponents {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • components
 
     Gets all components of prototype in the descendants of client.
-    
+
     Returns client selection.
 
+    '''
+    '''
     def get_components(
         self,
         prototype=None,
@@ -188,19 +181,19 @@ FoscInspection : FoscObject {
             prototype=prototype,
             include_self=include_self,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     components { |prototype, includeSelf=true|
         ^client.prComponents(prototype: prototype, includeSelf: includeSelf);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • contents
 
     Gets contents of client.
-    
+
     Returns sequential selection.
-    
+
+    '''
+    '''
     def get_contents(
         self,
         include_self=True,
@@ -208,26 +201,29 @@ FoscInspection : FoscObject {
         return self._client._get_contents(
             include_self=include_self,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     contents { |includeSelf=true|
         ^client.prGetContents(includeSelf: includeSelf);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • descendants
 
     Gets descendants of client.
-    
+
     Returns descendants.
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/12,1/12,1/12,1/4]));
     FoscInspection(a).descendants.do { |each| each.postln };
 
     post::
-    POSTOUTPUT
-    '''
+    a FoscStaff
+    a FoscTuplet
+    a FoscNote
+    a FoscNote
+    a FoscNote
+    a FoscNote
     '''
     -------------------------------------------------------------------------------------------------------- */
     descendants {
@@ -236,7 +232,7 @@ FoscInspection : FoscObject {
 
         if (client.isKindOf(FoscComponent)) { ^FoscDescendants(client) };
         assert(client.isKindOf(FoscSelection));
-        
+
         client.do { |object|
             localDescendants = FoscInspection(object).descendants;
             localDescendants.do { |descendant|
@@ -250,13 +246,14 @@ FoscInspection : FoscObject {
         ^FoscSelection(descendants);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • duration
 
     Gets duration of client.
-    
+
     Returns duration.
 
+    '''
+    '''
     def get_duration(
         self,
         in_seconds=False,
@@ -264,21 +261,21 @@ FoscInspection : FoscObject {
         return self._client._get_duration(
             in_seconds=in_seconds,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     duration { |inSeconds=false|
         ^client.prGetDuration(inSeconds: inSeconds);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • effectiveIndicator
 
     Gets effective indicator that matches prototype and governs client.
 
     Returns indicator or none.
-    
+
+    '''
+    '''
     **Example.** Gets components' effective clef:
-    
+
     staff = Staff("c'4 d' e' f'")
     attach(Clef('alto'), staff)
     grace_container = scoretools.GraceContainer(
@@ -287,7 +284,7 @@ FoscInspection : FoscObject {
     )
     attach(grace_container, staff[-1])
     show(staff) # doctest: +SKIP
-    
+
     f(staff)
     code::
     \new Staff {
@@ -301,7 +298,7 @@ FoscInspection : FoscObject {
         }
         f'4
     }
-    
+
     for leaf in iterate(staff).by_class(with_grace_notes=True):
         clef = inspect_(leaf).get_effective(Clef)
         print(leaf, clef)
@@ -312,7 +309,7 @@ FoscInspection : FoscObject {
     e'4 Clef(name='alto')
     fs'16 Clef(name='alto')
     f'4 Clef(name='alto')
-    
+
 
     def get_effective(
         self,
@@ -325,16 +322,13 @@ FoscInspection : FoscObject {
             unwrap=unwrap,
             n=n,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     effectiveIndicator { |prototype, unwrap=true, n=0|
         //^client.prGetEffectiveIndicatorOfType(prototype: prototype, unwrap: unwrap, n: n);
         ^client.prGetEffective(prototype, unwrap, n);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • effective
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     effective { |prototype, attributes, default, n=0, unwrap=true|
@@ -362,24 +356,22 @@ FoscInspection : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • effectiveStaff
 
     Gets effective staff of client.
-    
+
     Returns staff or none.
-    
+
+    '''
+    '''
     def get_effective_staff(self):
         return self._client._get_effective_staff()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     effectiveStaff {
         ^client.prGetEffectiveStaff;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • effectiveWrapper
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     effectiveWrapper { |prototype, attributes, n=0|
@@ -387,7 +379,6 @@ FoscInspection : FoscObject {
         ^this.effective(prototype, attributes: attributes, n: n, unwrap: false);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • graceContainer
 
     abjad 2.21
@@ -395,19 +386,21 @@ FoscInspection : FoscObject {
     Gets grace container attached to leaf.
 
     Returns grace container, acciaccatura container, appoggiatura container or none.
-    
+
+    '''
+    '''
     def get_grace_container(self):
         return self._client._grace_container
-    '''
     -------------------------------------------------------------------------------------------------------- */
     graceContainer {
         ^this.client.graceContainer;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • graceNote
 
     Is true when client is grace note.
+
+    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     graceNote {
@@ -420,18 +413,18 @@ FoscInspection : FoscObject {
         ^false;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • indicatorOfType (abjad: get_indicator)
 
     Gets indicator of prototype attached to client.
-    
+
     Raises exception when more than one indicator of prototype attach to client.
 
     Returns default when no indicator of prototype attaches to client.
 
     Returns indicator or default.
 
-
+    '''
+    '''
     def get_indicator(
         self,
         prototype=None,
@@ -449,7 +442,6 @@ FoscInspection : FoscObject {
         else:
             message = 'multiple indicators attached to client.'
             raise Exception(message)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     indicatorOfType { |prototype, default, unwrap=true|
         var indicators;
@@ -462,9 +454,7 @@ FoscInspection : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • indicators (abjad: get_indicators)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     indicators { |prototype, unwrap=true|
@@ -477,14 +467,15 @@ FoscInspection : FoscObject {
         ^client.prGetIndicators(prototype: prototype, unwrap: unwrap);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leafAt
 
     Gets leaf n.
 
     Returns leaf or none.
 
-    
+
+    '''
+    '''
     Example score:
 
     ::
@@ -497,7 +488,6 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(staff)
-    code::
         \new Staff {
             \new Voice {
                 c'8
@@ -505,7 +495,6 @@ FoscInspection : FoscObject {
                 e'8
                 f'8
             }
-    code::
             \new Voice {
                 g'8
                 a'8
@@ -514,7 +503,7 @@ FoscInspection : FoscObject {
             }
         }
 
-    
+
 
     **Example 1.** Gets leaf n **from** client of inspection agent
     when client of inspection agent is a leaf.
@@ -555,7 +544,7 @@ FoscInspection : FoscObject {
         -6 None
         -7 None
 
-    
+
     **Example 2.** Gets leaf n **in** client of inspection agent when client of inspection agent is a container.
 
     With positive indices:
@@ -594,7 +583,7 @@ FoscInspection : FoscObject {
         -6 None
         -7 None
         -8 None
-    
+
 
     def get_leaf(self, n=0):
         from abjad.tools import scoretools
@@ -618,11 +607,14 @@ FoscInspection : FoscObject {
                 return
             leaf = leaves[abs(n)-1]
             return leaf
-    
+
+    '''
+    FIXME returns: `ERROR: Message 'pitch' not understood.`
+
+    code::
     a = FoscStaff([
         FoscVoice({ |i| FoscNote(0 + i, [1, 4]) } ! 10),
         FoscVoice({ |i| FoscNote(10 + i, [1, 4]) } ! 10)
-    code::
     ]);
     FoscInspection(a).leafAt(7).pitch.pitchNumber;
     FoscInspection(a.select.byLeaf[5]).leafAt(2).pitch.pitchNumber;
@@ -646,30 +638,34 @@ FoscInspection : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lineage
 
     Gets lineage of client.
-    
+
     Returns lineage.
 
+    '''
+    '''
     def get_lineage(self):
         return self._client._get_lineage()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     lineage {
         ^client.prLineage;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • logicalTie
 
     Gets logical tie that governs leaf.
-    
+
     Returns logical tie.
 
+    '''
+    '''
     def get_logical_tie(self):
         return self._client._get_logical_tie()
+
+    '''
+    FIXME returns: `ERROR: Class not defined.`
 
     code::
     a = [FoscNote(60, 1), FoscNote(60, 2)];
@@ -681,13 +677,14 @@ FoscInspection : FoscObject {
         ^client.prGetLogicalTie;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • markup
 
     Gets all markup attached to client.
-    
+
     Returns tuple.
 
+    '''
+    '''
     def get_markup(
         self,
         direction=None,
@@ -695,19 +692,19 @@ FoscInspection : FoscObject {
         return self._client._get_markup(
             direction=direction,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     markup { |direction|
         ^client.prGetMarkup(direction: direction);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • parentage
 
     Gets parentage of client.
 
     Returns parentage.
-    
+
+    '''
+    '''
     **Example 1.** Gets parentage without grace notes:
 
 
@@ -723,10 +720,8 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(voice)
-    code::
         \new Voice {
             c'4
-    code::
             \grace {
                 c'16
                 d'16
@@ -756,10 +751,8 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(voice)
-    code::
         \new Voice {
             c'4
-    code::
             \grace {
                 c'16
                 d'16
@@ -774,7 +767,7 @@ FoscInspection : FoscObject {
         >>> inspector = inspect_(grace_notes[0])
         >>> inspector.get_parentage(with_grace_notes=True)
         Parentage([Note("c'16"), GraceContainer("c'16 d'16"), Note("d'4"), Voice("c'4 d'4 e'4 f'4")])
-    
+
 
     def get_parentage(
         self,
@@ -785,7 +778,10 @@ FoscInspection : FoscObject {
             include_self=include_self,
             with_grace_notes=with_grace_notes,
             )
-    
+
+    '''
+    FIXME returns: `ERROR: Message 'music' not understood.`
+
     code::
     a = FoscNote(60, 1);
     FoscVoice([a]);
@@ -796,13 +792,14 @@ FoscInspection : FoscObject {
         ^client.prGetParentage(includeSelf, graceNotes);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • piecewise
 
     Gets piecewise indicators attached to client.
 
     Returns indicator or default.
 
+    '''
+    '''
     def get_piecewise(self, prototype=None, default=None):
         wrappers = self.get_indicators(prototype=prototype, unwrap=False)
         wrappers = wrappers or []
@@ -814,7 +811,6 @@ FoscInspection : FoscObject {
         if 1 < len(wrappers):
             message = 'multiple indicators attached to client.'
             raise Exception(message)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     piecewise { |prototype, default|
         var wrappers;
@@ -828,14 +824,14 @@ FoscInspection : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    •
+    • soundingPitch
 
     Gets sounding pitch of client.
 
     Returns pitch.
-    
 
+    '''
+    '''
     >>> staff = Staff("d''8 e''8 f''8 g''8")
     >>> piccolo = instrumenttools.Piccolo()
     >>> attach(piccolo, staff)
@@ -846,7 +842,6 @@ FoscInspection : FoscObject {
 ..  doctest::
 
     >>> f(staff)
-    code::
     \new Staff {
         \set Staff.instrumentName = \markup { Piccolo }
         \set Staff.shortInstrumentName = \markup { Picc. }
@@ -857,24 +852,24 @@ FoscInspection : FoscObject {
     }
     >>> inspect_(staff[0]).get_sounding_pitch()
     NamedPitch("d''")
-    
+
 
 
     def get_sounding_pitch(self):
         return self._client._get_sounding_pitch()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     soundingPitch {
         ^client.prSoundingPitch;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    •
+    • soundingPitches
 
     Gets sounding pitches of client.
 
     Returns tuple.
-    
+
+    '''
+    '''
 
     >>> staff = Staff("<c''' e'''>4 <d''' fs'''>4")
     >>> glockenspiel = instrumenttools.Glockenspiel()
@@ -885,7 +880,6 @@ FoscInspection : FoscObject {
 
 
     >>> f(staff)
-    code::
     \new Staff {
         \set Staff.instrumentName = \markup { Glockenspiel }
         \set Staff.shortInstrumentName = \markup { Gkspl. }
@@ -895,27 +889,27 @@ FoscInspection : FoscObject {
 
     >>> inspect_(staff[0]).get_sounding_pitches()
     (NamedPitch("c'''"), NamedPitch("e'''"))
-    
+
 
     def get_sounding_pitches(self):
         return self._client._get_sounding_pitches()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     soundingPitches {
         ^client.prSoundingPitches;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spannerOfType
 
     Gets spanner of prototype attached to client.
-    
+
     Raises exception when more than one spanner of prototype attaches to client.
 
     Returns default when no spanner of prototype attaches to client.
 
     Returns spanner or default.
 
+    '''
+    '''
     def get_spanner(
         self,
         prototype=None,
@@ -933,7 +927,10 @@ FoscInspection : FoscObject {
         else:
             message = 'multiple spanners attached to client.'
             raise Exception(message)
-    
+
+    '''
+    FIXME returns: `ERROR: Class not defined.`
+
     code::
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
@@ -949,15 +946,16 @@ FoscInspection : FoscObject {
             if (spanners.size == 1) { ^spanners.as(Array)[0] };
         };
         throw("%:%: multiple spanners attached to client.".format(this.species, thisMethod.name));
-    }   
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spanners
 
     Gets spanners attached to client.
-    
+
     Returns set.
 
+    '''
+    '''
     def get_spanners(
         self,
         prototype=None,
@@ -967,7 +965,10 @@ FoscInspection : FoscObject {
             prototype=prototype,
             in_parentage=in_parentage,
             )
-    
+
+    '''
+    FIXME returns: `ERROR: Class not defined.`
+
     code::
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
@@ -978,13 +979,14 @@ FoscInspection : FoscObject {
         ^client.prSpanners(prototype, inParentage);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • timespan
 
     Gets timespan of client.
 
     Returns timespan.
-    
+
+    '''
+    '''
     **Example.** Gets timespan of grace notes:
 
     ::
@@ -1006,17 +1008,14 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(voice)
-    code::
         \new Voice {
             c'8 [
-    code::
             \grace {
                 c'16
                 d'16
             }
             \afterGrace
             d'8
-    code::
             {
                 e'16
                 f'16
@@ -1089,25 +1088,25 @@ FoscInspection : FoscObject {
             start_offset=durationtools.Offset(3, 8),
             stop_offset=durationtools.Offset(1, 2),
             )
-    
+
 
     def get_timespan(self, in_seconds=False):
         return self._client._get_timespan(
             in_seconds=in_seconds,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     timespan { |inSeconds=false|
         ^client.prGetTimespan(inSeconds: inSeconds);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • verticalMoment
 
     Gets vertical moment starting with client.
-    
+
     Returns vertical moment.
-    
+
+    '''
+    '''
     def get_vertical_moment(
         self,
         governor=None,
@@ -1115,19 +1114,19 @@ FoscInspection : FoscObject {
         return self._client._get_vertical_moment(
             governor=governor,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     verticalMoment { |governor|
         ^client.prVerticalMoment(governor: governor);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • verticalMomentAt
 
     Gets vertical moment at offset.
-    
+
     Returns vertical moment.
 
+    '''
+    '''
     def get_vertical_moment_at(
         self,
         offset,
@@ -1135,49 +1134,49 @@ FoscInspection : FoscObject {
         return self._client._get_vertical_moment_at(
             offset,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     verticalMomentAt { |offset|
         ^client.prVerticalMomentAt(offset);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hasEffectiveIndicator
 
     Is true when indicator that matches prototype is in effect for client. Otherwise false.
 
     Returns true or false.
 
+    '''
+    '''
     def has_effective_indicator(self, prototype=None):
         return self._client._has_effective_indicator(prototype=prototype)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hasEffectiveIndicator { |prototype|
         ^client.prHasEffectiveIndicator(prototype: prototype);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hasIndicator
-    
+
     Is true when client has one or more indicators that match prototype. Otherwise false.
-    
+
     Returns true or false.
 
+    '''
+    '''
     def has_indicator(self, prototype=None):
         return self._client._has_indicator(prototype=prototype)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hasIndicator { |prototype|
         ^client.prHasIndicator(prototype: prototype);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hasSpanner
 
     Is true when client has one or more spanners that match prototype. Otherwise false.
-    
+
     Returns true or false.
 
+    '''
+    '''
     def has_spanner(
         self,
         prototype=None,
@@ -1187,20 +1186,19 @@ FoscInspection : FoscObject {
             prototype=prototype,
             in_parentage=in_parentage,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hasSpanner { |prototype, inParentage=false|
         ^client.prHasSpanner(prototype, inParentage);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isBarLineCrossing
 
     Is true when client crosses bar line. Otherwise false.
 
     Returns true or false.
 
-
+    '''
+    '''
     >>> staff = Staff("c'4 d'4 e'4")
     >>> time_signature = TimeSignature((3, 8))
     >>> attach(time_signature, staff)
@@ -1245,19 +1243,19 @@ FoscInspection : FoscObject {
         if time_signature_duration < stop_offset:
             return True
         return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
     isBarLineCrossing {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isWellFormed
 
     Is true when client is well-formed. Otherwise false.
-    
-    Returns false.
 
+    Returns true or false.
+
+    '''
+    '''
     def is_well_formed(self):
         from abjad.tools import systemtools
         manager = systemtools.WellformednessManager()
@@ -1265,17 +1263,17 @@ FoscInspection : FoscObject {
             if violators:
                 return False
         return True
-    '''
     -------------------------------------------------------------------------------------------------------- */
     isWellFormed {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reportModifications
 
     Reports modifications of client. Returns string.
-    
+
+    '''
+    '''
 
     Report modifications of container in selection:
 
@@ -1286,7 +1284,6 @@ FoscInspection : FoscObject {
 
 
     >>> f(container)
-    code::
     {
         \override NoteHead.color = #red
         \override NoteHead.style = #'harmonic
@@ -1302,7 +1299,6 @@ FoscInspection : FoscObject {
     >>> report = inspect_(container).report_modifications()
 
     >>> print(report)
-    code::
     {
         \override NoteHead.color = #red
         \override NoteHead.style = #'harmonic
@@ -1311,7 +1307,7 @@ FoscInspection : FoscObject {
         \revert NoteHead.style
     }
 
-            
+
 
     def report_modifications(self):
         from abjad.tools import scoretools
@@ -1335,19 +1331,19 @@ FoscInspection : FoscObject {
             'after', bundle))
         result = '\n'.join(result)
         return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
     reportModifications {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tabulateWellFormednessViolations
 
     Tabulates well-formedness violations in client.
 
     Returns string.
-    
+
+    '''
+    '''
 
     >>> staff = Staff("c'8 d'8 e'8 f'8")
     >>> staff[1].written_duration = Duration(1, 4)
@@ -1355,7 +1351,6 @@ FoscInspection : FoscObject {
     >>> attach(beam, staff[:])
 
     >>> f(staff)
-    code::
     \new Staff {
         c'8 [
         d'4
@@ -1390,7 +1385,7 @@ FoscInspection : FoscObject {
     0 / 0 tied rests
 
     Beamed quarter notes are not well formed.
-    
+
 
     def tabulate_well_formedness_violations(self):
         from abjad.tools import systemtools
@@ -1405,15 +1400,12 @@ FoscInspection : FoscObject {
             string = string.format(violator_count, total, check_name)
             strings.append(string)
         return '\n'.join(strings)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     tabulateWellFormednessViolations {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • wrappers
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     wrappers { |prototype|
@@ -1423,20 +1415,19 @@ FoscInspection : FoscObject {
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • client
-    
+
     Client of inspection agent.
-    
+
     Returns component.
 
+    '''
     code::
     a = FoscInspection(FoscNote(60, 1));
     a.client;
-
+    '''
     @property
     def client(self):
         return self._client
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
