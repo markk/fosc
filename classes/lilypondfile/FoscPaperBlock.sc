@@ -1,19 +1,36 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPaperBlock
+
+
+SUMMARY:: Returns a FoscPaperBlock.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPaperBlock
 
 A LilyPond file paper block.
 
+code::
 a = FoscBlock(name: 'paper');
 a.leftMargin = FoscLilypondDimension(2, 'cm');
 a.rightMargin = FoscLilypondDimension(2, 'cm');
 a.format;
 
+code::
 \paper {
     left-margin = 2\cm
     right-margin = 2\cm
 }
 
 
+code::
 a = FoscPaperBlock();
 a.name;
 a.leftMargin_("Missa sexti tonus");
@@ -71,6 +88,7 @@ first-page-number = #1
 print-first-page-number = ##f
 print-page-number = ##t
 page-number-type = #'arabic
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPaperBlock : FoscBlock {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscCyclicArray
+
+
+SUMMARY:: Returns a FoscCyclicArray.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscCyclicArray
 
 Cylic array.
@@ -9,14 +23,21 @@ Cyclic arrays return a value for any integer index.
 
 Cyclic arrays otherwise behave exactly like built-in arrays.
 
+code::
 a = FoscCyclicArray(#[a, b, c, d]);
 (0..12).do { |i| a[i].postln };
+
+post::
+POSTOUTPUT
+'''
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscCyclicArray : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     __slots__ = (
         '_items',
         )
@@ -25,6 +46,7 @@ FoscCyclicArray : FoscObject {
         items = items or ()
         items = tuple(items)
         self._items = items
+    '''
     -------------------------------------------------------------------------------------------------------- */
     var <items;
     *new { |items|
@@ -38,6 +60,7 @@ FoscCyclicArray : FoscObject {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • includes (abjad: container)
 
     Is true when cyclic tuple contains item.
@@ -46,11 +69,13 @@ FoscCyclicArray : FoscObject {
     
     def __contains__(self, item):
         return self._items.__contains__(item)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     includes { |item|
         ^items.includes(item);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
     Is true when argument is a tuple with items equal to those of this cyclic tuple. Otherwise false.
@@ -63,6 +88,7 @@ FoscCyclicArray : FoscObject {
         elif isinstance(argument, type(self)):
             return self._items == argument._items
         return False
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |expr|
         if (expr.isKindOf(Array)) { ^(items == expr) };
@@ -70,6 +96,7 @@ FoscCyclicArray : FoscObject {
         ^false;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • at
 
     Gets item or slice identified by argument. Returns nil when no item exists at index.
@@ -89,13 +116,16 @@ FoscCyclicArray : FoscObject {
             raise IndexError(message)
         argument = argument % len(self)
         return self._items.__getitem__(argument)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     at { |index|
         if (index.isSequenceableCollection) { ^this.atAll(index) };
         ^items.wrapAt(index);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • atAll
+    '''
     -------------------------------------------------------------------------------------------------------- */
     atAll { |indices|
         var result;
@@ -104,6 +134,7 @@ FoscCyclicArray : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • copySeries (abjad: _get_slice)
     
     def _get_slice(self, start_index, stop_index):
@@ -119,17 +150,22 @@ FoscCyclicArray : FoscObject {
         result = [self[n] for n in indices]
         return tuple(result)
     
+    code::
     a = FoscCyclicArray(#[a,b,c,d,e,f]);
     a[0..12];
 
+    code::
     a = FoscCyclicArray(#[a,b,c,d,e,f]);
     a[..12];
 
+    code::
     a = FoscCyclicArray(#[a,b,c,d,e,f]);
     a[3..17];
 
+    code::
     a = FoscCyclicArray(#[a,b,c,d,e,f]);
     a[0, 2 .. 15];
+    '''
     -------------------------------------------------------------------------------------------------------- */
     copySeries { |first, second, last|
         var result, indices;
@@ -142,6 +178,7 @@ FoscCyclicArray : FoscObject {
         ^result; 
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hash
 
     Hashes cyclic tuple.
@@ -150,9 +187,11 @@ FoscCyclicArray : FoscObject {
     
     def __hash__(self):
         return super(CyclicTuple, self).__hash__()
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • iter
 
     Iterates cyclic tuple. Iterates items only once.
@@ -161,11 +200,13 @@ FoscCyclicArray : FoscObject {
     
     def __iter__(self):
         return self._items.__iter__()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     iter {
         ^items.iter;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • size
 
     Gets length of cyclic tuple.
@@ -175,11 +216,13 @@ FoscCyclicArray : FoscObject {
     def __len__(self):
         assert isinstance(self._items, tuple)
         return self._items.__len__()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     size {
         ^items.size;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
     Gets string representation of cyclic tuple.
@@ -214,6 +257,7 @@ FoscCyclicArray : FoscObject {
             string = '({!s})'.format(contents)
             return string
         return '()'
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         var contents, string;
@@ -228,6 +272,7 @@ FoscCyclicArray : FoscObject {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatSpecification
     
     def _get_format_specification(self):
@@ -237,6 +282,7 @@ FoscCyclicArray : FoscObject {
             repr_is_indented=False,
             storage_format_args_values=[list(self._items)],
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatSpecification {
         ^this.notYetImplemented(thisMethod);
@@ -245,6 +291,7 @@ FoscCyclicArray : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • items
 
     Gets items in cyclic tuple.
@@ -254,5 +301,6 @@ FoscCyclicArray : FoscObject {
     @property
     def items(self):
         return self._items
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

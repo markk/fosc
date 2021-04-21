@@ -1,7 +1,22 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscLilypondGrobOverride
+
+
+SUMMARY:: Returns a FoscLilypondGrobOverride.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondGrobOverride (abjad 3.0)
 
 LilyPond grob override.
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondGrobOverride : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +43,7 @@ FoscLilypondGrobOverride : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • grobName
 
     LilyPond grob override grob name.
@@ -37,10 +53,13 @@ FoscLilypondGrobOverride : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando');
     a.grobName;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isOnce
 
     Is true when grob override is to be applied only once.
@@ -50,16 +69,20 @@ FoscLilypondGrobOverride : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", isOnce: true);
     a.isOnce;
 
 
     • Example 2
 
+    code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando', isOnce: false);
     a.isOnce;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isRevert
 
     Is true when grob override is a grob revert.
@@ -69,16 +92,20 @@ FoscLilypondGrobOverride : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", isRevert: true);
     a.isRevert;
 
 
     • Example 2
 
+    code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando', isRevert: false);
     a.isRevert;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • lilypondType
 
     Optional Lilypond grob override context name.
@@ -88,16 +115,20 @@ FoscLilypondGrobOverride : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
     a.lilypondType;
 
 
     • Example 2
 
+    code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando');
     a.lilypondType == nil;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • overrideFormatPieces
 
     Gets LilyPond grob override \override format pieces.
@@ -113,8 +144,14 @@ FoscLilypondGrobOverride : FoscObject {
         isOnce: true,
         propertyPath: #['bound-details', 'left', 'text'],
         value: FoscMarkup("\\bold { over pressure }")
+    code::
     );
     a.overrideFormatPieces.printAll;
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     overrideFormatPieces {
         var result, valuePieces;
@@ -131,6 +168,7 @@ FoscLilypondGrobOverride : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • overrideString
     
     Gets LilyPond grob override \override string.
@@ -144,13 +182,16 @@ FoscLilypondGrobOverride : FoscObject {
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
+    code::
     );
     a.overrideString;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     overrideString {
         ^this.overrideFormatPieces.join("\n");
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • propertyPath
 
     LilyPond grob override property path.
@@ -166,10 +207,13 @@ FoscLilypondGrobOverride : FoscObject {
         isOnce: true,
         propertyPath: #['bound-details', 'left', 'text'],
         value: FoscMarkup("\\bold { over pressure }")
+    code::
     );
     a.propertyPath[0];
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • revertFormatPieces
 
     Gets LilyPond grob override \revert format pieces.
@@ -183,8 +227,10 @@ FoscLilypondGrobOverride : FoscObject {
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
+    code::
     );
     a.revertFormatPieces;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     revertFormatPieces {
         var result;
@@ -192,6 +238,7 @@ FoscLilypondGrobOverride : FoscObject {
         ^[result];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • revertString
 
     Gets LilyPond grob override \revert string.
@@ -205,13 +252,16 @@ FoscLilypondGrobOverride : FoscObject {
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
+    code::
     );
     a.revertString;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     revertString {
         ^this.revertFormatPieces.join("\n");
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • value
 
     Value of LilyPond grob override.
@@ -227,13 +277,16 @@ FoscLilypondGrobOverride : FoscObject {
         isOnce: true,
         propertyPath: #['bound-details', 'left', 'text'],
         value: FoscMarkup("\\bold { over pressure }")
+    code::
     );
     a.value;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweakString
 
 
@@ -243,6 +296,7 @@ FoscLilypondGrobOverride : FoscObject {
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
+    code::
     );
     a.tweakString;
 
@@ -253,6 +307,7 @@ FoscLilypondGrobOverride : FoscObject {
         grobName: "RehearsalMark",
         propertyPath: 'color',
         value: 'red'
+    code::
     );
     a.tweakString;
 
@@ -265,8 +320,10 @@ FoscLilypondGrobOverride : FoscObject {
         grobName: "TextSpan",
         propertyPath: #['bound-details', 'left-broken', 'text'],
         value: FoscLilypondLiteral("\\markup \\upright pont.")
+    code::
     );
     a.tweakString;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     tweakString { |isDirected=true, grob=false|
         var result, propertyPath, string;
@@ -302,6 +359,7 @@ FoscLilypondGrobOverride : FoscObject {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
     Is true when 'object' is a FoscLilypondGrobOverride with equivalent instance variable values.
@@ -309,6 +367,7 @@ FoscLilypondGrobOverride : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
     b = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
     a == b;
@@ -316,9 +375,11 @@ FoscLilypondGrobOverride : FoscObject {
 
     • Example 2
 
+    code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
     b = FoscLilypondGrobOverride("Voice", "NoteHead", true, false, 'color', 'red');
     a == b;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |object|
         if (object.isMemberOf(this.species).not) { ^false };
@@ -329,7 +390,9 @@ FoscLilypondGrobOverride : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, revertFormat, overrideFormat;
@@ -345,7 +408,9 @@ FoscLilypondGrobOverride : FoscObject {
         ^bundle;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prOverridePropertyPathString
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prOverridePropertyPathString {
         var parts, path;
@@ -357,7 +422,9 @@ FoscLilypondGrobOverride : FoscObject {
         ^path;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prRevertPropertyPathString
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prRevertPropertyPathString {
         var parts, path;

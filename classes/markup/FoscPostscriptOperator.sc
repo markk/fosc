@@ -1,12 +1,28 @@
 /* --------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPostscriptOperator
+
+
+SUMMARY:: Returns a FoscPostscriptOperator.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPostscriptOperator
 
 Postscript commands: http://www.math.ubc.ca/~cass/courses/ps.html
 
+code::
 x = FoscPostscriptOperator('moveto', 1.0, 1.0);
 x.name;
 x.arguments;
 x.format;
+'''
 -------------------------------------------------------------------------------------------------------- */
 FoscPostscriptOperator : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,13 +40,17 @@ FoscPostscriptOperator : FoscObject {
 	// PUBLIC METHODS: SPECIAL METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• asCompileString
 
+ code::
 	x = FoscPostscriptOperator('newpath');
 	x.cs;
 
+ code::
 	x = FoscPostscriptOperator('moveto', 1.0, 1.0);
 	x.cs;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	asCompileString {
 		if (arguments.isEmpty) {
@@ -40,9 +60,12 @@ FoscPostscriptOperator : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• format
+ code::
 	x = FoscPostscriptOperator('moveto', 1.0, 1.0);
 	x.format;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	format {
 		var parts, string;

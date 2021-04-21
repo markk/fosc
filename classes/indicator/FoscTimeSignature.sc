@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscTimeSignature
+
+
+SUMMARY:: Returns a FoscTimeSignature.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscTimeSignature (abjad 3.0)
 
 Time signature.
@@ -6,36 +20,68 @@ Time signature.
 
 • Example 1
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64], [1/8]));
 m = FoscTimeSignature(#[3,8]);
 a[0].attach(m);
 a.show;
+
+img:: ![](../img/indicator-time-signature-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-time-signature-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2 !!!TODO: not yet working
 
 Create a score-contexted time signature. Score-contexted time signatures format behind comments when no Abjad score container is found.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64], [1/8]));
 m = FoscTimeSignature(#[3,8]);
 a[0].attach(m, context: 'Score');
 a.format;
 a.show;
 
+img:: ![](../img/indicator-time-signature-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-time-signature-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 Score-contexted time signatures format normally when an Abjad score container is found.
 
+code::
 a = FoscScore([a]);
 a.show;
+
+img:: ![](../img/indicator-time-signature-3.png)
+'''
+
+p = "%/fosc/docs/img/indicator-time-signature-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3 !!!TODO: tags not yet implemented
 
 Time signatures can be tagged.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64], [1/8]));
 m = FoscTimeSignature(#[3,8]);
 a[0].attach(m, tag: "RED");
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTimeSignature : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +119,7 @@ FoscTimeSignature : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • context
 
     Gets context of time signature.
@@ -80,10 +127,13 @@ FoscTimeSignature : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscTimeSignature(#[3,4]);
     a.context;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • denominator
 
     Gets denominator of time signature:
@@ -91,10 +141,13 @@ FoscTimeSignature : FoscObject {
     
     • Example 1
     
+    code::
     a = FoscTimeSignature(#[3,4]);
     a.denominator;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • duration
     
     Gets duration of time signature.
@@ -102,13 +155,16 @@ FoscTimeSignature : FoscObject {
 
     • Example 1
     
+    code::
     a = FoscTimeSignature(#[3,4]);
     a.duration.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     duration {
         ^FoscDuration(numerator, denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hasNonPowerOfTwoDenominator
 
     Is true when time signature has non-power-of-two denominator.
@@ -116,16 +172,20 @@ FoscTimeSignature : FoscObject {
     
     • Example 1
     
+    code::
     a = FoscTimeSignature(#[7,12]);
     a.hasNonPowerOfTwoDenominator;
 
     
     • Example 2
     
+    code::
     a = FoscTimeSignature(#[3,4]);
     a.hasNonPowerOfTwoDenominator;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hide
 
     Is true when time signature should not appear in output (but should still determine effective time signature).
@@ -133,6 +193,7 @@ FoscTimeSignature : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     m = FoscTimeSignature(#[4,4]);
     a[0].attach(m);
@@ -140,14 +201,27 @@ FoscTimeSignature : FoscObject {
     a[2].attach(m);
     a.show;
 
+    img:: ![](../img/indicator-time-signature-4.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-time-signature-4".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
+    code::
     a.format;
 
     !!!TODO: bug: result shuold be [[4,4],[4,4],[2,4],[2,4]]
+    code::
     iterate(a).byLeaf.do { |leaf|
         FoscInspection(leaf).effectiveIndicator(FoscTimeSignature).pair.postln;
     };
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • impliedProlation
 
     Gets implied prolation of time signature.
@@ -157,6 +231,7 @@ FoscTimeSignature : FoscObject {
 
     Implied prolation of time signature with power-of-two denominator.
 
+    code::
     a = FoscTimeSignature(#[3,8]);
     a.impliedProlation.cs;
 
@@ -165,13 +240,16 @@ FoscTimeSignature : FoscObject {
 
     Implied prolation of time signature with non-power-of-two denominator.
 
+    code::
     a = FoscTimeSignature(#[7,12]);
     a.impliedProlation.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     impliedProlation {
         ^FoscDuration(1, denominator).impliedProlation;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • numerator
 
     Gets numerator of time signature.
@@ -179,10 +257,13 @@ FoscTimeSignature : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscTimeSignature(#[3,8]);
     a.numerator;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • pair
 
     Gets numerator / denominator pair corresponding to time signature.
@@ -190,13 +271,16 @@ FoscTimeSignature : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscTimeSignature(#[3,8]);
     a.pair;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     pair {
         ^[numerator, denominator];
     }
      /* --------------------------------------------------------------------------------------------------------
+    '''
     • parameter
 
     Is true.
@@ -204,10 +288,13 @@ FoscTimeSignature : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscTimeSignature(#[3,8]);
     a.parameter;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • partial
 
     Gets duration of pick-up to time signature.
@@ -215,10 +302,13 @@ FoscTimeSignature : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscTimeSignature(#[3,8]);
     a.partial;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Tweaks are not implemented on time signature.
@@ -226,6 +316,7 @@ FoscTimeSignature : FoscObject {
     The LilyPond '\time' command refuses tweaks.
 
     Override the LilyPond 'TimeSignature' grob instead.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     tweaks {
         // pass
@@ -234,16 +325,19 @@ FoscTimeSignature : FoscObject {
 	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • add !!!TODO: incomplete
 
     Adds time signature to 'timeSignature'.
     
     Returns new time signature.
     
+    code::
 	a = FoscTimeSignature([3, 4]);
 	b = FoscTimeSignature([7, 8]);
 	c = a + b;
 	c.pair;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     add { |timeSignature|
         assert(
@@ -253,20 +347,24 @@ FoscTimeSignature : FoscObject {
     	^this.species.new((this.duration + timeSignature.duration).pair);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • copy
 
     Copies time signature.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     copy {
     	^this.species.new([numerator, denominator], partial);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
     Is true when arg is a time signature with numerator and denominator equal to this time signature. Also true when arg is a tuple with first and second elements equal to numerator and denominator of this time signature. Otherwise false.
     
     Returns true or false.
 
+    code::
     a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([3, 4]);
     c = FoscTimeSignature([4, 4]);
@@ -274,6 +372,7 @@ FoscTimeSignature : FoscObject {
     a == b;
     a == c;
     a == d;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |expr|
     	if (expr.isKindOf(this.species)) {
@@ -286,90 +385,111 @@ FoscTimeSignature : FoscObject {
     	^false;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats time signature.
 
+    code::
     a = FoscTimeSignature([3, 8]);
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
     	^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • >=
 
     Is true when duration of time signature is greater than or equal to duration of arg. Otherwise false.
 
     Returns true or false.
     
+    code::
 	a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([2, 4]);
     a >= b;
     b >= a;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     >= { |expr|
     	^(this.duration >= expr.duration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • >
     
     Is true when duration of time signature is greater than duration of arg. Otherwise false.
     
     Returns true or false.
     
+    code::
     a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([2, 4]);
     a > b;
     b > a;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     > { |expr|
     	^(this.duration > expr.duration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <=
 
     Is true when duration of time signature is less than or equal to duration of arg. Otherwise false.
     
     Returns true or false.
     
+    code::
     a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([2, 4]);
     a <= b;
     b <= a;
 
+    code::
     a <= 3;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     <= { |expr|
         ^(this.duration <= expr.duration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <
 
     Is true when duration of time signature is less than duration of arg. Otherwise false.
 
     Returns booelan.
 
+    code::
     a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([2, 4]);
     a < b;
     b < a;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     < { |expr|
     	^(this.duration < expr.duration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • (abjad: __radd__)
 
     !!!TODO: see FoscFraction:performBinaryOpOnSimpleNumber
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
     Gets string representation of time signature.
     
+    code::
     a = FoscTimeSignature([3, 4]);
     a.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
     	^"%/%".format(numerator, denominator);
@@ -378,11 +498,13 @@ FoscTimeSignature : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • withPowerOfTwoDenominator
     
     Makes new time signature equivalent to current time signature with power-of-two denominator.
 
     Returns new time signature.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     withPowerOfTwoDenominator {
     	^this.notYetImplemented(thisMethod);
@@ -391,13 +513,17 @@ FoscTimeSignature : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
     
+    code::
     a = FoscTimeSignature([3, 16]);
     a.format;
 
+    code::
     a = FoscTimeSignature([3, 16], suppress: true);
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         var result, durationString, partialDirective, string;
@@ -415,11 +541,13 @@ FoscTimeSignature : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
 
     !!!TODO:
     '_get_lilypond_format_bundle' not impleneted in equavalent abjad class -- why is it needed here?
     NB: it's also not inherited from any superclass in abjad
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle {
         var bundle;
@@ -433,9 +561,12 @@ FoscTimeSignature : FoscObject {
     // PUBLIC METHODS: DISPLAY
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • inspect
 
+    code::
     FoscTimeSignature([7, 16]).inspect;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     inspect {
         Post << this << nl;

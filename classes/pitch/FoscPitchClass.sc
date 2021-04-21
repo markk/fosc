@@ -1,6 +1,21 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPitchClass
+
+
+SUMMARY:: Returns a FoscPitchClass.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPitchClass
 
+code::
 inspect(FoscPitchClass("B"));
 inspect(FoscPitchClass(11.5));
 inspect(FoscPitchClass("D~"));
@@ -12,8 +27,10 @@ inspect(FoscPitchClass("cs,,,")); // NOT YET IMPLEMENTED FOR lilypond INPUT
 inspect(FoscPitchClass(7.67)); // rounded to nearest quarter-tone
 
 FoscPitchClass("x"); //!!! SHOULD BREAK GRACEFULLY WITH ERROR MESSAGE
+code::
 "x".isPitchClassName;
 "x".isPitchName;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPitchClass : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,6 +68,7 @@ FoscPitchClass : FoscObject {
 	// SPECIAL
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• 
 	def __format__(self, format_specification=''):
         r'''Formats component.
@@ -65,20 +83,24 @@ FoscPitchClass : FoscObject {
         elif format_specification == 'storage':
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
+ '''
 	-------------------------------------------------------------------------------------------------------- */
   	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// NB: all of the following SPECIAL methods are defined in abjad:Pitch but not in abjad:PitchClass
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
   	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• add (abjad: __add__)
 	'''Adds `arg` to pitch class.
 
 	Returns new pitch class.
 	'''
 
+ code::
 	x = FoscPitchClass('C#4');
 	x = x + 2;
 	x.pitchClassName;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
     add { |expr|
     	var pitch;
@@ -86,19 +108,23 @@ FoscPitchClass : FoscObject {
 		^this.species.new(pitch);
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • asFloat (abjad: __float__)
 	'''Changes pitchClassNumber to float.
 
 	Returns float.
 	'''
 
+    code::
 	x = FoscPitchClass('C4');
     x.pitchClassNumber.class;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     asFloat {
     	^this.pitchClassNumber.asFloat;
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • asInteger (abjad: __int__)
 
 	'''Changes numbered pitch to integer.
@@ -106,64 +132,81 @@ FoscPitchClass : FoscObject {
 	Returns integer.
 	'''
  	
+    code::
 	x = FoscPitchClass('C+4');
     x.asInt;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     asInteger {
     	^this.pitchClassNumber.asInteger;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • == (abjad: __eq__)
+    code::
     a = FoscPitchClass('C#');
     b = FoscPitchClass('Db');
     c = FoscPitchClass('B');
   	a == a;
     a == b; // Enharmonic equivalents are treated as equal
+    code::
     a == c;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     == { |expr|
     	^(this.pitchClassNumber == FoscPitchClass(expr).pitchClassNumber);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • !=
+    code::
     a = FoscPitchClass('C#');
     b = FoscPitchClass('Db');
     c = FoscPitchClass('B');
   	a != a;
     a != b; // Enharmonic equivalents are treated as equal
+    code::
     a != c;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     != { |expr|
     	^(this == expr).not;
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • <
 	'''Is true when `arg` can be coerced to a numbered pitch and when this numbered pitch is less than `arg`. Otherwise false.
 
 	Returns true or false.
 	'''
 
+    code::
     a = FoscPitchClass('C#4');
     b = FoscPitchClass('D#4');
     c = FoscPitchClass('B3');
     a < b;
     a < c;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     < { |expr|
     	^(this.pitchClassNumber < FoscPitchClass(expr).pitchClassNumber);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <=
+    code::
     a = FoscPitchClass('C#4');
     b = FoscPitchClass('D#4');
     c = FoscPitchClass('B3');
     a <= b;
     a <= c;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     <= { |expr|
     	^(this.pitchClassNumber <= FoscPitchClass(expr).pitchClassNumber);
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • neg
 
 	'''Negates pitchClassNumber. Equivalent to inversion around 0.
@@ -171,23 +214,29 @@ FoscPitchClass : FoscObject {
 	Returns new PitchClass.
 	'''
 	
+    code::
 	a = FoscPitchClass('D');
 	b = a.neg;
 	b.pitchClassNumber;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	neg {
 		^this.species.new(this.pitchClassNumber.neg);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • str (abjad: __str__)
     
+    code::
     a = FoscPitchClass('C#');
     a.str;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     str {
     	^this.lilypondPitchClassName;
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • sub
     //••• !!! TODO: update to use NumberedInterval
     def __sub__(self, arg):
@@ -203,6 +252,7 @@ FoscPitchClass : FoscObject {
             interval = arg
             return pitchtools.transpose_pitch_carrier_by_interval(
                 self, -interval)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // sub { |expr|
     // 	^(this.pitchNumber - expr);
@@ -212,51 +262,67 @@ FoscPitchClass : FoscObject {
 	// PUBLIC
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • accidental
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	accidental {
 		^FoscAccidental(this.accidentalName);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • accidentalName
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	accidentalName {
 		^pitchClassName.asString.accidentalName;
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • alterationInSemitones
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	alterationInSemitones {
 		^this.accidental.semitones;
 	}
    	/* --------------------------------------------------------------------------------------------------------
+    '''
     • applyAccidental
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	applyAccidental { |accidental|
 		^this.notYetImplemented(thisMethod);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • diatonicPitchClassName
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	diatonicPitchClassName {
 		^pitchClassName.asString.diatonicPitchClassName;
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • diatonicPitchClassNumber
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	diatonicPitchClassNumber {
 		^manager.pitchClassNameToDiatonicPitchClassNumber(pitchClassName);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • lilypondPitchClassName
 
+    code::
     a = FoscPitchClass(10);
     a.lilypondPitchClassName;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	lilypondPitchClassName {
 		^manager.pitchClassNameToLilyPondPitchClassName(pitchClassName);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • invert
     
     Inverts pitch-class about `axis`.
@@ -264,9 +330,11 @@ FoscPitchClass : FoscObject {
 	Returns new pitch-class.
 
 
+    code::
 	a = FoscPitchClass(11);
 	b = a.invert(10);
 	b.pitchClassNumber;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	invert { |axis|
 		var pitch;
@@ -274,15 +342,18 @@ FoscPitchClass : FoscObject {
 		^this.species.new(pitch);
 	}
   	/* --------------------------------------------------------------------------------------------------------
+    '''
     • multiply
     
     Multiplies pitch-class by `n`.
 
 	Returns new pitch-class.
 
+    code::
 	a = FoscPitchClass(7);
 	b = a.multiply(2);
 	b.pitchClassNumber;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	multiply { |n|
 		var pitch;
@@ -290,22 +361,27 @@ FoscPitchClass : FoscObject {
 		^this.species.new(pitch);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • pitchClassNumber
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	pitchClassNumber {
 		^this.diatonicPitchClassNumber + this.alterationInSemitones;
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • transpose
     
     Transposes pitch-class by `n`'.
 
 	Returns new pitch-class.
 
+    code::
 	a = FoscPitchClass(11);
 	b = a.transpose(9);
 	b.pitchClassNumber;
 	b.pitchClassName;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	transpose { |expr|
 		var pitch;
@@ -316,7 +392,9 @@ FoscPitchClass : FoscObject {
 	// DISPLAY
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • inspect
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	inspect {
 		super.inspect(#[
@@ -329,6 +407,7 @@ FoscPitchClass : FoscObject {
 	// PRIVATE
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • 
     def _get_format_specification(self):
         if type(self).__name__.startswith('Named'):
@@ -344,17 +423,22 @@ FoscPitchClass : FoscObject {
             storage_format_args_values=values,
             template_names=['pitch_class_name'],
             )
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 }
 /* ---------------------------------------------------------------------------------------------------------------
+'''
 • FoscNamedPitchClass
 //!!!TODO
+'''
 --------------------------------------------------------------------------------------------------------------- */
 FoscNamedPitchClass : FoscPitchClass {
 }
 /* ---------------------------------------------------------------------------------------------------------------
+'''
 • FoscNumberedPitchClass
 //!!!TODO
+'''
 --------------------------------------------------------------------------------------------------------------- */
 FoscNumberedPitchClass : FoscPitchClass {
 }

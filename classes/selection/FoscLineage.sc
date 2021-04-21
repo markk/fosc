@@ -1,12 +1,32 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscLineage
+
+
+SUMMARY:: Returns a FoscLineage.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLineage
 
 Lineage of a component.
 
+code::
 a = FoscStaff([FoscVoice([FoscNote(60, 1/4)])]);
 b = FoscStaff([FoscVoice([FoscNote(59, 1/4)])]);
 c = FoscScore([a, b]);
 FoscLineage(c).components.printAll;
+
+post::
+POSTOUTPUT
+'''
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLineage : FoscSelection {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,14 +52,17 @@ FoscLineage : FoscSelection {
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • component
     
     The component from which the selection was derived.
 
+    code::
     a = FoscStaff([FoscVoice([FoscNote(60, 1/4)])]);
     b = FoscStaff([FoscVoice([FoscNote(59, 1/4)])]);
     c = FoscScore([a, b]);
     d = FoscLineage(c);
     d.component;
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

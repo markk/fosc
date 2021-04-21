@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscAfterGraceContainer
+
+
+SUMMARY:: Returns a FoscAfterGraceContainer.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscAfterGraceContainer
 
 After grace container.
@@ -24,12 +38,23 @@ Attach after grace containers to notes, rests or chords.
 
 After grace notes.
 
+code::
 a = FoscLeafMaker().("C4 D4 E4 F4", [1/4]);
 l = FoscLilypondLiteral("#(define afterGraceFraction (cons 15 16))");
 a[0].attach(l);
 c = FoscAfterGraceContainer([FoscNote("C4", 1/16), FoscNote("D4", 1/16)]);
 a[1].attach(c);
 a.show;
+
+img:: ![](../img/score-after-grace-container-1.png)
+'''
+
+p = "%/fosc/docs/img/score-after-grace-container-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscAfterGraceContainer : FoscContainer {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,14 +62,17 @@ FoscAfterGraceContainer : FoscContainer {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     var <carrier;
     /* --------------------------------------------------------------------------------------------------------
+    '''
     def __init__(self, music=None):
         self._carrier = None
         Container.__init__(self, music)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prAttach
     
     def _attach(self, leaf):
@@ -55,6 +83,7 @@ FoscAfterGraceContainer : FoscContainer {
             raise TypeError(message)
         leaf._after_grace_container = self
         self._carrier = leaf
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prAttach { |leaf|
         if (leaf.isKindOf(FoscLeaf).not) {
@@ -64,6 +93,7 @@ FoscAfterGraceContainer : FoscContainer {
         carrier = leaf;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prDetach
     
     def _detach(self):
@@ -72,6 +102,7 @@ FoscAfterGraceContainer : FoscContainer {
             carrier._after_grace_container = None
             self._carrier = None
         return self
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prDetach { |leaf|
         var localCarrier;
@@ -83,12 +114,14 @@ FoscAfterGraceContainer : FoscContainer {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatOpenBracketsSlot
     
     def _format_open_brackets_slot(self, bundle):
         result = []
         result.append([('grace_brackets', 'open'), ['{']])
         return tuple(result)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpenBracketsSlot { |bundle|
         var result;

@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscTransposition
+
+
+SUMMARY:: Returns a FoscTransposition.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscTransposition
 
 Transposition operator.
@@ -10,6 +24,7 @@ Object model of twelve-tone transposition operator.
 
 • Example 1
 
+code::
 a = FoscTransposition(4);
 p = FoscPitch(60);
 a.(p).pitchNumber;
@@ -17,6 +32,7 @@ a.(p).pitchNumber;
 
 • Example 2
 
+code::
 a = FoscTransposition(4);
 p = [FoscPitch(60), FoscPitch(64), FoscPitch(67)];
 a.(p).collect { |each| each.pitchNumber };
@@ -26,6 +42,7 @@ a.(p).collect { |each| each.pitchNumber };
 
 Only transpose masked pitches.
 
+code::
 a = FoscTransposition(4, mask: FoscPitchClassMask(#[0,7]));
 p = [FoscPitch(60), FoscPitch(64), FoscPitch(67)];
 a.(p).collect { |each| each.pitchNumber };
@@ -33,9 +50,11 @@ a.(p).collect { |each| each.pitchNumber };
 
 • Example 4
 
+code::
 a = FoscTransposition(4);
 p = FoscPitchSegment([FoscPitch(60), FoscPitch(64), FoscPitch(67)]);
 a.(p).str;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTransposition : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,14 +96,18 @@ FoscTransposition : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prIsIdentityOperator
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prIsIdentityOperator {
         if (interval == 0) { ^true };
         ^false;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prTranspose
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prTranspose { |object|
         var localObject;

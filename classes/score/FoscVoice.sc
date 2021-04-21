@@ -1,12 +1,28 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscVoice
+
+
+SUMMARY:: Returns a FoscVoice.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscVoice
 
 A musical voice.
 
 Returns voice instance.
 
+code::
 a = FoscVoice([FoscNote(61, 1/4), FoscNote(62, 3/4)]);
 a.components;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscVoice : FoscContext {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,13 +36,16 @@ FoscVoice : FoscContext {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prOnInsertionCheck
 
     Override and call corresponding method in superclass.
 
+    code::
     a = FoscVoice();
     a.append(FoscNote(60, [2, 4]));
     a.append('foo');      // raise exception
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prOnInsertionCheck { |index, node|
         var prototype;

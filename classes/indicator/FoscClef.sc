@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscClef
+
+
+SUMMARY:: Returns a FoscClef.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscClef (abjad 3.0)
 
 Clef.
@@ -8,10 +22,20 @@ Clef.
 
 Some available clefs.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69,71,72], [1/8]));
 c = #['treble','alto','bass','treble^8','bass_8','tenor','bass^15','percussion'];
 c.do { |name, i| a[i].attach(FoscClef(name)) };
 a.show;
+
+img:: ![](../img/indicator-clef-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-clef-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 
@@ -19,10 +43,21 @@ a.show;
 
 Clefs can be tagged.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 m = FoscClef('bass');
 a[0].attach(m, tag: 'RED');
 a.show;
+
+img:: ![](../img/indicator-clef-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-clef-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscClef : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +121,7 @@ FoscClef : FoscObject {
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • context
 
     Gets context. 'Staff' by default.
@@ -93,10 +129,13 @@ FoscClef : FoscObject {
 
     • Example 1   
 
+    code::
     a = FoscClef('treble');
     a.context;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hide
 
     Is true when clef should not appear in output (but should still determine effective clef).
@@ -104,12 +143,24 @@ FoscClef : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     m = FoscClef('treble', hide: true);
     a[0].attach(m);
     a.show;
+
+    img:: ![](../img/indicator-clef-3.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-clef-3".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • middleCPosition
 
     !!!TODO: not yet implemented
@@ -119,16 +170,20 @@ FoscClef : FoscObject {
 
     • Example 1   
 
+    code::
     a = FoscClef('treble');
     a.middleCPosition.cs;
 
 
     • Example 2   
 
+    code::
     a = FoscClef('alto');
     a.middleCPosition.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • name
 
     Gets name of clef.
@@ -136,10 +191,13 @@ FoscClef : FoscObject {
 
     • Example 1   
 
+    code::
     a = FoscClef('treble');
     a.name;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parameter
 
     Is true.
@@ -147,10 +205,13 @@ FoscClef : FoscObject {
 
     • Example 1   
 
+    code::
     a = FoscClef('treble');
     a.parameter;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • redraw
 
     Is true.
@@ -158,10 +219,13 @@ FoscClef : FoscObject {
 
     • Example 1   
 
+    code::
     a = FoscClef('treble');
     a.redraw;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Tweaks are not implemented on clef.
@@ -169,6 +233,7 @@ FoscClef : FoscObject {
     The LilyPond '\clef' command refuses tweaks.
 
     Override the LilyPond 'Clef' grob instead.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     tweaks {
         // pass
@@ -177,6 +242,7 @@ FoscClef : FoscObject {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats clef.
@@ -186,8 +252,10 @@ FoscClef : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscClef('treble');
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
     	^this.prGetLilypondFormat;
@@ -196,7 +264,9 @@ FoscClef : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prCalculateMiddleCPosition
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prCalculateMiddleCPosition { |clefName|
         var alteration, baseName, suffix;
@@ -227,25 +297,33 @@ FoscClef : FoscObject {
         ^FoscClef.clefNameToMiddleCPosition[clefName.asSymbol] + alteration;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prClefNameToStaffPositionZero
     
+    code::
 	a = FoscClef('treble');
 	a.prClefNameToStaffPositionZero('soprano').pitchName;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prClefNameToStaffPositionZero { |clefName|
     	^FoscClef.clefNameToStaffPositionZero[clefName];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
     
+    code::
     a = FoscClef('treble');
     a.prGetLilypondFormat;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^"\\clef %".format(name.quote);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle {
     	var bundle;
@@ -259,6 +337,7 @@ FoscClef : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *clefNames
 
     Array of all clef names.
@@ -266,7 +345,9 @@ FoscClef : FoscObject {
 
     • Example 1
 
+    code::
 	FoscClef.clefNames;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *clefNames {
     	var clefNames;
@@ -274,9 +355,11 @@ FoscClef : FoscObject {
         ^clefNames;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *fromSelection
 
     !!!TODO
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *fromSelection {
     	^this.notYetImplemented(thisMethod);

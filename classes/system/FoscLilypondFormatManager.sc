@@ -1,32 +1,57 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscLilypondFormatManager
+
+
+SUMMARY:: Returns a FoscLilypondFormatManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondFormatManager
 
 Manages Lilypond formatting logic.
 
+code::
 n = FoscNote(60, [1, 4]);
 //FoscAttach(m = FoscMarkup("groob"), n);
 FoscAttach(FoscDynamic('p'), n);
 FoscAttach(FoscArticulation('>'), n);
 n.prFormatComponent;
 
+code::
 b = FoscLilypondFormatManager.bundleFormatContributions(n);
 b.before.indicators;
 b.opening.indicators;
 b.closing.indicators;
 b.right.indicators;     // abjad: ('%%% \\p %%%',)
+code::
 b.right.articulations;
 
+code::
 n.wrappers.do { |e| e.prGetFormatPieces.postln };
+
+post::
+POSTOUTPUT
+'''
 
 b.contextSettings;      // not yet implemented
 b.grobOverrides;        // not yet implemented
 b.grobReverts;          // not yet implemented
 
 
+code::
 e = FoscWrapper(FoscNote(60, 1), FoscArticulation('accent'));
 e.indicator;
 b = e.prGetFormatPieces; // FoscLilypondFormatBundle
+code::
 b.right.articulations;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondFormatManager : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,11 +66,13 @@ FoscLilypondFormatManager : FoscObject {
 	// PUBLIC CLASS METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *bundleFormatContributions
 
     Gets all format contributions for component.
 
     Returns Lilypond format bundle.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *bundleFormatContributions { |component|
@@ -61,6 +88,7 @@ FoscLilypondFormatManager : FoscObject {
 		^bundle;
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *formatLilypondAttribute
 
     Formats Lilypond attribute according to Scheme formatting conventions.
@@ -72,11 +100,13 @@ FoscLilypondFormatManager : FoscObject {
 
     Co-ordinate attributes
     
+    code::
     FoscLilypondFormatManager.formatLilypondAttribute('minimumYExtent');
     FoscLilypondFormatManager.formatLilypondAttribute('xExtent');
     FoscLilypondFormatManager.formatLilypondAttribute('xAlignOnMainNoteheads');
     FoscLilypondFormatManager.formatLilypondAttribute('parentAlignmentY');
     FoscLilypondFormatManager.formatLilypondAttribute('boundDetails_left_stencilAlignDirY');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *formatLilypondAttribute { |attribute|
@@ -97,11 +127,13 @@ FoscLilypondFormatManager : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *formatLilypondContextSettingInWithBlock
 
     Formats Lilypond context setting name with value in Lilypond with-block.
 
     Returns string.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *formatLilypondContextSettingInWithBlock { |name, value|
 		var valueParts, result;
@@ -115,6 +147,7 @@ FoscLilypondFormatManager : FoscObject {
 		^result;
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *formatLilypondContextSettingsInline 
 
     Formats Lilypond context setting name with value in context.
@@ -124,7 +157,9 @@ FoscLilypondFormatManager : FoscObject {
 
     • Example 1
 
+    code::
 	FoscLilypondFormatManager.formatLilypondContextSettingInline("StaffSymbol.color_", 'red', "Staff");
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *formatLilypondContextSettingInline { |name, value, context|
 		var contextString = "", result;
@@ -135,6 +170,7 @@ FoscLilypondFormatManager : FoscObject {
 		^result;
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *formatLilypondValue
 
     Formats Lilypond argument according to Scheme formatting conventions.
@@ -144,6 +180,7 @@ FoscLilypondFormatManager : FoscObject {
 
 	• Example 1
 
+    code::
 	FoscLilypondFormatManager.formatLilypondValue(false);
 	FoscLilypondFormatManager.formatLilypondValue(\center);
     FoscLilypondFormatManager.formatLilypondValue(FoscSchemeMoment(1, 24));
@@ -155,10 +192,12 @@ FoscLilypondFormatManager : FoscObject {
 	FoscLilypondFormatManager.formatLilypondValue([-1, 1]);
 	FoscLilypondFormatManager.formatLilypondValue(['font-name', "Times"]);
 
+    code::
     FoscLilypondFormatManager.formatLilypondValue(FoscSchemeColor('ForestGreen'));
 
 
     FoscMarkup
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	*formatLilypondValue { |expr|
 		expr = case
@@ -175,6 +214,7 @@ FoscLilypondFormatManager : FoscObject {
 		^expr.format('lilypond');
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *makeLilypondOverrideString
 
 	Makes Lilypond override string. Returns string.
@@ -182,11 +222,17 @@ FoscLilypondFormatManager : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscNote(60, 1/4);
     m = override(a);
     m.noteHead.color = 'red';
     m.noteHead.shape = 'square';
     m.prListFormatContributions('override').printAll;
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	// abjad 3.0
     *makeLilypondOverrideString { |grob, attribute, value, context, isOnce=false|
@@ -201,6 +247,7 @@ FoscLilypondFormatManager : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *makeLilypondRevertString
 
     Makes Lilypond revert string.
@@ -210,7 +257,9 @@ FoscLilypondFormatManager : FoscObject {
     
     • Example 1
 
+    code::
 	FoscLilypondFormatManager.makeLilypondRevertString("StaffSymbol", 'color', "Staff");
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	// abjad 3.0
     *makeLilypondRevertString { |grob, attribute, context|
@@ -226,6 +275,7 @@ FoscLilypondFormatManager : FoscObject {
 		^result;
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *makeLilypondTweakString
 
     Makes Lilypond \tweak string.
@@ -235,7 +285,9 @@ FoscLilypondFormatManager : FoscObject {
     
     • Example 1
     
+    code::
     FoscLilypondFormatManager.makeLilypondTweakString('color', 'red', true, 'noteHead');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *makeLilypondTweakString { |attribute, value, isDirected=true, grob|
@@ -254,9 +306,11 @@ FoscLilypondFormatManager : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *tag
 
     Tags 'strings' with 'tag'.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *tag { |strings, tag, deactivate=false|
@@ -289,8 +343,10 @@ FoscLilypondFormatManager : FoscObject {
 	// PRIVATE CLASS METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• *prCollectIndicators
 
+ code::
     a = FoscNote(60, 1/4);
     b = FoscVoice([a]);
     a.attach(FoscMarkup("foo"));
@@ -300,6 +356,7 @@ FoscLilypondFormatManager : FoscObject {
     FoscLilypondFormatManager.prCollectIndicators(a);
 
 
+ code::
     a = FoscNote(60, 1/4);
     b = FoscVoice([a]);
     a.attach(FoscMarkup("foo"));
@@ -308,6 +365,7 @@ FoscLilypondFormatManager : FoscObject {
     a.attach(FoscTimeSignature([4,4]), context: "Score");
     a.wrappers.do { |each| [each.indicator, each.context].postln };
     c.format;
+ '''
     -------------------------------------------------------------------------------------------------------- */
 	// abjad 3.0
     *prCollectIndicators { |component|
@@ -370,16 +428,28 @@ FoscLilypondFormatManager : FoscObject {
         ^indicators;
     } 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateContextSettingFormatContributions
 
 
     • Example 1
 
+    code::
     a = FoscStaff([FoscNote(60, 1/4)], name: 'foo');
     set(a).instrumentName = FoscMarkup("clar");
     set(a).instrumentName = "clar";
     a.format;
     a.show;
+
+    img:: ![](../img/system-lilypond-format-manager-1.png)
+    '''
+
+    p = "%/fosc/docs/img/system-lilypond-format-manager-1".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateContextSettingFormatContributions { |component, bundle|
         var result, contextualizer, manager, string;
@@ -411,7 +481,9 @@ FoscLilypondFormatManager : FoscObject {
         bundle.contextSettings.addAll(result);
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateGrobOverrideFormatContributions
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateGrobOverrideFormatContributions { |component, bundle|
         var result, isOnce, grob, contributions, pitch, arrow, noteHeadContributions;
@@ -435,7 +507,9 @@ FoscLilypondFormatManager : FoscObject {
         bundle.grobOverrides.addAll(contributions);
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateGrobRevertFormatContributions
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateGrobRevertFormatContributions { |component, bundle|
         var manager, contributions;
@@ -446,7 +520,9 @@ FoscLilypondFormatManager : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateIndicatorFormatContributions
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateIndicatorFormatContributions { |component, bundle|
 		var manager, upMarkup, downMarkup, neutralMarkup, scopedExpressions, nonScopedExpressions;
@@ -458,7 +534,9 @@ FoscLilypondFormatManager : FoscObject {
         manager.prPopulateNonscopedExpressionFormatContributions(component, bundle, nonScopedExpressions);  
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateMarkupFormatContributions
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *prPopulateMarkupFormatContributions { |component, bundle, upMarkupWrappers, downMarkupWrappers,
@@ -482,7 +560,9 @@ FoscLilypondFormatManager : FoscObject {
         };
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateNonscopedExpressionFormatContributions
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateNonscopedExpressionFormatContributions { |component, bundle, nonscopedExpressions|
         var indicator, indicatorBundle;
@@ -495,7 +575,9 @@ FoscLilypondFormatManager : FoscObject {
         };
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateScopedExpressionFormatContributions
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateScopedExpressionFormatContributions { |component, bundle, scopedExpressions|
         var formatPieces, formatSlot;
@@ -510,7 +592,9 @@ FoscLilypondFormatManager : FoscObject {
         };
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPopulateSpannerFormatContributions
+    '''
     -------------------------------------------------------------------------------------------------------- */
  //    *prPopulateSpannerFormatContributions { |component, bundle|
  //        var pairs, spannerBundle, pair, spanner;

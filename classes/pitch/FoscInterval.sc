@@ -1,17 +1,34 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscInterval
+
+
+SUMMARY:: Returns a FoscInterval.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscInterval
 
 Abstract interval.
 
+code::
 a = FoscInterval(4);
 a.interval;
 a.number;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscInterval : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     _named_interval_quality_abbreviation_regex_body = '''
         (M|         # major
         m|          # minor
@@ -37,6 +54,7 @@ FoscInterval : FoscObject {
         '^{}$'.format(_interval_name_abbreviation_regex_body),
         re.VERBOSE,
         )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     classvar <namedIntervalQualityAbbreviationRegexBody, <namedIntervalQualityAbbreviationRegex;
     classvar <intervalNameAbbreviationRegexBody, <intervalNameAbbreviationRegex;
@@ -49,11 +67,13 @@ FoscInterval : FoscObject {
         intervalNameAbbreviationRegex = "^%$".format(intervalNameAbbreviationRegexBody);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @abc.abstractmethod
     def __init__(self):
         pass
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *new { |interval|
         if (interval.isKindOf(FoscInterval)) { ^interval };
@@ -67,6 +87,7 @@ FoscInterval : FoscObject {
     // PUBLIC METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • abs
 
     Gets absolute value of interval.
@@ -75,11 +96,13 @@ FoscInterval : FoscObject {
     
     def __abs__(self):
         return type(self)(abs(self.number))
+    '''
     -------------------------------------------------------------------------------------------------------- */
     abs {
         ^this.species.new(this.number.abs);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • float
 
     Coerce to float.
@@ -88,11 +111,13 @@ FoscInterval : FoscObject {
     
     def __float__(self):
         return float(self.number)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asFloat {
         ^this.number.asFloat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <
 
     Is true when interval is less than argument.
@@ -102,9 +127,11 @@ FoscInterval : FoscObject {
     @abc.abstractmethod
     def __lt__(self, argument):
         raise NotImplementedError
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • neg
 
     Negates interval.
@@ -113,9 +140,11 @@ FoscInterval : FoscObject {
     
     def __neg__(self):
         pass
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
     Gets string representation of interval.
@@ -124,6 +153,7 @@ FoscInterval : FoscObject {
     
     def __str__(self):
         return str(self.number)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         ^this.number.asString;
@@ -132,6 +162,7 @@ FoscInterval : FoscObject {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prDirectionSymbol
     
     def _get_direction_symbol(self):
@@ -143,6 +174,7 @@ FoscInterval : FoscObject {
             return '+'
         else:
             raise ValueError
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prDirectionSymbol {
         switch(this.directionNumber,
@@ -156,6 +188,7 @@ FoscInterval : FoscObject {
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • (abjad: cents)
 
     Gets cents of interval.
@@ -165,11 +198,13 @@ FoscInterval : FoscObject {
     @property
     def cents(self):
         return 100 * self.semitones
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isNamedIntervalAbbreviation
 
     Is true when argument is a named interval abbreviation. Otherwise false.
@@ -180,6 +215,7 @@ FoscInterval : FoscObject {
 
 
     • Example 1
+    code::
     FoscInterval.isNamedIntervalAbbreviation("+M9");
 
     @staticmethod
@@ -187,12 +223,14 @@ FoscInterval : FoscObject {
         if not isinstance(argument, str):
             return False
         return bool(Interval._interval_name_abbreviation_regex.match(argument))
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *isNamedIntervalAbbreviation { |expr|
         if (expr.isString.not && { expr.isKindOf(Symbol).not }) { ^false };
         ^FoscInterval.intervalNameAbbreviationRegex.matchRegexp(expr.asString);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isNamedQualityAbbreviation
 
     Is true when argument is a named-interval quality abbreviation. Otherwise false.
@@ -203,6 +241,7 @@ FoscInterval : FoscObject {
 
 
     • Example 1
+    code::
     FoscInterval.isNamedQualityAbbreviation("aug");
 
     
@@ -212,6 +251,7 @@ FoscInterval : FoscObject {
             return False
         return bool(Interval._named_interval_quality_abbreviation_regex.match(
             argument))
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *isNamedQualityAbbreviation { |expr|
         if (expr.isString.not && { expr.isKindOf(Symbol).not }) { ^false };
@@ -221,6 +261,7 @@ FoscInterval : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • transpose
 
     Transposes pitch_carrier by interval.
@@ -230,6 +271,7 @@ FoscInterval : FoscObject {
     @abc.abstractmethod
     def transpose(self, pitch_carrier):
         raise NotImplementedError
+    '''
     -------------------------------------------------------------------------------------------------------- */
     transpose { |pitchCarrier|
 

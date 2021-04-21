@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscAnnotatedTimespan
+
+
+SUMMARY:: Returns a FoscAnnotatedTimespan.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscAnnotatedTimespan
 
 An annotated timespan.
@@ -6,10 +20,12 @@ An annotated timespan.
 
 • Example 1
 
+code::
 t = FoscAnnotatedTimespan(1/4, 7/8, annotation: #['a', 'b', 'c']);
 t.startOffset.str;
 t.stopOffset.str;
 t.annotation;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscAnnotatedTimespan : FoscTimespan {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,15 +42,19 @@ FoscAnnotatedTimespan : FoscTimespan {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
     Formats timespan.
     
     Returns string.
 
+    code::
     FoscAnnotatedTimespan(1, 3).cs;
 
+    code::
     FoscAnnotatedTimespan(1, 3, annotation: 'foo').cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         if (this.annotation.notNil) {
@@ -46,15 +66,19 @@ FoscAnnotatedTimespan : FoscTimespan {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • annotation
 
     Gets annotated timespan annotation.
 
     Returns arbitrary object.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • annotation_
 
     Sets annotated timespan annotation.
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

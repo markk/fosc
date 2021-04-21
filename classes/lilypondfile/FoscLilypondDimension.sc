@@ -1,18 +1,35 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscLilypondDimension
+
+
+SUMMARY:: Returns a FoscLilypondDimension.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondDimension
 
 A LilyPond file \paper block dimension.
 
 Use for LilyPond file \paper block attributes.
 
+code::
 a = FoscLilypondDimension(2, 'in');
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondDimension : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     ### CLASS VARIABLES ###
 
     __slots__ = (
@@ -27,6 +44,7 @@ FoscLilypondDimension : FoscObject {
         assert unit in ('cm', 'in', 'mm', 'pt')
         self._value = value
         self._unit = unit
+    '''
     -------------------------------------------------------------------------------------------------------- */
     var <unit, <value;
     *new { |value=0, unit='cm'|
@@ -44,6 +62,7 @@ FoscLilypondDimension : FoscObject {
     // PUBLIC METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats LilyPond dimension.
@@ -58,8 +77,10 @@ FoscLilypondDimension : FoscObject {
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
     
+    code::
     a = FoscLilypondDimension(2, 'in');
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
@@ -68,19 +89,23 @@ FoscLilypondDimension : FoscObject {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatPieces
     
     def _get_format_pieces(self):
         return [r'{}\{}'.format(self.value, self.unit)]
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         ^[value.asString ++ "\\" ++ unit.asString];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
     
     def _get_lilypond_format(self):
         return '\n'.join(self._get_format_pieces())
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.prGetFormatPieces.join("\n");
@@ -89,6 +114,7 @@ FoscLilypondDimension : FoscObject {
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • unit
 
     Gets unit of LilyPond dimension.
@@ -99,10 +125,13 @@ FoscLilypondDimension : FoscObject {
     def unit(self):
         return self._unit
     
+    code::
     a = FoscLilypondDimension(2, 'in');
     a.unit;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • value
 
     Gets value of LilyPond dimension.
@@ -113,8 +142,10 @@ FoscLilypondDimension : FoscObject {
     def value(self):
         return self._value
     
+    code::
     a = FoscLilypondDimension(2, "in");
     a.value;
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }
 

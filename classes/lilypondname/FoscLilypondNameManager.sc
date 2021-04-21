@@ -1,9 +1,24 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscLilypondNameManager
+
+
+SUMMARY:: Returns a FoscLilypondNameManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondNameManager (abjad 3.0)
 
 LilyPond name manager.
     
 Base class from which grob, setting and tweak managers inherit.
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondNameManager {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,16 +35,19 @@ FoscLilypondNameManager {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • size
 
     !!!TODO: can this be deprecated ??
 
     Override method inherited from Object.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     size {
         ^this.doesNotUnderstand('size');   
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • doesNotUnderstand
 
     This allows for putting and accessing of attributes in vars through method calls to a FoscLilypondNameManager.
@@ -37,6 +55,7 @@ FoscLilypondNameManager {
 
     • Example 1
 
+    code::
     a = FoscLilypondNameManager();
     a.color = 'red';
     a.size = 12;
@@ -46,11 +65,13 @@ FoscLilypondNameManager {
 
     • Example 2
 
+    code::
     a = FoscNote(60, 1/4);
     m = override(a);
     m.noteHead.color = 'red';
     m.noteHead.size = 12;
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     doesNotUnderstand { |selector, item|
         if (item.isNil) {
@@ -71,15 +92,18 @@ FoscLilypondNameManager {
 	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • == (abjad: __eq__)
 
     Is true when expr is a LilyPond name manager with attribute pairs equal to those of this LilyPond name manager. Otherwise false.
 
 	Returns true or false.
     
+    code::
     m = FoscLilypondNameManager().prSetState((foo: 1, bar: 2));
     n = FoscLilypondNameManager().prSetState((foo: 1, bar: 2));
     m == n;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |expr|
     	if (expr.isKindOf(this.species)) {
@@ -88,6 +112,7 @@ FoscLilypondNameManager {
     	^false;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString (abjad: __repr__)
 
     Gets interpreter representation of LilyPond name manager.
@@ -97,9 +122,11 @@ FoscLilypondNameManager {
 
     • Example 1
     
+    code::
     m = FoscLilypondNameManager();
     m.prSetState((foo: 1, bar: 2));
     m.asCompileString;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
     	var pairsStrings, pairs, varsString;
@@ -112,9 +139,11 @@ FoscLilypondNameManager {
         ^("%().prSetState((%))".format(this.species, varsString));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • put (abjad: __setattr__)
 
     Sets attribute 'name' of grob name manager to 'value'.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     put { |name, value|
         //!!!TODO: assert attribute name is valid grob name before setting value
@@ -128,26 +157,32 @@ FoscLilypondNameManager {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetAttributePairs
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     b = override(a);
     b.noteHead.color = 'red';
     b.noteHead.size = 20;
     b.prGetAttributePairs;
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetAttributePairs {
     	^vars.asSortedArray;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prSetState
 
     Sets object state.
     
+    code::
     m = FoscLilypondNameManager();
     m.prSetState((foo: 1, bar: 2));
     m.prGetAttributePairs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prSetState { |state|
         vars.putAll(state);

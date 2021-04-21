@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPlayer
+
+
+SUMMARY:: Returns a FoscPlayer.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPlayer
 
 !!!TODO:
@@ -13,6 +27,7 @@
 
 Play a FoscLeaf.
 
+code::
 a = FoscChord(#[60,64,67], 1/4);
 a.play;
 
@@ -21,6 +36,7 @@ a.play;
 
 Play a non-simultaneous FoscContainer.
 
+code::
 a = FoscStaff(FoscLeafMaker().((60..72), [1/32]));
 a[0..].hairpin('ppp < fff');
 a.play;
@@ -30,6 +46,7 @@ a.play;
 
 Play a simultaneous FoscContainer.
 
+code::
 a = FoscStaff(FoscLeafMaker().((60..72), [1/32]));
 b = FoscStaff(FoscLeafMaker().((67..79), [1/32]));
 c = FoscScore([a, b]);
@@ -42,6 +59,7 @@ Play a FoscSelection.
 
 Plays all leaves in order in which they appear in selection.
 
+code::
 a = FoscLeafMaker().((60..72), [1/32]);
 a.play;
 
@@ -50,6 +68,7 @@ a.play;
 
 Play a FoscScoreSegment
 
+code::
 a = FoscScoreSegment.read(Threads, 'A1');
 a.play;
 
@@ -65,6 +84,7 @@ Play a FoscProject
 
 Assign a midi playback manager to a context.
 
+code::
 m = FoscMIDIManager(chan: 1);
 a = FoscStaff([FoscVoice(FoscLeafMaker().((60..72), [1/32]))], playbackManager: m);
 a[0..].hairpin('ppp < fff');
@@ -75,6 +95,7 @@ a.play;
 
 Assign a synth playback manager to a context. Defaults to 'default' synthdef.
 
+code::
 s.boot;
 m = FoscSynthPlaybackManager();
 a = FoscStaff([FoscVoice(FoscLeafMaker().((60..72), [1/32]))], playbackManager: m);
@@ -86,6 +107,7 @@ a.play;
 
 Assign a synth playback manager to a context. Supply a synthdef to the playback manager.
 
+code::
 SynthDef('foo', { |out, freq=440, amp=0.1, nharms=10, gate=1|
     var audio, env;
     audio = Blip.ar(freq, nharms, amp);
@@ -93,6 +115,7 @@ SynthDef('foo', { |out, freq=440, amp=0.1, nharms=10, gate=1|
     OffsetOut.ar(out, Pan2.ar(audio, 0, env));
 }).add;
 
+code::
 m = FoscSynthPlaybackManager(defName: 'foo');
 a = FoscStaff([FoscVoice(FoscLeafMaker().((60..72), [1/32]))], playbackManager: m);
 a[0..].hairpin('ppp < fff');
@@ -106,6 +129,7 @@ a.play;
 
 Use lilypond comments as arbitrary user-definable commands. This example uses one of the default commands in FoscMIDIPlaybackManager.
 
+code::
 a = FoscStaff(FoscLeafMaker().((60..72), [1/16]));
 a[0].attach(FoscLilypondComment('sustainOn'));
 a[6].attach(FoscLilypondComment('sustainOff'));
@@ -119,6 +143,7 @@ a.play;
 
 Add a user-defined playback command to the playback manager.
 
+code::
 m = FoscMIDIPlaybackManager(midiChan: 1);
 m.addCommand('foo', { "foo!".postln });
 a = FoscStaff(FoscLeafMaker().((60..72), [1/16]), playbackManager: m);
@@ -130,13 +155,25 @@ a.play;
 
 Grace notes are included in playback.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 c = FoscGraceContainer([FoscNote(60, 1/8)], slashed: true, slurred: true);
 c[0].attach(FoscDynamic('ff'));
 a[2].attach(c);
 a.play;
 
+code::
 a.show;
+
+img:: ![](../img/player-player-1.png)
+'''
+
+p = "%/fosc/docs/img/player-player-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPlayer : FoscObject {
     var components, eventStreamPlayer;
@@ -153,19 +190,25 @@ FoscPlayer : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • pause
+    '''
     -------------------------------------------------------------------------------------------------------- */
     pause {
         if (eventStreamPlayer.notNil) { eventStreamPlayer.pause };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • play
 
+    code::
     a = FoscVoice();
     a.isEmpty;
 
+    code::
     a = FoscSelection([]);
     a.isEmpty;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     play {
         var patterns, recurse, pattern, container;
@@ -256,13 +299,17 @@ FoscPlayer : FoscObject {
     //     { eventStreamPlayer = Ppar(patterns).play }.defer(0.001);
     // }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • resume
+    '''
     -------------------------------------------------------------------------------------------------------- */
     resume {
         if (eventStreamPlayer.notNil) { eventStreamPlayer.resume };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • stop
+    '''
     -------------------------------------------------------------------------------------------------------- */
     stop {
         if (eventStreamPlayer.notNil) { eventStreamPlayer.stop };
@@ -271,7 +318,9 @@ FoscPlayer : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prGetAmps
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prGetAmps { |logicalTies, defaultDynamic|
         var indices, pairs, result, indicators, partSizes, size, nextPair, currentDynamic, triple;
@@ -358,7 +407,9 @@ FoscPlayer : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetPattern
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prGetPattern { |music|
         var manager, logicalTies, amps, event, events;

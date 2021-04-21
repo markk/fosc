@@ -1,38 +1,83 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: beam
+
+
+SUMMARY:: Returns a beam.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • beam
 
 
 • Example 1
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 set(a).autoBeaming = false;
 a[0..1].beam;
 a[2..3].beam;
 a.show;
 
+img:: ![](../img/spanner-beam-1.png)
+'''
+
+p = "%/fosc/docs/img/spanner-beam-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 2
 
+code::
 a = FoscStaff(FoscLeafMaker().((60..75), [1/32]));
 set(a).autoBeaming = false;
 a[0..].beam(durations: 1/8 ! 4, spanBeamCount: 1);
 a.show;
+
+img:: ![](../img/spanner-beam-2.png)
+'''
+
+p = "%/fosc/docs/img/spanner-beam-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3
 
 Partition selection by sizes and beam each new selection.
 
+code::
 a = FoscStaff(FoscLeafMaker().((60..75), [1/32]));
 set(a).autoBeaming = false;
 a[0..].partitionBySizes(#[3,4,6,3]).do { |sel| sel.beam };
 a.show;
+
+img:: ![](../img/spanner-beam-3.png)
+'''
+
+p = "%/fosc/docs/img/spanner-beam-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 4
 
 Beams can be tweaked.
 
+code::
 a = FoscStaff(FoscLeafMaker().((60..75), [1/32]));
 set(a).autoBeaming = false;
 a[0..].partitionBySizes(#[3,4,6,3]).do { |selection|
@@ -41,16 +86,36 @@ a[0..].partitionBySizes(#[3,4,6,3]).do { |selection|
 };
 a.show;
 
+img:: ![](../img/spanner-beam-4.png)
+'''
+
+p = "%/fosc/docs/img/spanner-beam-4".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 5
 
 Specify spanning beams using 'durations' and 'spanBeamCount'.
 
+code::
 x = FoscLeafMaker().((60..83), [1/16]);
 d = [[1/4, 1/8],[1/8, 1/4],[1/4, 1/8],[1/8, 1/4]];
 m = x.partitionBySizes(#[6,6,6,6]);
 m.do { |sel, i| sel.beam(durations: d[i], spanBeamCount: 1) };
 x.show;
+
+img:: ![](../img/spanner-beam-5.png)
+'''
+
+p = "%/fosc/docs/img/spanner-beam-5".format(Platform.userExtensionDir);
+x.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 + FoscSelection {
     beam { |startBeam, stopBeam, beamLoneNotes=false, beamRests=true, durations, spanBeamCount, stemletLength,

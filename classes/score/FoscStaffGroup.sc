@@ -1,5 +1,20 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscStaffGroup
+
+
+SUMMARY:: Returns a FoscStaffGroup.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscStaffGroup
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStaffGroup : FoscContext {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,13 +28,16 @@ FoscStaffGroup : FoscContext {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prOnInsertionCheck
 
     Override and call corresponding method in superclass.
 
+    code::
     a = FoscStaffGroup();
     a.append(FoscStaff());
     a.append(FoscVoice()); // raise exception
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prOnInsertionCheck { |index, node|
         if (node.isKindOf(FoscStaff).not) {

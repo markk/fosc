@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscDateTimeToken
+
+
+SUMMARY:: Returns a FoscDateTimeToken.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscDateTimeToken
 
 A LilyPond file date / time token.
@@ -9,12 +23,14 @@ A LilyPond file date / time token.
 >>> lilypondfiletools.DateTimeToken()
 DateTimeToken()
 
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDateTimeToken : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     __slots__ = (
@@ -25,6 +41,7 @@ FoscDateTimeToken : FoscObject {
     def __init__(self, date_string=None):
         assert isinstance(date_string, (str, type(None)))
         self._date_string = date_string
+    '''
     -------------------------------------------------------------------------------------------------------- */
     var dateString;
     *new { |dateString|
@@ -40,6 +57,7 @@ FoscDateTimeToken : FoscObject {
     // PUBLIC METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
     
     def __format__(self, format_specification=''):
@@ -63,12 +81,15 @@ FoscDateTimeToken : FoscObject {
                 return systemtools.StorageFormatAgent(self).get_storage_format()
             return str(self)
     
+    code::
     FoscDateTimeToken().format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
      
     def __repr__(self):
@@ -86,6 +107,7 @@ FoscDateTimeToken : FoscObject {
         '''
         date_string = self._date_string or ''
         return '{}({})'.format(type(self).__name__, date_string)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
@@ -94,13 +116,16 @@ FoscDateTimeToken : FoscObject {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
     
     def _get_lilypond_format(self):
             return self.date_string
     
+    code::
     a = FoscDateTimeToken();
     a.prGetLilypondFormat;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.dateString;
@@ -110,6 +135,7 @@ FoscDateTimeToken : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • dateString
 
     Gets date string of date / time token.
@@ -121,8 +147,10 @@ FoscDateTimeToken : FoscObject {
         date_string = self._date_string or time.strftime('%Y-%m-%d %H:%M')
         return date_string
     
+    code::
     a = FoscDateTimeToken();
     a.dateString;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     dateString {
         dateString = dateString ?? { Date.getDate.format("%Y-%m-%d %H:%M") };

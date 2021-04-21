@@ -1,10 +1,26 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPatternList
+
+
+SUMMARY:: Returns a FoscPatternList.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPatternList
 
+code::
 a = FoscPattern(#[0,1,7], period: 16);
 b = FoscPattern(#[2,4,5], period: 15);
 p = FoscPatternList([a, b]);
 p.items;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPatternList : FoscTypedList {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +33,7 @@ FoscPatternList : FoscTypedList {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • getMatchingPattern
 
     Gets pattern matching 'index'.
@@ -29,9 +46,15 @@ FoscPatternList : FoscTypedList {
     p = FoscPatternList([
         FoscPattern(#[1], 2),
         FoscPattern(#[-3,-2,-1]),
+    code::
     ]);
     
+    code::
     10.do { |i| Post << i << Char.space; p.getMatchingPattern(i, 10).cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     Get patterns that match the next ten indices. Note that the last three indices no longer match the second pattern.
@@ -39,9 +62,15 @@ FoscPatternList : FoscTypedList {
     p = FoscPatternList([
         FoscPattern(#[1], 2),
         FoscPattern(#[-3,-2,-1]),
+    code::
     ]);
 
+    code::
     (10..19).do { |i| Post << i << Char.space; p.getMatchingPattern(i, 10).cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     Get patterns that match the first ten indices with 'rotation' set to 1.
@@ -49,17 +78,30 @@ FoscPatternList : FoscTypedList {
     p = FoscPatternList([
         FoscPattern(#[1], 2),
         FoscPattern(#[-3,-2,-1]),
+    code::
     ]);
 
+    code::
     10.do { |i| Post << i << Char.space; p.getMatchingPattern(i, 10, rotation: 1).cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     p = FoscPatternList([
         FoscSilenceMask(FoscPattern(#[0,4,5])),
         FoscSustainMask(FoscPattern(#[1,11,13]))
+    code::
     ]);
     
+    code::
     20.do { |i| p.getMatchingPattern(i, 20).postln; };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     getMatchingPattern { |index, totalLength, rotation|
         this.items.reverseDo { |pattern|
@@ -76,6 +118,7 @@ FoscPatternList : FoscTypedList {
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • getMatchingPayload
 
     Gets payload attached to pattern matching 'index'.
@@ -88,17 +131,30 @@ FoscPatternList : FoscTypedList {
     p = FoscPatternList([
         FoscPattern(#[0], period: 2, payload: 'staccato'),
         FoscPattern(#[-3,-2,-1], payload: 'tenuto'),
+    code::
     ]);
 
+    code::
     10.do { |i| Post << i << Char.space; p.getMatchingPayload(i, 10).postln };
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     p = FoscPatternList([
         FoscSilenceMask(FoscPattern(#[0,4,5])),
         FoscSustainMask(FoscPattern(#[1,11,13]))
+    code::
     ]);
     
+    code::
     20.do { |i| p.getMatchingPayload(i, 20).postln; };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     getMatchingPayload { |index, totalLength, rotation|
         var pattern, payload;
@@ -110,7 +166,9 @@ FoscPatternList : FoscTypedList {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prItemCoercer
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prItemCoercer { |object|
         case 

@@ -1,11 +1,27 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: LilypondMusicGlyphs
+
+
+SUMMARY:: Returns a LilypondMusicGlyphs.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • LilypondMusicGlyphs
 
 abjad: abjad/ly/music_glyphs.py
 
+code::
 LilypondMusicGlyphs.list.printAll;
 LilypondMusicGlyphs.includes("accidentals.doublesharp");
 LilypondMusicGlyphs.includes("foo");
+'''
 ------------------------------------------------------------------------------------------------------------ */
 LilypondMusicGlyphs {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

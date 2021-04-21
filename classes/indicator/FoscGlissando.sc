@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscGlissando
+
+
+SUMMARY:: Returns a FoscGlissando.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscGlissando (abjad 3.0)
 
 Glissando.
@@ -6,22 +20,43 @@ Glissando.
 
 • Example 1
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 m = FoscGlissando();
 a[0..].attach(m);
 a.show;
+
+img:: ![](../img/indicator-glissando-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-glissando-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2 //!!!TODO
 
 Glissando avoids bend-after indicators.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 b = FoscBendAfter();
 m = FoscGlissando();
 a[1].attach(b);
 a[0..].attach(m);
 a.show;
+
+img:: ![](../img/indicator-glissando-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-glissando-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscGlissando : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +109,7 @@ FoscGlissando : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • allowRepeats
     
     Is true when glissando should allow repeated pitches. Otherwise false.
@@ -85,6 +121,7 @@ FoscGlissando : FoscObject {
 
     Does not allow repeated pitches. This is default behaviour.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
@@ -92,11 +129,21 @@ FoscGlissando : FoscObject {
     a[0..].attach(m);
     a.show;
 
+    img:: ![](../img/indicator-glissando-3.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-3".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 2
 
     Allows repeated pitches but not ties.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
@@ -104,19 +151,40 @@ FoscGlissando : FoscObject {
     a[0..].attach(m);
     a.show;
 
+    img:: ![](../img/indicator-glissando-4.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-4".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 3
 
     Allows both repeated pitches and ties.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
     m = FoscGlissando(allowRepeats: true, allowTies: true);
     a[0..].attach(m);
     a.show;
+
+    img:: ![](../img/indicator-glissando-5.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-5".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • allowTies
     
     Is true when glissando should allow ties.
@@ -126,6 +194,7 @@ FoscGlissando : FoscObject {
 
     Does not allow repeated pitches (including ties). This is default behaviour.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
@@ -133,11 +202,21 @@ FoscGlissando : FoscObject {
     a[0..].attach(m);
     a.show;
 
+    img:: ![](../img/indicator-glissando-6.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-6".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 2
 
     Allows repeated pitches but not ties.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
@@ -145,19 +224,40 @@ FoscGlissando : FoscObject {
     a[0..].attach(m);
     a.show;
 
+    img:: ![](../img/indicator-glissando-7.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-7".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 3
 
     Allows both repeated pitches and ties.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
     m = FoscGlissando(allowRepeats: true, allowTies: true);
     a[0..].attach(m);
     a.show;
+
+    img:: ![](../img/indicator-glissando-8.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-8".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • context
 
     Gets context. Returns 'Voice'.
@@ -165,10 +265,13 @@ FoscGlissando : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscGlissando();
     a.context;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parenthesizeRepeats
     
     Is true when glissando should parenthesize repeated pitches.
@@ -180,6 +283,7 @@ FoscGlissando : FoscObject {
 
     Does not parenthesize repeated pitches. Default behaviour.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
@@ -187,11 +291,21 @@ FoscGlissando : FoscObject {
     a[0..].attach(m);
     a.show;
 
+    img:: ![](../img/indicator-glissando-9.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-9".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 2
 
     Spans and parenthesizes repeated pitches.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
@@ -199,19 +313,40 @@ FoscGlissando : FoscObject {
     a[0..].attach(m);
     a.show;
 
+    img:: ![](../img/indicator-glissando-10.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-10".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 3
 
     Parenthesizes but does not span repeated pitches.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[57,57,59,59,60,60,62,62], [1/8]));
     a[2..3].attach(FoscTie());
     a[4..5].attach(FoscTie());
     m = FoscGlissando(parenthesizeRepeats: true);
     a[0..].attach(m);
     a.show;
+
+    img:: ![](../img/indicator-glissando-11.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-11".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • persistent
 
     Is true.
@@ -219,15 +354,20 @@ FoscGlissando : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscGlissando();
     a.persistent;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • rightBroken
 
     Is true when spanner is right-broken.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • stems
 
     Is true when glissando formats stems-only timing marks on non-edge leaves.
@@ -235,12 +375,24 @@ FoscGlissando : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     m = FoscGlissando(stems: true);
     a[0..].attach(m);
     a.show;
+
+    img:: ![](../img/indicator-glissando-12.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-12".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • style
 
     Gets style.
@@ -248,42 +400,60 @@ FoscGlissando : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     m = FoscGlissando(style: "trill");
     a[0..].attach(m);
     a.show;
+
+    img:: ![](../img/indicator-glissando-13.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-glissando-13".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Gets tweaks.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
     Is true when all initialization values of Abjad value object equal the initialization values of 'argument'.
     
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
     Gets interpreter representation.
     
     def __repr__(self) -> str:
             return StorageFormatManager(self).get_repr_format()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hash
 
     Hashes Abjad value object.
@@ -296,6 +466,7 @@ FoscGlissando : FoscObject {
             raise TypeError(f'unhashable type: {self}')
         return result
         
+    '''
     -------------------------------------------------------------------------------------------------------- */
     hash {
         ^this.notYetImplemented(thisMethod);
@@ -304,7 +475,9 @@ FoscGlissando : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |leaf|
         var bundle, localTweaks, strings;
@@ -321,7 +494,9 @@ FoscGlissando : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prIsLastInTieChain
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prIsLastInTieChain { |leaf|
         var logicalTie;
@@ -329,12 +504,15 @@ FoscGlissando : FoscObject {
         ^(leaf == logicalTie.last);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prNextLeafChangesCurrentPitch
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     m = FoscGlissando();
     a[0..].attach(m);
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prNextLeafChangesCurrentPitch { |leaf|
         var nextLeaf;
@@ -356,7 +534,9 @@ FoscGlissando : FoscObject {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prParenthesizeLeaf
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prParenthesizeLeaf { |leaf|
         if (leaf.isKindOf(FoscNote)) {
@@ -368,7 +548,9 @@ FoscGlissando : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prPreviousLeafChangesCurrentPitch
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPreviousLeafChangesCurrentPitch { |leaf|
         var previousLeaf;

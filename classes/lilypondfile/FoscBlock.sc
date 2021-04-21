@@ -1,20 +1,37 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscBlock
+
+
+SUMMARY:: Returns a FoscBlock.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscBlock
 
 !!!TODO: update, using 'instVarDict' instead of 'vars' variable ??
 
 A LilyPond file block.
 
+code::
 a = FoscBlock(name: 'paper');
 a.leftMargin = FoscLilypondDimension(2, 'cm');
 a.rightMargin = FoscLilypondDimension(2, 'cm');
 a.format;
 
 
+code::
 a = FoscBlock(name: 'header');
 a.title_("Missa sexti tonus");
 a.composer_("Josquin");
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscBlock : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,27 +53,32 @@ FoscBlock : FoscObject {
     // PUBLIC METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats block.
 
     Returns string.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • at (abjad: __getitem__)
 
     Gets item with name.
 
     Returns item or nil.
 
+    code::
     a = FoscBlock('score');
     a.items.add(FoscScore(name: 'example_score'));
     a.format;
     a['example_score'];
     a['foo'];
+    '''
     -------------------------------------------------------------------------------------------------------- */
     at { |name|
         items.do { |item|
@@ -70,7 +92,9 @@ FoscBlock : FoscObject {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormattedContextBlocks
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormattedContextBlocks {
@@ -115,7 +139,9 @@ FoscBlock : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatPieces
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0 !!!TODO: add tag stuff
     prGetFormatPieces { |tag|
@@ -156,7 +182,9 @@ FoscBlock : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormattedUserAttributes
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormattedUserAttributes {
         var result, prototype, key, val, formattedKey, prGetFormattedValue, setting;
@@ -200,8 +228,10 @@ FoscBlock : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • doesNotUnderstand : test
 
+    code::
     // WORKING   
     a = FoscBlock("score");
     a.title = FoscMarkup("Mass in C Minor");
@@ -210,6 +240,7 @@ FoscBlock : FoscObject {
     a.raggedBottom = false;
     a.format;
 
+    code::
     // BROKEN
     a = FoscBlock("score");
     a.accidentalStyle = FoscLilypondLiteral("modern-cautionary");
@@ -219,14 +250,17 @@ FoscBlock : FoscObject {
 
     abj: set_(score).proportional_notation_duration = schemetools.SchemeMoment(1, 16)
 
+    code::
     a.items.add(FoscLilypondLiteral("\\accidentalStyle modern-cautionary"));
     a.items.add(FoscLilypondLiteral("\\override MetronomeMark.X-offset = -2.2"));
     a.items.add(FoscLilypondLiteral("\\proportionalNotationDuration = #(ly:make-moment 1 28)")); //!!! NO
 
+    code::
     // SHOULD PRODUCE:
     \accidentalStyle modern-cautionary // abj: a.items.append(LilyPondCommand('accidentalStyle modern-cautionary'))
     \override MetronomeMark.X-offset = -2.2
     proportionalNotationDuration = #(ly:make-moment 1 28)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     doesNotUnderstand { |selector, expr|
         var key;
@@ -235,7 +269,9 @@ FoscBlock : FoscObject {
         vars[key] = expr;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.prGetFormatPieces.join("\n");
@@ -244,25 +280,31 @@ FoscBlock : FoscObject {
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • items
 
     Gets items in block.
 
     Returns list.
 
+    code::
     a = FoscBlock(name: 'score');
     m = FoscMarkup('foo');
     a.items.add(m);
     a.items;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • name
     
     Gets name of block.
 
     Returns string.
 
+    code::
     a = FoscBlock(name: 'score');
     a.name;
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

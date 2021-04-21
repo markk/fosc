@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscLilypondGrobNameManager
+
+
+SUMMARY:: Returns a FoscLilypondGrobNameManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondGrobNameManager (abjad 3.0)
 
 LilyPond grob name manager.
@@ -8,6 +22,7 @@ LilyPondGrobNameManager instances are created by the override factory function.
 
 • Example 1
 
+code::
 a = FoscStaff();
 a.add(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 m = override(a);
@@ -15,32 +30,56 @@ m.staffSymbol.color = 'red';
 a.format;
 a.show;
 
+img:: ![](../img/lilypondname-lilypond-grob-name-manager-1.png)
+'''
+
+p = "%/fosc/docs/img/lilypondname-lilypond-grob-name-manager-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 2
 
+code::
 a = FoscNote(60, [1, 4]);
 m = override(a);
 m.noteHead.color = 'red';
 m.noteHead.fontSize = 4;
 a.format;
 a.show;
+
+img:: ![](../img/lilypondname-lilypond-grob-name-manager-2.png)
+'''
+
+p = "%/fosc/docs/img/lilypondname-lilypond-grob-name-manager-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondGrobNameManager : FoscLilypondNameManager {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • at (abjad: __getattr__)
 
     !!!TODO: deprecate ??
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // at { |name|
     //     ^vars[name];
     // }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • put (abjad: __setattr__)
 
     !!!TODO: deprecate ??
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // put { |attribute, value|
     //     attribute = (attribute.asString ++ "_").asSymbol;
@@ -50,14 +89,17 @@ FoscLilypondGrobNameManager : FoscLilypondNameManager {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prAttributeTuples
     
+    code::
     a = FoscNote(60, 1/4);
     m = override(a);
     m.noteHead.color = 'red';
     m.noteHead.size = 20;
     m.prAttributeTuples;
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prAttributeTuples {
         var result, grob, grobProxy, pairs, attribute, value, triple;
@@ -86,17 +128,20 @@ FoscLilypondGrobNameManager : FoscLilypondNameManager {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prListFormatContributions
     
 
     • Example 1
 
+    code::
     a = FoscNote(60, [1, 4]);
     m = override(a);
     m.noteHead.color = 'red';
     m.noteHead.shape = 'square';
     m.prListFormatContributions('override');
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prListFormatContributions { |contributionType, isOnce=false|
         var manager, result, context, grob, attribute, value;

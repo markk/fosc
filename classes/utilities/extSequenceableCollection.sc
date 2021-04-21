@@ -1,11 +1,26 @@
 /* ------------------------------------------------------------------------------------------------------------
+TITLE:: extSequenceableCollection
+
+
+SUMMARY:: Returns a extSequenceableCollection.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • SequenceableCollection
+'''
 ------------------------------------------------------------------------------------------------------------ */
 + SequenceableCollection {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // CONSTRUCTORS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *geom2
 
     Returns a geometric series.
@@ -19,16 +34,32 @@
 
     A 12ET chromatic scale.
 
+    code::
     a = Array.geom2(13, 1, 2).round(0.001).printAll;
 
+    post::
+    POSTOUTPUT
+    '''
+
+    code::
     Array.interpolation(13, 0, 1).linexp(0, 1, 1, 2).round(0.001).printAll;
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     • Example 2
 
     A 12ET chromatic scale in reverse.
 
+    code::
     a = Array.geom2(13, 2, 1).round(0.001).printAll;
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *geom2 { |size=10, start=1, end=2|
         var m, result;
@@ -38,6 +69,7 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *halfCos
 
     Create a S-shaped half-cosine curve.
@@ -45,8 +77,10 @@
 
     • Example 1
 
+    code::
     a = Array.halfCos(size: 100);
     a.plot;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *halfCos { |size=10, start=0, end=1|
         var series, result;
@@ -56,6 +90,7 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *sigmoid
 
     Create a S-shaped curve using the hyperbolic tangent function.
@@ -65,14 +100,17 @@
 
     • Example 1
 
+    code::
     a = Array.sigmoid(size: 100, curve: 1);
     a.plot;
 
 
     • Example 2
 
+    code::
     a = Array.sigmoid(size: 100, curve: 2);
     a.plot;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *sigmoid { |size=10, start=0, end=1, curve=1|
         var series, result;
@@ -82,6 +120,7 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *sigmoid2
 
     !!!TODO: rename, or work into 'sigmoid' definition.
@@ -91,14 +130,17 @@
 
     • Example 1
 
+    code::
     a = Array.sigmoid2(size: 100, curve: 1);
     a.plot;
 
 
     • Example 2
 
+    code::
     a = Array.sigmoid2(size: 100, curve: 4);
     a.plot;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *sigmoid2 { |size=10, start=0, end=1, curve=1|
         var series, result;
@@ -108,6 +150,7 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *smoothStep
 
     Create a S-shaped curve using the smooth step function.
@@ -115,8 +158,10 @@
 
     • Example 1
 
+    code::
     a = Array.smoothStep(size: 100);
     a.plot;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *smoothStep { |size=10, start=0, end=1|
         var series, result;
@@ -126,6 +171,7 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *smootherStep
 
     • TODO: rename 'smoothStep2' for consistency
@@ -135,8 +181,10 @@
 
     • Example 1
 
+    code::
     a = Array.smootherStep(size: 100);
     a.plot;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *smootherStep { |size=10, start=0, end=1|
         var series, result;
@@ -149,13 +197,16 @@
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • atN
 
+    code::
     x = [[1, 2], 3, [4, 5, 6]];
     x.atN(0, 1);
     x.atN(2, 0);
     x.atN(2, 2);
     x.atN(2, 3);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     atN { |...indices|
         var result;
@@ -164,15 +215,19 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • bisect
 
     Locate the insertion point for val in array to maintain sorted order.
 
+    code::
     a = [1, 2, 3, 4, 7, 8, 9, 10];
     a.bisect(5);
 
+    code::
     a = [10, 9, 8, 1];
     a.bisect(5);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     bisect { |val|
         var result;
@@ -185,17 +240,22 @@
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • incise
 
+    code::
     x = #[4,3,4,2];
     x.incise(0)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     incise { |index=0, n=1|
         var result;
         result = [];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • intervals
+    '''
     -------------------------------------------------------------------------------------------------------- */
     intervals {
         var result;
@@ -207,24 +267,31 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • iterate
+    '''
     -------------------------------------------------------------------------------------------------------- */
     //!!!TODO: deprecate ??
     iterate {
         ^FoscIteration(this);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • mask
 
+    code::
     a = (1..10);
     a.mask([1, -1, 1, 1, -1, -1], isCyclic: false);
     a.mask([1, -1, 1, 1, -1, -1], isCyclic: true);
 
+    code::
     a = (1..10);
     a.mask([-1, 1], isCyclic: true);
 
+    code::
     a = (1..10);
     a.mask([false, true], isCyclic: true);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     mask { |pattern, isCyclic=false|
         var result, val;
@@ -245,7 +312,9 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • offsets
+    '''
     -------------------------------------------------------------------------------------------------------- */
     offsets {
         var result;
@@ -256,21 +325,26 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • mutate
+    '''
     -------------------------------------------------------------------------------------------------------- */
     mutate {
         ^FoscMutation(this);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • getItem
 
     Identical to __getitem__ in python.
 
+    code::
     (0..5).prGetItem((2..4));
     (0..5).prGetItem(2);
     (0..5).prGetItem((4..9));
     (0..5).prGetItem((9..11));
     (0..5).prGetItem(9);      // nil: out of range when int rather than slice
+    '''
     -------------------------------------------------------------------------------------------------------- */
     getItem { |indices|
         var result;
@@ -281,11 +355,14 @@
         if (indices.first >= this.size) { ^[] };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • orderN
 
+    code::
     x = [[3, 2], [3, 1], [1, 7], [2, 0]];
     x.orderN;
     x[x.orderN]; // sorted
+    '''
     -------------------------------------------------------------------------------------------------------- */
     orderN {
         var sorted, order;
@@ -294,6 +371,7 @@
         ^order;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • partitionBySizes
 
     Partitions receiver by sizes.
@@ -303,22 +381,27 @@
 
     • Example 1
 
+    code::
     (0..16).partitionBySizes([3]);
 
 
     • Example 2
 
+    code::
     (0..16).partitionBySizes([3], overhang: true);
 
 
     • Example 3
     
+    code::
     (0..16).partitionBySizes([3], isCyclic: true);
 
 
     • Example 4
     
+    code::
     (0..16).partitionBySizes([3], isCyclic: true, overhang: true);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     partitionBySizes { |sizes, isCyclic=false, overhang=false|
         var result, count, i=0, start=0, stop, part;
@@ -352,6 +435,7 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • partitionByRatio
 
     Partitions receiver into nearest integer-sized parts by ratio.
@@ -361,12 +445,15 @@
 
     • Example 1
 
+    code::
     (0..15).partitionByRatio(#[1, 1]);
 
 
     • Example 2
 
+    code::
     (0..15).partitionByRatio(#[1, 2, 3]);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     partitionByRatio { |ratio|
         var sizes, parts;
@@ -375,17 +462,21 @@
         ^parts;
     }
     /* --------------------------------------------------------------------------------------------------------
+ '''
 	• reduceFraction
 
 
 	• Example 1
     
+ code::
     [28, 24].reduceFraction;
 
 
     • Example 2
 
+ code::
 	[28, 25].reduceFraction;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	reduceFraction {
 		var numerator, denominator;
@@ -402,13 +493,20 @@
 		^[numerator, denominator];
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • removeDuplicates
 
 
     • Example 1
 
+    code::
     a = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
     a.removeDuplicates.postln;
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	removeDuplicates {
         var result;
@@ -417,6 +515,7 @@
         ^result
     }
     /* --------------------------------------------------------------------------------------------------------
+ '''
 	• repeatToAbsSum
 
 	Repeats collection to absolute sum.
@@ -424,17 +523,29 @@
 	Returns new collection.
 
 	
+ code::
 	[1, 2, 3].repeatToAbsSum(15);
 	[1, 2, -3].repeatToAbsSum(15);
   	[1, 2, 3].repeatToAbsSum(14.5);
 
+ code::
   	a = [[3, 16], [-2, 16]].collect { |each| FoscNonreducedFraction(each) };
   	b = a.repeatToAbsSum(FoscNonreducedFraction(5, 4));
   	b.do { |each| each.pair.postln };
 
+ post::
+ POSTOUTPUT
+ '''
+
+ code::
   	a = [[3, 16], [2, 16]].collect { |each| FoscDuration(each) };
   	b = a.repeatToAbsSum(FoscDuration(5, 4));
   	b.do { |each| each.pair.postln };
+
+ post::
+ POSTOUTPUT
+ '''
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	repeatToAbsSum { |sum, allowTotal='exact'|
   		var sequenceSum, completeRepetitions, items, overage, elementSum, candidateOverage;
@@ -493,6 +604,7 @@
 	  	^this.species.newFrom(items);
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • sortN
 
     Sort an n-dimensional collection in ascending or descending order.
@@ -500,28 +612,49 @@
 
     • Example 1
 
+    code::
     a = { [9.rand, 9.rand, 9.rand] } ! 10;
     a.sortN.printAll;
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     • Example 2
 
+    code::
     a = { "abracadabra".scramble } ! 10;
     a.sortN.printAll;
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     • Example 3
 
+    code::
     a = { [9.rand, 9.rand, 9.rand] } ! 10;
     a.sortN(reverse: true).printAll;
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     • Example 4
 
     Sort from 'startIndex'. If 'startIndex' is 1, then 0th element is ignored in search function.
 
+    code::
     a = { [9.rand, 9.rand, 9.rand] } ! 10;
     a.sortN(startIndex: 1).printAll;
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     sortN { |startIndex=0, reverse=false|
         var func, i, result, minSize, operator;
@@ -554,6 +687,7 @@
         ^this.sort(func);
     }
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• split
 
 	Splits collection by sums.
@@ -561,20 +695,41 @@
 	Returns new collection.
 	
 
+ code::
 	l = #[10,-10,10,-10];
 	l.split([3, 15, 2], overhang: true).printAll;
 
+ post::
+ POSTOUTPUT
+ '''
 
+
+ code::
     l = #[10,-10,10,-10];
 	l.split(#[3,15,3], isCyclic: true, overhang: true).printAll;
 
+ post::
+ POSTOUTPUT
+ '''
 
+
+ code::
     l = #[10,-10,10,-10];
 	l.split(#[3,15,3], isCyclic: false, overhang: true).printAll;
 
+ post::
+ POSTOUTPUT
+ '''
+
+ code::
 	l = #[10,10,10, 10].collect { |each| FoscDuration(each) };
 	m = l.split(#[3,15,3], isCyclic: false, overhang: true);
 	m.do { |each| each.collect { |elem| elem.str }.postln };
+
+ post::
+ POSTOUTPUT
+ '''
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	split { |sums, isCyclic=false, overhang=false|
 		var result, currentIndex, currentPiece, currentPieceSum, overage;
@@ -624,11 +779,14 @@
 		^this.species.newFrom(result);
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • extendToAbsSum
 
+    code::
     [1, 2, 3].extendToAbsSum(10);
     [1, 2, -3].extendToAbsSum(10);
     [1, 2, 3, 99].extendToAbsSum(10);   // truncate if needed
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	extendToAbsSum { |sum|
         var result, difference;
@@ -641,11 +799,13 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • doLeaves
 
     -- mirror selection and iteration methods in FoscObject
 
     !!!TODO: make a mixin interface for use by FoscComponent, FoscSelection and SequenceableCollection
+    '''
     -------------------------------------------------------------------------------------------------------- */
     doLeaves { |function, pitched, prototype, exclude, doNotIterateGraceContainers=false,
         graceNotes=false, reverse=false|
@@ -662,10 +822,12 @@
         iterator.do(function);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • selectComponents
    
      -- mirror selection and iteration methods in FoscObject
     !!!TODO: make a mixin interface for use by FoscComponent, FoscSelection and SequenceableCollection
+    '''
     -------------------------------------------------------------------------------------------------------- */
     selectComponents { |prototype, exclude, graceNotes=false, reverse=false|
         FoscObject.prCheckIsIterable(this, thisMethod);  
@@ -677,10 +839,12 @@
         );
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • selectLeaves
 
     -- mirror selection and iteration methods in FoscObject
     !!!TODO: make a mixin interface for use by FoscComponent, FoscSelection and SequenceableCollection
+    '''
     -------------------------------------------------------------------------------------------------------- */
     selectLeaves { |prototype, exclude, graceNotes=false, pitched, reverse=false|
         FoscObject.prCheckIsIterable(this, thisMethod);
@@ -694,10 +858,12 @@
     
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • selectLogicalTies
 
      -- mirror selection and iteration methods in FoscObject
     !!!TODO: make a mixin interface for use by FoscComponent, FoscSelection and SequenceableCollection
+    '''
     -------------------------------------------------------------------------------------------------------- */
     selectLogicalTies { |exclude, graceNotes=false, nontrivial, pitched, reverse=false|
         FoscObject.prCheckIsIterable(this, thisMethod);   
@@ -710,24 +876,33 @@
         );
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • selectRuns
 
     -- mirror selection and iteration methods in FoscObject
     !!!TODO: make a mixin interface for use by FoscComponent, FoscSelection and SequenceableCollection
+    '''
     -------------------------------------------------------------------------------------------------------- */
     selectRuns { |exclude|
         FoscObject.prCheckIsIterable(this, thisMethod);
         ^FoscSelection(this).runs(exclude: exclude);
     }
     /* --------------------------------------------------------------------------------------------------------
+ '''
 	• truncateToAbsSum (abjad: truncate)
 
 	Truncates collection to absolute sum of values.
 
 	Returns new collection.
 
+ code::
 	l = [-1, 2, -3, 4, -5, 6, -7, 8, -9, 10];
 	(1..11).do { |sum| sum.post; " ".post; l.truncateToAbsSum(sum).postln };
+
+ post::
+ POSTOUTPUT
+ '''
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	truncateToAbsSum { |sum|
 		var items, total=0, sign, trimmedPart;
@@ -752,18 +927,30 @@
 		^this.species.newFrom(items);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• truncateToSum (abjad: truncate)
 
 	Truncates collection to sum of values.
 
 	Returns new collection.
 	
+ code::
 	l = [-1, 2, -3, 4, -5, 6, -7, 8, -9, 10];
 	(1..11).do { |sum| sum.post; " ".post; l.truncateToSum(sum).postln };
 
+ post::
+ POSTOUTPUT
+ '''
+
+ code::
 	a = (1..10).collect { |each| FoscDuration(each, 16) };
   	b = a.truncateToSum(FoscDuration(7, 4));
   	b.do { |each| each.pair.postln };
+
+ post::
+ POSTOUTPUT
+ '''
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	truncateToSum { |sum|
 		var items, total=0;
@@ -788,15 +975,18 @@
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetItem
 
     Identical to __getitem__ in python.
 
+    code::
     (0..5).prGetItem((2..4));
     (0..5).prGetItem(2);
     (0..5).prGetItem((4..9));
     (0..5).prGetItem((9..11));
     (0..5).prGetItem(9);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetItem { |indices|
         var result;
@@ -807,6 +997,7 @@
         if (indices.first >= this.size) { ^[] };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prIterateBottomUp
 
     def _iterate_bottom_up(self):
@@ -817,32 +1008,52 @@
                         yield y
             yield node
         return recurse(self)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prIterateBottomUp {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prIterateTopDown
 
     Recursively iterate over score components or a collection.
 
+    code::
     a = FoscMeasure([2, 4], [FoscNote(60, [2, 4])]);
     b = FoscMeasure([4, 4], [
         FoscNote(60, [1, 32]),
         FoscNote(62, [7, 8]),
         FoscNote(62, [1, 16]),
         FoscNote(64, [1, 32])
+    code::
     ]);
     c = FoscMeasure([2, 4], [FoscNote(64, [2, 4])]);
     x = FoscStaff([a, b, c]);
     y = FoscScore([x]);
     z = [y];
 
+    code::
     y.prIterateTopDown.do { |each| each.prGetParentage.depth.do { Post.tab }; each.postln };
+
+    post::
+    POSTOUTPUT
+    '''
     
+    code::
     z.prIterateTopDown.do { |each| each.prGetParentage.depth.do { Post.tab }; each.postln };
+
+    post::
+    POSTOUTPUT
+    '''
     
+    code::
     FoscSelection(z).prIterateTopDown.do { |each| each.prGetParentage.depth.do { Post.tab }; each.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prIterateTopDown {
         var routine, recurse;
@@ -867,6 +1078,7 @@
         ^routine;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prSetItem
 
     Replicates the Python '__setitem__' special method. Returns a new list (Python version operates in place).
@@ -902,6 +1114,7 @@
     (0..5).prSetItem((2..4), #[a, b, c]);       // YES
     (0..5).prSetItem((2..7), #[a, b, c]);       // YES
     (0..5).prSetItem((7..9), #[a, b, c]);       // YES
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prSetItem { |index, contents|
         var result, sliceA, sliceB, rmvIndices;

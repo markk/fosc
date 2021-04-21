@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscLilypondTweakManager
+
+
+SUMMARY:: Returns a FoscLilypondTweakManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondTweakManager (abjad 3.0)
 
 LilyPond tweak manager.
@@ -13,6 +27,7 @@ Tweak managers are created by the 'abjad.tweak()' factory function:
 LilyPondTweakManager()
 
 ------
+code::
 b = FoscBeam();     
 t = tweak(b);           //###### CORRECT
 ------
@@ -27,6 +42,7 @@ The state of the tweak manager has changed:
 LilyPondTweakManager(('color', 'red'))
 
 ------
+code::
 t = tweak(b).color = 'red';
 t.cs;                   //###### CLOSE, BUT NOT CORRECT
 ------
@@ -53,6 +69,7 @@ AttributeError: LilyPondTweakManager object has no attribute 'foo'.
 
 • Example X
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 a.consistsCommands.add('Horizontal_bracket_engraver');
 b = FoscHorizontalBracket();
@@ -66,6 +83,7 @@ a.format;
 
 • Example Y - TEMPORARY - NOT YET WORKING
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 a.consistsCommands.add('Horizontal_bracket_engraver');
 b = FoscHorizontalBracketSpanner();
@@ -75,19 +93,24 @@ c = FoscLilypondTweakManager();
 c.setTweaks(b, #[['color', 'red']]);
 a.show;
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondTweakManager : FoscLilypondNameManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • at (abjad: __getattr__)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prAttributeTuples
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prAttributeTuples {
@@ -110,15 +133,18 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prListFormatContributions
 
 
     • Example 1
     
+    code::
     a = FoscHairpin('p < f');
     m = tweak(a);
     m.color = 'red';
     m.prListFormatContributions;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prListFormatContributions { |directed=true|
@@ -147,17 +173,21 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • setTweaks
 
     Sets 'tweaks' on 'object'.
 
+    code::
     l = FoscLilypondLiteral("\\f", 'after', directed: true);
     FoscLilypondTweakManager.setTweaks(l, #[['color', 'blue']]);
     l.tweaks.prListFormatContributions;
 
+    code::
     l = FoscLilypondLiteral("\\f", 'after', directed: true);
     FoscLilypondTweakManager.setTweaks(l, #['color', 'blue', size, 12]);
     l.tweaks.prListFormatContributions;    
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *setTweaks { |object, tweaks|

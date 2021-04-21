@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscLilypondContext
+
+
+SUMMARY:: Returns a FoscLilypondContext.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondContext
 
 LilyPond context.
@@ -58,6 +72,7 @@ lilypondnametools.LilyPondContext(
 [ ] [ ] [ ] [X] [ ] VaticanaStaff
 [ ] [ ] [ ] [ ] [X] VaticanaVoice
 [ ] [ ] [ ] [ ] [X] Voice
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondContext : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,6 +82,7 @@ FoscLilypondContext : FoscObject {
 	var <name, contexts;
     // _identity_map = {}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def __new__(class_, name='Voice'):
@@ -84,10 +100,13 @@ FoscLilypondContext : FoscObject {
         assert name in contexts
         self._name = name
     
+    code::
     a = FoscLilypondContext('Staff');
     a.name;
     a = FoscLilypondContext('blerk');       // throw exception
+    code::
     FoscLilypondContext.listAllContexts;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *new { |name='Voice'|
     	^super.new.init(name);
@@ -102,6 +121,7 @@ FoscLilypondContext : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • listAllContexts
     
     @staticmethod
@@ -151,12 +171,19 @@ FoscLilypondContext : FoscObject {
         from abjad.ly import contexts
         return tuple(LilyPondContext(name=name) for name in sorted(contexts))
     
+    code::
 	FoscLilypondContext.listAllContexts.do { |each| each.name.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *listAllContexts {
     	^LilypondContexts.list.collect { |each| FoscLilypondContext(each) };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @classmethod
@@ -237,6 +264,7 @@ FoscLilypondContext : FoscObject {
         from abjad.ly import contexts
         from abjad.tools import lilypondnametools
         assert name not in contexts
+    code::
         context_entry = {
             'accepts': set(),
             'consists': set(),
@@ -292,9 +320,11 @@ FoscLilypondContext : FoscObject {
             contexts[accepting_context]['accepts'].add(name)
         custom_context = class_(name=name)
         return custom_context
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def unregister(
@@ -376,12 +406,14 @@ FoscLilypondContext : FoscObject {
         for context_name, context_info in contexts.items():
             if self.name in context_info['accepts']:
                 context_info['accepts'].remove(self.name)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -530,9 +562,11 @@ FoscLilypondContext : FoscObject {
                 accepting_context = LilyPondContext(context_name)
                 accepting_contexts.add(accepting_context)
         return tuple(sorted(accepting_contexts, key=lambda x: x.name))
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -554,9 +588,11 @@ FoscLilypondContext : FoscObject {
         accepts = (LilyPondContext(name=name)
             for name in contexts[self.name]['accepts'])
         return tuple(sorted(accepts, key=lambda x: x.name))
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -578,9 +614,11 @@ FoscLilypondContext : FoscObject {
                 return None
             return LilyPondContext(name=alias)
         return None
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -660,9 +698,11 @@ FoscLilypondContext : FoscObject {
                 return alias.default_child
         if default_child_name and default_child_name in contexts:
             return LilyPondContext(name=default_child_name)
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -712,9 +752,11 @@ FoscLilypondContext : FoscObject {
             engravers.add(engraver)
         engravers = tuple(sorted(engravers, key=lambda x: x.name))
         return engravers
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -770,9 +812,11 @@ FoscLilypondContext : FoscObject {
         for engraver in self.engravers:
             grobs.update(engraver.grobs)
         return tuple(sorted(grobs, key=lambda x: x.name))
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -823,9 +867,11 @@ FoscLilypondContext : FoscObject {
         if not self.accepts:
             return True
         return False
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -841,9 +887,11 @@ FoscLilypondContext : FoscObject {
         '''
         from abjad.ly import contexts
         return bool(contexts[self.name].get('is_custom', False))
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -898,9 +946,11 @@ FoscLilypondContext : FoscObject {
         elif self.alias is type(self)('Global'):
             return True
         return False
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -955,9 +1005,11 @@ FoscLilypondContext : FoscObject {
         elif self.alias is type(self)('Score'):
             return True
         return False
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -1012,9 +1064,11 @@ FoscLilypondContext : FoscObject {
         elif self.alias is type(self)('Staff'):
             return True
         return False
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -1068,9 +1122,11 @@ FoscLilypondContext : FoscObject {
             self.is_staff_context,
             self.is_bottom_context,
             ])
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -1085,9 +1141,11 @@ FoscLilypondContext : FoscObject {
         Returns string.
         '''
         return self._name
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -1165,5 +1223,6 @@ FoscLilypondContext : FoscObject {
         for engraver in self.engravers:
             property_names.update(engraver.property_names)
         return tuple(sorted(property_names))
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

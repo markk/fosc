@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPlaybackCommand
+
+
+SUMMARY:: Returns a FoscPlaybackCommand.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPlaybackCommand
 
 !!!TODO
@@ -10,6 +24,7 @@ Specifies if and how the playback command appears on the score (e.g. as Markup t
 Is used when mapping a FoscStaff or FoscVoice to a MIDI or scsynth action, e.g.:
 
 
+code::
 a = FoscScoreSegment(Hakon, 'A');
 m = FoscLeafMaker().((60..67), [1/8]);
 m.leafAt(0).attach(FoscMetronomeMark(1/4, 60));
@@ -19,18 +34,22 @@ m.leafAt(4).attach(FoscPlaybackCommand('M4'));
 m.leafAt(0).attach(FoscDynamic('pppp'));
 a['A'].add(m);
 
+code::
 a.play;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPlaybackCommand {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • !!!TODO
 
     Must behave like other objects that can be attached to leaves (indicators, FoscMarkup, FoscComment)
     - responds to attach and detach
     - holds a reference to the leaf to which it is attached
+    '''
     -------------------------------------------------------------------------------------------------------- */
     var <name;
     classvar <attachments;
@@ -46,15 +65,19 @@ FoscPlaybackCommand {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *bindNameToIndicator
 
     NB: A copy of the indicator is attached to the leaf in FoscObject:attach.
 
+    code::
     FoscPlaybackCommand.bindNameToIndicator('OR48', FoscMarkup("OR48"));
     FoscPlaybackCommand.lib;
 
+    code::
     m = FoscPlaybackCommand('OR48');
     m.prGetIndicator;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *bindNameToAttachment { |name, attachment|
         //!!!TODO: check that argument types are as expected
@@ -65,7 +88,9 @@ FoscPlaybackCommand {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetIndicator
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetIndicator {
         if (attachments.isNil) { ^nil };
@@ -75,6 +100,8 @@ FoscPlaybackCommand {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • name
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

@@ -1,10 +1,25 @@
 /* ---------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscLeaf
+
+
+SUMMARY:: Returns a FoscLeaf.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLeaf
 
 Leaf asbtract baseclass.
 
 Leaves include notes, rests, chords and skips.
 
+code::
 x = FoscNote(60, 1/4);
 x.format;
 x.isPitched;
@@ -13,8 +28,19 @@ x.prGetPreprolatedDuration.str;
 x.prGetDuration.str; //!!!TODO: BROKEN
 
 
+code::
 a = FoscNote(60, FoscDuration(9, 64));
 a.show;
+
+img:: ![](../img/score-leaf-1.png)
+'''
+
+p = "%/fosc/docs/img/score-leaf-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 --------------------------------------------------------------------------------------------------------- */
 FoscLeaf : FoscComponent {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -37,22 +63,27 @@ FoscLeaf : FoscComponent {
 	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
 
     • Example 1
 
+    code::
     FoscRest(1/4).cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^"%(%)".format(this.species, writtenDuration.str);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • copy
 
     Shallow copies leaf.
 
     Returns new leaf.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     copy { |...args|
         var new, newGraceContainer, newAfterGraceContainer;
@@ -69,6 +100,7 @@ FoscLeaf : FoscComponent {
         ^new;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • storeArgs
 
     Gets new arguments.
@@ -78,12 +110,15 @@ FoscLeaf : FoscComponent {
 
     • Example 1
 
+    code::
     FoscLeaf(1/4).storeArgs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^[this.writtenDuration];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
     String representation of leaf.
@@ -93,7 +128,9 @@ FoscLeaf : FoscComponent {
 
     • Example 1
 
+    code::
     FoscRest(1/4).str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         ^this.prGetCompactRepresentation;
@@ -102,14 +139,18 @@ FoscLeaf : FoscComponent {
 	// PUBLIC INSTANCE PROPERTIES
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • multiplier
 
     Gets duration multiplier.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • multiplier_
 
     Sets duration multiplier.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     multiplier_ { |multiplier|
         if (multiplier.isKindOf(FoscNonreducedFraction).not) {
@@ -118,7 +159,9 @@ FoscLeaf : FoscComponent {
         this.instVarPut('multiplier', multiplier);
     }
     /* --------------------------------------------------------------------------------------------------------
+ '''
 	• duration
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	// DEPRECATE
     // duration {
@@ -126,13 +169,17 @@ FoscLeaf : FoscComponent {
  //        ^FoscInspection(this).duration;
 	// }
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• isPitched
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	isPitched {
 		^false;
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• prolation
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	// DEPRECATE
     // prolation {
@@ -150,7 +197,9 @@ FoscLeaf : FoscComponent {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prCopyOverrideAndSetFromLeaf
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prCopyOverrideAndSetFromLeaf { |leaf|
@@ -169,7 +218,9 @@ FoscLeaf : FoscComponent {
         newWrappers.do { |newWrapper| this.attach(newWrapper) };
     }
     /* --------------------------------------------------------------------------------------------------------
+     '''
      • prDetachAfterGraceContainer
+     '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prDetachAfterGraceContainer {
@@ -179,7 +230,9 @@ FoscLeaf : FoscComponent {
         ^nil; //!!!TODO: remove when FoscObject::detach is complete
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prDetachGraceContainer
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prDetachGraceContainer {
@@ -189,7 +242,9 @@ FoscLeaf : FoscComponent {
         ^nil; //!!!TODO: remove when FoscObject::detach is complete
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatAfterGraceBody
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatAfterGraceBody {
@@ -201,7 +256,9 @@ FoscLeaf : FoscComponent {
         ^['afterGraceBody', result];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatAfterGraceOpening
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatAfterGraceOpening {
@@ -213,7 +270,9 @@ FoscLeaf : FoscComponent {
         ^['afterGraceOpening', result];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatAfterSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatAfterSlot { |bundle|
@@ -233,7 +292,9 @@ FoscLeaf : FoscComponent {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatBeforeSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatBeforeSlot { |bundle|
@@ -251,14 +312,18 @@ FoscLeaf : FoscComponent {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatCloseBracketsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatCloseBracketsSlot { |bundle|
         ^[]
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatClosingSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatClosingSlot { |bundle|
@@ -271,14 +336,18 @@ FoscLeaf : FoscComponent {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatContentsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatContentsSlot { |bundle|
         ^[this.prFormatLeafBody(bundle)];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatGraceBody
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatGraceBody {
@@ -290,7 +359,9 @@ FoscLeaf : FoscComponent {
         ^['graceBody', result];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatLeafBody
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatLeafBody { |bundle|
@@ -300,7 +371,9 @@ FoscLeaf : FoscComponent {
         ^['selfBody', result];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatLeafNucleus
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatLeafNucleus {
@@ -313,14 +386,18 @@ FoscLeaf : FoscComponent {
         ^['nucleus', strings];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatOpenBracketsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatOpenBracketsSlot { |bundle|
         ^[]
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatOpeningSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatOpeningSlot { |bundle|
@@ -333,27 +410,35 @@ FoscLeaf : FoscComponent {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetCompactRepresentation
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetCompactRepresentation {
         ^"(%)".format(this.prGetFormattedDuration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatPieces
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetFormatPieces {
         ^this.prGetLilypondFormat.split("\n");
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormattedDuration
 
+    code::
     a = FoscLeaf(3/8);
     a.prGetFormattedDuration;
 
+    code::
     a = FoscLeaf(3/8, multiplier: 3/2);
     a.prGetFormattedDuration;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetFormattedDuration {
@@ -366,14 +451,26 @@ FoscLeaf : FoscComponent {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetDurationInSeconds
     
+    code::
     a = FoscScore([FoscStaff(FoscLeafMaker().(60 ! 4, [1/4]))]);
     a.doLeaves { |leaf| leaf.prGetDurationInSeconds.asFloat.postln };
 
+    post::
+    POSTOUTPUT
+    '''
+
+    code::
     a = FoscScore([FoscStaff(FoscLeafMaker().(60 ! 4, [1/4]))]);
     a.leafAt(0).attach(FoscMetronomeMark(1/4, 72));
     a.doLeaves { |each| each.prGetDurationInSeconds.asFloat.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetDurationInSeconds {
@@ -388,25 +485,40 @@ FoscLeaf : FoscComponent {
         ^FoscDuration(result);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLogicalTie
 
+    code::
     a = FoscStaff(FoscLeafMaker().(60 ! 4, [1/4]));
     a[0..].tie;
     a[0].prGetLogicalTie.components;
 
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,64,65,65], [1/4,1/24,1/12,1/8,1/4,1/4]));
     m = a.selectLeaves;
     tie(m[0..1]);
     tie(m[4..5]);
     //a.show;
 
+    img:: ![](../img/score-leaf-2.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-2".format(Platform.userExtensionDir);
+    //a.writePNG("%.ly".format(p));
+
+
+
+
+    code::
     x = a.leafAt(1);
     x.cs; // correct
     x.prSibling(-1).cs; // correct
     x.prLeafAt(-1).cs; // correct
 
+    code::
     x.prGetLogicalTie.components.collect { |each| each.cs };
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetLogicalTie {
@@ -455,10 +567,13 @@ FoscLeaf : FoscComponent {
         ^FoscLogicalTie(leaves);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetMultipliedDuration
     
+    code::
     a = FoscLeaf(writtenDuration: 1/4, multiplier: 3/2);
     a.prGetMultipliedDuration.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetMultipliedDuration {
@@ -466,28 +581,36 @@ FoscLeaf : FoscComponent {
         ^writtenDuration;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetPreprolatedDuration
 
+    code::
     a = FoscLeaf(writtenDuration: 1/4);
     a.prGetPreprolatedDuration.str;
 
+    code::
     a = FoscLeaf(writtenDuration: 1/4, multiplier: 3/2);
     a.prGetPreprolatedDuration.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetPreprolatedDuration {
         ^this.prGetMultipliedDuration;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prIterateTopDown
+    '''
     -------------------------------------------------------------------------------------------------------- */
     //!!!TODO: deprecate, use new implementation of FoscIterationAgent
     prIterateTopDown {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prLeaf
 
+    code::
     a = FoscStaff(FoscLeafMaker().((60..72), [1/4]));
     a[0].cs;
     a[0].prLeafAt(1).cs;
@@ -496,21 +619,35 @@ FoscLeaf : FoscComponent {
     a[5].prLeafAt(-3).cs;
 
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,64,65,65], [1/4,1/24,1/12,1/8,1/4,1/4]));
     m = a.selectLeaves;
     tie(m[0..1]);
     tie(m[4..5]);
     //a.show;
 
+    img:: ![](../img/score-leaf-3.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-3".format(Platform.userExtensionDir);
+    //a.writePNG("%.ly".format(p));
+
+
+
+
+    code::
     x = a.leafAt(1);
     x.cs; // correct
     x.prSibling(-1).cs; // correct
     x.prLeafAt(-1).cs; // correct
+    code::
     x.prGetLogicalTie.components.collect { |each| each.cs };
 
+    code::
     x = a.leafAt(0);
     x.prLeafAt(-1).cs; // should be nil
     x.prSibling(-1).cs; // should be nil
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prLeafAt { |n|
@@ -539,7 +676,9 @@ FoscLeaf : FoscComponent {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prProcessContributionPacket
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prProcessContributionPacket { |contributionPacket|
@@ -565,18 +704,23 @@ FoscLeaf : FoscComponent {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prRecurse
     !!!TODO: Can this be removed?
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prRecurse { |pulseDuration|
        writtenDuration = FoscDuration(pulseDuration);
     }   
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prScale
 
+    code::
     a = FoscNote(60, 1/4);
     a.prScale(1.5);
     a.prGetDuration.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prScale { |multiplier|
         var newDuration;
@@ -585,9 +729,11 @@ FoscLeaf : FoscComponent {
         this.prSetDuration(newDuration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prSetDuration
     
     •
+    code::
     a = FoscNote(60, 1/4, multiplier: 5);
     b = a.prSetDuration(3/16);
     b = FoscStaff(b);
@@ -595,6 +741,7 @@ FoscLeaf : FoscComponent {
 
 
     •
+    code::
     a = FoscNote(60, 1/4);
     b = a.prSetDuration(3/16);
     b = FoscStaff(b);
@@ -602,34 +749,76 @@ FoscLeaf : FoscComponent {
 
 
     •
+    code::
     b = FoscStaff([a = FoscNote(60, 1/4)]);
     a.prSetDuration(3/16);
     b.format;
 
 
     • without parent
+    code::
     a = FoscNote(60, 1/4);
     b = a.prSetDuration(5/16);
     b = FoscStaff(b);
     b.show;
 
+    img:: ![](../img/score-leaf-4.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-4".format(Platform.userExtensionDir);
+    b.writePNG("%.ly".format(p));
+
+
+
+
 
     • with parent
+    code::
     b = FoscStaff([a = FoscNote(60, 1/4)]);
     a.prSetDuration(5/16);
     b.show;
 
+    img:: ![](../img/score-leaf-5.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-5".format(Platform.userExtensionDir);
+    b.writePNG("%.ly".format(p));
+
+
+
+
 
     • without parent - !!!TODO: not yet working
+    code::
     a = FoscNote(60, 1/4);
     b = a.prSetDuration(2/3);
     b = FoscStaff(b);
     b.show;
 
+    img:: ![](../img/score-leaf-6.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-6".format(Platform.userExtensionDir);
+    b.writePNG("%.ly".format(p));
+
+
+
+
     • with parent - !!!TODO: not yet working
+    code::
     b = FoscStaff([a = FoscNote(60, 1/4)]);
     a.prSetDuration(2/3);
     b.show;
+
+    img:: ![](../img/score-leaf-7.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-7".format(Platform.userExtensionDir);
+    b.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prSetDuration { |newDuration, repeatTies=false|
         var maker, components, newLeaves, followingLeafCount, followingLeaves, allLeaves, logicalTie;
@@ -691,43 +880,95 @@ FoscLeaf : FoscComponent {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prSplitByDurations
 
 
     • Example 1
     
+    code::
     a = FoscNote(60, 4/4);
     b = a.prSplitByDurations([1/16, 3/16], tieSplitNotes: false);
     FoscStaff(b).show;
 
+    img:: ![](../img/score-leaf-8.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-8".format(Platform.userExtensionDir);
+    FoscStaff(b).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 2
 
+    code::
     a = FoscNote(60, 4/4);
     b = a.prSplitByDurations([1/16, 3/16], isCyclic: true, tieSplitNotes: false);
     FoscStaff(b).show;
 
+    img:: ![](../img/score-leaf-9.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-9".format(Platform.userExtensionDir);
+    FoscStaff(b).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 3
 
+    code::
     a = FoscNote(60, 4/4);
     b = a.prSplitByDurations([1/16, 3/16], isCyclic: true, tieSplitNotes: true);
     FoscStaff(b).show;
 
+    img:: ![](../img/score-leaf-10.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-10".format(Platform.userExtensionDir);
+    FoscStaff(b).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 4
 
+    code::
     a = FoscNote(60, 4/4);
     b = a.prSplitByDurations([3/16, 5/32], isCyclic: true, tieSplitNotes: false);
     FoscStaff(b).show;
 
+    img:: ![](../img/score-leaf-11.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-11".format(Platform.userExtensionDir);
+    FoscStaff(b).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 5
 
+    code::
     a = FoscStaff({ |i| FoscNote(60 + i, 3/16) } ! 4);
     a[0].prSplitByDurations([3/32], tieSplitNotes: false);
     a.selectLeaves.beam;
     a.show;
+
+    img:: ![](../img/score-leaf-12.png)
+    '''
+
+    p = "%/fosc/docs/img/score-leaf-12".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prSplitByDurations { |durations, isCyclic=false, tieSplitNotes=true, repeatTies=false|
         var leafDuration, lastDuration, originallyTied, originallyRepeatTied, resultSelections;
@@ -817,7 +1058,9 @@ FoscLeaf : FoscComponent {
         ^resultLeaves;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prToTupletWithRatio
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prToTupletWithRatio {
         ^this.notYetImplemented(thisMethod);
@@ -826,16 +1069,20 @@ FoscLeaf : FoscComponent {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenDuration
 
     Written duration of leaf.
 
     Returns duration.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenDuration_
 
     Set written duration of leaf.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     writtenDuration_ { |duration|
         var rational;

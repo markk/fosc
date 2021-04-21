@@ -1,9 +1,24 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPitchNameManager
+
+
+SUMMARY:: Returns a FoscPitchNameManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPitchNameManager
 
 !!!TODO:
 - see abjad/pitch/constants.py
 - rename FoscPitchConstants
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPitchNameManager : FoscObject {
 	classvar accidentalNameToLilypondAccidentalName, accidentalNameToSemitones;
@@ -276,25 +291,37 @@ FoscPitchNameManager : FoscObject {
 	// PRIVATE CLASS METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.accidentalNameToLilypondAccidentalName('#+');
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*accidentalNameToLilypondAccidentalName { |accidentalName|
 		^accidentalNameToLilypondAccidentalName[accidentalName.asSymbol];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.accidentalNameToSemitones('#+');
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*accidentalNameToSemitones { |accidentalName|
 		^accidentalNameToSemitones[accidentalName.asSymbol];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.diatonicPCNumberToDiatonicPitchClassNumber(5);
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*diatonicPCNumberToDiatonicPitchClassNumber { |pcNumber|
 		^diatonicPCNumberToDiatonicPitchClassNumber[pcNumber];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.diatonicPitchClassNameToDiatonicPitchClassNumber("G");
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*diatonicPitchClassNameToDiatonicPitchClassNumber { |pitchClassName|
 		var name;
@@ -303,7 +330,10 @@ FoscPitchNameManager : FoscObject {
 		^diatonicPitchClassNameToDiatonicPitchClassNumber[name];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.diatonicPitchClassNameToLilypondDiatonicPitchClassName("G");
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*diatonicPitchClassNameToLilypondDiatonicPitchClassName { |diatonicPitchClassName|
 		^if (diatonicPitchClassName.isDiatonicPitchClassName) {
@@ -313,13 +343,19 @@ FoscPitchNameManager : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.lilypondAccidentalNameToAccidentalName('tqs');
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*lilypondAccidentalNameToAccidentalName { |lilypondAccidentalName|
 		^lilypondAccidentalNameToAccidentalName[lilypondAccidentalName.asSymbol];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.lilypondDiatonicPitchClassNameToDiatonicPitchClassName("g");
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*lilypondDiatonicPitchClassNameToDiatonicPitchClassName { |lilypondDiatonicPitchClassName|
 
@@ -330,9 +366,12 @@ FoscPitchNameManager : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.lilypondOctaveNumberToOctaveNumber("''");
 	FoscPitchNameManager.lilypondOctaveNumberToOctaveNumber(",,,,");
 	FoscPitchNameManager.lilypondOctaveNumberToOctaveNumber("");
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*lilypondOctaveNumberToOctaveNumber { |lilypondOctaveName|
 		^if (lilypondOctaveName.isLilypondOctaveName) {
@@ -346,9 +385,12 @@ FoscPitchNameManager : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.lilypondPitchNameToPitchName("gs''");
 	FoscPitchNameManager.lilypondPitchNameToPitchName("ctqf");
 	FoscPitchNameManager.lilypondPitchNameToPitchName("aff,,");
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*lilypondPitchNameToPitchName { |lilypondPitchName|
 		^if (lilypondPitchName.isLilypondPitchName) {
@@ -364,8 +406,11 @@ FoscPitchNameManager : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.octaveNumberToLilypondOctaveName(-1);
 	FoscPitchNameManager.octaveNumberToLilypondOctaveName(5);
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*octaveNumberToLilypondOctaveName { |octaveNumber|
 		if (octaveNumber.isString) { octaveNumber = octaveNumber.interpret };
@@ -380,7 +425,10 @@ FoscPitchNameManager : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.pitchClassNameToDiatonicPitchClassNumber("C#");
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*pitchClassNameToDiatonicPitchClassNumber { |pitchClassName|
 		var name;
@@ -389,7 +437,10 @@ FoscPitchNameManager : FoscObject {
 		^pitchClassNameToDiatonicPitchClassNumber[name];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.pitchClassNameToLilypondPitchClassName("Ab");
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*pitchClassNameToLilypondPitchClassName { |pitchClassName|
 		^if (pitchClassName.isPitchClassName) {
@@ -403,27 +454,40 @@ FoscPitchNameManager : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.pitchClassNumberToPitchClassName(8);
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*pitchClassNumberToPitchClassName { |pitchClassNumber|
 		^pitchClassNumberToPitchClassName[pitchClassNumber.round(0.25)];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.pitchClassNumberToPitchClassNameWithFlats(8);
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*pitchClassNumberToPitchClassNameWithFlats { |pitchClassNumber|
 		^pitchClassNumberToPitchClassNameWithFlats[pitchClassNumber.round(0.5)];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.pitchClassNumberToPitchClassNameWithSharps(8);
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*pitchClassNumberToPitchClassNameWithSharps { |pitchClassNumber|
 		^pitchClassNumberToPitchClassNameWithSharps[pitchClassNumber.round(0.5)];
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.pitchNameToLilypondPitchName("Ab4");
 
+ code::
 	FoscPitchNameManager.pitchNameToLilypondPitchName("Ab4", arrow: 'up');
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*pitchNameToLilypondPitchName { |pitchName, arrow|
 		^if (pitchName.isPitchName) {
@@ -448,8 +512,11 @@ FoscPitchNameManager : FoscObject {
 		};
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
+ code::
 	FoscPitchNameManager.semitonesToAccidentalName(-1.5);
 	FoscPitchNameManager.semitonesToAccidentalName(2);
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	*semitonesToAccidentalName { |semitones|
 		^semitonesToAccidentalName[semitones.round(0.5)];

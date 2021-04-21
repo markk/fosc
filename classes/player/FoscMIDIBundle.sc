@@ -1,9 +1,24 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscMIDIBundle
+
+
+SUMMARY:: Returns a FoscMIDIBundle.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscMIDIBundle
 
 !!!TODO: add articulations ??
 
 
+code::
 a = FoscScoreSegment(Hakon, 'A');
 m = FoscLeafMaker().((60..67), [1/8]);
 m.leafAt(0).attach(FoscMetronomeMark(1/4, 60));
@@ -13,7 +28,9 @@ m.leafAt(4).attach(FoscPlaybackCommand('M4'));
 m.leafAt(0).attach(FoscDynamic('pppp'));
 a['A'].add(m);
 
+code::
 a.play;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscMIDIBundle : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,12 +83,15 @@ FoscMIDIBundle : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetCommands
 
+    code::
     a = FoscNote(60, 1/4);
     x = FoscPlaybackCommand(name: 'sustainOn');
     a.attach(x);
     a.prGetIndicators(prototype: FoscPlaybackCommand);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetCommands { |leaf|
         var playbackCommands, name, msgs, msgArgs;
@@ -92,9 +112,11 @@ FoscMIDIBundle : FoscObject {
         ^msgs;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetMIDINote
 
     !!!TODO: get soundingPitch/es rather than writtenPitch
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetMIDINote { |leaf|
         var midinote;
@@ -116,7 +138,9 @@ FoscMIDIBundle : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • event
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }
 

@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscSilenceMask
+
+
+SUMMARY:: Returns a FoscSilenceMask.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscSilenceMask
 
 Replaces pitched events with rests at matching indices for 'pattern'.
@@ -11,22 +25,43 @@ If 'fuseRests' is true, fuse all contiguous rests in the same parent, and extrac
 
 Insert silences.
 
+code::
 p = FoscPattern(#[0,1,4,5]) | FoscPattern.last(7);
 m = FoscSilenceMask(p);
 a = FoscRhythmMaker().(1/4 ! 4, #[[1,1,1,1,1]], masks: [m]);
 f = FoscLilypondFile.rhythm(a);
 f.show;
 
+img:: ![](../img/maker-silence-mask-1.png)
+'''
+
+p = "%/fosc/docs/img/maker-silence-mask-1".format(Platform.userExtensionDir);
+f.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 2
 
 Insert silences and fuse resulting rests.
 
+code::
 p = FoscPattern(#[0,1,4,5]) | FoscPattern.last(7);
 m = FoscSilenceMask(p, fuseRests: true);
 a = FoscRhythmMaker().(1/4 ! 4, #[[1,1,1,1,1]], masks: [m]);
 f = FoscLilypondFile.rhythm(a);
 f.show;
+
+img:: ![](../img/maker-silence-mask-2.png)
+'''
+
+p = "%/fosc/docs/img/maker-silence-mask-2".format(Platform.userExtensionDir);
+f.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSilenceMask : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,7 +82,9 @@ FoscSilenceMask : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • value
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // value { |selection|
     //     var logicalTies, totalLogicalTies, matchingLogicalTies, rest;
@@ -68,12 +105,24 @@ FoscSilenceMask : FoscObject {
     //     };
     // }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • !!!TODO: method for use with rhythm-makers, mutation performed directly on array of selections
 
+    code::
     p = #[3,3,3,3,3,-1,3,3,3,3,3,-1];
     m = Threads.makeImpulseRhythm(4/8 ! 8, #[5], fusePattern: p);
     f = FoscLilypondFile.rhythm(m, stretch: 0.8);
     f.show;
+
+    img:: ![](../img/maker-silence-mask-3.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-silence-mask-3".format(Platform.userExtensionDir);
+    f.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |selections|
         var newSelections, containers, rests, container, logicalTies, totalLogicalTies, matchingLogicalTies;

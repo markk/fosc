@@ -1,8 +1,23 @@
 /* ------------------------------------------------------------------------------------------------------------
+TITLE:: extInteger
+
+
+SUMMARY:: Returns a extInteger.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • Integer
+'''
 ------------------------------------------------------------------------------------------------------------ */
 + Integer {
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • partitionByRatio
 
     Partitions receiver into nearest integer parts by ratio.
@@ -12,32 +27,39 @@
 
     • Example 1
 
+    code::
     10.partitionByRatio(#[1, 2]);
 
 
     • Example 2
 
+    code::
     -10.partitionByRatio(#[1, 2]);
 
 
     • Example 3
 
+    code::
     10.partitionByRatio(#[1]);
 
 
     • Example 4
 
+    code::
     10.partitionByRatio(#[1, -1, -1]);
 
 
     • Example 5
 
+    code::
     10.partitionByRatio(#[0.3, 0.1]);
 
 
     • Example 6
 
+    code::
     10.partitionByRatio(1 ! 20);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     partitionByRatio { |ratio|
         var result, divisions, cumulativeDivisions, roundedDivision, ratioSigns;
@@ -56,6 +78,7 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • partitionIntoCanonicParts
 
     Partitions integer into canonic parts.
@@ -65,7 +88,13 @@
 
     • Example 1
 
+    code::
     (1..16).do { |n| n.post; Post.tab; n.partitionIntoCanonicParts.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     partitionIntoCanonicParts { |decreaseMonotonic=true|
         var result, previousEmpty, binaryN, binaryLength, placeValue;
@@ -92,6 +121,7 @@
         if (decreaseMonotonic) { ^result } { ^result.reverse };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • partitionIntoMaximallyEvenParts
 
     Partitions integer into m maximally even parts using the Björklund algorithm.
@@ -101,7 +131,9 @@
 
     • Example 1
 
+    code::
     16.partitionIntoMaximallyEvenParts(7);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     partitionIntoMaximallyEvenParts { |m|
         var pattern, counts, remainders, divisor, level, recurse, index, result;
@@ -151,13 +183,20 @@
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • partitionIntoPartsLessThanDouble
 
     Partitions integer into parts less than double integer m.
 
     Returns array of one or more integers.
 
+    code::
     (1..24).do { |n| n.post; Post.tab; n.partitionIntoPartsLessThanDouble(4).postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     partitionIntoPartsLessThanDouble { |m|
         var result, currentValue, doubleM;

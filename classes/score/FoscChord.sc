@@ -1,4 +1,18 @@
 /* ---------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscChord
+
+
+SUMMARY:: Returns a FoscChord.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscChord
 
 A chord.
@@ -6,42 +20,93 @@ A chord.
 
 • Example 1
 
+code::
 a = FoscChord("C4 E4 G4", 1/4);
 a.show;
+
+img:: ![](../img/score-chord-1.png)
+'''
+
+p = "%/fosc/docs/img/score-chord-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2: tweak individual noteheads 1
 
+code::
 a = FoscChord(#[65, 70], 1/4);
 a.noteHeads[1].isCautionary_(true);
 a.show;
 
+img:: ![](../img/score-chord-2.png)
+'''
+
+p = "%/fosc/docs/img/score-chord-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 3: tweak individual noteheads 2
 
+code::
 a = FoscChord(#[65, 70], 1/4);
 tweak(a.noteHeads[1]).style = 'harmonic';
 a.show;
+
+img:: ![](../img/score-chord-3.png)
+'''
+
+p = "%/fosc/docs/img/score-chord-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 4
 
 Initialize from a FoscNote.
 
+code::
 a = FoscNote(60, 1/4);
 a.attach(FoscArticulation('>'));
 b = FoscChord(a);
 b.show;
+
+img:: ![](../img/score-chord-4.png)
+'''
+
+p = "%/fosc/docs/img/score-chord-4".format(Platform.userExtensionDir);
+b.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 5
 
 Initialize from a FoscChord.
 
+code::
 a = FoscChord(#[60,64,67], 1/4);
 a.attach(FoscArticulation('>'));
 b = FoscChord(a);
 b.show;
+
+img:: ![](../img/score-chord-5.png)
+'''
+
+p = "%/fosc/docs/img/score-chord-5".format(Platform.userExtensionDir);
+b.writePNG("%.ly".format(p));
+
+
+
+'''
 --------------------------------------------------------------------------------------------------------- */
 FoscChord : FoscLeaf {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,10 +182,13 @@ FoscChord : FoscLeaf {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
+    code::
     a = FoscChord(#[60, 64, 67], 1/4);
     a.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         var pitches, duration;
@@ -130,14 +198,17 @@ FoscChord : FoscLeaf {
         ^"FoscChord(\"%\", %)".format(pitches, duration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • storeArgs
 
     Gets new arguments.
 
     Returns array.
 
+    code::
     a = FoscChord(#[60, 64, 67], 1/4);
     a.storeArgs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^[this.writtenPitches, this.writtenDuration];
@@ -146,12 +217,15 @@ FoscChord : FoscLeaf {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatBeforeSlot
 
+    code::
     a = FoscChord([61, 64], 1/4);
     m = FoscTremolo(beamCount: 2);
     a.attach(m);
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatBeforeSlot { |bundle|
         var result, commands, tremoloCommand;
@@ -171,7 +245,9 @@ FoscChord : FoscLeaf {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatCloseBracketsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatCloseBracketsSlot { |bundle|
         var result, bracketsClose;
@@ -183,10 +259,13 @@ FoscChord : FoscLeaf {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatLeafNucleus
 
+    code::
     a = FoscChord(#[61, 64], 1/4);
     a.prFormatLeafNucleus;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatLeafNucleus {
         var indent, result, currentFormat, formatList;
@@ -228,7 +307,9 @@ FoscChord : FoscLeaf {
         ^['nucleus', [result]];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatOpenBracketsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpenBracketsSlot {
         var result, bracketsOpen;
@@ -240,7 +321,9 @@ FoscChord : FoscLeaf {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatRepeatTremoloCommand
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatRepeatTremoloCommand {
         var tremolo, reattackDuration, repeatCount, command;
@@ -256,16 +339,21 @@ FoscChord : FoscLeaf {
         ^command;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetCompactRepresentation
     
+    code::
     a = FoscChord("C4 E4 G4", 1/4);
     a.prGetCompactRepresentation;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetCompactRepresentation {
         ^("<%>%".format(this.prGetSummary, this.prGetFormattedDuration));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetCompactRepresentationWithTie
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetCompactRepresentationWithTie {
         var logicalTie;
@@ -277,7 +365,9 @@ FoscChord : FoscLeaf {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetSoundingPitches
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetSoundingPitches {
         ^this.notYetImplemented(thisMethod);
@@ -297,16 +387,21 @@ FoscChord : FoscLeaf {
         //     return tuple(sounding_pitches)
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetSummary
 
+    code::
     a = FoscChord("C4 E4 G4", 1/4);
     a.prGetSummary;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetSummary {
         ^noteHeads.items.collect { |noteHead| noteHead.str }.join(" ");
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetTremoloReattackDuration
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetTremoloReattackDuration {
         var tremolos, tremolo, exponent, denominator, reattackDuration;
@@ -322,31 +417,43 @@ FoscChord : FoscLeaf {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isPitched
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isPitched {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • noteHeads
 
     Gets note-heads in chord.
 
     Returns note-head list.
 
+    code::
     a = FoscChord("C4 E4 G4", 1/4);
     a.noteHeads.items.do { |each| each.writtenPitch.ps.postln }
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • noteHeads_
 
     Sets note-heads in chord.
 
 
+    code::
     a = FoscChord("C4 E4 G4", [1, 4]);
     a.noteHeads.items.do { |each| each.writtenPitch.ps.postln };
     a.noteHeads_("F#4 B4 D#5 E5");
     a.noteHeads.items.do { |each| each.writtenPitch.ps.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     noteHeads_ { |argNoteHeads|
         noteHeads = FoscNoteHeadList([], this);
@@ -354,6 +461,7 @@ FoscChord : FoscLeaf {
         noteHeads.addAll(argNoteHeads);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenDuration
 
     Gets written duration of chord.
@@ -363,43 +471,55 @@ FoscChord : FoscLeaf {
     Returns duration.
 
 
+    code::
     a = FoscChord("C4 E4 G4", 1/4);
     a.writtenDuration.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenDuration_
 
     Sets written duration of chord.
     
+    code::
     a = FoscChord("C4 E4 G4", 1/4);
     a.writtenDuration.str;
     
+    code::
     a.writtenDuration_(1/16);
     a.writtenDuration.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     writtenDuration_ { |duration|
         writtenDuration = FoscDuration(duration);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenPitches
 
     Gets written pitches in chord.
 
     Returns a FoscPitchSegment.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     writtenPitches {
         ^FoscPitchSegment(noteHeads.items.collect { |each| FoscPitch(each.writtenPitch) });
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenPitches_
     
     Sets written pitches in chord.
     
+    code::
     a = FoscChord("C4 E4 G4", [1, 4]);
     a.writtenPitches.ps;
     
+    code::
     a.writtenPitches_("F#4 B4 D#5 E5");
     a.writtenPitches.ps;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     writtenPitches_ { |pitches|
         this.noteHeads_(pitches);

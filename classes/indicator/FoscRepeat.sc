@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscRepeat
+
+
+SUMMARY:: Returns a FoscRepeat.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscRepeat (abjad 3.0)
 
 Repeat
@@ -8,21 +22,42 @@ Repeat
 
 Volta repeat.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 m = FoscRepeat();
 a.attach(m);
 a.show;
+
+img:: ![](../img/indicator-repeat-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-repeat-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2
 
 Unfold repeat.
 
+code::
 a = FoscContainer(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 m = FoscRepeat(repeatCount: 3, repeatType: 'unfold');
 a.attach(m);
 b = FoscScore([a]);
 b.show;
+
+img:: ![](../img/indicator-repeat-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-repeat-2".format(Platform.userExtensionDir);
+b.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscRepeat : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,6 +78,7 @@ FoscRepeat : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • context
 
     Gets context.
@@ -50,10 +86,13 @@ FoscRepeat : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscRepeat();
     m.context.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • repeatCount
 
     Gets repeat count of repeat.
@@ -61,10 +100,13 @@ FoscRepeat : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscRepeat();
     m.repeatCount;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • repeatType
 
     Gets repeat type of repeat.
@@ -72,10 +114,13 @@ FoscRepeat : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscRepeat();
     m.repeatType.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Tweaks are not implemented on repeat.
@@ -83,6 +128,7 @@ FoscRepeat : FoscObject {
     The LilyPond \repeat command refuses tweaks.
 
     Override the LilyPond 'BarLine' grob instead.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     tweaks {
         // pass
@@ -91,6 +137,7 @@ FoscRepeat : FoscObject {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
     Gets string representation of repeat
@@ -98,8 +145,10 @@ FoscRepeat : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscRepeat();
     m.str.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         ^"\\repeat % %".format(repeatType, repeatCount);
@@ -108,13 +157,17 @@ FoscRepeat : FoscObject {
     // PRIVATE INSTANCE METHODS
     /////////////////////////////////////////////////////////////////////////////////////////////////////////// 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle;

@@ -1,5 +1,20 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscScore
+
+
+SUMMARY:: Returns a FoscScore.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscScore
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscScore : FoscContext {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,10 +28,22 @@ FoscScore : FoscContext {
 	// PUBLIC INSTANCE METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • addFinalBarLine
 
+    code::
     a = FoscScoreSegment.read(WTGO, 'A1');
     a.show;
+
+    img:: ![](../img/score-score-1.png)
+    '''
+
+    p = "%/fosc/docs/img/score-score-1".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	addFinalBarLine { |abbreviation="|.", toEachVoice=false|
 		var barLine, lastLeaf;
@@ -34,19 +61,41 @@ FoscScore : FoscContext {
 		^barLine;
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • addFinalMarkup
 
     !!!TODO: use hidden skip voice for more accurate horizontal spacing
 
+    code::
     a = FoscScore([FoscStaff(FoscLeafMaker().(#[60,62,64,65], 1/4))]);
     m = FoscMarkup("July 2010 - May 2011", direction: 'down');
     m = m.italic;
     a.addFinalMarkup(m, extraOffset: #[0.5, -2]);
     a.show;
 
+    img:: ![](../img/score-score-2.png)
+    '''
+
+    p = "%/fosc/docs/img/score-score-2".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
+    code::
     a = FoscScoreSegment.read(Threads, 'A1');
     a.score.addFinalMarkup(FoscMarkup.musicGlyph('scripts.ufermata'), extraOffset: #[55, 0]);
     a.show;
+
+    img:: ![](../img/score-score-3.png)
+    '''
+
+    p = "%/fosc/docs/img/score-score-3".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	addFinalMarkup { |markup, extraOffset|
         var selection, lastLeaf, grobProxy;
@@ -72,17 +121,29 @@ FoscScore : FoscContext {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *makePianoScore
 
     Makes piano score from leaves.
 
     Returns score.
         
+    code::
     x = [48, 55, 58, 63, 69];
     y = Array.fill(12, { |i| FoscChord(x + i, FoscDuration(1, 4)) });
     b = FoscScore.makePianoScore(y, isSketch: true);
     override(b).stem.stencil_(false);
     b.show;
+
+    img:: ![](../img/score-score-4.png)
+    '''
+
+    p = "%/fosc/docs/img/score-score-4".format(Platform.userExtensionDir);
+    b.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *makePianoScore { |leaves, lowestTreblePitch, isSketch=false|
         var trebleStaff, bassStaff, staffGroup, score, trebleChord, bassChord;

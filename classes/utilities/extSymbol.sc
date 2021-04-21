@@ -1,18 +1,35 @@
 /* ------------------------------------------------------------------------------------------------------------
+TITLE:: extSymbol
+
+
+SUMMARY:: Returns a extSymbol.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • Symbol
+'''
 ------------------------------------------------------------------------------------------------------------ */
 + Symbol {
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• toTridirectionalLilypondSymbol
 
 	Changes receiver to tridirectional direction string.
 
 	Returns string or nil.
 
+ code::
 	toTridirectionalDirectionString('^');
 	toTridirectionalDirectionString('-');
 	toTridirectionalDirectionString('_');
 	toTridirectionalDirectionString('default');
+ '''
     -------------------------------------------------------------------------------------------------------- */
     toTridirectionalLilypondString {
     	var lookup;
@@ -33,16 +50,19 @@
 		^lookup[this];
     }
     /* --------------------------------------------------------------------------------------------------------
+ '''
 	• toTridirectionalLilypondSymbol
 
 	Changes receiver to tridirectional direction symbol.
 
 	Returns string or nil.
 
+ code::
 	toTridirectionalDirectionString('^');
 	toTridirectionalDirectionString('-');
 	toTridirectionalDirectionString('_');
 	toTridirectionalDirectionString('default');
+ '''
     -------------------------------------------------------------------------------------------------------- */
     toTridirectionalLilypondSymbol {
     	var lookup;
@@ -63,17 +83,20 @@
 		^lookup[this];
     }
     /* --------------------------------------------------------------------------------------------------------
+ '''
 	• toTridirectionalOrdinalConstant
 
 	Changes receiver to tridirectional ordinal constant.
 
 	Returns string or nil.
 
+ code::
 	toTridirectionalOrdinalConstant('^');
 	toTridirectionalOrdinalConstant('-');
 	toTridirectionalOrdinalConstant('_');
 	toTridirectionalOrdinalConstant('default');
 
+ code::
 	lookup = {
         Up: Up,
         '^': Up,
@@ -97,6 +120,7 @@
     message = 'unrecognized expression: {!r}.'
     message = message.format(argument)
     raise ValueError(message)
+ '''
     -------------------------------------------------------------------------------------------------------- */
     toTridirectionalOrdinalConstant {
     	^this.notYetImplemented(thisMethod);

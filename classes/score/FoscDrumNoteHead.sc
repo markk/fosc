@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscDrumNoteHead
+
+
+SUMMARY:: Returns a FoscDrumNoteHead.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscDrumNoteHead
 
 A drum note-head.
@@ -7,10 +21,13 @@ A drum note-head.
 >>> note_head
 DrumNoteHead('snare')
 
+code::
 a = FoscDrumNoteHead('snare');
 a.pitch;
 
+code::
 FoscDrumNoteHead('foo');
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDrumNoteHead : FoscNoteHead {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,10 +1,26 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscLilypondFormatBundle
+
+
+SUMMARY:: Returns a FoscLilypondFormatBundle.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondFormatBundle (abjad 3.0)
 
 Transient class created to hold the collection of all format contributions generated on behalf of a single Component.
 
+code::
 a = FoscLilypondFormatBundle();
 a.prGetFormatSpecification;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondFormatBundle : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,10 +46,13 @@ FoscLilypondFormatBundle : FoscObject {
 	// PRIVATE METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• prGetFormatSpecification
 
+ code::
 	a = FoscLilypondFormatBundle();
 	a.prGetFormatSpecification;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	// abjad 3.0 - TODO
 	prGetFormatSpecification {
@@ -49,21 +68,26 @@ FoscLilypondFormatBundle : FoscObject {
 	// PUBLIC METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• get
 	
 	Gets identifier.
 
 	Returns format contributions object or list.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.get('before');
 	a.get('grobReverts');
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	get { |identifier|
 		^this.perform(identifier);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• sortOverrides
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	// abjad 3.0
 	sortOverrides {
@@ -72,14 +96,17 @@ FoscLilypondFormatBundle : FoscObject {
 		grobReverts = grobReverts.as(Set).as(Array).sort;
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• update
 	
 	Updates format bundle with all format contributions in formatBundle.
 
 	Returns nil.
 
+ code::
 	a = FoscLilypondFormatBundle();
 	a.update(a.copy);
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	update { |formatBundle|
 		if (formatBundle.respondsTo('prGetLilypondFormatBundle')) {
@@ -104,97 +131,125 @@ FoscLilypondFormatBundle : FoscObject {
 	// PUBLIC PROPERTIES
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• absoluteAfter
 
 	Absolute after slot contributions.
 
     Returns slot contributions object.
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• absoluteBefore
 
 	Absolute after slot contributions.
 
     Returns slot contributions object.
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• after
 	
 	After slot contributions.
 
 	Returns slot contributions object.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.after;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• before
 	
 	Before slot contributions.
 
 	Returns slot contributions object.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.before;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• closing
 	
 	Closing slot contributions.
 
 	Returns slot contributions object.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.closing;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• contextSettings
 	
 	Context setting format contributions.
 
 	Returns array.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.contextSettings;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• grobOverrides
 	
 	Grob override format contributions.
 	
 	Returns array.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.grobOverrides;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• grobReverts
 
 	Grob revert format contributions.
 
 	Returns array.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.grobReverts;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• opening
 	
 	Opening slot contributions.
 	
 	Returns slot contributions object.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.opening;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• right
 
 	Right slot contributions.
 
 	Returns slot contributions object.
 	
+ code::
 	a = FoscLilypondFormatBundle();
 	a.right;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 }

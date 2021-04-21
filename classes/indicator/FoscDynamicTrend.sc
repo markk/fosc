@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscDynamicTrend
+
+
+SUMMARY:: Returns a FoscDynamicTrend.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscDynamicTrend (abjad 3.0)
 
 Dynamic trend.
@@ -6,76 +20,147 @@ Dynamic trend.
 
 • Example 1
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0].attach(FoscDynamic('p'));
 a[0].attach(FoscDynamicTrend('<'));
 a[a.lastIndex].attach(FoscDynamic('f'));
 a.show;
 
+img:: ![](../img/indicator-dynamic-trend-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-trend-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 2
 
 Set 'leftBroken' to true to initialize without starting dynamic.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0].attach(FoscDynamicTrend('<', leftBroken: true));
 a[a.lastIndex].attach(FoscDynamic('f'));
 a.show;
+
+img:: ![](../img/indicator-dynamic-trend-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-trend-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3
 
 Crescendo dal niente.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0].attach(FoscDynamic('niente', hide: true));
 a[0].attach(FoscDynamicTrend('o<'));
 a[a.lastIndex].attach(FoscDynamic('f'));
 a.show;
 
+img:: ![](../img/indicator-dynamic-trend-3.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-trend-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 4
 
 Decrescendo al niente.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0].attach(FoscDynamic('f'));
 a[0].attach(FoscDynamicTrend('>o'));
 a[a.lastIndex].attach(FoscDynamic('niente', command: "\\!"));
 a.show;
 
+img:: ![](../img/indicator-dynamic-trend-4.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-trend-4".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 5 !!!TODO: abjad-flared-hairpin NOT IMPLEMENTED
 
 Subito crescendo.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0].attach(FoscDynamic('p'));
 a[0].attach(FoscDynamicTrend('<|'));
 a[a.lastIndex].attach(FoscDynamic('f'));
 a.show;
 
+img:: ![](../img/indicator-dynamic-trend-5.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-trend-5".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 6 !!!TODO: BROKEN. #constante-hairpin not implemented ??
 
 Constante.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0].attach(FoscDynamic('p'));
 a[0].attach(FoscDynamicTrend('--'));
 a[a.lastIndex].attach(FoscDynamic('f'));
 a.show;
 
+img:: ![](../img/indicator-dynamic-trend-6.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-trend-6".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 7
 
 DynamicTrend can be tweaked.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0].attach(FoscDynamic('p'));
 a[0].attach(FoscDynamicTrend('<', tweaks: #[['color', 'blue']]));
 a[a.lastIndex].attach(FoscDynamic('f'));
 a.show;
+
+img:: ![](../img/indicator-dynamic-trend-7.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-trend-7".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDynamicTrend : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,6 +190,7 @@ FoscDynamicTrend : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • context
 
     Gets context. Returns 'Voice'.
@@ -112,10 +198,13 @@ FoscDynamicTrend : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscDynamicTrend('<');
     m.context.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • leftBroken
 
     Is true when dynamic trend formats with left broken tag.
@@ -123,10 +212,13 @@ FoscDynamicTrend : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscDynamicTrend('<', leftBroken: true);
     m.leftBroken;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • shape
 
     Gets shape. Returns string.
@@ -134,10 +226,13 @@ FoscDynamicTrend : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscDynamicTrend('<');
     m.shape.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spannerStart
     
     Is true.
@@ -145,13 +240,16 @@ FoscDynamicTrend : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscDynamicTrend('<');
     m.spannerStart;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     spannerStart {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Gets tweaks.
@@ -159,14 +257,18 @@ FoscDynamicTrend : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscDynamicTrend('<', tweaks: #[['color', 'blue']]);
     a.tweaks.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prConstanteHairpin
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prConstanteHairpin {
         ^FoscLilypondGrobOverride(
@@ -177,7 +279,9 @@ FoscDynamicTrend : FoscObject {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prCircledTip
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prCircledTip {
         ^FoscLilypondGrobOverride(
@@ -188,7 +292,9 @@ FoscDynamicTrend : FoscObject {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prFlaredHairpin
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prFlaredHairpin {
         ^FoscLilypondGrobOverride(
@@ -199,9 +305,11 @@ FoscDynamicTrend : FoscObject {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prTagHide
 
     !!!TODO
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prTagHide { |strings|
         ^this.notYetImplemented(thisMethod);
@@ -217,7 +325,9 @@ FoscDynamicTrend : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         var strings, override, string;
@@ -250,7 +360,9 @@ FoscDynamicTrend : FoscObject {
         ^strings;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle {
         var bundle, localTweaks, strings;

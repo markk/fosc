@@ -1,12 +1,28 @@
 /* --------------------------------------------------------------------------------------------------------
+
+TITLE:: LilypondDrums
+
+
+SUMMARY:: Returns a LilypondDrums.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • LilypondDrums
 
 abjad: abjad/ly/drums.py
 
+code::
 LilypondDrums.list.printAll;
 LilypondDrums.includes('snare');
 LilypondDrums.includes('loagogo');
 LilypondDrums.at('bolm');
+'''
 -------------------------------------------------------------------------------------------------------- */
 LilypondDrums {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

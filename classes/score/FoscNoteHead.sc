@@ -1,14 +1,30 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscNoteHead
+
+
+SUMMARY:: Returns a FoscNoteHead.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscNoteHead
 
 A note-head.
 
 
+code::
 p = #[['size', 12]];
 a = FoscNoteHead(writtenPitch: 61, tweaks: p);
 a.tweak.color = 'red';
 a.tweak.prGetAttributePairs;
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscNoteHead : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +55,7 @@ FoscNoteHead : FoscObject {
     // PUBLIC METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
      /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
     Gets interpreter representation of note-head.
@@ -47,29 +64,35 @@ FoscNoteHead : FoscObject {
 
     !!!TODO: incomplete
 
+    code::
     a = FoscNoteHead(writtenPitch: 61, tweaks: p);
     a.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^"FoscNoteHead('%')".format(writtenPitch.pitchName);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • copy
 
     Copies note-head.
 
     Returns new note-head.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     copy {
         ^this.species.new(writtenPitch, nil, isCautionary, isForced, isParenthesized, tweaks);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
     Is true when argument is a note-head with written writtenPitch equal to that of this note-head. Otherwise false.
 
     Returns true or false.
     
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |object|
         if (object.isKindOf(this.species)) {
@@ -78,6 +101,7 @@ FoscNoteHead : FoscObject {
         ^false;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats note-head.
@@ -85,19 +109,24 @@ FoscNoteHead : FoscObject {
     Returns string.
 
     
+    code::
     a = FoscNoteHead(writtenPitch: "Db4");
     a.format;
 
+    code::
     a = FoscNoteHead(writtenPitch: FoscPitch("Db4"));
     a.format;
 
+    code::
     a = FoscNoteHead(writtenPitch: FoscPitch("Db4"), isForced: true, isCautionary: true, isParenthesized: true);
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hash
 
     Hashes note-head.
@@ -105,8 +134,10 @@ FoscNoteHead : FoscObject {
     Returns integer.
 
     !!!TODO: not yet implemented.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <
 
     Is true when argument is a note-head with written writtenPitch greater than that of this note-head. Otherwise false.
@@ -114,16 +145,20 @@ FoscNoteHead : FoscObject {
     Returns true or false.
 
     !!!TODO: not yet implemented.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
     String representation of note-head.
 
     Returns string.
 
+    code::
     a = FoscNoteHead(60, isCautionary: true);
     a.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         var result;
@@ -139,10 +174,13 @@ FoscNoteHead : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatSpecification
     
+    code::
     a = FoscNoteHead(writtenPitch: FoscPitch("Db4"));
     a.prGetFormatSpecification;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // prGetFormatSpecification {
     //     var arguments, reprText, agent, names;
@@ -157,10 +195,13 @@ FoscNoteHead : FoscObject {
     //     ^FormatSpecification(this, reprText: reprText, storageFormatKwargs: names);
     // }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatPieces
 
+    code::
     a = FoscNoteHead(writtenPitch: 61, isCautionary: true);
     a.prGetFormatPieces;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         var result, strings, kernel;
@@ -178,21 +219,36 @@ FoscNoteHead : FoscObject {
         ^result; 
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
     
+    code::
     a = FoscNoteHead("Db4");
     a.prGetLilypondFormat;
 
+    code::
     a = FoscNoteHead("Db4", isForced: true, isCautionary: true, isParenthesized: true);
     a.prGetLilypondFormat;
 
+    code::
     a = FoscNoteHead("Db4");
     a.tweak.color = 'red';
     a.prGetLilypondFormat;
 
+    code::
     a = FoscNote(60, 1/4);
     tweak(a.noteHead).style = 'harmonic';
     a.show;
+
+    img:: ![](../img/score-note-head-1.png)
+    '''
+
+    p = "%/fosc/docs/img/score-note-head-1".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat { |formattedDuration|
         var pieces, pieces_, result;
@@ -216,14 +272,18 @@ FoscNoteHead : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • alternative
     
     !!!TODO: not yet implemented
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • alternative_
 
     !!!TODO: not yet implemented
+    '''
     -------------------------------------------------------------------------------------------------------- */
     alternative_ { |object|
         ^this.notYetImplemented(thisMethod);
@@ -237,84 +297,106 @@ FoscNoteHead : FoscObject {
         // self._alternative = argument
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • client
 
     Client of note-head.
     
     Returns note, chord or nil.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isCautionary
 
     Gets isCautionary accidental flag.
 
     Returns true or false.
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isCautionary_
     
     Sets isCautionary accidental flag.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isCautionary_ { |bool|
         bool = bool.asBoolean;
         isCautionary = bool;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isForced
 
     Gets isForced accidental flag.
 
     Returns true or false.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isForced_
     
     Sets isForced accidental flag.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isForced_ { |bool|
         bool = bool.asBoolean;
         isForced = bool;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isParenthesized
 
     Gets isParenthesized flag.
 
     Returns true or false.
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isParenthesized_
     
     Sets isParenthesized flag.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isParenthesized_ { |bool|
         bool = bool.asBoolean;
         isParenthesized = bool;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Gets tweaks.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenPitch
 
     Gets written pitch of note-head.
 
     Returns a FoscPitch.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • writtenPitch_
     
     Sets written pitch of note-head.
 
+    code::
     a = FoscNoteHead(60);
     a.writtenPitch.cs;
 
+    code::
     a.writtenPitch_("F#4");
     a.writtenPitch.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     writtenPitch_ { |pitch|
         pitch = FoscPitch(pitch);

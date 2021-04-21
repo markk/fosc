@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPattern
+
+
+SUMMARY:: Returns a FoscPattern.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPattern
 
 Pattern.
@@ -8,6 +22,7 @@ Pattern.
 
 Matches three indices in every eight.
 
+code::
 p = FoscPattern(#[0,1,7], period: 8);
 n = 16;
 n.do { |i|
@@ -19,6 +34,7 @@ n.do { |i|
 
 Matches three indices in every sixteen.
 
+code::
 p = FoscPattern(#[0,1,7], period: 16);
 n = 16;
 n.do { |i|
@@ -30,6 +46,7 @@ n.do { |i|
 
 Works with improper indices.
 
+code::
 p = FoscPattern(#[16,17,23], period: 16);
 n = 16;
 n.do { |i|
@@ -43,6 +60,7 @@ n.do { |i|
 
 Sieve from opening of Xenakis’s Psappha.
 
+code::
 ~sieve_1a = FoscPattern.indices(#[0,1,7], 8);
 ~sieve_1b = FoscPattern.indices(#[1,3], 5);
 ~sieve_1 = ~sieve_1a & ~sieve_1b;
@@ -62,7 +80,9 @@ Sieve from opening of Xenakis’s Psappha.
 ~sieve_7 = ~sieve_7a & ~sieve_7b;
 ~sieve = ~sieve_1 | ~sieve_2 | ~sieve_3 | ~sieve_4 | ~sieve_5 | ~sieve_6 | ~sieve_7;
 
+code::
 ~sieve.booleanVector(size: ~sieve.period);
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPattern {
     classvar <nameToOperator;
@@ -99,24 +119,30 @@ FoscPattern {
         payload = argPayload;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *allIndices (index_all)
 
     Make pattern that matches all indices.
 
+    code::
     p = FoscPattern.allIndices;
     p.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *allIndices {
         ^FoscPattern(indices: #[0], period: 1);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *booleanVector
 
     Make pattern from boolean vector.
 
+    code::
     p = FoscPattern.booleanVector(#[1,0,0,1,1,0]);
     p.booleanVector;
     p.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *booleanVector { |vector|
         var period, indices;
@@ -127,12 +153,15 @@ FoscPattern {
         ^FoscPattern(indices: indices, period: period);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *first (index_first)
 
     Make pattern that matches the first 'n' indices.
 
+    code::
     p = FoscPattern.first(3);
     p.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *first { |n=1|
         var indices;
@@ -141,12 +170,15 @@ FoscPattern {
         ^FoscPattern(indices: indices);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *indices (index)
 
     Make pattern that matches 'indices'.
 
+    code::
     p = FoscPattern.indices(#[2]);
     p.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *indices { |indices, period|
         indices = indices ? [];
@@ -154,12 +186,15 @@ FoscPattern {
         ^FoscPattern(indices: indices, period: period);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *last (index_last)
 
     Make pattern that matches the last 'n' indices.
 
+    code::
     p = FoscPattern.last(3);
     p.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *last { |n=1|
         var indices;
@@ -168,11 +203,14 @@ FoscPattern {
         ^FoscPattern(indices: indices);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *ratio
 
+    code::
     p = FoscPattern.ratio(#[1,3,2]);
     p.booleanVector;
     p.invert.booleanVector;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // *ratio { |ratio, repeat=false|
     //     var indices;
@@ -184,41 +222,55 @@ FoscPattern {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • indices
 
     Gets indices of pattern.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • inverted
 
     Is true when pattern is inverted.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • operator
 
     Gets operator of pattern.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • patterns
 
     Gets paterns of pattern.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • payload
 
     Gets payload of pattern.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • period
 
     Gets period of pattern.
 
+    code::
     p = FoscPattern.indices(#[0], period: 3) | FoscPattern.indices(#[0], period: 4);
     p.period;
 
 
+    code::
     p = FoscPattern.indices(#[0], period: 3);
     p.period;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     period {
         var periods;
@@ -230,6 +282,7 @@ FoscPattern {
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • sum (weight)
 
     Gets sum of pattern.
@@ -238,8 +291,10 @@ FoscPattern {
 
     Returns nonnegative integer.
 
+    code::
     a = FoscPattern(#[0,2,3]);
     a.sum;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     sum {
         ^indices.size;
@@ -248,78 +303,101 @@ FoscPattern {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
+    code::
     • |
 
     Union (logical OR) of two patterns. Synonymous with 'union'.
 
+    code::
     a = "abcde";
     p = FoscPattern.first(2) union: FoscPattern.last(2);
     p.getMatchingItems(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     | { |pattern|
         ^this.union(pattern);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • &
 
     Intersection (logical AND) of two patterns. Synonymous with 'sect'.
 
+    code::
     a = "abcde";
     p = FoscPattern.first(3) & FoscPattern.last(3);
     p.getMatchingItems(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     & { |pattern|
         ^this.sect(pattern);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • --
 
     Intersection (logical XOR) of two patterns. Synonymous with 'symmetricDifference'.
 
+    code::
     a = "abcde";
     p = FoscPattern.first(2) -- FoscPattern.last(2);
     p.getMatchingItems(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     -- { |pattern|
         ^this.symmetricDifference(pattern);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
+    code::
     p = FoscPattern.indices(#[0,1,2], 5);
     p.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */ 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
+    code::
     p = FoscPattern.indices(#[0,1,2], 5);
     p.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • invert
 
     Inverts pattern in place.
 
+    code::
     p = FoscPattern.indices(#[0,1,3], 4);
     p.booleanVector;
 
+    code::
     p.invert;
     p.booleanVector;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     invert {
         this.instVarPut('inverted', inverted.not);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • sect
 
     Intersection (logical AND) of two patterns.
 
+    code::
     a = "abcde";
     p = FoscPattern.first(3) sect: FoscPattern.last(3);
     p.getMatchingItems(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     sect { |pattern|
         var new, selfPatterns, patterns;
@@ -335,13 +413,17 @@ FoscPattern {
         ^new;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • size
 
+    code::
     p = FoscPattern.first(2);
     p.size;
 
+    code::
     p = FoscPattern.first(2) | FoscPattern.last(2);
     p.size;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     size {
         var absoluteIndices, index, maximumIndex;
@@ -362,28 +444,36 @@ FoscPattern {
         ^0;
     }  
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • storeArgs
+    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^[indices, period, payload];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
+    code::
     a = FoscPattern.indices(#[0,1,2], 5);
     a.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         ^this.cs;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • symmetricDifference
 
     Intersection (logical XOR) of two patterns.
 
+    code::
     a = "abcde";
     p = FoscPattern.first(2) symmetricDifference: FoscPattern.last(2);
     p.getMatchingItems(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     symmetricDifference { |pattern|
         var new, selfPatterns, patterns;
@@ -399,13 +489,16 @@ FoscPattern {
         ^new;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • union
 
     Union (logical OR) of two patterns.
 
+    code::
     a = "abcde";
     p = FoscPattern.first(2) union: FoscPattern.last(2);
     p.getMatchingItems(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     union { |pattern|
         var new, selfPatterns, patterns;
@@ -424,6 +517,7 @@ FoscPattern {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • booleanVector
 
     Gets boolean vector of pattern applied to input sequence with 'size'.
@@ -431,16 +525,21 @@ FoscPattern {
 
     • Example 1
 
+    code::
     p = FoscPattern.indices(#[4,5,6,7]);
     
+    code::
     p.booleanVector(4);
     
+    code::
     p.booleanVector(8);
 
+    code::
     p.booleanVector(16);
 
     'size' is set to size of pattern when no value is specified for 'size'.
 
+    code::
     p.booleanVector;
 
 
@@ -448,13 +547,16 @@ FoscPattern {
 
     Two part pattern with logical OR (union).
 
+    code::
     p = FoscPattern.first(3) | FoscPattern.last(3);
     p.booleanVector(8);
 
     Vector of inverted pattern.
 
+    code::
     p.invert;
     p.booleanVector(8);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     booleanVector { |size|
         var booleanVector, result;
@@ -467,39 +569,47 @@ FoscPattern {
         ^booleanVector;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • getMatchingItems
 
     Gets matching items from container, selection, or sequenceable collection.
 
 
+    code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.indices(#[4,5,6,7]);
     p.getMatchingItems(a);
 
     
+    code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.indices(#[8,9], period: 10);
     p.getMatchingItems(a);    
 
 
+    code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.first(4);
     p.getMatchingItems(a); 
 
 
+    code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.last(3);
     p.getMatchingItems(a);  
 
 
+    code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.first(1) | FoscPattern.last(2);
     p.getMatchingItems(a);
 
 
+    code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern(#[0,-2,-1]);
     p.getMatchingItems(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     getMatchingItems { |object|
         var prototype, size, items, item;
@@ -519,12 +629,19 @@ FoscPattern {
         ^items;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • matchesIndex
 
     Is true when pattern matches 'index' taken under 'totalLength'.
 
+    code::
     p = FoscPattern.indices(#[0,1,7], period: 8);
     16.do { |i| i.post; Post.space; if (p.matchesIndex(i, 16)) { 'True'.post }; Post.nl };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     matchesIndex { |index, totalLength, rotation|
         var nonnegativeIndex, localPattern, localOperator, result, localResult;
@@ -585,6 +702,7 @@ FoscPattern {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • reverse
 
     Reverses pattern.
@@ -594,20 +712,25 @@ FoscPattern {
 
     • Example 1
 
+    code::
     p = FoscPattern(#[0,1,3], 4);
     p.booleanVector(8);
 
+    code::
     p = p.reverse;
     p.booleanVector(8);
 
 
     • Example 2
 
+    code::
     p = FoscPattern.first(3) | FoscPattern.last(1);
     p.booleanVector(6);
 
+    code::
     p = p.reverse;
     p.booleanVector(6);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     reverse {
         var indices, new, patterns_;
@@ -624,6 +747,7 @@ FoscPattern {
         ^new;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • rotate
     
     Rotates pattern by index 'n'.
@@ -633,26 +757,33 @@ FoscPattern {
 
     • Example 1
 
+    code::
     p = FoscPattern(#[0,1,3], 4);
     p.booleanVector(8);
 
+    code::
     p = p.rotate(1);
     p.booleanVector(8);
 
+    code::
     p = p.rotate(-1);
     p.booleanVector(8);
 
 
     • Example 2
 
+    code::
     p = FoscPattern.first(3) | FoscPattern.last(1);
     p.booleanVector(6);
 
+    code::
     p = p.rotate(1);
     p.booleanVector(6);
 
+    code::
     p = p.rotate(-1);
     p.booleanVector(6);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     rotate { |n|
         var indices, new, patterns_;
@@ -672,7 +803,9 @@ FoscPattern {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prCanAppendToSelf
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prCanAppendToSelf { |pattern, operator|
         if (pattern.isKindOf(this.species).not) { ^false };

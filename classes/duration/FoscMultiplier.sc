@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscMultiplier
+
+
+SUMMARY:: Returns a FoscMultiplier.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscMultiplier
 
 FoscMultiplier.
@@ -86,15 +100,18 @@ FoscMultiplier(3, 16).isKindOf(Number); //!!! BROKEN
 
 Attaching a multiplier to a score component multiplies that component's duration.
 
+code::
 n = FoscNote(60, 1);
 n.attach(FoscMultiplier(5, 8));
 n.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscMultiplier : FoscDuration {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *
 
     Multiplier times duration returns duration.
@@ -107,12 +124,14 @@ FoscMultiplier : FoscDuration {
     else:
         return Duration.__mul__(self, *arguments)
     
+    code::
     a = FoscMultiplier(1, 1);
     b = FoscMultiplier(1, 3);
     c = FoscDuration(1, 3);
 
     (a * b).inspect;        // returns a FoscMultiplier
     (a * c).inspect;        // returns a FoscDuration
+    '''
     -------------------------------------------------------------------------------------------------------- */
     * { |expr|
         if (expr.species == FoscDuration) {
@@ -125,6 +144,7 @@ FoscMultiplier : FoscDuration {
     // PUBLIC CLASS PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *fromDotCount
 
     Makes multiplier from 'dotCount'.
@@ -132,11 +152,13 @@ FoscMultiplier : FoscDuration {
 
     • Example 1
 
+    code::
     FoscMultiplier.fromDotCount(0).str;
     FoscMultiplier.fromDotCount(1).str;
     FoscMultiplier.fromDotCount(2).str;
     FoscMultiplier.fromDotCount(3).str;
     FoscMultiplier.fromDotCount(4).str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *fromDotCount { |dotCount|
         var denominator, numerator;
@@ -150,6 +172,7 @@ FoscMultiplier : FoscDuration {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isNormalized
 
     Is true when mutliplier is greater than 1/2 and less than 2. Otherwise false:
@@ -159,8 +182,10 @@ FoscMultiplier : FoscDuration {
 
     • Example 1
 
+    code::
     FoscMultiplier(3, 2).isNormalized;
     FoscMultiplier(7, 2).isNormalized;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isNormalized {
         ^((this.species.new(1, 2) < this) && (this < this.species.new(2)));

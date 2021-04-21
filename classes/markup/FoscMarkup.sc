@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscMarkup
+
+
+SUMMARY:: Returns a FoscMarkup.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscMarkup (abjad 3.0)
 
 !!!TODO: write a parser - see abjad source
@@ -10,15 +24,26 @@ LilyPond markup.
 
 Initialize from string.
 
+code::
 m = FoscMarkup("And one and two and three.");
 m.format;
 m.show;
+
+img:: ![](../img/markup-markup-1.png)
+'''
+
+p = "%/fosc/docs/img/markup-markup-1".format(Platform.userExtensionDir);
+m.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2
 
 Initialize from array.
 
+code::
 m = FoscMarkup(["\\italic", "Allegro assai"]);
 m.format;
 
@@ -27,6 +52,7 @@ m.format;
 
 Initialize from markup.
 
+code::
 m = FoscMarkup("And one and two and three.");
 m = FoscMarkup(m);
 m.format;
@@ -36,21 +62,42 @@ m.format;
 
 Attach markup to score components.
 
+code::
 m = FoscMarkup(["\\italic", "Allegro assai"], 'up');
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 a[0].attach(m);
 a.show;
+
+img:: ![](../img/markup-markup-2.png)
+'''
+
+p = "%/fosc/docs/img/markup-markup-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 5
 
 Markups can be tweaked.
 
+code::
 m = FoscMarkup(["\\italic", "Allegro assai"], 'up');
 tweak(m).color = 'blue';
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 a[0].attach(m);
 a.show;
+
+img:: ![](../img/markup-markup-3.png)
+'''
+
+p = "%/fosc/docs/img/markup-markup-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscMarkup : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +158,7 @@ FoscMarkup : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • contents
 
     Gets contents of markup.
@@ -120,10 +168,13 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     m = FoscMarkup("Allegro");
     m.contents;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • direction
 
     Gets direction of markup.
@@ -137,18 +188,23 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     m = FoscMarkup("Allegro", direction:'-');
     m.direction;
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • literal
 
     !!!TODO: when parser is written
 
     Is true when markup formats contents literally.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweak
 
     Gets tweaks.
@@ -156,69 +212,112 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     m = FoscMarkup("Allegro assai", 'up');
     tweak(m).color = 'blue';
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(m);
     a.show;
 
+    img:: ![](../img/markup-markup-4.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-4".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 2
 
+    code::
     m = FoscMarkup("Allegro assai", 'up', tweaks: #[['color', 'blue']]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(m);
     a.show;
+
+    img:: ![](../img/markup-markup-5.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-5".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ++ (abjad: __add__)
     
 
     Adds markup to 'argument'.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ++ { |expr|
     	^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • copy
     
     Copies markup.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • == (abjad: __eq__)
 
     Is true markup equals argument.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
     !!!TODO:INCOMPLETE
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^"FoscMarkup(\"%\")".format(contents[0]);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats markup.
 
     Returns string.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • illustrate
     
     Illustrates markup.
 
     Returns LilyPond file.
     
+    code::
     m = FoscMarkup("foo");
     m.illustrate;
     m.show;
+
+    img:: ![](../img/markup-markup-6.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-6".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     illustrate {
     	var lilypondFile, markup;
@@ -229,16 +328,19 @@ FoscMarkup : FoscObject {
         ^lilypondFile;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <
 
     Is true when markup contents compare less than 'argument' contents.
 
     Raises type error when 'argument' is not markup.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     < { |expr|
     	^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str (abjad: __str__)
     
     Gets string representation of markup.
@@ -246,7 +348,9 @@ FoscMarkup : FoscObject {
     Returns string.
 
 
+    code::
     FoscMarkup("Allegro assai").str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
     	^this.prGetLilypondFormat;
@@ -255,33 +359,46 @@ FoscMarkup : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatPieces
     
     !!!TODO: not being parsed command-by-command to new lines, as in abjad - is a simple parser needed ??
+    code::
     m = FoscMarkup("\\italic Allegro");
     m.format;
 
+    code::
     m = FoscMarkup(["\\italic", "Allegro assai"]);
     m.format;
 
+    code::
     m = FoscMarkup("a bit of text.", direction: 'up');
     m.format;
 
+    code::
     m = FoscMarkup(["a bit of text.", "more text."], direction: 'down');
     m.format;
 
+    code::
     m = FoscMarkup([m, m]);
     m.format;
 
+    code::
     m = FoscMarkup("1").box;
     m = m.override(['box-padding', 0.5]);
     m.format;
 
+    code::
     m = FoscMarkup('foobar');
     m = m.withColor(FoscSchemeColor("ForestGreen"));
     m.prGetFormatPieces.printAll;
 
+    post::
+    POSTOUTPUT
+    '''
+
     FoscMarkupCommand
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         var localTweaks, indent, content, localDirection="", string, pieces;
@@ -332,13 +449,17 @@ FoscMarkup : FoscObject {
         ^(localTweaks ++ pieces);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
     	^this.prGetFormatPieces.join("\n");
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateExpression
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prUpdateExpression { |frame|
     	^this.notYetImplemented(thisMethod);
@@ -347,15 +468,19 @@ FoscMarkup : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prParseMarkupCommandArgument
     
+    code::
     m = FoscMarkup("Los Angeles");
     x = FoscMarkup.prParseMarkupCommandArgument(m);
     FoscMarkup(x).format;
 
+    code::
     m = "Los Angeles";
     x = FoscMarkup.prParseMarkupCommandArgument(m);
     FoscMarkup(x).format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prParseMarkupCommandArgument { |expr|
         var contents;
@@ -376,9 +501,12 @@ FoscMarkup : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *abjadMetronomeMark
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *centerColumn
 
     LilyPond \center-column markup command.
@@ -388,10 +516,21 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscMarkup("Los Angeles");
     b = FoscMarkup("May - August 2014");
     m = FoscMarkup.centerColumn([a, b]);
     m.show;
+
+    img:: ![](../img/markup-markup-7.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-7".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *centerColumn { |markupList, direction|
         var contents, command;
@@ -403,6 +542,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • *column
 
     LilyPond \column markup command.
@@ -412,10 +552,21 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscMarkup("Los Angeles");
     b = FoscMarkup("May - August 2014");
     m = FoscMarkup.column([a, b]);
     m.show;
+
+    img:: ![](../img/markup-markup-8.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-8".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *column { |markupList, direction|
         var contents, command;
@@ -425,6 +576,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *combine
 
     LilyPond \combine markup command.
@@ -434,10 +586,21 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscMarkup("Allegro assai");
     b = FoscMarkup.drawLine(13, 0);
     m = FoscMarkup.combine([a, b]);
     m.show;
+
+    img:: ![](../img/markup-markup-9.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-9".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *combine { |markupList, direction|
         var markup1, markup2, contents1, contents2, command;
@@ -448,6 +611,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *concat !!!TODO
 
     LilyPond \concat markup command.
@@ -457,11 +621,22 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscMarkup.musicGlyph('scripts.downbow');
     b = FoscMarkup.hspace(1);
     c = FoscMarkup.musicGlyph('scripts.upbow');
     m = FoscMarkup.concat([a, b, c]);
     m.show;
+
+    img:: ![](../img/markup-markup-10.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-10".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *concat { |markupList, direction|
         var result, contents, command;
@@ -474,6 +649,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *drawCircle
 
     LilyPond \draw-circle markup command.
@@ -483,8 +659,19 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     m = FoscMarkup.drawCircle(10, 1.5);
     m.show;
+
+    img:: ![](../img/markup-markup-11.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-11".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *drawCircle { |radius, thickness, direction, filled=false|
         var command;
@@ -492,6 +679,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *drawLine
 
     LilyPond \draw-line markup command.
@@ -501,8 +689,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.drawLine(5, -2.5);
     m.show;
+
+    img:: ![](../img/markup-markup-12.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-12".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *drawLine { |x, y, direction|
         var pair, command;
@@ -511,6 +710,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *filledBox
 
     LilyPond filled-box markup command.
@@ -520,8 +720,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.filledBox(#[0,10], #[2,5], 1.5);
     m.show;
+
+    img:: ![](../img/markup-markup-13.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-13".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *filledBox { |xExtent, yExtent, blot=0, direction|
         var command;
@@ -532,6 +743,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *flat
 
     LilyPond \flat markup command.
@@ -541,8 +753,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.flat;
     m.show;
+
+    img:: ![](../img/markup-markup-14.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-14".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *flat { |direction|
         var command;
@@ -550,14 +773,17 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *fromLiteral
 
     !!!TODO: once parser is written
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *fromLiteral {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *fraction
     
     LilyPond \fraction markup command.
@@ -567,14 +793,35 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.fraction(1, 4);
     m.show;
+
+    img:: ![](../img/markup-markup-15.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-15".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
 
 
     • Example 2
 
+    code::
     m = FoscMarkup.fraction('π', 4);
     m.show;
+
+    img:: ![](../img/markup-markup-16.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-16".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *fraction { |numerator, denominator, direction|
         var command;
@@ -582,6 +829,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *hspace
 
     LilyPond \hspace markup command.
@@ -591,8 +839,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.hspace(0.75);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *hspace { |amount, direction|
         var command;
@@ -600,6 +850,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *leftColumn
 
     LilyPond \left-column markup command.
@@ -609,10 +860,21 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscMarkup("Los Angeles");
     b = FoscMarkup("May - August 2014");
     m = FoscMarkup.leftColumn([a, b]);
     m.show;
+
+    img:: ![](../img/markup-markup-17.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-17".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *leftColumn { |markupList, direction|
         var contents, command;
@@ -624,6 +886,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *line
     
     LilyPond \line markup command.
@@ -633,8 +896,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.line(#["Allegro", "assai"]);
     m.show;
+
+    img:: ![](../img/markup-markup-18.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-18".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *line { |markupList, direction|
         var contents, command;
@@ -645,16 +919,19 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *makeImproperFractionMarkup
 
     Makes improper fraction markup.
 
     !!!TODO
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *makeImproperFractionMarkup { |rational, direction|
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *musicGlyph
 
     LilyPond \musicglyph markup command.
@@ -666,14 +943,25 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.musicGlyph("accidentals.sharp");
     m.show;
+
+    img:: ![](../img/markup-markup-19.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-19".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
 
     
     • Example 2
 
     LilypondMusicGlyphs.list.printAll;      // valid Lilypond glyph names
     m = FoscMarkup.musicGlyph("foo");       // throws error when glyphName is not valid
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *musicGlyph { |glyphName, direction|
         var glyphScheme, command;
@@ -687,6 +975,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *natural
 
     LilyPond \natural markup command.
@@ -696,8 +985,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.natural;
     m.show;
+
+    img:: ![](../img/markup-markup-20.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-20".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *natural { |direction|
         var command;
@@ -705,6 +1005,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *noteByNumber
 
     LilyPond \note-by-number markup command.
@@ -714,8 +1015,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.noteByNumber(log: 3, dotCount: 2, stemDirection: 1);
     m.show;
+
+    img:: ![](../img/markup-markup-21.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-21".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *noteByNumber { |log, dotCount, stemDirection, direction|
         var command;
@@ -723,6 +1035,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *null
 
     LilyPond \null markup command.
@@ -732,8 +1045,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.null;
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *null { |direction|
         var command;
@@ -741,6 +1056,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *overlay
 
     !!!TODO: broken here and in abjad. Has \overlay been deprecated from lilypond?
@@ -752,10 +1068,21 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscMarkup("Los Angeles");
     b = FoscMarkup("May - August 2014");
     m = FoscMarkup.overlay([a, b]);
     m.show;
+
+    img:: ![](../img/markup-markup-22.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-22".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *overlay { |markupList, direction|
         var contents, command;
@@ -767,6 +1094,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *postscript
     
     LilyPond \postscript markup command.
@@ -776,6 +1104,7 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     p = FoscPostscript();
     p.moveto(1.0, 1.0);
     p.setlinewidth(2.5);
@@ -784,6 +1113,16 @@ FoscMarkup : FoscObject {
     m = FoscMarkup.postscript(p);
     m.format;
     m.show;
+
+    img:: ![](../img/markup-markup-23.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-23".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *postscript { |postscript, direction|
         var command;
@@ -796,6 +1135,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *rightColumn
     
     LilyPond \right-column markup command.
@@ -805,10 +1145,21 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscMarkup("Los Angeles");
     b = FoscMarkup("May - August 2014");
     m = FoscMarkup.rightColumn([a, b]);
     m.show;
+
+    img:: ![](../img/markup-markup-24.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-24".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *rightColumn { |markupList, direction|
     	var contents, command;
@@ -820,6 +1171,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *sharp
     
     LilyPond \sharp markup command.
@@ -829,8 +1181,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.sharp;
     m.show;
+
+    img:: ![](../img/markup-markup-25.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-25".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *sharp { |direction|
         var command;
@@ -838,6 +1201,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *triangle
 
     LilyPond \triangle markup command.
@@ -847,8 +1211,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.triangle(isFilled: true);
     m.show;
+
+    img:: ![](../img/markup-markup-26.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-26".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *triangle { |direction, isFilled=true|
         var command;
@@ -856,6 +1231,7 @@ FoscMarkup : FoscObject {
         ^FoscMarkup(command, direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *vspace
    
     LilyPond \vspace markup command.
@@ -865,8 +1241,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup.vspace(0.75);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *vspace { |amount, direction|
         var command;
@@ -877,6 +1255,7 @@ FoscMarkup : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • bold
 
     LilyPond \bold markup command.
@@ -886,8 +1265,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = bold(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-27.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-27".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     bold {
         var contents, command;
@@ -896,6 +1286,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • box
 
     LilyPond \box markup command.
@@ -905,11 +1296,22 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     m = box(FoscMarkup("Allegro assai", direction: 'up'));
     m = override(m, #['box-padding', 1]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(m);
     a.show;
+
+    img:: ![](../img/markup-markup-28.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-28".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     box {
     	var contents, command;
@@ -918,6 +1320,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • bracket
 
     LilyPond \bracket markup command.
@@ -927,8 +1330,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = bracket(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-29.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-29".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     bracket {
     	var contents, command;
@@ -937,6 +1351,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • caps
 
     LilyPond \caps markup command.
@@ -946,8 +1361,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = caps(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-30.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-30".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     caps {
     	var contents, command;
@@ -956,6 +1382,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • centerAlign
     
     LilyPond \center-align markup command.
@@ -965,11 +1392,22 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscMarkup("Allegro");
     b = centerAlign(FoscMarkup("non"));
     c = FoscMarkup("troppo");
     m = FoscMarkup.column([a, b, c]);
     m.show;
+
+    img:: ![](../img/markup-markup-31.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-31".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     centerAlign {
     	var contents, command;
@@ -978,6 +1416,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • circle
 
     LilyPond \circle markup command.
@@ -987,9 +1426,20 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = circle(FoscMarkup.fraction(3, 5));
     m = override(m, ['circle-padding', 0.5]);
     m.show;
+
+    img:: ![](../img/markup-markup-32.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-32".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     circle {
     	var contents, command;  
@@ -998,6 +1448,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • dynamic
 
     LilyPond \dynamic markup command.
@@ -1007,8 +1458,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = dynamic(FoscMarkup("sffz"));
     m.show;
+
+    img:: ![](../img/markup-markup-33.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-33".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     dynamic {
     	var contents, command;
@@ -1017,6 +1479,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • finger
 
     LilyPond \finger markup command.
@@ -1026,8 +1489,19 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     m = finger(FoscMarkup(1));
     m.show;
+
+    img:: ![](../img/markup-markup-34.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-34".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     finger {
     	var contents, command;
@@ -1036,6 +1510,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • fontSize
 
     LilyPond \fontsize markup command.
@@ -1045,14 +1520,35 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = fontSize(FoscMarkup("Allegro assai"), -3);
     m.show;
+
+    img:: ![](../img/markup-markup-35.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-35".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
 
 
     • Example 2
 
+    code::
     m = fontSize(FoscMarkup("Allegro assai"), 10);
     m.show;
+
+    img:: ![](../img/markup-markup-36.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-36".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     fontSize { |fontSize|
     	var contents, command;
@@ -1062,6 +1558,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • generalAlign
 
     LilyPond \general-align markup command.
@@ -1071,6 +1568,7 @@ FoscMarkup : FoscObject {
     
     • Example 1
 
+    code::
     m = FoscMarkup("Allegro assai");
     m = m.generalAlign('Y', 'UP');
     m.format;
@@ -1078,9 +1576,11 @@ FoscMarkup : FoscObject {
 
    • Example 2
 
+    code::
     m = FoscMarkup("Allegro assai");
     m = m.generalAlign('Y', 0.75);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     generalAlign { |axis, direction|
     	var contents, command;
@@ -1091,6 +1591,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • halign
 
     LilyPond halign markup command.
@@ -1100,8 +1601,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = halign(FoscMarkup("Allegro assai"), 0);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     halign { |direction|
     	var contents, command;
@@ -1110,6 +1613,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hcenterIn
     
     LilyPond \hcenter-in markup command.
@@ -1119,8 +1623,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = hcenterIn(FoscMarkup("Allegro assai"), 12);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     hcenterIn { |length|
     	var contents, command;
@@ -1129,6 +1635,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • huge
 
     LilyPond \huge markup command.
@@ -1138,8 +1645,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = huge(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-37.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-37".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     huge {
     	var contents, command;
@@ -1148,6 +1666,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • italic
     
     LilyPond \italic markup command.
@@ -1156,8 +1675,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = italic(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-38.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-38".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     italic {
     	var contents, command;
@@ -1166,6 +1696,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • larger
 
     LilyPond \larger markup command.
@@ -1175,8 +1706,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = larger(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-39.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-39".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     larger {
     	var contents, command;
@@ -1185,6 +1727,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • override
 
      LilyPond \override markup command.
@@ -1194,9 +1737,20 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = parenthesize(FoscMarkup("Allegro assai"));
     m = override(m, ['padding', 0.75]);
     m.show;
+
+    img:: ![](../img/markup-markup-40.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-40".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     override { |newProperty|
     	var contents, command;
@@ -1206,6 +1760,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • padAround
 
     LilyPond \pad-around markup command.
@@ -1215,8 +1770,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = padAround(FoscMarkup("Allegro assai"), 10);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     padAround { |padding|
     	var contents, command;
@@ -1225,6 +1782,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • padMarkup
 
     LilyPond \pad-markup markup command.
@@ -1234,8 +1792,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = padMarkup(FoscMarkup("Allegro assai"), 10);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     padMarkup { |padding|
         var contents, command;
@@ -1244,12 +1804,15 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • padToBox
 
     LilyPond pad-to-box markup command.
 
+    code::
     m = padToBox(FoscMarkup("Allegro assai"), #[1,1], #[1,1]);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     padToBox { |xExtent, yExtent|
     	var contents, command;
@@ -1260,6 +1823,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parenthesize
 
     LilyPond \parenthesize markup command.
@@ -1269,8 +1833,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = parenthesize(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-41.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-41".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     parenthesize {
     	var contents, command;
@@ -1279,6 +1854,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • raise
     
     LilyPond \raise markup command.
@@ -1288,8 +1864,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = raise(FoscMarkup("Allegro assai"), 0.35);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     raise { |amount|
     	var contents, command;
@@ -1298,6 +1876,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • rotate
 
     LilyPond \rotate markup command.
@@ -1307,8 +1886,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = rotate(FoscMarkup("Allegro assai"), 45);
     m.show;
+
+    img:: ![](../img/markup-markup-42.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-42".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     rotate { |angle|
     	var contents, command;
@@ -1317,6 +1907,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • sans
 
     LilyPond \sans markup command.
@@ -1326,8 +1917,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = sans(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-43.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-43".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     sans {
     	var contents, command;
@@ -1336,6 +1938,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • scale
 
     LilyPond \scale markup command.
@@ -1345,9 +1948,20 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup("Allegro assai");
     m = m.scale(#[0.75, 1.5]);
     m.show;
+
+    img:: ![](../img/markup-markup-44.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-44".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     scale { |factorPair|
     	var contents, command;
@@ -1357,6 +1971,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • small
 
     LilyPond \small markup command.
@@ -1366,8 +1981,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = small(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-45.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-45".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     small {
     	var contents, command;
@@ -1376,6 +2002,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • smaller
 
     LilyPond \smaller markup command.
@@ -1385,8 +2012,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = smaller(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-46.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-46".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     smaller {
     	var contents, command;
@@ -1395,6 +2033,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • sub
 
     LilyPond \sub markup command.
@@ -1404,9 +2043,20 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = [FoscMarkup("A"), sub(FoscMarkup("j"))];
     m = FoscMarkup.concat(a);
     m.show;
+
+    img:: ![](../img/markup-markup-47.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-47".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     sub {
     	var contents, command;
@@ -1415,6 +2065,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • super
 
     LilyPond \super markup command.
@@ -1424,9 +2075,20 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     a = [FoscMarkup("1"), super(FoscMarkup("st"))];
     m = FoscMarkup.concat(a);
     m.show;
+
+    img:: ![](../img/markup-markup-48.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-48".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     super {
     	var contents, command;
@@ -1435,6 +2097,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tiny
 
     LilyPond \tiny markup command.
@@ -1444,8 +2107,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = tiny(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-49.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-49".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     tiny {
     	var contents, command;
@@ -1454,6 +2128,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • translate
 
     LilyPond translate markup command.
@@ -1463,9 +2138,20 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscMarkup("Allegro assai");
     m = m.translate(#[2, 2]);
     m.show;
+
+    img:: ![](../img/markup-markup-50.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-50".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     translate { |offsetPair|
     	var contents, command;
@@ -1475,6 +2161,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • upright
 
     LilyPond \upright markup command.
@@ -1484,8 +2171,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = upright(FoscMarkup("Allegro assai"));
     m.show;
+
+    img:: ![](../img/markup-markup-51.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-51".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     upright {
     	var contents, command;
@@ -1494,6 +2192,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • vcenter
     
     LilyPond \vcenter markup command.
@@ -1503,8 +2202,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = vcenter(FoscMarkup("Allegro assai"));
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     vcenter {
     	var contents, command;
@@ -1513,6 +2214,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • whiteout
 
     LilyPond \whiteout markup command.
@@ -1522,8 +2224,10 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = whiteout(FoscMarkup("Allegro assai"));
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     whiteout {
     	var contents, command;
@@ -1532,6 +2236,7 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • withColor
 
     LilyPond \with-color markup command.
@@ -1541,8 +2246,19 @@ FoscMarkup : FoscObject {
 
     • Example 1
 
+    code::
     m = withColor(FoscMarkup("Allegro assai"), 'blue');
     m.show;
+
+    img:: ![](../img/markup-markup-52.png)
+    '''
+
+    p = "%/fosc/docs/img/markup-markup-52".format(Platform.userExtensionDir);
+    m.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     withColor { |color|
     	var contents, command;
@@ -1552,14 +2268,17 @@ FoscMarkup : FoscObject {
         ^this.species.new(command, this.direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • withDimensions
 
 
     • Example 1
 
+    code::
     m = FoscMarkup("Allegro assai");
     m = m.withDimensions(#[0, 20], #[0, -20]);
     m.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     withDimensions { |xExtent, yExtent|
     	var contents, command;

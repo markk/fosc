@@ -1,14 +1,32 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscSchemeMoment
+
+
+SUMMARY:: Returns a FoscSchemeMoment.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscSchemeMoment
 
+code::
 a = FoscSchemeMoment(1, 64);
 a.format;
 
+code::
 a = FoscSchemeMoment([1, 64]);
 a.format;
 
+code::
 a = FoscSchemeMoment();
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSchemeMoment : FoscScheme {
 	*new { |... args|
@@ -34,7 +52,9 @@ FoscSchemeMoment : FoscScheme {
 
 	// PRIVATE ////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• prGetFormattedValue
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	prGetFormattedValue {
 		// numerator, denominator = self._value.numerator, self._value.denominator
@@ -43,11 +63,14 @@ FoscSchemeMoment : FoscScheme {
 
 	// PUBLIC /////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• duration
 	- Duration of scheme moment.
 
+ code::
 	a = FoscSchemeMoment(7, 8);
 	a.duration.format;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	duration {
         ^value;

@@ -1,4 +1,18 @@
 /* --------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscOffset
+
+
+SUMMARY:: Returns a FoscOffset.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscOffset
 
 **Example 1.** Initializes from integer numerator:
@@ -45,12 +59,14 @@ True
 **Example 14.** Offsets are numeric:
 isinstance(Offset(3, 16), numbers.Number)
 True
+'''
 -------------------------------------------------------------------------------------------------------- */
 FoscOffset : FoscDuration {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// INIT
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	•
 	__slots__ = (
 	        '_grace_displacement',
@@ -74,6 +90,7 @@ FoscOffset : FoscDuration {
 	        self = Duration.__new__(class_, *args)
 	        self._grace_displacement = grace_displacement
 	        return self
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	var <graceDisplacement;
 	*new { |numerator, denominator, graceDisplacement|
@@ -87,31 +104,41 @@ FoscOffset : FoscDuration {
 	// SPECIAL METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • copy
     
+    code::
     a = FoscOffset(FoscDuration(3, 16), graceDisplacement: [1, 16]);
     a.copy;
     a.pair;
     a.graceDisplacement.pair;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • deepCopy
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a == b;
 
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a == b;
 
+    code::
 	a = FoscOffset(1, 4);
 	b = FoscOffset(2, 4);
 	a == b;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |expr|
     	if (expr.isKindOf(this.species) && { this.pair == expr.pair }) {
@@ -122,19 +149,24 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) == FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • >= 
     
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a >= b;
 
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a >= b;
 
+    code::
 	a = FoscOffset(1, 4);
 	b = FoscOffset(2, 4);
 	a >= b;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     >= { |expr|
     	if (expr.isKindOf(this.species) && { this.pair == expr.pair }) {
@@ -145,26 +177,33 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) >= FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • storeArgs
+    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^this.pair;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • > 
 
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a > b;
 
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a > b;
 
+    code::
 	a = FoscOffset(2, 4);
 	b = FoscOffset(1, 4);
 	a > b;
 	a > a;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     > { |expr|
     	if (expr.isKindOf(this.species) && { this.pair == expr.pair }) {
@@ -175,23 +214,30 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) > FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hash
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <=
 	
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a <= b;
 
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a <= b;
 
+    code::
 	a = FoscOffset(2, 4);
 	b = FoscOffset(1, 4);
 	a <= b;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     <= { |expr|
     	if (expr.isKindOf(this.species) && { this.pair == expr.pair }) {
@@ -202,19 +248,24 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) <= FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • <
 	
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a < b;
 
+    code::
 	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
 	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
 	a < b;
 
+    code::
 	a = FoscOffset(2, 4);
 	b = FoscOffset(1, 4);
 	a < b;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     < { |expr|
     	if (expr.isKindOf(this.species) && { this.pair == expr.pair }) {
@@ -225,11 +276,15 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) < FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • -
+    '''
     -------------------------------------------------------------------------------------------------------- */
     - { |expr|
     	if (expr.isKindOf(this.species)) { ^(FoscDuration(this) - FoscDuration(expr)) };
@@ -241,27 +296,33 @@ FoscOffset : FoscDuration {
     // ADDITIONAL PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • exclusivelyBetween
     
+    code::
 	a = FoscOffset(1, 4);
 	b = FoscOffset(4, 4);
 	c = FoscOffset(2, 4);
 	c.exclusivelyBetween(a, b);
 	a.exclusivelyBetween(a, b);
 	a.exclusivelyBetween(b, c);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     exclusivelyBetween { |a, b|
     	^(this > a && { this < b });
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • inclusivelyBetween
 
+    code::
     a = FoscOffset(1, 4);
 	b = FoscOffset(4, 4);
 	c = FoscOffset(2, 4);
 	c.inclusivelyBetween(a, b);
 	a.inclusivelyBetween(a, b);
 	a.inclusivelyBetween(b, c);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     inclusivelyBetween { |a, b|
     	^(this >= a && { this <= b });
@@ -270,6 +331,7 @@ FoscOffset : FoscDuration {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     def _get_format_specification(self):
             is_indented = False
@@ -286,20 +348,24 @@ FoscOffset : FoscDuration {
                 storage_format_is_indented=is_indented,
                 storage_format_kwargs_names=names,
                 )
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     def _get_grace_displacement(self):
             from abjad.tools import durationtools
             if self.grace_displacement is None:
                 return durationtools.Duration(0)
             return self.grace_displacement
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     @property
         def grace_displacement(self):
@@ -351,6 +417,7 @@ FoscOffset : FoscDuration {
             Returns duration or none.
             '''
             return self._grace_displacement
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
 }

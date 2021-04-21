@@ -1,7 +1,22 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscDurationSpecifier
+
+
+SUMMARY:: Returns a FoscDurationSpecifier.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscDurationSpecifier
 
 Duration specifier.
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDurationSpecifier : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +51,7 @@ FoscDurationSpecifier : FoscObject {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
     !!!TODO: NOT YET IMPLEMENTED
@@ -43,8 +59,10 @@ FoscDurationSpecifier : FoscObject {
     Gets interpreter representation.
     
     Returns string.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     !!!TODO: NOT YET IMPLEMENTED
@@ -52,13 +70,16 @@ FoscDurationSpecifier : FoscObject {
     Formats duration spelling specifier.
     
     Returns string.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • value
 
 
     • Example 1
 
+    code::
     m = #[[2,4],[2,4],[2,4],[2,4]];
     a = FoscLeafMaker().(#[60,62,64,65], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier(rewriteMeter: true).([a], meters: m);
@@ -72,9 +93,19 @@ FoscDurationSpecifier : FoscObject {
     };
     FoscStaff(a).show;
 
+    img:: ![](../img/maker-duration-specifier-1.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-1".format(Platform.userExtensionDir);
+    FoscStaff(a).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 2
 
+    code::
     m = #[[2,4],[2,4],[2,4],[2,4]];
     a = FoscLeafMaker().(#[nil,62,nil,nil], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier(rewriteMeter: true).([a], meters: m);
@@ -88,9 +119,19 @@ FoscDurationSpecifier : FoscObject {
     };
     FoscStaff(a).show;
 
+    img:: ![](../img/maker-duration-specifier-2.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-2".format(Platform.userExtensionDir);
+    FoscStaff(a).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 3
 
+    code::
     m = #[[4,4],[4,4]];
     a = FoscLeafMaker().(#[nil,nil,nil,nil], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier(rewriteMeter: true).([a], meters: m);
@@ -103,6 +144,16 @@ FoscDurationSpecifier : FoscObject {
         };
     };
     FoscStaff(a).show;
+
+    img:: ![](../img/maker-duration-specifier-3.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-3".format(Platform.userExtensionDir);
+    FoscStaff(a).writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |selections, meters|
         // if (forbidMeterRewriting.not && rewriteMeter) {
@@ -118,18 +169,40 @@ FoscDurationSpecifier : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prRewriteMeter
 
+    code::
     a = FoscLeafMaker().(#[60,62,64,65], [3/8,6/8,2/8,5/8]);
     b = FoscDurationSpecifier.prRewriteMeter([a], [[4,4],[4,4]]);
     FoscSelection(b).show;
 
+    img:: ![](../img/maker-duration-specifier-4.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-4".format(Platform.userExtensionDir);
+    FoscSelection(b).writePNG("%.ly".format(p));
+
+
+
+
+    code::
     a = FoscLeafMaker().(#[60,62,64,65], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier.prRewriteMeter([a], [[3,8],[5,8],[3,8],[5,8]]);
     FoscSelection(a).show;
 
+    img:: ![](../img/maker-duration-specifier-5.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-5".format(Platform.userExtensionDir);
+    FoscSelection(a).writePNG("%.ly".format(p));
 
 
+
+
+
+
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,62,64,64], [1/2,1/32,7/8,1/16,1/32,1/2]));
     m = a.selectLeaves;
     m.partitionBySizes(#[2,2,2]).do { |each| each.tie };
@@ -137,6 +210,7 @@ FoscDurationSpecifier : FoscObject {
     a.leafAt(1).attach(FoscTimeSignature(#[4,4]));
     a.leafAt(5).attach(FoscTimeSignature(#[2,4]));
 
+    code::
     // use temporary containers to rewrite in-score selections of music
     n = m.partitionBySizes(#[1,3,2]);    
     n.do { |selection| mutate(selection).wrap(FoscContainer()) };
@@ -145,12 +219,33 @@ FoscDurationSpecifier : FoscObject {
     x = x[0].prEjectContents;
     a.prSetItem((1..1), x);
 
+    code::
     a.show;
 
+    img:: ![](../img/maker-duration-specifier-6.png)
+    '''
 
+    p = "%/fosc/docs/img/maker-duration-specifier-6".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
+
+    code::
     a = FoscLeafMaker().(#[60,62,64,65], [3/8,6/8,2/8,5/8]);
     b = FoscDurationSpecifier.prRewriteMeter([a], [[4,4],[4,4]]);
     FoscSelection(b).show;
+
+    img:: ![](../img/maker-duration-specifier-7.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-7".format(Platform.userExtensionDir);
+    FoscSelection(b).writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prRewriteMeter { |selections, meters, rewriteTuplets=false|
         var durations, newSelections, meter, container, contents;
@@ -203,11 +298,23 @@ FoscDurationSpecifier : FoscObject {
     //     ^selections;
     // }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prRewriteRestFilled
 
+    code::
     a = FoscLeafMaker().(#[nil,nil,nil,nil], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier.prRewriteRestFilled([a], multimeasureRests: true);
     FoscStaff(a).show;
+
+    img:: ![](../img/maker-duration-specifier-8.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-8".format(Platform.userExtensionDir);
+    FoscStaff(a).writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prRewriteRestFilled { |selections, multimeasureRests=false|
         var localSelections, maker, prototype, duration, multiplier, rest, rests;
@@ -233,6 +340,7 @@ FoscDurationSpecifier : FoscObject {
         ^localSelections;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prSplitAtMeasureBoundaries
 
     !!!TODO: duplicated in FoscMeterSpecifier:prSplitAtMeasureBoundaries - REFACTOR
@@ -240,27 +348,58 @@ FoscDurationSpecifier : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscLeafMaker().(#[60,62,64,65], [3/8,6/8,2/8,5/8]);
     //a.show;
     b = FoscDurationSpecifier.prSplitAtMeasureBoundaries([a], #[[4,4],[4,4]]);
     b.items;
     FoscStaff(b).show;
 
+    img:: ![](../img/maker-duration-specifier-9.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-9".format(Platform.userExtensionDir);
+    FoscStaff(b).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 2
 
+    code::
     a = FoscLeafMaker().(#[60,62,64,65], [3/8,6/8,2/8,5/8]);
     //a.show;
     b = FoscDurationSpecifier.prSplitAtMeasureBoundaries(a, #[[2,4],[2,4],[2,4],[2,4]]);
     FoscStaff(b).show;
 
+    img:: ![](../img/maker-duration-specifier-10.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-10".format(Platform.userExtensionDir);
+    FoscStaff(b).writePNG("%.ly".format(p));
+
+
+
+
 
     • Example 3
 
+    code::
     m = #[[2,4],[2,4],[2,4],[2,4]];
     a = FoscLeafMaker().(#[nil,62,nil,nil], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier(rewriteMeter: true).([a], meters: m);
     FoscStaff(a).show;
+
+    img:: ![](../img/maker-duration-specifier-11.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-duration-specifier-11".format(Platform.userExtensionDir);
+    FoscStaff(a).writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prSplitAtMeasureBoundaries { |selections, meters|
         var durations, meterDuration, musicDuration, voice, components, componentDurations, partLengths;
@@ -285,6 +424,7 @@ FoscDurationSpecifier : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • decreaseMonotonic
 
     Is true when all durations should be spelled as a tied series of monotonically decreasing values. Otherwise false.
@@ -292,8 +432,10 @@ FoscDurationSpecifier : FoscObject {
     Defaults to true.
     
     Returns true or false.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • forbidMeterRewriting
 
     Is true when meter rewriting is forbidden.
@@ -301,8 +443,10 @@ FoscDurationSpecifier : FoscObject {
     Defaults to nil.
     
     Returns boolean or nil.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • forbiddenDuration
 
     Gets forbidden written duration.
@@ -310,8 +454,10 @@ FoscDurationSpecifier : FoscObject {
     Defaults to nil.
     
     Returns duration or nil.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • rewriteMeter
 
     Is true when all output divisions should rewrite meter. Otherwise false.
@@ -321,8 +467,10 @@ FoscDurationSpecifier : FoscObject {
     Set to true, false or nil.
     
     Returns true, false or nil.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spellMetrically
 
     Is true when durations should spell according to approximate common practice understandings of meter. Otherwise false.
@@ -332,5 +480,6 @@ FoscDurationSpecifier : FoscObject {
     Defaults to nil.
     
     Returns boolean, 'unassignable' or nil..
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

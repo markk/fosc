@@ -1,14 +1,30 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscParentage
+
+
+SUMMARY:: Returns a FoscParentage.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscParentage
 
 Parentage of a component.
 
 !!!TODO: incomplete
 
+code::
 a = FoscNote(60, 1/4);
 b = FoscVoice([a]);
 p = FoscParentage(a);
 p.components;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscParentage : FoscSequence {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,95 +56,115 @@ FoscParentage : FoscSequence {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • component
     
     The component from which the selection was derived.
     
     Returns component.
     
+    code::
     a = FoscNote(60, 1/4);
     b = FoscVoice([a]);
     p = FoscParentage(a);
     p.component == a;   // true
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • components
 
     Gets components.
 
     Returns array.
 
+    code::
     a = FoscNote(60, 1/4);
     b = FoscVoice([a]);
     p = FoscParentage(a);
     p.components;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     components {
         ^this.items;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • depth
 
     Length of proper parentage of component.
     
     Returns integer.
 
+    code::
     a = FoscNote(60, 1);
     b = FoscContainer([FoscRhythm([3, 4], [a, 2, 1])]);
     p = FoscParentage(a);
     p.depth;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // DEPRECATED
     // depth {
     //     ^items[1..].size;
     // }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isOrphan
     
     Is true when component has no parent. Otherwise false.
     
     Returns true or false.
 
+    code::
     a = FoscNote(60, 1);
     b = FoscVoice([a]);
     p = FoscParentage(a);
     p.isOrphan;         // false
 
+    code::
     a = FoscNote(60, 1);
     p = FoscParentage(a);
     p.isOrphan;         // true
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isOrphan {
        ^this.parent.isNil; 
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parent
 
     Gets parent. Returns nil when component has no parent.
 
     Returns component or nil.
     
+    code::
     a = FoscNote(60, 1);
     b = FoscVoice([a]);
     p = FoscParentage(a);
     p.parent === b;     // true
 
+    code::
     a = FoscNote(60, 1);
     p = FoscParentage(a);
     p.parent;           // nil
+    '''
     -------------------------------------------------------------------------------------------------------- */
     parent {
         if (items.size > 1) { ^items[1] } { ^nil };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prolation
 
     Gets prolation.
     
     Returns multiplier.
 
+    code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a[0].prGetParentage.prolation.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prolation {
@@ -138,32 +174,38 @@ FoscParentage : FoscSequence {
         ^product;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • root
 
     Root is last component in parentage.
 
     Returns component.
 
+    code::
     a = FoscNote(60, 1);
     b = FoscVoice([a]);
     p = FoscParentage(a);
     p.root == b;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     root {
         ^items[items.lastIndex];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • scoreIndex
 
     Gets score index.
 
     Returns array of zero or more nonnegative integers.
     
+    code::
     a = FoscNote(60, 1);
     b = FoscScore([FoscStaff([FoscVoice([a])])]);
     p = FoscParentage(a);
     p.scoreIndex;
     // a.prGetParentage.scoreIndex
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // DEPRECATED
     scoreIndex {
@@ -178,12 +220,15 @@ FoscParentage : FoscSequence {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tupletDepth
     
+    code::
     a = FoscNote(60, 1);
     b = FoscRhythm([3, 4], [1, FoscRhythm(3, [1, 2, a])]);
     p = FoscParentage(a);
     p.tupletDepth;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // DEPRECATED
     // tupletDepth {
@@ -198,12 +243,14 @@ FoscParentage : FoscSequence {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • firstInstanceOf (abjad: get_first)
 
     Gets first instance of prototype in parentage.
 
     Returns component or none.
     
+    code::
     a = FoscNote(60, 1);
     b = FoscContainer([c = FoscRhythm([3, 4], [a, 2, 1])]);
     p = FoscParentage(a);
@@ -212,6 +259,7 @@ FoscParentage : FoscSequence {
     p.firstInstanceOf(FoscRhythm) === c;        // true
     p.firstInstanceOf(FoscContainer) === b;     // true
     p.firstInstanceOf(FoscRest);                // nil
+    '''
     -------------------------------------------------------------------------------------------------------- */
     firstInstanceOf { |prototype|
         if (prototype.isNil) { prototype = FoscComponent };
@@ -222,16 +270,19 @@ FoscParentage : FoscSequence {
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • logicalVoice
 
     Gets logical voice of items.
 
+    code::
     a = FoscLeafMaker().(#[60,62,64,65], [1/4]);
     b = FoscVoice(a);
     c = FoscStaff([b], name: 'bar');
     d = FoscScore([c], name: 'foo');
     p = FoscParentage(b[0]);
     l = p.logicalVoice;
+    '''
     -------------------------------------------------------------------------------------------------------- */  
     logicalVoice {
         var keys, logicalVoice;
@@ -273,17 +324,21 @@ FoscParentage : FoscSequence {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prIDString
     
+    code::
     a = FoscNote(60, 1);
     b = FoscVoice([a]);
     p = FoscParentage(b);
     FoscParentage.prIDString(p.component);
 
+    code::
     a = FoscNote(60, 1);
     a = FoscVoice(a).name_('voice_1');
     p = FoscParentage(a);
     FoscParentage.prIDString(p.component);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prIDString { |component|
         var lhs, rhs;
@@ -299,11 +354,18 @@ FoscParentage : FoscSequence {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prProlations
 
+    code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     p = FoscParentage(a[0]);
     p.prProlations.do { |e| [e, e.str].postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prProlations {
         var prolations, default, prolation;

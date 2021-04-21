@@ -1,13 +1,29 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscInspection
+
+
+SUMMARY:: Returns a FoscInspection.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscInspection
 
 Inspection agent.
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscInspection : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     def __init__(self, client=None):
             from abjad.tools import scoretools
@@ -19,10 +35,13 @@ FoscInspection : FoscObject {
                 raise TypeError(message)
             self._client = client
     
+    code::
     a = FoscInspection('blerk');
 
+    code::
     a = FoscInspection(FoscNote(60, 1));
     a.client;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     var <client;
     *new { |client|
@@ -41,6 +60,7 @@ FoscInspection : FoscObject {
     // PUBLIC METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • afterGraceContainer
 
     Gets after grace containers attached to leaf.
@@ -51,11 +71,13 @@ FoscInspection : FoscObject {
 
     def get_after_grace_container(self):
         return self._client._after_grace_container
+    '''
     -------------------------------------------------------------------------------------------------------- */
     afterGraceContainer {
         ^this.client.afterGraceContainer;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • annotation
 
     Gets value of annotation with name attached to client.
@@ -65,10 +87,21 @@ FoscInspection : FoscObject {
     Raises exception when more than one annotation with name is attached to client.
 
 
+    code::
     a = FoscNote(60, 1/4);
     a.annotate('clef', FoscClef('bass'));
     FoscInspection(a).annotation('clef');
     a.show;
+
+    img:: ![](../img/agent-inspection-1.png)
+    '''
+
+    p = "%/fosc/docs/img/agent-inspection-1".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     annotation { |annotation, default, unwrap=true|
         this.annotationWrappers.do { |wrapper|
@@ -79,11 +112,14 @@ FoscInspection : FoscObject {
         ^default
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • annotationWrappers
 
+    code::
     a = FoscNote(60, 1/4);
     a.annotate('clef', FoscClef('bass'));
     FoscInspection(a).annotationWrappers;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     annotationWrappers {
         var result;
@@ -96,6 +132,7 @@ FoscInspection : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • badlyFormedComponents
 
     Gets badly formed components in client.
@@ -108,6 +145,7 @@ FoscInspection : FoscObject {
     attach(beam, staff[:])
     
     f(staff)
+    code::
     \new Staff {
         c'8 [
         d'4
@@ -128,11 +166,13 @@ FoscInspection : FoscObject {
         for current_violators, total, check_name in manager(self._client):
             violators.extend(current_violators)
         return violators
+    '''
     -------------------------------------------------------------------------------------------------------- */
     badlyFormedComponents {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • components
 
     Gets all components of prototype in the descendants of client.
@@ -148,11 +188,13 @@ FoscInspection : FoscObject {
             prototype=prototype,
             include_self=include_self,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     components { |prototype, includeSelf=true|
         ^client.prComponents(prototype: prototype, includeSelf: includeSelf);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • contents
 
     Gets contents of client.
@@ -166,19 +208,27 @@ FoscInspection : FoscObject {
         return self._client._get_contents(
             include_self=include_self,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     contents { |includeSelf=true|
         ^client.prGetContents(includeSelf: includeSelf);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • descendants
 
     Gets descendants of client.
     
     Returns descendants.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/12,1/12,1/12,1/4]));
     FoscInspection(a).descendants.do { |each| each.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     descendants {
         var descendants, localDescendants;
@@ -200,6 +250,7 @@ FoscInspection : FoscObject {
         ^FoscSelection(descendants);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • duration
 
     Gets duration of client.
@@ -213,11 +264,13 @@ FoscInspection : FoscObject {
         return self._client._get_duration(
             in_seconds=in_seconds,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     duration { |inSeconds=false|
         ^client.prGetDuration(inSeconds: inSeconds);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • effectiveIndicator
 
     Gets effective indicator that matches prototype and governs client.
@@ -236,11 +289,13 @@ FoscInspection : FoscObject {
     show(staff) # doctest: +SKIP
     
     f(staff)
+    code::
     \new Staff {
         \clef "alto"
         c'4
         d'4
         e'4
+    code::
         \acciaccatura {
             fs'16
         }
@@ -270,13 +325,16 @@ FoscInspection : FoscObject {
             unwrap=unwrap,
             n=n,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     effectiveIndicator { |prototype, unwrap=true, n=0|
         //^client.prGetEffectiveIndicatorOfType(prototype: prototype, unwrap: unwrap, n: n);
         ^client.prGetEffective(prototype, unwrap, n);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • effective
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     effective { |prototype, attributes, default, n=0, unwrap=true|
@@ -304,6 +362,7 @@ FoscInspection : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • effectiveStaff
 
     Gets effective staff of client.
@@ -312,12 +371,15 @@ FoscInspection : FoscObject {
     
     def get_effective_staff(self):
         return self._client._get_effective_staff()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     effectiveStaff {
         ^client.prGetEffectiveStaff;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • effectiveWrapper
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     effectiveWrapper { |prototype, attributes, n=0|
@@ -325,6 +387,7 @@ FoscInspection : FoscObject {
         ^this.effective(prototype, attributes: attributes, n: n, unwrap: false);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • graceContainer
 
     abjad 2.21
@@ -335,14 +398,17 @@ FoscInspection : FoscObject {
     
     def get_grace_container(self):
         return self._client._grace_container
+    '''
     -------------------------------------------------------------------------------------------------------- */
     graceContainer {
         ^this.client.graceContainer;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • graceNote
 
     Is true when client is grace note.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     graceNote {
         var prototype;
@@ -354,6 +420,7 @@ FoscInspection : FoscObject {
         ^false;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • indicatorOfType (abjad: get_indicator)
 
     Gets indicator of prototype attached to client.
@@ -382,6 +449,7 @@ FoscInspection : FoscObject {
         else:
             message = 'multiple indicators attached to client.'
             raise Exception(message)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     indicatorOfType { |prototype, default, unwrap=true|
         var indicators;
@@ -394,7 +462,9 @@ FoscInspection : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • indicators (abjad: get_indicators)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     indicators { |prototype, unwrap=true|
@@ -407,6 +477,7 @@ FoscInspection : FoscObject {
         ^client.prGetIndicators(prototype: prototype, unwrap: unwrap);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • leafAt
 
     Gets leaf n.
@@ -426,6 +497,7 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(staff)
+    code::
         \new Staff {
             \new Voice {
                 c'8
@@ -433,6 +505,7 @@ FoscInspection : FoscObject {
                 e'8
                 f'8
             }
+    code::
             \new Voice {
                 g'8
                 a'8
@@ -549,10 +622,12 @@ FoscInspection : FoscObject {
     a = FoscStaff([
         FoscVoice({ |i| FoscNote(0 + i, [1, 4]) } ! 10),
         FoscVoice({ |i| FoscNote(10 + i, [1, 4]) } ! 10)
+    code::
     ]);
     FoscInspection(a).leafAt(7).pitch.pitchNumber;
     FoscInspection(a.select.byLeaf[5]).leafAt(2).pitch.pitchNumber;
     FoscInspection(a.select.leaves[4]).leafAt(-3).pitch.pitchNumber;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     leafAt { |n=0|
         var leaves, leaf;
@@ -571,6 +646,7 @@ FoscInspection : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • lineage
 
     Gets lineage of client.
@@ -579,11 +655,13 @@ FoscInspection : FoscObject {
 
     def get_lineage(self):
         return self._client._get_lineage()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     lineage {
         ^client.prLineage;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • logicalTie
 
     Gets logical tie that governs leaf.
@@ -593,14 +671,17 @@ FoscInspection : FoscObject {
     def get_logical_tie(self):
         return self._client._get_logical_tie()
 
+    code::
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
     FoscInspection(a[0]).logicalTie.music;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     logicalTie {
         ^client.prGetLogicalTie;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • markup
 
     Gets all markup attached to client.
@@ -614,11 +695,13 @@ FoscInspection : FoscObject {
         return self._client._get_markup(
             direction=direction,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     markup { |direction|
         ^client.prGetMarkup(direction: direction);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parentage
 
     Gets parentage of client.
@@ -640,8 +723,10 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(voice)
+    code::
         \new Voice {
             c'4
+    code::
             \grace {
                 c'16
                 d'16
@@ -671,8 +756,10 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(voice)
+    code::
         \new Voice {
             c'4
+    code::
             \grace {
                 c'16
                 d'16
@@ -699,14 +786,17 @@ FoscInspection : FoscObject {
             with_grace_notes=with_grace_notes,
             )
     
+    code::
     a = FoscNote(60, 1);
     FoscVoice([a]);
     FoscInspection(a).parentage.music;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     parentage { |includeSelf=true, graceNotes=false|
         ^client.prGetParentage(includeSelf, graceNotes);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • piecewise
 
     Gets piecewise indicators attached to client.
@@ -724,6 +814,7 @@ FoscInspection : FoscObject {
         if 1 < len(wrappers):
             message = 'multiple indicators attached to client.'
             raise Exception(message)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     piecewise { |prototype, default|
         var wrappers;
@@ -737,6 +828,7 @@ FoscInspection : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
 
     Gets sounding pitch of client.
@@ -754,6 +846,7 @@ FoscInspection : FoscObject {
 ..  doctest::
 
     >>> f(staff)
+    code::
     \new Staff {
         \set Staff.instrumentName = \markup { Piccolo }
         \set Staff.shortInstrumentName = \markup { Picc. }
@@ -769,11 +862,13 @@ FoscInspection : FoscObject {
 
     def get_sounding_pitch(self):
         return self._client._get_sounding_pitch()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     soundingPitch {
         ^client.prSoundingPitch;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
 
     Gets sounding pitches of client.
@@ -790,6 +885,7 @@ FoscInspection : FoscObject {
 
 
     >>> f(staff)
+    code::
     \new Staff {
         \set Staff.instrumentName = \markup { Glockenspiel }
         \set Staff.shortInstrumentName = \markup { Gkspl. }
@@ -803,11 +899,13 @@ FoscInspection : FoscObject {
 
     def get_sounding_pitches(self):
         return self._client._get_sounding_pitches()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     soundingPitches {
         ^client.prSoundingPitches;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spannerOfType
 
     Gets spanner of prototype attached to client.
@@ -836,9 +934,11 @@ FoscInspection : FoscObject {
             message = 'multiple spanners attached to client.'
             raise Exception(message)
     
+    code::
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
     FoscInspection(a[0]).spannerOfType(FoscTie);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     spannerOfType { |prototype, default, inParentage=false|
         var spanners;
@@ -851,6 +951,7 @@ FoscInspection : FoscObject {
         throw("%:%: multiple spanners attached to client.".format(this.species, thisMethod.name));
     }   
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spanners
 
     Gets spanners attached to client.
@@ -867,14 +968,17 @@ FoscInspection : FoscObject {
             in_parentage=in_parentage,
             )
     
+    code::
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
     FoscInspection(a[0]).spanners;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     spanners { |prototype, inParentage=false|
         ^client.prSpanners(prototype, inParentage);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • timespan
 
     Gets timespan of client.
@@ -902,14 +1006,17 @@ FoscInspection : FoscObject {
     ..  doctest::
 
         >>> f(voice)
+    code::
         \new Voice {
             c'8 [
+    code::
             \grace {
                 c'16
                 d'16
             }
             \afterGrace
             d'8
+    code::
             {
                 e'16
                 f'16
@@ -988,11 +1095,13 @@ FoscInspection : FoscObject {
         return self._client._get_timespan(
             in_seconds=in_seconds,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     timespan { |inSeconds=false|
         ^client.prGetTimespan(inSeconds: inSeconds);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • verticalMoment
 
     Gets vertical moment starting with client.
@@ -1006,11 +1115,13 @@ FoscInspection : FoscObject {
         return self._client._get_vertical_moment(
             governor=governor,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     verticalMoment { |governor|
         ^client.prVerticalMoment(governor: governor);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • verticalMomentAt
 
     Gets vertical moment at offset.
@@ -1024,11 +1135,13 @@ FoscInspection : FoscObject {
         return self._client._get_vertical_moment_at(
             offset,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     verticalMomentAt { |offset|
         ^client.prVerticalMomentAt(offset);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hasEffectiveIndicator
 
     Is true when indicator that matches prototype is in effect for client. Otherwise false.
@@ -1037,11 +1150,13 @@ FoscInspection : FoscObject {
 
     def has_effective_indicator(self, prototype=None):
         return self._client._has_effective_indicator(prototype=prototype)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     hasEffectiveIndicator { |prototype|
         ^client.prHasEffectiveIndicator(prototype: prototype);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hasIndicator
     
     Is true when client has one or more indicators that match prototype. Otherwise false.
@@ -1050,11 +1165,13 @@ FoscInspection : FoscObject {
 
     def has_indicator(self, prototype=None):
         return self._client._has_indicator(prototype=prototype)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     hasIndicator { |prototype|
         ^client.prHasIndicator(prototype: prototype);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hasSpanner
 
     Is true when client has one or more spanners that match prototype. Otherwise false.
@@ -1070,11 +1187,13 @@ FoscInspection : FoscObject {
             prototype=prototype,
             in_parentage=in_parentage,
             )
+    '''
     -------------------------------------------------------------------------------------------------------- */
     hasSpanner { |prototype, inParentage=false|
         ^client.prHasSpanner(prototype, inParentage);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isBarLineCrossing
 
     Is true when client crosses bar line. Otherwise false.
@@ -1090,6 +1209,7 @@ FoscInspection : FoscObject {
 ..  doctest::
 
     >>> f(staff)
+    code::
     \new Staff {
         \time 3/8
         c'4
@@ -1125,11 +1245,13 @@ FoscInspection : FoscObject {
         if time_signature_duration < stop_offset:
             return True
         return False
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isBarLineCrossing {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isWellFormed
 
     Is true when client is well-formed. Otherwise false.
@@ -1143,11 +1265,13 @@ FoscInspection : FoscObject {
             if violators:
                 return False
         return True
+    '''
     -------------------------------------------------------------------------------------------------------- */
     isWellFormed {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • reportModifications
 
     Reports modifications of client. Returns string.
@@ -1162,6 +1286,7 @@ FoscInspection : FoscObject {
 
 
     >>> f(container)
+    code::
     {
         \override NoteHead.color = #red
         \override NoteHead.style = #'harmonic
@@ -1177,6 +1302,7 @@ FoscInspection : FoscObject {
     >>> report = inspect_(container).report_modifications()
 
     >>> print(report)
+    code::
     {
         \override NoteHead.color = #red
         \override NoteHead.style = #'harmonic
@@ -1209,11 +1335,13 @@ FoscInspection : FoscObject {
             'after', bundle))
         result = '\n'.join(result)
         return result
+    '''
     -------------------------------------------------------------------------------------------------------- */
     reportModifications {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tabulateWellFormednessViolations
 
     Tabulates well-formedness violations in client.
@@ -1227,6 +1355,7 @@ FoscInspection : FoscObject {
     >>> attach(beam, staff[:])
 
     >>> f(staff)
+    code::
     \new Staff {
         c'8 [
         d'4
@@ -1276,12 +1405,15 @@ FoscInspection : FoscObject {
             string = string.format(violator_count, total, check_name)
             strings.append(string)
         return '\n'.join(strings)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     tabulateWellFormednessViolations {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • wrappers
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     wrappers { |prototype|
@@ -1291,17 +1423,20 @@ FoscInspection : FoscObject {
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • client
     
     Client of inspection agent.
     
     Returns component.
 
+    code::
     a = FoscInspection(FoscNote(60, 1));
     a.client;
 
     @property
     def client(self):
         return self._client
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

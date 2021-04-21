@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: tie
+
+
+SUMMARY:: Returns a tie.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • tie (abjad 3.0)
 
 Attaches tie indicators.
@@ -6,46 +20,97 @@ Attaches tie indicators.
 
 • Example 1
 
+code::
 a = FoscStaff(FoscLeafMaker().(60 ! 4, [1/4]));
 a[0..].tie;
 a.show;
+
+img:: ![](../img/spanner-tie-1.png)
+'''
+
+p = "%/fosc/docs/img/spanner-tie-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2
 
 Ties consecutive chords if all adjacent pairs have at least one pitch in common.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[[60],[60,62],[62]], [1/4]));
 a[0..].tie;
 a.show;
+
+img:: ![](../img/spanner-tie-2.png)
+'''
+
+p = "%/fosc/docs/img/spanner-tie-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3
 
 Same as example 2 but with tie above note on 2nd tie.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[[60],[60,62],[62]], [1/4]));
 a[0..1].tie;
 a[1..2].tie(direction: 'up');
 a.show;
+
+img:: ![](../img/spanner-tie-3.png)
+'''
+
+p = "%/fosc/docs/img/spanner-tie-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 4
 
 Enharmonics are allowed.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#["C4", "B#3", "Dbb4"], [1/4]));
 a[0..].tie;
 a.show;
+
+img:: ![](../img/spanner-tie-4.png)
+'''
+
+p = "%/fosc/docs/img/spanner-tie-4".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 5
 
 Ties can be tweaked.
 
+code::
 a = FoscStaff(FoscLeafMaker().(60 ! 4, [1/4]));
 a[0..].tie(tweaks: #[['color', 'blue']]);
 a.show;
+
+img:: ![](../img/spanner-tie-5.png)
+'''
+
+p = "%/fosc/docs/img/spanner-tie-5".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 + FoscSelection {
     tie { |direction, repeat=false, tag, tweaks|

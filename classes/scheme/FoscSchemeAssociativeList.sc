@@ -1,11 +1,28 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscSchemeAssociativeList
+
+
+SUMMARY:: Returns a FoscSchemeAssociativeList.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscSchemeAssociativeList
 
+code::
 a = FoscSchemeAssociativeList(['space', 2], ['padding', 0.5]);
 a.format;
 
+code::
 a = FoscSchemeAssociativeList(['space', 2], FoscSchemePair('padding', 0.5));
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSchemeAssociativeList : FoscScheme {
 	*new { |... args|

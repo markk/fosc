@@ -1,30 +1,75 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: glissando
+
+
+SUMMARY:: Returns a glissando.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • glissando (abjad 3.0)
 
 
 • Example 1
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 a[0..].glissando;
 a.show;
+
+img:: ![](../img/spanner-glissando-1.png)
+'''
+
+p = "%/fosc/docs/img/spanner-glissando-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2
 
 With stems set to true.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 a[0..].glissando(stems: true);
 a.show;
+
+img:: ![](../img/spanner-glissando-2.png)
+'''
+
+p = "%/fosc/docs/img/spanner-glissando-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3
 
 Glissandos can be tweaked.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 a[0..].glissando(stems: true, tweaks: #[['thickness', 4], ['color', 'red']]);
 a.show;
+
+img:: ![](../img/spanner-glissando-3.png)
+'''
+
+p = "%/fosc/docs/img/spanner-glissando-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 + FoscSelection {
     glissando { |allowRepeats=false, allowTies=false, parenthesizeRepeats=false, stems=false,

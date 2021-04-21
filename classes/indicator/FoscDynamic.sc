@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscDynamic
+
+
+SUMMARY:: Returns a FoscDynamic.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscDynamic (abjad 3.0)
 
 Dynamic.
@@ -8,26 +22,47 @@ Dynamic.
 
 Initialize from dynamic name.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/8));
 d = FoscDynamic('f');
 a[0].attach(d);
 a.show;
+
+img:: ![](../img/indicator-dynamic-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2 !!!TODO: BROKEN
 
 Initialize niente.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/8));
 d = FoscDynamic('niente');
 a[0].attach(d);
 a.show;
+
+img:: ![](../img/indicator-dynamic-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3
 
 Simultaneous dynamics in a single staff.
 
+code::
 a = FoscVoice(FoscLeafMaker().(#[62,67,64,69], 1/8));
 b = FoscVoice([FoscNote(60, 2/4)]);
 a[0].attach(FoscLilypondLiteral("\\voiceOne"));
@@ -38,17 +73,37 @@ b[0].attach(FoscDynamic('p'));
 c = FoscStaff([a, b], isSimultaneous: true);
 c.show;
 
+img:: ![](../img/indicator-dynamic-3.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-3".format(Platform.userExtensionDir);
+c.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 4
 
 Dynamics can be tweaked.
 
+code::
 a = FoscNote(60, 1/4);
 d = FoscDynamic('f', tweaks: #[['color', 'blue']]);
 a.attach(d);
 a.show;
 
+img:: ![](../img/indicator-dynamic-4.png)
+'''
+
+p = "%/fosc/docs/img/indicator-dynamic-4".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 FoscDynamic('!')
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDynamic : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,62 +275,81 @@ FoscDynamic : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • command
 
     Gets explicit command.
 
     Use to override LilyPond output when a custom dynamic has been defined in an external stylesheet. In the example below, '\sub_f' is a nonstandard LilyPond dynamic. LilyPond will interpret the output above only when the command '\sub_f' is defined somewhere in an external stylesheet.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • context
     
     Gets context. Returns 'Voice'.
     
+    code::
     a = FoscDynamic('f');
     a.context;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • formatHairpinStop
 
     Is true when dynamic formats LilyPond ``\!`` hairpin stop.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hide
 
     Is true when dynamic should not appear in output (but should still determine effective dynamic).
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • leak
 
     Is true when dynamic formats LilyPond empty chord ``<>`` symbol.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • name
 
     Gets name of dynamic.
     
     Returns symbol.
 
+    code::
     FoscDynamic('fffff').name;
     FoscDynamic(-6).name;
     FoscDynamic(-inf).name;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • nameIsTextual
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ordinal
 
     Gets ordinal value of dynamic.
     
     Returns integer.
     
+    code::
     FoscDynamic('fffff').ordinal;
     FoscDynamic('fff').ordinal;
     FoscDynamic('p').ordinal;
     FoscDynamic('sffz').ordinal;
     FoscDynamic('niente').ordinal;
     FoscDynamic('foo').ordinal;    // throws exception
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ordinal {
         if (ordinal.notNil) { ^ordinal };
@@ -283,79 +357,102 @@ FoscDynamic : FoscObject {
         ^FoscDynamic.dynamicNameToDynamicOrdinal(name);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • scalar
 
     Gets scalar value of dynamic.
     
     Returns float.
     
+    code::
     FoscDynamic('fffff').scalar;
     FoscDynamic('fff').scalar;
     FoscDynamic('p').scalar;
     FoscDynamic('sffz').scalar;
     FoscDynamic('niente').scalar;
     FoscDynamic('foo').scalar;    // throws exception
+    '''
     -------------------------------------------------------------------------------------------------------- */
     scalar {
         name = FoscDynamic.prCoerceDynamicName(name);
         ^FoscDynamic.dynamicNameToScalar(name);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parameter
 
     Is true.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • sforzando
 
     Is true when dynamic name begins in s- and ends in -z
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: SPECIAL
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
+    code::
     a = FoscDynamic('p');
     b = FoscDynamic('p');
     c = FoscDynamic('f');
     
+    code::
     a == b;
     a == c;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |dynamic|
         if (dynamic.isKindOf(this.species).not) { ^false };
         ^(this.name == dynamic.name);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • !=
 
+    code::
     a = FoscDynamic('p');
     b = FoscDynamic('p');
     c = FoscDynamic('f');
     
+    code::
     a != b;
     a != c;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
+    code::
     FoscDynamic('p').asCompileString;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^"FoscDynamic('%')".format(name.asString);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
+    code::
     a = FoscDynamic('p');
     a.format;
 
+    code::
     a = FoscDynamic('niente');
     a.format;
 
+    code::
     a = FoscDynamic('foo');
     a.format;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         if (name == 'niente') { ^"" };
@@ -365,32 +462,42 @@ FoscDynamic : FoscObject {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • hash
 
     !!!TODO: not yet implemented
 
+    code::
     a = FoscDynamic('p');
     b = FoscDynamic('p');
     a.hash == b.hash;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str
 
+    code::
     a = FoscDynamic('p');
     a.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prAddLeak
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prAddLeak { |string|
         if (leak) { string = "<> %".format(string) };
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prAttachmentTestAll
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prAttachmentTestAll { |componentExpression|
         if (componentExpression.isKindOf(FoscLeaf).not) { ^false };
@@ -400,73 +507,88 @@ FoscDynamic : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • dynamicNameToScalar
 
     Converts name to dynamic ordinal.
     
     Returns integer or negative infinity.
     
+    code::
     FoscDynamic.dynamicNameToScalar('sfp');
     FoscDynamic.dynamicNameToScalar('ff');
     FoscDynamic.dynamicNameToScalar('niente');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *dynamicNameToScalar { |name|
         name = this.prCoerceDynamicName(name);
         ^dynamicNameToScalar[name];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • dynamicNameToDynamicOrdinal
 
     Converts name to dynamic ordinal.
     
     Returns integer or negative infinity.
     
+    code::
     FoscDynamic.dynamicNameToDynamicOrdinal('sfp');
     FoscDynamic.dynamicNameToDynamicOrdinal('ff');
     FoscDynamic.dynamicNameToDynamicOrdinal('niente');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *dynamicNameToDynamicOrdinal { |name|
         name = this.prCoerceDynamicName(name);
         ^dynamicNameToDynamicOrdinal[name];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • dynamicOrdinalToDynamicName
     
     Converts ordinal to dynamic name.
     
     Returns symbol.
     
+    code::
     FoscDynamic.dynamicOrdinalToDynamicName(-5);
     FoscDynamic.dynamicOrdinalToDynamicName(-inf);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *dynamicOrdinalToDynamicName { |dynamicOrdinal|
         if (dynamicOrdinal == -inf) { ^'niente' };
         ^dynamicOrdinalToDynamicName[dynamicOrdinal];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • scalarToDynamicName
     
     Converts scalar to dynamic name.
     
     Returns symbol.
     
+    code::
     FoscDynamic.scalarToDynamicName(0.5);
     FoscDynamic.scalarToDynamicName(0);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *scalarToDynamicName { |scalar|
         scalar = scalar.nearestInList(scalarValues);
         ^scalarToDynamicName[scalar];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isDynamicName
 
     Is true when name is a dynamic name. Otherwise false.
     
     Returns true or false.
     
+    code::
     FoscDynamic.isDynamicName('f');
     FoscDynamic.isDynamicName('niente');
     FoscDynamic.isDynamicName('foo');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *isDynamicName { |name|
         ^dynamicNames.includes(name.asSymbol);
@@ -475,12 +597,15 @@ FoscDynamic : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prCoerceDynamicName
 
+    code::
     FoscDynamic.prCoerceDynamicName('mp');
     FoscDynamic.prCoerceDynamicName('rfz');
     FoscDynamic.prCoerceDynamicName('niente');
     FoscDynamic.prCoerceDynamicName('foo');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prCoerceDynamicName { |name|
         var result;
@@ -490,9 +615,11 @@ FoscDynamic : FoscObject {
         if (result.notNil) { ^result } { ^name };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prTagHide
 
     !!!TODO
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prTagHide { |strings|
         ^this.notYetImplemented(thisMethod);
@@ -508,9 +635,12 @@ FoscDynamic : FoscObject {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prFormatTextual
 
+    code::
     FoscDynamic.prFormatTextual('meno p');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *prFormatTextual { |string, direction|
         string = string.asString;
@@ -524,7 +654,9 @@ FoscDynamic : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         var string;
@@ -535,7 +667,9 @@ FoscDynamic : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string;

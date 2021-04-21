@@ -1,39 +1,99 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscRhythm
+
+
+SUMMARY:: Returns a FoscRhythm.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscRhythm
 
 
 • Example 1
 
+code::
 a = FoscRhythm(1/4, #[-2, 2]);
 a.value.do { |each| each.str.postln };
 
+post::
+POSTOUTPUT
+'''
+
+code::
 a = FoscRhythm(1/4, #[-2, 3]);
 a.value.do { |each| each.str.postln };
 a.show;
+
+img:: ![](../img/maker-rhythm-1.png)
+'''
+
+p = "%/fosc/docs/img/maker-rhythm-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2
 
 Can be nested.
 
+code::
 a = FoscRhythm(3/16, [1, -2, FoscRhythm(2, #[1, 2, 4])]);
 a.show;
+
+img:: ![](../img/maker-rhythm-2.png)
+'''
+
+p = "%/fosc/docs/img/maker-rhythm-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3
 
 Ircam-style rhythm-tree syntax.
 
+code::
 a = FoscRhythm(1/4, #[1, -2, [2, [1, 2, 4]]]);
 a.show;
+
+img:: ![](../img/maker-rhythm-3.png)
+'''
+
+p = "%/fosc/docs/img/maker-rhythm-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 4 !!! DEPRECATED
 
 Floats are interpreted as ties.
 
+code::
 a = FoscRhythm(3/16, [1, 2, [2, [2.0, -3]]]);
 a.show;
+
+img:: ![](../img/maker-rhythm-4.png)
+'''
+
+p = "%/fosc/docs/img/maker-rhythm-4".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscRhythm : FoscTreeContainer {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,9 +123,11 @@ FoscRhythm : FoscTreeContainer {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • doesNotUnderstand
 
     Delegate to FoscRhythmMixin.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     doesNotUnderstand { |selector ... args|
         if (mixin.respondsTo(selector)) {
@@ -75,7 +137,9 @@ FoscRhythm : FoscTreeContainer {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • value
+    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |pulseDuration=1|
         var result;
@@ -87,13 +151,16 @@ FoscRhythm : FoscTreeContainer {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • ==
 
+    code::
     a = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     b = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     c = FoscRhythm(FoscDuration(2, 4), [2, 5]);
     a == b;     // true
     a == c;     // false
+    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |expr|
         if (expr.isKindOf(this.species).not) { ^false };
@@ -106,20 +173,25 @@ FoscRhythm : FoscTreeContainer {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • !=
 
+    code::
     a = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     b = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     c = FoscRhythm(FoscDuration(2, 4), [2, 5]);
     a != b;     // false
     a != c;     // true
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • illustrate
 
     Illustrates FoscRhythm.
     
     Returns LilyPond file.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     illustrate { |stretch=1|
         var selection, selections;
@@ -129,10 +201,13 @@ FoscRhythm : FoscTreeContainer {
         ^FoscLilypondFile.rhythm([selection], stretch: stretch);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • inspect
 
+    code::
     a = FoscRhythm(2/4, #[-2, [2, [-2, 3]], 3]);
     a.inspect;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     inspect {
         this.do { |each|
@@ -145,13 +220,35 @@ FoscRhythm : FoscTreeContainer {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • show
 
+    code::
     a = FoscRhythm(3/8, #[-2, 2, 3]);
     a.show;
 
+    img:: ![](../img/maker-rhythm-5.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-rhythm-5".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+
+    code::
     a = FoscRhythm(3/16, [1, -2, FoscRhythm(2, #[1, 2, 4])]);
     a.show;
+
+    img:: ![](../img/maker-rhythm-6.png)
+    '''
+
+    p = "%/fosc/docs/img/maker-rhythm-6".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     show {
         var lilypondFile;
@@ -162,34 +259,50 @@ FoscRhythm : FoscTreeContainer {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • duration
 
     • Example 1
 
+    code::
     a = FoscRhythm([3, 4], [1, 2, 2, 1, 1]);
     a.duration.cs;
 
     • Example 2
 
+    code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
     a.duration.cs;
     b.duration.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • durations
 
 
     • Example 1
 
+    code::
     a = FoscRhythm(4/4, #[-3, 2, 2]);
     a.durations.do { |each| each.cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     • Example 2
 
+    code::
     a = FoscRhythm(1/4, #[1, 2, [2, [2, -3]]]);
     a.durations.do { |each| each.cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     durations {
         var result;
@@ -198,30 +311,45 @@ FoscRhythm : FoscTreeContainer {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • improperParentage
 
     • Example 1
 
+    code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
     a.improperParentage;
     b.improperParentage;
     b.items.last.improperParentage;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • offsets
 
 
     • Example 1
 
+    code::
     a = FoscRhythm(4/4, #[-3, 2, 2]);
     a.offsets.do { |each| each.cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
 
 
     • Example 2
 
+    code::
     a = FoscRhythm(1/4, #[1, 2, [2, [2, -3]]]);
     a.offsets.do { |each| each.cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     offsets {
         var result;
@@ -235,6 +363,7 @@ FoscRhythm : FoscTreeContainer {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parentageRatios
 
     A sequence describing the relative durations of the nodes in a node's improper parentage.
@@ -242,8 +371,10 @@ FoscRhythm : FoscTreeContainer {
     The first item in the sequence is the preprolatedDuration of the root node, and subsequent items are pairs of the preprolated duration of the next node in the parentage and the total preprolated_duration of that node and its siblings.
 
     Returns array.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prolation
 
     Prolation of rhythm tree node.
@@ -253,13 +384,17 @@ FoscRhythm : FoscTreeContainer {
 
     • Example 1
 
+    code::
     b = FoscRhythm(4, #[-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);
 
+    code::
     a.prolation.cs;
     b.prolation.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prolations
 
     Prolations of rhythm tree node.
@@ -269,25 +404,37 @@ FoscRhythm : FoscTreeContainer {
 
     • Example 1
 
+    code::
     b = FoscRhythm(4, #[-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);
 
+    code::
     a.prolations.do { |each| each.cs.postln };
     b.prolations.do { |each| each.cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • properParentage
 
 
     • Example 1
     
+    code::
     b = FoscRhythm(4, #[-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);
 
+    code::
     a.properParentage;
     b.properParentage;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • startOffset
 
     The starting offset of a node in a rhythm-tree relative to the root.
@@ -297,10 +444,17 @@ FoscRhythm : FoscTreeContainer {
 
     • Example 1
 
+    code::
     a = FoscRhythm(1, #[1, [1, [1, 1]], [1, [1, 1]]]);
     a.do { |node| node.depth.do { Post.tab }; node.startOffset.cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • stopOffset
 
     The stopping offset of a node in a rhythm-tree relative to the root.
@@ -310,21 +464,31 @@ FoscRhythm : FoscTreeContainer {
 
     • Example 1
 
+    code::
     a = FoscRhythm(1, #[1, [1, [1, 1]], [1, [1, 1]]]);
     a.do { |node| "node.depth.do { Post.tab }"; node.stopOffset.cs.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetContentsDuration
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetContentsDuration {
         if (items.isEmpty) { ^FoscDuration(0) };
         ^items.collect { |each| each.prGetPreprolatedDuration }.sum;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetPreprolatedDuration
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetPreprolatedDuration {
         ^preProlatedDuration;
@@ -333,7 +497,9 @@ FoscRhythm : FoscTreeContainer {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prRecurse
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prRecurse { |node, tupletDuration|
         var basicProlatedDuration, basicWrittenDuration, tuplet, contentsDuration, multiplier, selection;

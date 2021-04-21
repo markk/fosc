@@ -1,5 +1,20 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscStopTrillSpan
+
+
+SUMMARY:: Returns a FoscStopTrillSpan.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscStopTrillSpan (abjad 3.0)
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStopTrillSpan : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +36,7 @@ FoscStopTrillSpan : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • context
 
     Gets context. Returns 'Voice'.
@@ -28,10 +44,13 @@ FoscStopTrillSpan : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStopTrillSpan();
     a.context;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • leak
 
     Is true when stop beam leaks LilyPond '<>'' empty chord
@@ -39,10 +58,13 @@ FoscStopTrillSpan : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStopTrillSpan();
     a.leak;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • parameter
 
     Gets parameter. Returns 'TRILL'.
@@ -50,10 +72,13 @@ FoscStopTrillSpan : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStopTrillSpan();
     a.parameter;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • persistent
 
     Is true.
@@ -61,10 +86,13 @@ FoscStopTrillSpan : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStopTrillSpan();
     a.persistent;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • rightBroken
 
     Is true when stop trill spanner is right-broken.
@@ -72,10 +100,13 @@ FoscStopTrillSpan : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStopTrillSpan();
     a.rightBroken;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spannerStop
 
     Is true.
@@ -83,8 +114,10 @@ FoscStopTrillSpan : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStopTrillSpan();
     a.spannerStop;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     spannerStop {
         ^true;
@@ -93,6 +126,7 @@ FoscStopTrillSpan : FoscObject {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
     !!!TODO
@@ -101,6 +135,7 @@ FoscStopTrillSpan : FoscObject {
 
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
@@ -109,6 +144,7 @@ FoscStopTrillSpan : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
 
     bundle = LilyPondFormatBundle()
@@ -121,6 +157,7 @@ FoscStopTrillSpan : FoscObject {
     else:
         bundle.after.spanner_stops.append(string)
     return bundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string;
@@ -138,7 +175,9 @@ FoscStopTrillSpan : FoscObject {
         ^bundle;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prTagHide
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prTagHide { |strings|
         ^this.notYetImplemented(thisMethod);

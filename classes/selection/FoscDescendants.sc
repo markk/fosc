@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscDescendants
+
+
+SUMMARY:: Returns a FoscDescendants.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscDescendants
 
 Descendants of a component.
@@ -6,11 +20,13 @@ Descendants of a component.
 Descendants is treated as the selection of the component's improper descendants.
 
 
+code::
 a = FoscVoice([FoscNote(60, [1, 4])]);
 b = FoscDescendants(a);
 b.do { |each| each.postln };
 b.last;
 b.component;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDescendants : FoscSequence {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,11 +1,27 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscWellformednessManager
+
+
+SUMMARY:: Returns a FoscWellformednessManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscWellformednessManager
 
 Wellformedness manager.
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscWellformednessManager : FoscObject {
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     __documentation_section__ = 'Managers'
@@ -15,12 +31,14 @@ FoscWellformednessManager : FoscObject {
             )
     
         _publish_storage_format = True
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def __init__(
@@ -28,12 +46,14 @@ FoscWellformednessManager : FoscObject {
             allow_percussion_clef=None,
             ):
             self._allow_percussion_clef = allow_percussion_clef
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def __call__(self, argument=None):
@@ -51,12 +71,14 @@ FoscWellformednessManager : FoscObject {
                 triple = (current_violators, current_total, current_check_name)
                 triples.append(triple)
             return triples
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     @property
@@ -66,12 +88,14 @@ FoscWellformednessManager : FoscObject {
             Returns true, false or none.
             '''
             return self._allow_percussion_clef
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_beamed_quarter_notes(self, argument=None):
@@ -97,9 +121,11 @@ FoscWellformednessManager : FoscObject {
                             violators.append(leaf)
                             break
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_conflicting_clefs(self, argument=None):
@@ -135,9 +161,11 @@ FoscWellformednessManager : FoscObject {
                         break
                     current_component = first_child
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_discontiguous_spanners(self, argument=None):
@@ -162,9 +190,11 @@ FoscWellformednessManager : FoscObject {
                         violators.append(spanner)
                 total += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_duplicate_ids(self, argument=None):
@@ -183,9 +213,11 @@ FoscWellformednessManager : FoscObject {
                         violators.extend([x for x in components
                             if id(x) == current_id])
             return violators, len(total_ids)
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_empty_containers(self, argument=None):
@@ -202,9 +234,11 @@ FoscWellformednessManager : FoscObject {
                     violators.append(container)
                     bad += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_intermarked_hairpins(self, argument=None):
@@ -226,9 +260,11 @@ FoscWellformednessManager : FoscObject {
                             break
                 total += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_misdurated_measures(self, argument=None):
@@ -248,9 +284,11 @@ FoscWellformednessManager : FoscObject {
                         bad += 1
                 total += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_misfilled_measures(self, argument=None):
@@ -268,9 +306,11 @@ FoscWellformednessManager : FoscObject {
                     bad += 1
                 total += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_mismatched_enchained_hairpins(self, argument=None):
@@ -352,9 +392,11 @@ FoscWellformednessManager : FoscObject {
                     violators.append(second_hairpin)
             total = len(all_hairpins)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_mispitched_ties(self, argument=None):
@@ -460,9 +502,11 @@ FoscWellformednessManager : FoscObject {
             violators = list(violators)
             total = len(all_spanners)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_misrepresented_flags(self, argument=None):
@@ -489,9 +533,11 @@ FoscWellformednessManager : FoscObject {
                         if leaf not in violators:
                             violators.append(leaf)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_missing_parents(self, argument=None):
@@ -510,9 +556,11 @@ FoscWellformednessManager : FoscObject {
                         violators.append(component)
             total = i + 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_nested_measures(self, argument=None):
@@ -529,9 +577,11 @@ FoscWellformednessManager : FoscObject {
                     violators.append(measure)
                 total += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_notes_on_wrong_clef(self, argument=None):
@@ -552,6 +602,7 @@ FoscWellformednessManager : FoscObject {
                 ..  docs::
     
                     >>> f(staff)
+    code::
                     \new Staff {
                         \set Staff.instrumentName = \markup { Violin }
                         \set Staff.shortInstrumentName = \markup { Vn. }
@@ -606,6 +657,7 @@ FoscWellformednessManager : FoscObject {
                 ..  docs::
     
                     >>> f(staff)
+    code::
                     \new Staff {
                         \set Staff.instrumentName = \markup { Violin }
                         \set Staff.shortInstrumentName = \markup { Vn. }
@@ -698,9 +750,11 @@ FoscWellformednessManager : FoscObject {
                 if clef not in allowable_clefs:
                     violators.append(leaf)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_out_of_range_notes(self, argument=None):
@@ -722,6 +776,7 @@ FoscWellformednessManager : FoscObject {
                 ..  docs::
     
                     >>> f(staff)
+    code::
                     \new Staff {
                         \set Staff.instrumentName = \markup { Violin }
                         \set Staff.shortInstrumentName = \markup { Vn. }
@@ -772,9 +827,11 @@ FoscWellformednessManager : FoscObject {
                     violators.append(leaf)
             total = len(all_pitched_leaves)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_overlapping_beams(self, argument=None):
@@ -794,9 +851,11 @@ FoscWellformednessManager : FoscObject {
                             violators.append(beam)
             total = len(all_beams)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_overlapping_glissandi(self, argument=None):
@@ -830,9 +889,11 @@ FoscWellformednessManager : FoscObject {
                             violators.append(glissando)
             total = len(all_spanners)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_overlapping_hairpins(self, argument=None):
@@ -906,9 +967,11 @@ FoscWellformednessManager : FoscObject {
                             violators.append(hairpin)
             total = len(all_hairpins)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_overlapping_octavation_spanners(self, argument=None):
@@ -930,9 +993,11 @@ FoscWellformednessManager : FoscObject {
                             violators.append(spanner)
             total = len(all_spanners)
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_overlapping_ties(self, argument=None):
@@ -989,9 +1054,11 @@ FoscWellformednessManager : FoscObject {
                 if 1 < len(spanners):
                     violators.update(spanners)
             return violators, len(total)
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_short_hairpins(self, argument=None):
@@ -1008,9 +1075,11 @@ FoscWellformednessManager : FoscObject {
                     violators.append(hairpin)
                 total += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def check_tied_rests(self, argument=None):
@@ -1026,6 +1095,7 @@ FoscWellformednessManager : FoscObject {
                     violators.append(rest)
                 total += 1
             return violators, total
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }
 

@@ -1,22 +1,42 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscSchemePair
+
+
+SUMMARY:: Returns a FoscSchemePair.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscSchemePair
 -  Initialize Scheme pairs with a tuple, two separate values or another Scheme pair.
 
+code::
 a = FoscSchemePair(-1, 1);
 a.format; // #'(-1 . 1)
 
+code::
 a = FoscSchemePair('spacing', 4);
 a.format;
 
+code::
 a = FoscSchemePair('font-name', "Times");
 a.format; // #'(fontName . "Times")
 
+code::
 a = FoscSchemePair(-1, 1);
 b = FoscSchemePair(a);
 b.format;
 
+code::
 a = FoscSchemePair([-1, 1]);
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSchemePair : FoscScheme {
 	*new { |... args|
@@ -40,7 +60,9 @@ FoscSchemePair : FoscScheme {
 
 	// PRIVATE ////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• prGetFormattedValue
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	prGetFormattedValue {
 		var lhs, rhs;
@@ -49,7 +71,9 @@ FoscSchemePair : FoscScheme {
 		^"(% . %)".format(lhs, rhs);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• prGetLilypondFormat
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	prGetLilypondFormat {
 		^"#'%".format(this.prGetFormattedValue);

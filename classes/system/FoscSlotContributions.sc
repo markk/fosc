@@ -1,14 +1,31 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscSlotContributions
+
+
+SUMMARY:: Returns a FoscSlotContributions.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscSlotContributions
 
+code::
 a = FoscSlotContributions();
 a.hasContributions;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSlotContributions : FoscObject { 												
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// INIT
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	class SlotContributions(AbjadObject):
     __slots__ = (
         '_articulations',
@@ -34,6 +51,7 @@ FoscSlotContributions : FoscObject {
         self._spanner_stops = []
         self._stem_tremolos = []
         self._trill_pitches = []
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	var <articulations, <commands, <comments, <indicators, <leaks, <markup, <spanners, <spannerStarts;
     var <spannerStops, <stemTremolos, <trillSpannerStarts;
@@ -59,10 +77,13 @@ FoscSlotContributions : FoscObject {
 	// PRIVATE PROPERTIES
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatSpecification
 
+    code::
 	a = FoscSlotContributions();
 	a.prGetFormatSpecification;
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	prGetFormatSpecification {
 		var names;
@@ -87,35 +108,45 @@ FoscSlotContributions : FoscObject {
 	// PUBLIC PROPERTIES
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• articulations
 
 	@property
     def articulations(self):
         return self._articulations
 
+ code::
    	a = FoscSlotContributions();
 	a.articulations;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • comments
     @property
     def comments(self):
         return self._comments
 
+    code::
   	a = FoscSlotContributions();
 	a.comments;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • commands
 
     @property
     def commands(self):
         return self._commands
 
+    code::
     a = FoscSlotContributions();
 	a.commands;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+ '''
 	• hasContributions
 
 	@property
@@ -135,8 +166,10 @@ FoscSlotContributions : FoscObject {
         return any(getattr(self, contribution_category)
             for contribution_category in contribution_categories)
 	
+ code::
 	a = FoscSlotContributions();
 	a.hasContributions;
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	hasContributions {
 		var contributionCategories;
@@ -156,114 +189,147 @@ FoscSlotContributions : FoscObject {
 		^false;
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • indicators
 
     @property
     def indicators(self):
         return self._indicators
 
+    code::
     a = FoscSlotContributions();
 	a.indicators;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • leaks
 
     Gets leaks.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • markup
 
     @property
     def markup(self):
         return self._markup
     
+    code::
 	a = FoscSlotContributions();
 	a.markup;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spanners
 
     @property
     def spanners(self):
         return self._spanners
     
+    code::
 	a = FoscSlotContributions();
 	a.spanners;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spannerStarts
 
     @property
     def spanner_starts(self):
         return self._spanner_starts
     
+    code::
 	a = FoscSlotContributions();
 	a.spannerStarts;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • spannerStops
 
     @property
     def spanner_stops(self):
         return self._spanner_stops
     
+    code::
 	a = FoscSlotContributions();
 	a.spannerStops;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • stemTremolos
 
     @property
     def stem_tremolos(self):
         return self._stem_tremolos
     
+    code::
 	a = FoscSlotContributions();
 	a.stemTremolos;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tag
     
+    code::
     a = FoscSlotContributions();
     a.tag;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • trillSpannerStarts
 
     @property
     def trill_pitches(self):
         return self._trill_pitches
     
+    code::
 	a = FoscSlotContributions();
 	a.trillSpannerStarts;
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PUBLIC METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• alphabetize
 
 	def alphabetize(self):
 		self._indicators.sort()
 
+ code::
 	a = FoscSlotContributions();
 	a.alphabetize;`
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	alphabetize {
 		^indicators.sort; // sort by what criteria ? alphabetically by class name ?
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • get
     
     def get(self, identifier):
 		return getattr(self, identifier)
     
+    code::
 	a = FoscSlotContributions();
 	a.get('indicators');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     get { |identifier|
     	^this.perform(identifier);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • makeImmutable
 
     def make_immutable(self):
@@ -278,11 +344,17 @@ FoscSlotContributions : FoscObject {
         self._stem_tremolos = tuple(self.stem_tremolos)
         self._trill_pitches = tuple(self.trill_pitches)
     
+    code::
 	a = FoscDuration(1);
 	b = FoscDuration(2);
 	c = FoscDuration(3);
 	x = [c, b, a];
 	x.sort.do { |e| e.pair.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	makeImmutable {
 		// articulations = articulations.sort;
@@ -297,6 +369,7 @@ FoscSlotContributions : FoscObject {
 		// trillSpannerStarts = trillSpannerStarts.sort;
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     def update(self, slot_contributions):
         assert isinstance(slot_contributions, type(self))
@@ -311,8 +384,10 @@ FoscSlotContributions : FoscObject {
         self.stem_tremolos.extend(slot_contributions.stem_tremolos)
         self.trill_pitches.extend(slot_contributions.trill_pitches)
     
+    code::
 	a = FoscSlotContributions();
 	a.update(a.copy);
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	update { |slotContributions|
 		if (slotContributions.isKindOf(FoscSlotContributions).not) {

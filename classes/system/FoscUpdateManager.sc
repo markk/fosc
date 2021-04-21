@@ -1,4 +1,18 @@
 /* --------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscUpdateManager
+
+
+SUMMARY:: Returns a FoscUpdateManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscUpdateManager
 
 Update manager.
@@ -8,30 +22,42 @@ Updates start offset, stop offsets and indicators everywhere in score.
 
 • Example 1
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 a.prUpdateNow(offsets: true);
 a.doComponents { |each| [each, each.startOffset.str, each.stopOffset.str].postln };
+
+post::
+POSTOUTPUT
+'''
+'''
 -------------------------------------------------------------------------------------------------------- */
 FoscUpdateManager : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prGetAfterGraceNoteOffsets
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *prGetAfterGraceNoteOffsets { |graceNote|
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prGetGraceNoteOffsets
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *prGetGraceNoteOffsets { |graceNote|
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prGetScoreTreeStateFlags
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *prGetScoreTreeStateFlags { |parentage|
@@ -50,10 +76,13 @@ FoscUpdateManager : FoscObject {
         ^[offsetsAreCurrent, indicatorsAreCurrent, offsetsInSecondsAreCurrent];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prIterateEntireScore
     
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     FoscUpdateManager.prIterateEntireScore(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *prIterateEntireScore { |scoreRoot|
@@ -64,8 +93,10 @@ FoscUpdateManager : FoscObject {
         ^components;
     }
      /* --------------------------------------------------------------------------------------------------------
+    '''
     • *prUpdateAllLeafIndicesAndMeasureNumbers
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69,71,72], [1/8]));
     a[0].attach(FoscTimeSignature(#[2,8]));
     a[4].attach(FoscTimeSignature(#[3,8]));
@@ -73,6 +104,11 @@ FoscUpdateManager : FoscObject {
     // a.show;
     FoscUpdateManager.prUpdateAllLeafIndicesAndMeasureNumbers(a);
     a.doLeaves { |leaf| [leaf.str, leaf.leafIndex, leaf.measureNumber].postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *prUpdateAllLeafIndicesAndMeasureNumbers { |scoreRoot|
@@ -91,7 +127,9 @@ FoscUpdateManager : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetMeasureStartOffsets
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetMeasureStartOffsets { |component|
         var wrappers, prototype, scoreRoot, localWrappers, pairs, inspector, startOffset, timeSignature;
@@ -150,7 +188,9 @@ FoscUpdateManager : FoscObject {
         ^measureStartOffsets;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prMakeMetronomeMarkMap
+    '''
     -------------------------------------------------------------------------------------------------------- */ 
     // abjad 3.0
     prMakeMetronomeMarkMap { |scoreRoot|
@@ -204,16 +244,24 @@ FoscUpdateManager : FoscObject {
         ^timespans;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prToMeasureNumber
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69,71,72], [1/8]));
     set(a).autoBeaming = false;
     a[0].attach(FoscTimeSignature(#[2,8]));
     a[4].attach(FoscTimeSignature(#[3,8]));
     a[7].attach(FoscTimeSignature(#[1,8]));
 
+    code::
     a.prUpdateMeasureNumbers;
     a.doLeaves { |leaf| [leaf.str, leaf.measureNumber].postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prToMeasureNumber { |component, measureNumberStartOffsets|
         var inspector, componentStartOffset, pairs, measureNumber;
@@ -229,15 +277,18 @@ FoscUpdateManager : FoscObject {
         throw("can not find measure number: %, %.".format(component, measureNumberStartOffsets));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateAllIndicators
 
     • Example1
     
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscDynamic('p'));
     a[0].prUpdateNow(indicators: true);
     a[0].prGetEffective(FoscDynamic);
     a[0].wrappers[0].indicator;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prUpdateAllIndicators { |scoreRoot|
@@ -251,11 +302,18 @@ FoscUpdateManager : FoscObject {
         };
     } 
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateAllOffsets
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     FoscUpdateManager().prUpdateAllOffsets(a);
     a.doComponents { |each| [each, each.startOffset.str, each.stopOffset.str].postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prUpdateAllOffsets { |scoreRoot|
@@ -265,7 +323,9 @@ FoscUpdateManager : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateAllOffsetsInSeconds
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prUpdateAllOffsetsInSeconds { |scoreRoot|
@@ -278,16 +338,24 @@ FoscUpdateManager : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateClocktimeOffsets
 
+    code::
     a = FoscStaff(FoscLeafMaker().(60 ! 12, [1/4]));
     b = FoscScore([a]);
     b.leafAt(0).attach(FoscMetronomeMark([1,4], 60));
     b.leafAt(6).attach(FoscMetronomeMark([1,4], 120));    
     FoscUpdateManager().prUpdateNow(b, offsetsInSeconds: true);
     
+    code::
     b.prGetDurationInSeconds.asFloat;
     a.doLeaves  { |e| [e.startOffsetInSeconds.asFloat, e.prGetDurationInSeconds.asFloat].postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prUpdateClocktimeOffsets { |component, timespans|
@@ -334,11 +402,18 @@ FoscUpdateManager : FoscObject {
         throw("%:%: can't find stop offset in %.".format(this.species, thisMethod.name, timespans));
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateComponentOffsets
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     FoscUpdateManager().prUpdateAllOffsets(a);
     a.doComponents { |each| [each, each.startOffset.str, each.stopOffset.str].postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prUpdateComponentOffsets { |component|
@@ -366,16 +441,33 @@ FoscUpdateManager : FoscObject {
         component.timespan.instVarPut('stopOffset', stopOffset);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateMeasureNumbers
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69,71,72], [1/8]));
     a[0].attach(FoscTimeSignature(#[2,8]));
     a[4].attach(FoscTimeSignature(#[3,8]));
     a[7].attach(FoscTimeSignature(#[1,8]));
     a.show;
+
+    img:: ![](../img/system-update-manager-1.png)
+    '''
+
+    p = "%/fosc/docs/img/system-update-manager-1".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
     
+    code::
     a.prUpdateMeasureNumbers;
     a.doLeaves { |leaf| [leaf.str, leaf.measureNumber].postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prUpdateMeasureNumbers { |component|
         var measureStartOffsets, scoreRoot, measureNumber;
@@ -388,22 +480,30 @@ FoscUpdateManager : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateNow
    
 
     • Example 1
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].prUpdateNow(offsets: true, indicators: true);
     a.doComponents { |each| [each, each.startOffset.str, each.stopOffset.str].postln };
 
+    post::
+    POSTOUTPUT
+    '''
+
 
     • Example 2
     
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscDynamic('p'));
     a[0].prUpdateNow(offsets: true, indicators: true);
     a[0].prGetEffective(FoscDynamic);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prUpdateNow { |component, offsets=false, offsetsInSeconds=false, indicators=false|

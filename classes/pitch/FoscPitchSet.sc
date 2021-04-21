@@ -1,6 +1,21 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPitchSet
+
+
+SUMMARY:: Returns a FoscPitchSet.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPitchSet
 
+code::
 x = FoscPitchSet(#[60,61,62]);
 x.cs;
 x.size;
@@ -8,6 +23,7 @@ x.pitchNumbers;
 x.pitchNames;
 
 • NB: abjad.PitchSet subclasses from Set not TypedSet
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPitchSet : FoscTypedSet {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,6 +42,7 @@ FoscPitchSet : FoscTypedSet {
         ^super.new(items, FoscPitch);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• newFromSelection
 
 	def from_selection(
@@ -51,6 +68,7 @@ FoscPitchSet : FoscTypedSet {
             items=pitch_segment,
             item_class=item_class,
             )
+ '''
     -------------------------------------------------------------------------------------------------------- */
 	*newFromSelection {
 		^this.notYetImplemented;
@@ -59,154 +77,205 @@ FoscPitchSet : FoscTypedSet {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• pitchNumbers
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	pitchNumbers {
 		^this.items.collect { |each| each.pitchNumber };
 	}
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• pitchNames
+ '''
 	-------------------------------------------------------------------------------------------------------- */
 	pitchNames {
 		^this.items.collect { |each| each.pitchName };
 	}
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • difference
 
     Set-theoretic difference of receiver and expr.
 
     Returns new pitch class set.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     b = FoscPitchSet(#[62,63,64]);
     a.difference(b).do { |each| each.pitchNumber.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • sect
 
     Set-theoretic intersection of receiver and expr.
 
     Returns new pitch class set.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     b = FoscPitchSet(#[62,63,64]);
     a.sect(b).do { |each| each.pitchNumber.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isDisjoint
 
     Is true when typed receiver shares no elements with expr. Otherwise false.
 
     Returns boolean.
 
+    code::
     a = FoscPitchSet(#[60,61]);
     b = FoscPitchSet(#[61,62,63]);
     c = FoscPitchSet(#[64,65]);
 
+    code::
     a.isDisjoint(a);
     a.isDisjoint(b);
     a.isDisjoint(c);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isEmpty
 
     Is true when pitch class set is empty.
 
     Returns boolean.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     a.isEmpty;
 
+    code::
     a = FoscPitchSet([]);
     a.isEmpty;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isSubsetOf
 
     Is true when receiver is a subset of expr. Otherwise false.
 
     Returns boolean.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     b = FoscPitchSet(#[62,63]);
     
+    code::
     a.isSubsetOf(a);
     a.isSubsetOf(b);
     b.isSubsetOf(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isSupersetOf
 
     Is true when receiver is a superset of expr. Otherwise false.
 
     Returns boolean.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     b = FoscPitchSet(#[62,63]);
     
+    code::
     a.isSupersetOf(a);
     a.isSupersetOf(b);
     b.isSupersetOf(a);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • notEmpty
 
     Is true when set is not empty.
 
     Returns boolean.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     a.notEmpty;
 
+    code::
     a = FoscPitchSet([]);
     a.notEmpty;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • symmetricDifference
 
     Symmetric difference of receiver and expr.
 
     Returns new pitch class set.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     b = FoscPitchSet(#[62,63,64]);
     a.symmetricDifference(b).cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • union
 
     Union of receiver and expr.
 
     Returns new pitch class set.
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
     b = FoscPitchSet(#[62,63,64]);
     a.union(b).cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
 	/* --------------------------------------------------------------------------------------------------------
+ '''
 	• invert
 	
+ code::
     a = FoscPitchSet(#[61,62,63]);
 	b = a.invert(60);
     b.cs;
+ '''
     -------------------------------------------------------------------------------------------------------- */
     invert { |axis|
     	^this.species.new(this.items.collect { |each| each.invert(axis) });
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • isEquivalentUnderTransposition
 
     True if receiver is equivalent to 'pitchSet' under transposition.
     
     Otherwise false.
     
+    code::
     a = FoscPitchSet(#[60,61,62]);
     b = FoscPitchSet(#[61,62,63]);
     c = FoscPitchSet(#[60,61,63]);
 
+    code::
     a.isEquivalentUnderTransposition(a);
     a.isEquivalentUnderTransposition(b);
     a.isEquivalentUnderTransposition(c);
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     isEquivalentUnderTransposition { |pitchSet|
     	if (pitchSet.isKindOf(this.species).not) { ^false };
@@ -214,16 +283,19 @@ FoscPitchSet : FoscTypedSet {
     	^((this.pitchNumbers - pitchSet.pitchNumbers).asSet.size == 1);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • register
     
     Registers 'pitchClasses' by pitch set.
 
     Returns list of zero or more numbered pitches.
+    '''
 	-------------------------------------------------------------------------------------------------------- */
     register { |pitchClasses|
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • transpose
 
     Transposes all pitches in pitch set by 'semitones'.
@@ -231,6 +303,7 @@ FoscPitchSet : FoscTypedSet {
     Returns new pitch set.
 
 
+    code::
     a = FoscPitchSet(#[61,62,63]);
 	b = a.transpose(3);
     b.cs;
@@ -242,18 +315,23 @@ FoscPitchSet : FoscTypedSet {
         
         items = (pitch.transpose(expr) for pitch in self)
         return new(self, items=items)
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	transpose { |semitones|
     	^this.species.new(this.items.collect { |each| each.transpose(semitones) });
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • illustrate
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	illustrate {
         ^FoscLilypondFile.pitch([this.items]);
 	}
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • play
+    '''
 	-------------------------------------------------------------------------------------------------------- */
 	play {
         ^this.notYetImplemented(thisMethod);

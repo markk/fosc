@@ -1,5 +1,20 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscPersistenceManager
+
+
+SUMMARY:: Returns a FoscPersistenceManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscPersistenceManager
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPersistenceManager : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +32,7 @@ FoscPersistenceManager : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asLY
 
     Persists client as LilyPond file.
@@ -24,6 +40,7 @@ FoscPersistenceManager : FoscObject {
     Autogenerates file path when 'path' is nil.
 
     Returns output path and elapsed formatting time when LilyPond output is written.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asLY { |path, illustrateFunction ... args|
         var illustration, lyFileName, lyFile;
@@ -41,12 +58,15 @@ FoscPersistenceManager : FoscObject {
         ^path;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asMIDI
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asMIDI {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asPDF
 
     Persists client as PDF.
@@ -58,8 +78,10 @@ FoscPersistenceManager : FoscObject {
     If 'clean' is true, ly file is deleted.
     
 
+    code::
     a = FoscNote(60, 1/4);
     b = a.write.asPDF;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asPDF { |lyPath, outputPath, illustrateFunction, flags, clean=false ... args|
         var success;
@@ -72,16 +94,19 @@ FoscPersistenceManager : FoscObject {
         ^[outputPath, success];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asPNG
     
 
     • Example 1
 
+    code::
     a = FoscNote(60, 1/4);
     n = "basic-usage/images/002";
     p = "%/docs/%".format(FoscConfiguration.foscRootDirectory, n);
     f = a.writePNG("%.ly".format(p), p);
     unixCmd("open %".format(f[0]));
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asPNG { |lyPath, outputPath, illustrateFunction, resolution=100, clean=true ... args|
         var flags, success;
@@ -104,9 +129,11 @@ FoscPersistenceManager : FoscObject {
         ^[outputPath, success];
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asSVG
 
     lilypond -dbackend=svg -dcrop file.ly
+    '''
     -------------------------------------------------------------------------------------------------------- */
     asSVG { |lyPath, outputPath, illustrateFunction, crop=true, clean=true ... args|
         // if (crop) { add "-dcrop" to flags string };
@@ -116,10 +143,12 @@ FoscPersistenceManager : FoscObject {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • client
 
     Gets client of persistence manager.
 
     Returns component or selection.
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

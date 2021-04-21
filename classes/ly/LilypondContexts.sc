@@ -1,11 +1,27 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: LilypondContexts
+
+
+SUMMARY:: Returns a LilypondContexts.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • LilypondContexts
 
 abjad: abjad/ly/contexts.py
 
+code::
 LilypondContexts.list.printAll;
 LilypondContexts.includes('ChoirStaff');
 LilypondContexts.includes('foo');
+'''
 ------------------------------------------------------------------------------------------------------------ */
 LilypondContexts {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

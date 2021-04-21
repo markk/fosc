@@ -1,13 +1,29 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscSpacingVector
+
+
+SUMMARY:: Returns a FoscSpacingVector.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscSpacingVector
 
 Fosc model of Scheme spacing vector.
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSpacingVector : FoscSchemeVector {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     •
     
     def __init__(
@@ -25,6 +41,7 @@ FoscSpacingVector : FoscSchemeVector {
                 schemetools.SchemePair(('stretchability', stretchability)),
                 ]
             return SchemeVector.__init__(self, pairs)
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *new { |basicDistance=0, minimumDistance=0, padding=12, stretchability=0|
         ^FoscSchemeVector(

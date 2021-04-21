@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscLilypondLiteral
+
+
+SUMMARY:: Returns a FoscLilypondLiteral.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscLilypondLiteral (abjad 3.0)
 
 LilyPond literal.
@@ -8,6 +22,7 @@ LilyPond literal.
 
 Dotted slur.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 m = FoscSlur();
 a[0..].attach(m);
@@ -15,11 +30,21 @@ l = FoscLilypondLiteral("\\slurDotted");
 a[0].attach(l);
 a.show;
 
+img:: ![](../img/indicator-lilypond-literal-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-lilypond-literal-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+
 
 • Example 2
 
 Use the absolute before and absolute after format slots like this.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 l = FoscLilypondLiteral("% before all formatting", formatSlot: 'absoluteBefore');
 a[0].attach(l);
@@ -32,6 +57,7 @@ a.format;
 
 Lilypond literas can be tagged.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 m = FoscSlur();
 a[0..].attach(m);
@@ -44,14 +70,26 @@ a.format;
 
 Multi-line input is allowed.
 
+code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 l = FoscLilypondLiteral(#[
     "\\stopStaff",
     "\\startStaff",
     "\\once \\override Staff.StaffSymbol.transparent = ##t"
+code::
 ]);
 a[2].attach(l);
 a.show;
+
+img:: ![](../img/indicator-lilypond-literal-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-lilypond-literal-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondLiteral : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,16 +134,20 @@ FoscLilypondLiteral : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *allowableFormatSlots
 
     Lists allowable format slots.
     
+    code::
     FoscLilypondLiteral.allowableFormatSlots;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • directed
 
     Is true when literal is directed.
@@ -115,6 +157,7 @@ FoscLilypondLiteral : FoscObject {
 
     Directed literal.
 
+    code::
     l = FoscLilypondLiteral("\\f", 'after', directed: true);
     l.directed;
 
@@ -123,10 +166,13 @@ FoscLilypondLiteral : FoscObject {
 
     Nondirected literal.
 
+    code::
     l = FoscLilypondLiteral("\\breathe", 'after', directed: false);
     l.directed;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • formatSlot
     
     Gets format slot of LilyPond literal.
@@ -136,10 +182,13 @@ FoscLilypondLiteral : FoscObject {
     
     • Example 1
     
+    code::
     a = FoscLilypondLiteral(\slurDotted);
     a.formatSlot;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • string
 
     Gets LilyPond literal string.
@@ -147,10 +196,13 @@ FoscLilypondLiteral : FoscObject {
 
     • Example 1
 
+    code::
     l = FoscLilypondLiteral("\\slurDotted");
     l.string;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Gets tweaks.
@@ -158,18 +210,31 @@ FoscLilypondLiteral : FoscObject {
     
     • Example 1
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     l = FoscLilypondLiteral("\\f", 'after', directed: true, tweaks: #[['color', 'red']]);
     a[0].attach(l);
     a.show;
+
+    img:: ![](../img/indicator-lilypond-literal-3.png)
+    '''
+
+    p = "%/fosc/docs/img/indicator-lilypond-literal-3".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats Lilypond literal.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^string.asString;
@@ -178,7 +243,9 @@ FoscLilypondLiteral : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatPieces
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         if ([Symbol, String].any { |type| string.isKindOf(type) }) { ^[string] };
@@ -186,7 +253,9 @@ FoscLilypondLiteral : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormatBundle
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle {
         var bundle, formatSlot, localTweaks, pieces;

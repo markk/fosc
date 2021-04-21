@@ -1,14 +1,31 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscIOManager
+
+
+SUMMARY:: Returns a FoscIOManager.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscIOManager
 
 Manages Fosc IO.
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscIOManager : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *deleteFile
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *deleteFile { |path|
         var returnCode;
@@ -20,6 +37,7 @@ FoscIOManager : FoscObject {
         ^returnCode;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *lastOutputFileName
 
     Gets last output file name in 'outputDirectory'.
@@ -31,10 +49,13 @@ FoscIOManager : FoscObject {
 
     • Example 1
 
+    code::
     d = FoscConfiguration.foscOutputDirectory;
     FoscIOManager.lastOutputFileName("ly", d);
 
+    code::
     FoscIOManager.lastOutputFileName;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *lastOutputFileName { |extension, outputDirectory|
         var pattern, allFileNames, allOutput, result;
@@ -53,7 +74,9 @@ FoscIOManager : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *moveFile
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *moveFile { |sourcePath, destinationPath|
         var returnCode;
@@ -66,11 +89,13 @@ FoscIOManager : FoscObject {
         ^returnCode;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *nextOutputFileName
 
     Gets next output file name with 'extension' 'outputDirectory'.
 
     Returns string.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *nextOutputFileName { |extension='ly', outputDirectory|
         var lastOutput, nextNumber, lastNumber, result;
@@ -91,7 +116,9 @@ FoscIOManager : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *openFile
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *openFile { |path, application|
         var returnCode;
@@ -107,13 +134,16 @@ FoscIOManager : FoscObject {
         ^returnCode;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • *runLilypond
 
+    code::
     f = { |music, name, show=false|
         p = "%/images/%".format(FoscConfiguration.foscRootDirectory, name);
         x = music.write.asPDF("%.ly".format(p), p, flags: "-dresolution 100");
         //if (show) { unixCmd("open %".format(x[0])) };
     };
+    '''
     -------------------------------------------------------------------------------------------------------- */
     *runLilypond { |lyPath, flags, outputPath, executablePath|
         var lilypondBase, command, exitCode, success;

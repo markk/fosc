@@ -1,11 +1,27 @@
 /* ---------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscOctave
+
+
+SUMMARY:: Returns a FoscOctave.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscOctave
 
+code::
 inspect(FoscOctave(7));
 inspect(FoscOctave("A-1"));
 inspect(FoscOctave("cs''"));
 inspect(FoscOctave("A")); // octaveNumber defaults to 4
 inspect(FoscOctave("c")); // octaveNumber defaults to 4
+'''
 --------------------------------------------------------------------------------------------------------------- */
 FoscOctave : FoscObject {
 	var <octaveNumber, <octaveName;

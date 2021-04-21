@@ -1,4 +1,18 @@
 /* ------------------------------------------------------------------------------------------------------------
+ (abjad 3.0)
+TITLE:: FoscArticulation
+
+
+SUMMARY:: Returns a FoscArticulation.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscArticulation (abjad 3.0)
 
 Articulation.
@@ -8,42 +22,83 @@ Articulation.
 
 Initialize articulation from name.
 
+code::
 a = FoscNote(60, 1/4);
 m = FoscArticulation('staccato');
 a.attach(m);
 a.show;
+
+img:: ![](../img/indicator-articulation-1.png)
+'''
+
+p = "%/fosc/docs/img/indicator-articulation-1".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 2
 
 Initialize articulation from abbreviation.
 
+code::
 a = FoscNote(60, 1/4);
 m = FoscArticulation('.');
 a.attach(m);
 a.show;
+
+img:: ![](../img/indicator-articulation-2.png)
+'''
+
+p = "%/fosc/docs/img/indicator-articulation-2".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 3
 
 Initialize articulation with direction.
 
+code::
 a = FoscNote(60, 1/4);
 m = FoscArticulation('.', direction: 'up');
 a.attach(m);
 a.show;
+
+img:: ![](../img/indicator-articulation-3.png)
+'''
+
+p = "%/fosc/docs/img/indicator-articulation-3".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
 
 
 • Example 4
 
 Articulations can be tweaked.
 
+code::
 a = FoscNote(60, 1/4);
 m = FoscArticulation('marcato');
 tweak(m).color = 'blue';
 tweak(m).yOffset = -10;
 a.attach(m);
 a.show;
+
+img:: ![](../img/indicator-articulation-4.png)
+'''
+
+p = "%/fosc/docs/img/indicator-articulation-4".format(Platform.userExtensionDir);
+a.writePNG("%.ly".format(p));
+
+
+
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscArticulation : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,19 +195,23 @@ FoscArticulation : FoscObject {
     // PUBLIC INSTANCE METHODS: SPECIAL METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
 
     Formats articulation.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • illustrate
 
     Illustrates articulation.
 
     Returns LilyPond file.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     illustrate {
         var note, articulation, lilypondFile;
@@ -163,6 +222,7 @@ FoscArticulation : FoscObject {
         ^lilypondFile;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • str (abjad: __str__)
 
     Gets string representation of articulation.
@@ -170,8 +230,10 @@ FoscArticulation : FoscObject {
     
     • Example 1
     
+    code::
     m = FoscArticulation('accent', direction: 'above');
     m.str;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         var string;
@@ -191,13 +253,18 @@ FoscArticulation : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
+    code::
     • prGetLilypondFormatBundle;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks;
@@ -213,6 +280,7 @@ FoscArticulation : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • direction
 
     Gets direction of articulation.
@@ -222,6 +290,7 @@ FoscArticulation : FoscObject {
 
     Without direction.
 
+    code::
     m = FoscArticulation('.');
     m.direction;
 
@@ -230,10 +299,13 @@ FoscArticulation : FoscObject {
 
     With direction.
 
+    code::
     m = FoscArticulation('.', direction: 'up');
     m.direction;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • name
 
     Gets name of articulation.
@@ -241,10 +313,13 @@ FoscArticulation : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscArticulation('staccato');
     m.name;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tweaks
 
     Gets tweaks.
@@ -252,9 +327,11 @@ FoscArticulation : FoscObject {
 
     • Example 1
 
+    code::
     m = FoscArticulation('marcato');
     tweak(m).color = 'blue';
     tweak(m).yOffset = -10;
     m.tweaks.cs;
+    '''
     -------------------------------------------------------------------------------------------------------- */
 }

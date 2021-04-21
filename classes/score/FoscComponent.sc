@@ -1,5 +1,20 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscComponent
+
+
+SUMMARY:: Returns a FoscComponent.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscComponent
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscComponent : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,9 +36,11 @@ FoscComponent : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • startOffsetInSeconds
 
     Gets start offset in seconds. If no effective metronome mark is found, tempo is set to 1/4 = 60.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     startOffsetInSeconds {
         if (startOffsetInSeconds.notNil) {
@@ -33,9 +50,11 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • stopOffsetInSeconds
 
     Gets stop offset in seconds. If no effective metronome mark is found, tempo is set to 1/4 = 60.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     stopOffsetInSeconds {
         if (stopOffsetInSeconds.notNil) {
@@ -45,21 +64,26 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • tag
 
     Gets component tag.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • asCompileString
 
     Gets interpreter representation.
 
     Subclass responsibility.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • copy
 
     Shallow copies component.
@@ -72,19 +96,36 @@ FoscComponent : FoscObject {
 
     Returns new component.
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/12,1/12,1/12,1/4]));
     b = a.copy;
     b.components;
 
     • copy with children
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/12,1/12,1/12,1/4]));
     b = a.prCopyWithChildren;
     b.components;
     b.show;
 
+    img:: ![](../img/score-component-1.png)
+    '''
+
+    p = "%/fosc/docs/img/score-component-1".format(Platform.userExtensionDir);
+    b.writePNG("%.ly".format(p));
+
+
+
+
+    code::
     a.doComponents { |each| each.postln };
+
+    post::
+    POSTOUTPUT
+    '''
     b.doComponents { |each| each.postln }
+    '''
     -------------------------------------------------------------------------------------------------------- */
     copy {
         var newComponent, manager;
@@ -106,16 +147,19 @@ FoscComponent : FoscObject {
         ^newComponent;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • format
     
     Formats component.
 
     Returns string.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • illustrate
 
     Illustrates component.
@@ -125,8 +169,19 @@ FoscComponent : FoscObject {
 
     • Example 1
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.show;
+
+    img:: ![](../img/score-component-2.png)
+    '''
+
+    p = "%/fosc/docs/img/score-component-2".format(Platform.userExtensionDir);
+    a.writePNG("%.ly".format(p));
+
+
+
+    '''
     -------------------------------------------------------------------------------------------------------- */
     illustrate {
         var stylesheetPath, includes, lilypondFile;
@@ -140,11 +195,13 @@ FoscComponent : FoscObject {
         ^lilypondFile;
     }
 	/* --------------------------------------------------------------------------------------------------------
+    '''
     • storeArgs (abjad: __getnewargs__)
     
     Gets new arguments.
 
     Returns array.
+    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^[];
@@ -153,7 +210,9 @@ FoscComponent : FoscObject {
 	// PRIVATE METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prCacheNamedChildren
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prCacheNamedChildren {
         var nameDictionary;
@@ -170,13 +229,16 @@ FoscComponent : FoscObject {
         ^nameDictionary;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prCheckForCycles
 
+    code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.add(FoscNote(67, 3/4));
     a.format
 
     FoscParentage
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prCheckForCycles { |components|
         var parentage;
@@ -185,9 +247,11 @@ FoscComponent : FoscObject {
         ^false;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prExtract
 
     see FoscMutation: extract for examples
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prExtract { |scaleContents=false|
         var selection, parent, start, stop, components;
@@ -202,7 +266,9 @@ FoscComponent : FoscObject {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatAbsoluteAfterSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatAbsoluteAfterSlot { |bundle|
@@ -211,7 +277,9 @@ FoscComponent : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatAbsoluteBeforeSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatAbsoluteBeforeSlot { |bundle|
@@ -220,44 +288,57 @@ FoscComponent : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatAfterSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatAfterSlot { |bundle|
         // pass
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatBeforeSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatBeforeSlot { |bundle|
         // pass
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatCloseBracketsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatCloseBracketsSlot { |bundle|
         // pass
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatClosingSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatClosingSlot { |bundle|
         // pass
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatComponent
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prGetFormatPieces;
 
+    code::
     a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prGetFormatPieces;
 
+    code::
     a = FoscTuplet(2/3, [FoscNote(60, 2/4), FoscNote(60, 1/4)]);
     a.prGetFormatPieces(true);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prFormatComponent { |pieces=false|
@@ -281,7 +362,9 @@ FoscComponent : FoscObject {
         if (pieces) { ^contributions } { ^contributions.join("\n") };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatContributionsForSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     // DEPRECATED
     // prFormatContributionsForSlot { |slotIdentifier, bundle|
@@ -321,25 +404,33 @@ FoscComponent : FoscObject {
     //     ^result;
     // }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatContentsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatContentsSlot { |bundle|
         // pass
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatOpenBracketsSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpenBracketsSlot { |bundle|
         // pass
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prFormatOpeningSlot
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpeningSlot { |bundle|
         // pass
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetContents
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetContents {
         var result;
@@ -351,7 +442,9 @@ FoscComponent : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetDescendantsStartingWith
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetDescendantsStartingWith {
         var result;
@@ -366,7 +459,9 @@ FoscComponent : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetDescendantsStoppingWith
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetDescendantsStoppingWith {
         var result;
@@ -381,18 +476,23 @@ FoscComponent : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetDuration
  
+    code::
     a = FoscNote(60, 1/4);
     a.prGetDuration.str;
     a.prGetDuration(inSeconds: true).asFloat; // defaults to mm. 1/4 = 60
 
+    code::
     a = FoscStaff(FoscLeafMaker().(60 ! 7, [1/4]));
     a.prGetDuration.str;
 
+    code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a[0].prGetDuration.str;
     a[0].prGetDuration(inSeconds: true).asFloat; // defaults to mm. 1/4 = 60
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetDuration { |inSeconds=false|
         case
@@ -407,22 +507,34 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetEffective
 
     • dynamics persist
 
+    code::
     a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscDynamic('p'));
     a[2].attach(FoscDynamic('f'));
     a.doLeaves { |leaf| leaf.prGetEffective(FoscDynamic).cs.postln };
 
+    post::
+    POSTOUTPUT
+    '''
+
     • metronome marks persist
     
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     b = FoscScore([a]);
     b.leafAt(0).attach(FoscMetronomeMark(#[1,4], 60));
     b.leafAt(2).attach(FoscMetronomeMark(#[1,4], 90));
     a.doLeaves { |leaf| leaf.prGetEffective(FoscMetronomeMark).unitsPerMinute.postln };
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetEffective { |prototype, attributes, command, n=0, unwrap=true|
         var candidateWrappers, parentage, enclosingVoiceName, localWrappers, appendWrapper=false, offset;
@@ -529,10 +641,13 @@ FoscComponent : FoscObject {
         ^wrapper;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetEffectiveStaff
 
+    code::
     a = FoscStaff({ |i| FoscNote(60 + i, [1, 4]) } ! 4);
     a[0].prGetEffectiveStaff == a;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetEffectiveStaff {
         var staffChange, effectiveStaff;
@@ -545,22 +660,29 @@ FoscComponent : FoscObject {
         ^effectiveStaff;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetFormatPieces
     
+    code::
     a = FoscContainer([FoscNote(60, [1, 4])]);
     a.prGetFormatPieces;
 
+    code::
     a = FoscContainer([FoscNote(60, [1, 4])]);
     a.prFormatComponent(true);
 
+    code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prGetFormatPieces;
 
+    code::
     a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prGetFormatPieces;
 
+    code::
     a = FoscTuplet(2/3, [FoscNote(60, 2/4), FoscNote(60, 1/4)]);
     a.prFormatComponent(true);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         var result;
@@ -568,18 +690,24 @@ FoscComponent : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetIndicator
     
+    code::
     x = FoscNote(60, 1/4);
     x.attach(FoscDynamic('p'));
     x.prGetIndicator.cs;
 
+    code::
     x.attach(FoscArticulation('>'));
     x.prGetIndicator;
 
+    code::
     x.prGetIndicator(FoscDynamic).cs;
 
+    code::
     x.prGetIndicator(FoscMetronomeMark);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetIndicator { |prototype, attributes, unwrap=true|
         var indicators;
@@ -596,12 +724,15 @@ FoscComponent : FoscObject {
         { ^indicators[0] };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetIndicators
 
+    code::
     x = FoscNote(60, 1/4);
     x.attach(FoscDynamic('p'));
     x.attach(FoscArticulation('>'));
     x.prGetIndicators;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetIndicators { |prototype, attributes, unwrap=true|
         var result, prototypeObjects, prototypeClasses, indicator, newResult;
@@ -660,24 +791,31 @@ FoscComponent : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetLilypondFormat
 
+    code::
     a = FoscNote(60, 1/4);
     a.prGetLilypondFormat;
 
+    code::
     a = FoscChord(#[60,64,67,72], 1/4);
     a.prGetLilypondFormat;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         this.prUpdateNow(indicators: true);
         ^this.prFormatComponent;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetMarkup
 
+    code::
     a = FoscNote(60, 1/4);
     a.attach(FoscMarkup("foo"));
     a.prGetMarkup;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetMarkup { |direction|
         var markup;
@@ -688,20 +826,30 @@ FoscComponent : FoscObject {
         ^markup;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetParentage
     
+    code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a[0].prGetParentage.components;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetParentage { |graceNotes=false|
         ^FoscParentage(this, graceNotes);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prGetTimespan
 
+    code::
     a = FoscNote(60, 1/4);
     b = a.prGetTimespan;
     [b.startOffset.cs, b.stopOffset.cs].postln;
+
+    post::
+    POSTOUTPUT
+    '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetTimespan { |inSeconds=false|
         if (inSeconds) {
@@ -716,11 +864,14 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prHasEffectiveIndicator
 
+    code::
     x = FoscNote(60, 1/4);
     x.attach(FoscDynamic('p'));
     x.prHasEffectiveIndicator(FoscDynamic);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prHasEffectiveIndicator { |prototype, attributes, command|
         var indicator;
@@ -728,13 +879,16 @@ FoscComponent : FoscObject {
         ^indicator.notNil;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prHasIndicator
     
+    code::
     a = FoscNote(60, 1/4);
     a.attach(FoscDynamic('p'));
     a.prHasIndicator;
     a.prHasIndicator(FoscDynamic);
     a.prHasIndicator(FoscMetronomeMark);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prHasIndicator { |prototype, attributes|
         var indicators;
@@ -742,8 +896,10 @@ FoscComponent : FoscObject {
         ^indicators.notEmpty;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prImmediatelyPrecedes
     
+    code::
 `   a = FoscNote(60, 1/4);
     b = FoscNote(60, 1/4);
     c = FoscNote(60, 1/4);
@@ -752,6 +908,7 @@ FoscComponent : FoscObject {
     a.prImmediatelyPrecedes(b);      // true
     b.prImmediatelyPrecedes(c);      // true
     c.prImmediatelyPrecedes(a);      // false
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prImmediatelyPrecedes { |component|
         var successors, current, sibling;
@@ -772,19 +929,25 @@ FoscComponent : FoscObject {
         ^successors.includes(component);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prMoveIndicators
 
+    code::
     a = FoscNote(60, 1/4);
     a.attach(FoscDynamic('p'));
     b = FoscNote(60, 1/4);
 
+    code::
     a.prHasIndicator(FoscDynamic);
     b.prHasIndicator(FoscDynamic);
 
+    code::
     a.prMoveIndicators(b);
 
+    code::
     a.prHasIndicator(FoscDynamic);
     b.prHasIndicator(FoscDynamic);
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prMoveIndicators { |recipientComponent|
         wrappers.do { |wrapper|
@@ -793,16 +956,20 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prRemoveFromParent
 
+    code::
     a = FoscNote(60, 1/4);
     b = FoscVoice([a]);
     a.parent;
     b.components;
 
+    code::
     a.prRemoveFromParent;
     a.parent;
     b.components;
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prRemoveFromParent {
         this.prUpdateLater(offsets: true);
@@ -819,7 +986,9 @@ FoscComponent : FoscObject {
         parent = nil;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prRemoveNamedChildrenFromParentage
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prRemoveNamedChildrenFromParentage { |nameDictionary|
         var namedChildren;
@@ -834,7 +1003,9 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prRestoreNamedChildrenToParentage
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prRestoreNamedChildrenToParentage { |nameDictionary|
         var namedChildren;
@@ -852,7 +1023,9 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prSetParent
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prSetParent { |newParent|
         var namedChildren;
@@ -864,8 +1037,10 @@ FoscComponent : FoscObject {
         this.prUpdateLater(offsets: true);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prSibling
     
+    code::
     a = FoscNote(60, 1/4);
     b = FoscNote(60, 1/4);
     c = FoscNote(60, 1/4);
@@ -874,6 +1049,7 @@ FoscComponent : FoscObject {
     a.prSibling(1) === b;       // true
     b.prSibling(-1) === a;      // true
     a.prSibling(-1) === b;      // false
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prSibling { |n|
         var getSibling, sibling, componentParent, index;
@@ -903,15 +1079,20 @@ FoscComponent : FoscObject {
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prTagStrings
 
+    code::
     FoscLilypondFormatManager.tag(["foo", "bar"], tag: 'CLAR');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prTagStrings { |strings|
         ^FoscLilypondFormatManager.tag(strings, tag: tag);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateLater
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prUpdateLater { |offsets=false, offsetsInSeconds=false|
         if (offsets.not && offsetsInSeconds.not) {
@@ -928,13 +1109,17 @@ FoscComponent : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateMeasureNumbers
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prUpdateMeasureNumbers {
         FoscUpdateManager().prUpdateMeasureNumbers(this);
     }
     /* --------------------------------------------------------------------------------------------------------
+    '''
     • prUpdateNow
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prUpdateNow { |offsets=false, offsetsInSeconds=false, indicators=false|
         ^FoscUpdateManager().prUpdateNow(this, offsets, offsetsInSeconds, indicators);

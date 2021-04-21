@@ -1,24 +1,42 @@
 /* ------------------------------------------------------------------------------------------------------------
+
+TITLE:: FoscHeaderBlock
+
+
+SUMMARY:: Returns a FoscHeaderBlock.
+
+
+DESCRIPTION:: TODO
+
+
+USAGE::
+
+'''
+
 • FoscHeaderBlock
 
 A LilyPond file header block.
 
+code::
 a = FoscBlock(name: 'paper');
 a.leftMargin = FoscLilypondDimension(2, 'cm');
 a.rightMargin = FoscLilypondDimension(2, 'cm');
 a.format;
 
+code::
 \paper {
     left-margin = 2\cm
     right-margin = 2\cm
 }
 
 
+code::
 a = FoscHeaderBlock();
 a.name;
 a.title_("Missa sexti tonus");
 a.composer_("Josquin");
 a.format;
+'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscHeaderBlock : FoscBlock {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
