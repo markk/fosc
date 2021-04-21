@@ -1,23 +1,16 @@
 /* ------------------------------------------------------------------------------------------------------------
-
 TITLE:: FoscIteration
 
 
 SUMMARY:: Returns a FoscIteration.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Iterates objects
 
 
 USAGE::
 
 '''
-
-• FoscIteration
-
-Iteration.
-
-
 • Example 1
 
 Iterates notes.
@@ -27,8 +20,12 @@ a = FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]);
 FoscIteration(a).components.do { |each| each.cs.postln };
 
 post::
-POSTOUTPUT
-'''
+FoscNote('C4', 1/8)
+FoscNote('D4', 1/8)
+FoscNote('E4', 1/8)
+FoscNote('F4', 1/8)
+FoscNote('G4', 1/8)
+FoscNote('A4', 1/8)
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscIteration : FoscStream {
@@ -51,35 +48,33 @@ FoscIteration : FoscStream {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • client
 
     Gets client.
 
     Returns component or selection.
 
-
+    '''
     • Example 1
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     FoscIteration(a).client;
+    '''
 
-
+    '''
     • Example 2
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     FoscIteration(a[0..]).client;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // SPECIAL PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         //!!!TODO
@@ -88,32 +83,49 @@ FoscIteration : FoscStream {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • components
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     FoscIteration(a).components.do { |each| each.cs.postln };
 
     post::
-    POSTOUTPUT
+    FoscStaff([  ], 'Staff', false) // FIXME parser confused by brackets?
+    FoscNote('C4', 1/8)
+    FoscNote('D4', 1/8)
+    FoscNote('E4', 1/8)
+    FoscNote('F4', 1/8)
+    FoscNote('G4', 1/8)
+    FoscNote('A4', 1/8)
     '''
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     FoscIteration(a).components(prototype: FoscNote).do { |each| each.cs.postln };
 
     post::
-    POSTOUTPUT
+    FoscNote('C4', 1/8)
+    FoscNote('D4', 1/8)
+    FoscNote('E4', 1/8)
+    FoscNote('F4', 1/8)
+    FoscNote('G4', 1/8)
+    FoscNote('A4', 1/8)
     '''
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     FoscIteration(a).components(FoscNote, reverse: true).do { |each| each.cs.postln };
 
     post::
-    POSTOUTPUT
-    '''
+    FoscNote('A4', 1/8)
+    FoscNote('G4', 1/8)
+    FoscNote('F4', 1/8)
+    FoscNote('E4', 1/8)
+    FoscNote('D4', 1/8)
+    FoscNote('C4', 1/8)
     '''
     -------------------------------------------------------------------------------------------------------- */
     components { |prototype, exclude, doNotIterateGraceContainers=false, graceNotes=false, reverse=false|
@@ -130,8 +142,8 @@ FoscIteration : FoscStream {
             graceContainer = localClient.graceContainer;
             afterGraceContainer = localClient.afterGraceContainer;
         };
-        
-        routine = Routine {    
+
+        routine = Routine {
             if (reverse.not) {
                 if (doNotIterateGraceContainers.not && graceNotes && graceContainer.notNil) {
                     embeddedRoutine = FoscIteration(graceContainer).components(
@@ -228,9 +240,9 @@ FoscIteration : FoscStream {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leafPairs
 
+    '''
     !!!TODO: is this method needed? can just do:
 
     code::
@@ -238,17 +250,20 @@ FoscIteration : FoscStream {
     FoscIteration(a).leaves.doAdjacentPairs { |a, b| [a.str, b.str].postln };
 
     post::
-    POSTOUTPUT
-    '''
+    [ c'8, d'8 ]
+    [ d'8, e'8 ]
+    [ e'8, f'8 ]
+    [ f'8, g'8 ]
+    [ g'8, a'8 ]
     '''
     -------------------------------------------------------------------------------------------------------- */
     leafPairs {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leaves
 
+    '''
     • iterate all leaves
 
     code::
@@ -256,9 +271,15 @@ FoscIteration : FoscStream {
     FoscIteration(a).leaves.do { |each| each.cs.postln };
 
     post::
-    POSTOUTPUT
+    FoscNote('C4', 1/8)
+    FoscNote('D4', 1/8)
+    FoscRest(1/8)
+    FoscNote('F4', 1/8)
+    FoscNote('G4', 1/8)
+    FoscRest(1/8)
     '''
 
+    '''
     • iterate pitched leaves
 
     code::
@@ -266,9 +287,14 @@ FoscIteration : FoscStream {
     FoscIteration(a).leaves(pitched: true).do { |each| each.cs.postln };
 
     post::
-    POSTOUTPUT
+    FoscNote('C4', 1/8)
+    FoscNote('D4', 1/8)
+    FoscNote('F4', 1/8)
+    FoscNote('G4', 1/8)
     '''
 
+
+    '''
     • iterate non-pitched leaves
 
     code::
@@ -276,9 +302,11 @@ FoscIteration : FoscStream {
     FoscIteration(a).leaves(pitched: false).do { |each| each.cs.postln };
 
     post::
-    POSTOUTPUT
+    FoscRest(1/8)
+    FoscRest(1/8)
     '''
 
+    '''
     • iterate all leaf pairs
 
     code::
@@ -286,14 +314,16 @@ FoscIteration : FoscStream {
     FoscIteration(a).leaves.doAdjacentPairs { |a, b| [a.cs, b.cs].postln };
 
     post::
-    POSTOUTPUT
-    '''
+    [ FoscNote('C4', 1/8), FoscNote('D4', 1/8) ]
+    [ FoscNote('D4', 1/8), FoscNote('E4', 1/8) ]
+    [ FoscNote('E4', 1/8), FoscNote('F4', 1/8) ]
+    [ FoscNote('F4', 1/8), FoscNote('G4', 1/8) ]
     '''
     -------------------------------------------------------------------------------------------------------- */
     leaves { |prototype, exclude, doNotIterateGraceContainers=false, graceNotes=false, pitched,
         reverse=false|
         prototype = prototype ? FoscLeaf;
-        case 
+        case
         { pitched == true } {
             prototype = [FoscChord, FoscNote];
         }
@@ -309,9 +339,9 @@ FoscIteration : FoscStream {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • logicalTies
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,nil,64,64], [1/4,1/24,1/12,1/8,1/4,1/4]));
     m = a.selectLeaves;
@@ -326,9 +356,7 @@ FoscIteration : FoscStream {
     a.writePNG("%.ly".format(p));
 
 
-
-
-
+    '''
     • iterate all logicalTies
 
     code::
@@ -336,11 +364,17 @@ FoscIteration : FoscStream {
     b.all.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
+    [ FoscNote('C4', 1/4), FoscNote('C4', 1/16) ]
+    [ FoscNote('D4', 1/8) ]
+    [ FoscRest(1/8) ]
+    [ FoscNote('E4', 1/4), FoscNote('E4', 1/4) ]
     '''
 
+    '''
     • iterate pitched logicalTies
-    
+
+    FIXME output: `ERROR: Message 'items' not understood.`
+
     code::
     b = FoscIteration(a).logicalTies(pitched: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
@@ -349,28 +383,34 @@ FoscIteration : FoscStream {
     POSTOUTPUT
     '''
 
+    '''
     • iterate non-pitched logicalTies
-    
+
     code::
     b = FoscIteration(a).logicalTies(pitched: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
+    [ FoscRest(1/8) ]
     '''
 
+    '''
     • iterate nontrivial logicalTies
-    
+
+    FIXME output: `ERROR: Message 'items' not understood.`
+
     code::
     b = FoscIteration(a).logicalTies(nontrivial: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
 
+    '''
     • iterate trivial logicalTies
-    
+
+    FIXME output: `ERROR: Message 'items' not understood.`
+
     code::
     b = FoscIteration(a).logicalTies(nontrivial: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
@@ -379,15 +419,17 @@ FoscIteration : FoscStream {
     POSTOUTPUT
     '''
 
+    '''
     • iterate logicalTies in reverse order
-    
+
+    FIXME output: `ERROR: Message 'items' not understood.`
+
     code::
     b = FoscIteration(a).logicalTies(reverse: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
     POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     logicalTies { |exclude, graceNotes=false, nontrivial, pitched, reverse=false|
@@ -415,30 +457,25 @@ FoscIteration : FoscStream {
                         };
                     };
                 };
-            };    
+            };
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • outOfRange
-    '''
     -------------------------------------------------------------------------------------------------------- */
     outOfRange {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pitchPairs
-    '''
     -------------------------------------------------------------------------------------------------------- */
     pitchPairs {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pitches
 
-
+    '''
     • Iterate pitches in selection.
 
     code::
@@ -446,9 +483,15 @@ FoscIteration : FoscStream {
     FoscIteration(a).pitches.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
+    c'
+    d'
+    e'
+    cs'
+    ef'
+    f'
     '''
 
+    '''
     • Iterate pitches in container.
 
     code::
@@ -456,10 +499,16 @@ FoscIteration : FoscStream {
     FoscIteration(a).pitches.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
+    c'
+    d'
+    e'
+    cs'
+    ef'
+    f'
     '''
 
-    
+
+    '''
     !!!TODO: not supported in fosc
     • Iterate pitches in FoscPitchSet.
 
@@ -471,6 +520,7 @@ FoscIteration : FoscStream {
     POSTOUTPUT
     '''
 
+    '''
     !!!TODO: not supported in fosc
     • Iterate various types of object.
 
@@ -481,7 +531,6 @@ FoscIteration : FoscStream {
     post::
     POSTOUTPUT
     '''
-    '''
     -------------------------------------------------------------------------------------------------------- */
     pitches {
         var result;
@@ -489,7 +538,7 @@ FoscIteration : FoscStream {
         FoscIteration(client).leaves(pitched: true).do { |leaf|
             case
             { leaf.isKindOf(FoscNote) } {
-                result = result.add(leaf.writtenPitch);  
+                result = result.add(leaf.writtenPitch);
             }
             { leaf.isKindOf(FoscChord) } {
                 result = result.addAll(leaf.writtenPitches.items);
@@ -506,9 +555,9 @@ FoscIteration : FoscStream {
     //     if (client.isKindOf(FoscPitch)) {
     //         routine = routine ++ Routine { client.yield };
     //     };
-        
+
     //     try { result = result.addAll(client.pitches) };
-        
+
     //     case
     //     { client.isKindOf(FoscChord) } {
     //         result = result.addAll(client.writtenPitches.items);
@@ -528,27 +577,27 @@ FoscIteration : FoscStream {
     //         FoscIteration(client).leaves.do { |leaf|
     //             try { result = result.add(leaf.writtenPitch) };
     //             try { result = result.addAll(leaf.writtenPitches.items) };
-    //         }  
+    //         }
     //     };
-        
+
     //     routine = routine ++ iter(result);
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • runs
 
-    .separate { |a, b| a.isPitched != b.isPitched && { a.stopOffset == b.startOffset }}
     '''
+    '''
+    .separate { |a, b| a.isPitched != b.isPitched && { a.stopOffset == b.startOffset }}
     -------------------------------------------------------------------------------------------------------- */
     // runs {
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • timeline
 
     !!!TODO: 'protoype' can not currently be FoscLogicalTie
 
-    
+
+    '''
     • iterate all leaves
 
     code::
@@ -565,8 +614,7 @@ FoscIteration : FoscStream {
     c.writePNG("%.ly".format(p));
 
 
-
-
+    '''
     • iterate all leaves in reverse
 
     code::
@@ -583,9 +631,7 @@ FoscIteration : FoscStream {
     c.writePNG("%.ly".format(p));
 
 
-
-
-
+    '''
     • iterate pitched leaves
 
     code::
@@ -602,9 +648,7 @@ FoscIteration : FoscStream {
     c.writePNG("%.ly".format(p));
 
 
-
-
-
+    '''
     • iterate non-pitched leaves
 
     code::
@@ -619,13 +663,9 @@ FoscIteration : FoscStream {
 
     p = "%/fosc/docs/img/agent-iteration-5".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     timeline { |prototype, exclude, pitched, reverse=false|
-        var components, indices, scoreIndex;    
+        var components, indices, scoreIndex;
         components = all(this.leaves(prototype: prototype, exclude: exclude, pitched: pitched));
         indices = components.collect { |each|
             //!!!TODO: graceNotes ??
@@ -637,9 +677,9 @@ FoscIteration : FoscStream {
         routine = iter(components);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • timelineByLogicalTies
 
+    '''
     • iterate logical ties
 
     code::
@@ -656,8 +696,7 @@ FoscIteration : FoscStream {
     c.writePNG("%.ly".format(p));
 
 
-
-
+    '''
     • iterate pitched logical ties
 
     code::
@@ -665,7 +704,6 @@ FoscIteration : FoscStream {
     b = FoscStaff(FoscLeafMaker().((60..63), [5/16]));
     c = FoscScore([a, b]);
     FoscIteration(c).timelineByLogicalTies(pitched: true)
-    code::
         .do { |each, i| each.head.attach(FoscMarkup(i, 'above')) };
     c.show;
 
@@ -674,13 +712,9 @@ FoscIteration : FoscStream {
 
     p = "%/fosc/docs/img/agent-iteration-7".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     timelineByLogicalTies { |exclude, pitched, reverse=false|
-        var logicalTies, indices, scoreIndex;    
+        var logicalTies, indices, scoreIndex;
         logicalTies = all(this.logicalTies(exclude: exclude, pitched: pitched));
         indices = logicalTies.collect { |each|
             //!!!TODO: graceNotes ??
@@ -692,9 +726,7 @@ FoscIteration : FoscStream {
         routine = iter(logicalTies);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • verticalMoments
-    '''
     -------------------------------------------------------------------------------------------------------- */
     verticalMoments { |reverse=false|
         ^this.notYetImplemented(thisMethod);
@@ -703,17 +735,13 @@ FoscIteration : FoscStream {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prCoerceExclude
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prCoerceExclude { |exclude|
         if (exclude.isNil) { ^[] } { ^[exclude] };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prShouldExclude
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prShouldExclude { |object, exclude|
         assert(exclude.isSequenceableCollection);
