@@ -158,6 +158,28 @@ USAGE::
 	partition { |string|
 		^this.delimitBy(string);
 	}
+    /* --------------------------------------------------------------------------------------------------------
+    • indent
+
+    Prepend each non-blank line with whitespace.
+    -------------------------------------------------------------------------------------------------------- */
+    indent { |indent=4|
+        ^this.splitLines.collect { |l|
+            if (l.removeWhiteSpace.size == 0) { l } { "".padLeft(indent) ++ l }
+        }.join("\n");
+    }
+    /* --------------------------------------------------------------------------------------------------------
+    • dedent
+
+    Remove the length of whitespace found at the start of the first line from all lines.
+
+    WARNING/FIXME: will kill non-whitespace from subsequent lines with less leading whitespace!
+    -------------------------------------------------------------------------------------------------------- */
+    dedent {
+        var indent = this.findRegexpAt("\\s+");
+        if (indent.isNil) { ^this };
+        ^this.splitLines.collect { |l| l[indent[1]..] }.join("\n");
+    }
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• removeLeadingWhiteSpace
