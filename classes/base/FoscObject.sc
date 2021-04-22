@@ -1,5 +1,4 @@
 /* ------------------------------------------------------------------------------------------------------------
-
 TITLE:: FoscObject
 
 
@@ -10,185 +9,143 @@ DESCRIPTION:: TODO
 
 
 USAGE::
-
-'''
-
-• FoscObject
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscObject {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
-    Is true when ID of 'object' equals ID of Abjad object. Otherwise false.
+    Is true when ID of 'object' equals ID of Fosc object. Otherwise false.
 
     Returns true or false.
 
+    '''
+    '''
     def __eq__(self, object):
         return id(self) == id(object)
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	// == { |object|
-	// 	^(this != object).not;
-	// }
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    -------------------------------------------------------------------------------------------------------- */
+    // == { |object|
+    // 	^(this != object).not;
+    // }
+    /* --------------------------------------------------------------------------------------------------------
     • !-
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	!= { |object|
-		^(this == object).not;
-	}
-   	/* --------------------------------------------------------------------------------------------------------
-    '''
-    • >
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	// > { |object|
-	// 	^(this <= object).not;
-	// }
-	/* --------------------------------------------------------------------------------------------------------
-    '''
-    • >=
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	// >= { |object|
-	// 	^(this < object).not;
-	// }
-	/* --------------------------------------------------------------------------------------------------------
-    '''
-    • >
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	< { |object|
-		^(this >= object).not;
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
-    • >=
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	<= { |object|
-		^(this > object).not;
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
-    • add (python: __add__)
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	+ { |object|
-		^this.add(object);
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
-    • asInteger
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	asInt {
-    	^this.asInteger;
+    -------------------------------------------------------------------------------------------------------- */
+    != { |object|
+      ^(this == object).not;
     }
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+   	/* --------------------------------------------------------------------------------------------------------
+    • >
+    -------------------------------------------------------------------------------------------------------- */
+    // > { |object|
+    // 	^(this <= object).not;
+    // }
+    /* --------------------------------------------------------------------------------------------------------
+    • >=
+    -------------------------------------------------------------------------------------------------------- */
+    // >= { |object|
+    // 	^(this < object).not;
+    // }
+    /* --------------------------------------------------------------------------------------------------------
+    • >
+    -------------------------------------------------------------------------------------------------------- */
+    < { |object|
+      ^(this >= object).not;
+    }
+    /* --------------------------------------------------------------------------------------------------------
+    • >=
+    -------------------------------------------------------------------------------------------------------- */
+    <= { |object|
+      ^(this > object).not;
+    }
+    /* --------------------------------------------------------------------------------------------------------
+    • add (python: __add__)
+    -------------------------------------------------------------------------------------------------------- */
+    + { |object|
+      ^this.add(object);
+    }
+    /* --------------------------------------------------------------------------------------------------------
+    • asInteger
+    -------------------------------------------------------------------------------------------------------- */
+    asInt {
+        ^this.asInteger;
+      }
+    /* --------------------------------------------------------------------------------------------------------
     • concat (python: __add__)
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	++ { |object|
-		^this.concat(object);
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    -------------------------------------------------------------------------------------------------------- */
+    ++ { |object|
+      ^this.concat(object);
+    }
+    /* --------------------------------------------------------------------------------------------------------
     • div (python: __div_)
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	/ { |object|
-		^this.div(object);
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    -------------------------------------------------------------------------------------------------------- */
+    / { |object|
+      ^this.div(object);
+    }
+    /* --------------------------------------------------------------------------------------------------------
     • dup (python: __mult__)
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	! { |object|
-		^this.dup(object);
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    -------------------------------------------------------------------------------------------------------- */
+    ! { |object|
+      ^this.dup(object);
+    }
+    /* --------------------------------------------------------------------------------------------------------
     • mul (python: __mul__)
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	* { |object|
-		^this.mul(object);
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    -------------------------------------------------------------------------------------------------------- */
+    * { |object|
+      ^this.mul(object);
+    }
+    /* --------------------------------------------------------------------------------------------------------
     • sub (python: __sub__)
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	- { |object|
-		^this.sub(object);
-	}
-	// SET OPERATIONS
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    -------------------------------------------------------------------------------------------------------- */
+    - { |object|
+      ^this.sub(object);
+    }
+    // SET OPERATIONS
+    /* --------------------------------------------------------------------------------------------------------
     • difference
     //!!! - must be an override at a lower point in the hierarchy
     '''
-	-------------------------------------------------------------------------------------------------------- */
-	// - { |object|
- 	//        ^this.difference(object)
- 	//    }
+    -------------------------------------------------------------------------------------------------------- */
+    // - { |object|
+    //        ^this.difference(object)
+    //    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    • difference
-    '''
-	-------------------------------------------------------------------------------------------------------- */
+    • intersection
+    -------------------------------------------------------------------------------------------------------- */
     & { |object|
         ^this.intersection(object);
     }
-     /* --------------------------------------------------------------------------------------------------------
-    '''
+    /* --------------------------------------------------------------------------------------------------------
     • symmetricDifference
-    '''
-	-------------------------------------------------------------------------------------------------------- */
+	  -------------------------------------------------------------------------------------------------------- */
     -- { |object|
         ^this.symmetricDifference(object);
     }
-     /* --------------------------------------------------------------------------------------------------------
-    '''
+    /* --------------------------------------------------------------------------------------------------------
     • union
-    '''
-	-------------------------------------------------------------------------------------------------------- */
+	  -------------------------------------------------------------------------------------------------------- */
     | { |object|
         ^this.union(object);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
-    Formats Abjad object.
+    Formats Fosc object.
 
-	Returns string.
-    '''
+  	Returns string.
     -------------------------------------------------------------------------------------------------------- */
     format {
     	^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ps
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ps {
         ^this.pitchString;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
-    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         ^this.prGetLilypondFormat;
@@ -197,12 +154,10 @@ FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prCopyKeywords
 
     !!!TODO: rename: method to prCopyInstVars, keywords arg to instVarNames
     !!!TODO: should 'val' placed in new object be copied or deepCopied ??
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prCopyKeywords { |new, keywords|
         assert(keywords.isSequenceableCollection);
@@ -211,16 +166,22 @@ FoscObject {
         };
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: TOP LEVEL
+    // PUBLIC INSTANCE METHODS: TOP LEVEL
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • annotate
+
+    Annotates receiver with 'annotation'.
+    '''
+    Annotates note with a clef.
 
     code::
     a = FoscNote(60, 1/4);
     a.annotate('foo', FoscClef('bass'));
     FoscInspection(a).annotation('foo');
+
+    post::
+    -> a FoscClef
     '''
     -------------------------------------------------------------------------------------------------------- */
     annotate { |annotation, indicator|
@@ -234,7 +195,6 @@ FoscObject {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • attach
 
     !!!TODO: attaches to FoscComponents and FoscSelections? can this method be moved lower in the tree?
@@ -246,7 +206,7 @@ FoscObject {
 
     Second form attaches spanner to leaf selection.
 
-    Third for attaches grace container to leaf.
+    Third form attaches grace container to leaf.
 
     Fourth form attaches time signature to measure.
 
@@ -254,10 +214,8 @@ FoscObject {
 
     Returns nil.
 
-
-    • Example 1
-
-    Attaches clef to first note in staff:
+    '''
+    Attaches clef to first note in staff
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -265,15 +223,32 @@ FoscObject {
     a[0].wrappers;
     a.format;
 
+    post::
+    -> \new Staff {
+        \clef "bass"
+        c'4
+        d'4
+        e'4
+        f'4
+    }
+    '''
 
-    • Example 2
-
-    Attaches accent to last note in staff:
+    '''
+    Attaches accent to last note in staff
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[3].attach(FoscArticulation('>'));
     a.format;
+
+    post::
+    -> \new Staff {
+        c'4
+        d'4
+        e'4
+        f'4
+        -\accent
+    }
     '''
     -------------------------------------------------------------------------------------------------------- */
     attach { |attachment, context, deactivate, syntheticOffset, tag, wrapper=false|
@@ -373,27 +348,27 @@ FoscObject {
         if (wrapper) { ^localWrapper };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • detach
 
-
-    • Example 1
-
-    Detach by class.
+    '''
+    Detach by class
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscArticulation('>'));
     a.format;
 
+    post::
+
     code::
     a[0].detach(FoscArticulation);
     a.format;
 
+    post::
+    '''
 
-    • Example 2
-
-    Detach by instance.
+    '''
+    Detach by instance
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -401,9 +376,13 @@ FoscObject {
     a[0].attach(i);
     a.format;
 
+    post::
+
     code::
     a[0].detach(i);
     a.format;
+
+    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     detach { |object, byID=false|
@@ -477,33 +456,30 @@ FoscObject {
 
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • iterate
-    '''
     -------------------------------------------------------------------------------------------------------- */
     iterate {
         ^FoscIteration(this);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • mutate
-    '''
     -------------------------------------------------------------------------------------------------------- */
     mutate {
-		^FoscMutation(this);
-	}
+		    ^FoscMutation(this);
+	  }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • override
 
+    Adds a LilyPond 'override' to receiver.
 
-    • Example 1
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     override(a).noteHead.color = 'red';
     override(a).noteHead.size = 12;
     a.format;
+
+    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     override {
@@ -516,18 +492,16 @@ FoscObject {
         ^this.overrides;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • setting
-    '''
     -------------------------------------------------------------------------------------------------------- */
     //!!!TODO: deprecate in favour of 'set'
     setting {
         ^this.set;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • set
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], 1/8));
     set(a).instrumentName = FoscMarkup("Violin");
@@ -538,10 +512,6 @@ FoscObject {
 
     p = "%/fosc/docs/img/base-object-1".format(Platform.userExtensionDir);
     a.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     set {
         if (this.respondsTo('lilypondSettingNameManager').not) {
@@ -553,28 +523,23 @@ FoscObject {
         ^this.lilypondSettingNameManager;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • select
-    '''
     -------------------------------------------------------------------------------------------------------- */
     select {
         ^FoscSelection(this);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • show
 
     Shows 'object'.
 
-	Makes LilyPond input files and output PDF.
+    Makes LilyPond input files and output PDF.
 
-    Writes LilyPond input file and output PDF to Abjad output directory.
+    Writes LilyPond input file and output PDF to Fosc output directory.
 
     Opens output PDF.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.show;
@@ -584,13 +549,9 @@ FoscObject {
 
     p = "%/fosc/docs/img/base-object-2".format(Platform.userExtensionDir);
     a.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
-	show { |path|
-		var result, pdfPath, success;
+    show { |path|
+        var result, pdfPath, success;
         if (this.respondsTo('illustrate').not) {
             throw("% does not respond to 'illustrate' and can't be shown.".format(this));
         };
@@ -599,14 +560,13 @@ FoscObject {
         # pdfPath, success = result;
         //"pdfPath: ".post; pdfPath.postln;
         if (success) { FoscIOManager.openFile(pdfPath) };
-	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweak
 
-    • Example 1
-
-    Tweaks markup:
+    Attaches LilyPond tweak to receiver.
+    '''
+    Tweak markup
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -616,6 +576,8 @@ FoscObject {
     a[0].attach(m);
     a.format;
 
+    post::
+    '''
 
     ### abjad:
     \new Staff
@@ -629,8 +591,8 @@ FoscObject {
         f'4
     }
     ###
-
-    Survives copy:
+    '''
+    Survives copy
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -641,9 +603,10 @@ FoscObject {
     //a.show;
     a.format;
 
+    post::
+    '''
     ### abjad:
     \new Staff
-    code::
     {
         c'4
         - \tweak color #red
@@ -654,9 +617,10 @@ FoscObject {
     }
     ###
 
-    !!!TODO: DOES NOT SURVIVE DOT-CHAINING
+    '''
+    Survives dot-chaining
 
-    Survives dot-chaining:
+    !!!TODO: DOES NOT SURVIVE DOT-CHAINING
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -667,13 +631,13 @@ FoscObject {
     //a.show;
     a.format;
 
+    post::
+    '''
     ### abjad:
     \new Staff
-    code::
     {
         c'4
         - \tweak color #red
-    code::
         ^ \markup {
             \italic
                 "Allegro assai"
@@ -684,9 +648,10 @@ FoscObject {
     }
     ###
 
-    !!!TODO: DOES NOT WORK FOR OPPOSITE-DIRECTED COINCIDENT MARKUP
+    '''
+    Works for opposite-directed coincident markup
 
-    Works for opposite-directed coincident markup:
+    !!!TODO: DOES NOT WORK FOR OPPOSITE-DIRECTED COINCIDENT MARKUP
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -700,9 +665,10 @@ FoscObject {
     //a.show;
     a.format;
 
+    post::
+    '''
     ### abjad:
     \new Staff
-    code::
     {
         c'4
         - \tweak color #red
@@ -716,9 +682,10 @@ FoscObject {
     }
     ###
 
-    !!!TODO: NOT WORKING
+    '''
+    Ignored for same-directed coincident markup
 
-    Ignored for same-directed coincident markup:
+    !!!TODO: NOT WORKING
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -732,9 +699,10 @@ FoscObject {
     //a.show;
     a.format;
 
+    post::
+    '''
     ### abjad:
     \new Staff
-    code::
     {
         c'4
         - \tweak color #red
@@ -748,12 +716,10 @@ FoscObject {
     }
     ###
 
-
-    • Example 2
+    '''
+    Tweaks note-head
 
     !!!TODO: NOT YET IMPLEMENTED FOR FoscComponents
-
-    Tweaks note-head:
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
@@ -761,9 +727,10 @@ FoscObject {
     a.show;
     a.format;
 
+    post::
+    '''
     ### abjad:
     \new Staff
-    code::
     {
         c'4
         \tweak color #red
@@ -773,10 +740,11 @@ FoscObject {
     }
     ###
 
+    '''
+
+    Tweaks grob aggregated to note-head
 
     !!!TODO: NOT YET IMPLEMENTED FOR FoscComponents
-
-    Tweaks grob aggregated to note-head:
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
@@ -784,6 +752,8 @@ FoscObject {
     a.show;
     a.format;
 
+    post::
+    '''
     ### abjad:
     \new Staff
     code::
@@ -796,21 +766,23 @@ FoscObject {
     }
     ###
 
-
-    • Example 3
-
-    Returns LilyPond tweak manager:
+    '''
+    Returns LilyPond tweak manager
 
     code::
     m = FoscMarkup('Allegro assai', direction: 'above');
     tweak(m);
 
+    post::
+    '''
 
-    • Example 4
+    '''
+    Tweak object sessions work like this
 
-    !!!TODO:
+    !!!TODO
+    '''
 
-    Tweak objectessions work like this:
+    Tweak object sessions work like this:
 
     >>> abjad.tweak('red').color
     LilyPondTweakManager(('color', 'red'))
@@ -822,9 +794,7 @@ FoscObject {
     LilyPondTweakManager(('bound_details__left_broken__text', False))
 
 
-
-    • Example X
-
+    '''
     code::
     a = FoscHairpin('p < f');
     b = FoscLilypondTweakManager();
@@ -832,14 +802,17 @@ FoscObject {
     a.tweaks;
     a.tweaks.prGetAttributePairs;
 
+    post::
+    '''
 
-    • Example Y
-
+    '''
     code::
     a = FoscHorizontalBracket();
     tweak(a).color = 'red';
     tweak(a).staffPadding = 5;
     a.tweaks.prGetAttributePairs;
+
+    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
@@ -862,111 +835,94 @@ FoscObject {
         ^this.tweaks;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • write
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	write {
-		^FoscPersistenceManager(this);
-	}
+    -------------------------------------------------------------------------------------------------------- */
+    write {
+        ^FoscPersistenceManager(this);
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writeLY
-    '''
     -------------------------------------------------------------------------------------------------------- */
     writeLY { |path|
         ^FoscPersistenceManager(this).asLY(path);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writeMIDI
-    '''
     -------------------------------------------------------------------------------------------------------- */
     writeMIDI { |path|
         ^FoscPersistenceManager(this).asMIDI(path);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writePDF
-    '''
     -------------------------------------------------------------------------------------------------------- */
     writePDF { |path|
         ^FoscPersistenceManager(this).asPDF(path);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writePNG
-    '''
     -------------------------------------------------------------------------------------------------------- */
     writePNG { |path, resolution=100|
         ^FoscPersistenceManager(this).asPNG(path, resolution: resolution);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: FoscSelection / FoscCopmonent shared interface
+    // PUBLIC INSTANCE METHODS: FoscSelection / FoscComponent shared interface
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doComponents
 
-    • iterate notes in a selection
+    '''
+    Iterate notes in a selection
 
     code::
     a = FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]);
     a.doComponents({ |each, i| each.cs.postln }, FoscNote);
 
     post::
-    POSTOUTPUT
     '''
-
-    • reverse iterate notes in a selection
+    '''
+    Reverse iterate notes in a selection
 
     code::
     a = FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]);
     a.doComponents({ |each, i| each.cs.postln }, FoscNote, reverse: true);
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate notes in a staff
+    '''
+    Iterate notes in a staff
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     a.doComponents({ |each, i| each.cs.postln }, FoscNote);
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate all components in a staff
+    '''
+    Iterate all components in a staff
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     a.doComponents({ |each, i| each.cs.postln });
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate leaf
+    '''
+    Iterate leaf
 
     code::
     a = FoscNote(60, 1/4);
     a.doComponents({ |each, i| each.cs.postln }, FoscNote);
 
     post::
-    POSTOUTPUT
     '''
-
-    • throw error
+    '''
+    Throw error
 
     code::
     a = FoscDynamic('p');
     a.doComponents({ |each, i| each.cs.postln });
 
     post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     doComponents { |function, prototype, exclude, doNotIterateGraceContainers=false, graceNotes=false,
@@ -983,38 +939,34 @@ FoscObject {
         iterator.do(function);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doLeaves
 
-    • iterate all leaves
+    '''
+    Iterate all leaves
 
     code::
     a = FoscLeafMaker().(#[60,62,nil,65,67,nil], [1/8]);
     a.doLeaves { |each| each.cs.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate pitched leaves
+    '''
+    Iterate pitched leaves
 
     code::
     a = FoscLeafMaker().(#[60,62,nil,65,67,nil], [1/8]);
     a.doLeaves({ |each| each.cs.postln }, pitched: true);
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate non-pitched leaves
+    '''
+    Iterate non-pitched leaves
 
     code::
     a = FoscLeafMaker().(#[60,62,nil,65,67,nil], [1/8]);
     a.doLeaves({ |each| each.cs.postln }, pitched: false);
 
     post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     doLeaves { |function, pitched, prototype, exclude, doNotIterateGraceContainers=false,
@@ -1032,9 +984,9 @@ FoscObject {
         iterator.do(function);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doLogicalTies
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,nil,64,64], [1/4,1/24,1/12,1/8,1/4,1/4]));
     m = a.selectLeaves;
@@ -1048,69 +1000,59 @@ FoscObject {
     p = "%/fosc/docs/img/base-object-3".format(Platform.userExtensionDir);
     a.writePNG("%.ly".format(p));
 
-
-
-
+    '''
     code::
     a.selectLogicalTies.items.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate all logicalTies
+    '''
+    Iterate all logicalTies
 
     code::
     a.doLogicalTies { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate pitched logicalTies
+    '''
+    Iterate pitched logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, pitched: true);
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate non-pitched logicalTies
+    '''
+    Iterate non-pitched logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, pitched: false);
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate nontrivial logicalTies
+    '''
+    iterate nontrivial logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, nontrivial: true);
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate trivial logicalTies
+    '''
+    Iterate trivial logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, nontrivial: false);
 
     post::
-    POSTOUTPUT
     '''
-
-    • iterate logicalTies in reverse order
+    '''
+    Iterate logicalTies in reverse order
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, reverse: true);
 
     post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     doLogicalTies { |function, exclude, graceNotes=false, nontrivial, pitched, reverse=false|
@@ -1127,10 +1069,10 @@ FoscObject {
         iterator.do(function);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doRuns
 
-    • Attach horizontal bracket to each run.
+    '''
+    Attach horizontal bracket to each run.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,nil,64,64], [1/4,1/24,1/12,1/8,1/4,1/4]));
@@ -1148,19 +1090,16 @@ FoscObject {
     p = "%/fosc/docs/img/base-object-4".format(Platform.userExtensionDir);
     a.writePNG("%.ly".format(p));
 
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     doRuns { |function, exclude|
         FoscObject.prCheckIsIterable(this, thisMethod);
         ^this.selectRuns(exclude: exclude).do(function);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doTimeline
 
-    • iterate all leaves
+    '''
+    Iterate all leaves
 
     code::
     a = FoscStaff(FoscLeafMaker().((60..67), [1/8]));
@@ -1171,14 +1110,11 @@ FoscObject {
 
     img:: ![](../img/base-object-5.png)
     '''
-
     p = "%/fosc/docs/img/base-object-5".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
 
-
-
-
-    • iterate all leaves in reverse
+    '''
+    Iterate all leaves in reverse
 
     code::
     a = FoscStaff(FoscLeafMaker().((60..67), [1/8]));
@@ -1189,14 +1125,11 @@ FoscObject {
 
     img:: ![](../img/base-object-6.png)
     '''
-
     p = "%/fosc/docs/img/base-object-6".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
 
-
-
-
-    • iterate pitched leaves
+    '''
+    Iterate pitched leaves
 
     code::
     a = FoscStaff(FoscLeafMaker().([60,61,nil,63,nil,nil,65], [1/8]));
@@ -1207,14 +1140,11 @@ FoscObject {
 
     img:: ![](../img/base-object-7.png)
     '''
-
     p = "%/fosc/docs/img/base-object-7".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
 
-
-
-
-    • iterate non-pitched leaves
+    '''
+    Iterate non-pitched leaves
 
     code::
     a = FoscStaff(FoscLeafMaker().([60,61,nil,63,nil,nil,65], [1/8]));
@@ -1225,13 +1155,8 @@ FoscObject {
 
     img:: ![](../img/base-object-8.png)
     '''
-
     p = "%/fosc/docs/img/base-object-8".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     doTimeline { |function, prototype, exclude, pitched, reverse=false|
         var iterator;
@@ -1245,10 +1170,10 @@ FoscObject {
         iterator.do(function);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doTimelineByLogicalTies
 
-    • iterate logical ties
+    '''
+    Iterate logical ties
 
     code::
     a = FoscStaff(FoscLeafMaker().((60..67), [5/32]));
@@ -1259,14 +1184,11 @@ FoscObject {
 
     img:: ![](../img/base-object-9.png)
     '''
-
     p = "%/fosc/docs/img/base-object-9".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
 
-
-
-
-    • iterate pitched logical ties
+    '''
+    Iterate pitched logical ties
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,61,nil,63,nil,nil,65], [5/32]));
@@ -1277,13 +1199,8 @@ FoscObject {
 
     img:: ![](../img/base-object-10.png)
     '''
-
     p = "%/fosc/docs/img/base-object-10".format(Platform.userExtensionDir);
     c.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     doTimelineByLogicalTies { |function, exclude, pitched, reverse=false|
         var iterator;
@@ -1296,32 +1213,43 @@ FoscObject {
         iterator.do(function);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leafAt
 
-    • selection
+    '''
+    Selection
 
     code::
     a = FoscSelection([FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     a.leafAt(1).str;
 
-    • selection: pitched
+    post::
+    '''
+    '''
+    Selection: pitched
 
     code::
     a = FoscSelection([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     a.leafAt(0, pitched: true).str;
 
-    • container
+    post::
+    '''
+    '''
+    Container
 
     code::
     a = FoscStaff([FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     a.leafAt(1).str;
 
-    • container: pitched
+    post::
+    '''
+    '''
+    Container: pitched
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     a.leafAt(0, pitched: true).str;
+
+    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     leafAt { |index, pitched|
@@ -1329,10 +1257,10 @@ FoscObject {
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • selectComponents
 
-    • select all components
+    '''
+    Select all components
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1340,10 +1268,9 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select notes
+    '''
+    Select notes
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1351,10 +1278,9 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select notes and rests
+    '''
+    Select notes and rests
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1362,10 +1288,9 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select notes and rests in reverse order
+    '''
+    Select notes and rests in reverse order
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1373,8 +1298,6 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     selectComponents { |prototype, exclude, graceNotes=false, reverse=false|
@@ -1388,10 +1311,10 @@ FoscObject {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • selectLeaves
 
-    • select all leaves
+    '''
+    Select all leaves
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1399,10 +1322,9 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select pitched leaves
+    '''
+    Select pitched leaves
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1410,10 +1332,9 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select non-pitched leaves
+    '''
+    Select non-pitched leaves
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1421,10 +1342,9 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select leaves in reverse order
+    '''
+    Select leaves in reverse order
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
@@ -1432,8 +1352,6 @@ FoscObject {
     b.do { |each| each.str.postln };
 
     post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     selectLeaves { |prototype, exclude, graceNotes=false, pitched, reverse=false|
@@ -1448,14 +1366,13 @@ FoscObject {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • selectLogicalTies
 
     Selects logical ties.
 
     Returns new selection.
 
-
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,nil,64,64], [1/4,1/24,1/12,1/8,1/4,1/4]));
     m = a.selectLeaves;
@@ -1465,72 +1382,62 @@ FoscObject {
 
     img:: ![](../img/base-object-11.png)
     '''
-
     p = "%/fosc/docs/img/base-object-11".format(Platform.userExtensionDir);
     a.writePNG("%.ly".format(p));
 
-
-
-
-    • select all logicalTies
+    '''
+    Select all logicalTies
 
     code::
     b = a.selectLogicalTies;
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select pitched logicalTies
+    '''
+    Select pitched logicalTies
 
     code::
     b = a.selectLogicalTies(pitched: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select non-pitched logicalTies
+    '''
+    Select non-pitched logicalTies
 
     code::
     b = a.selectLogicalTies(pitched: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select nontrivial logicalTies
+    '''
+    Select nontrivial logicalTies
 
     code::
     b = a.selectLogicalTies(nontrivial: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select trivial logicalTies
+    '''
+    Select trivial logicalTies
 
     code::
     b = a.selectLogicalTies(nontrivial: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
     '''
-
-    • select logicalTies in reverse order
+    '''
+    Select logicalTies in reverse order
 
     code::
     b = a.selectLogicalTies(reverse: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
 
     post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     selectLogicalTies { |exclude, graceNotes=false, nontrivial, pitched, reverse=false|
@@ -1545,12 +1452,12 @@ FoscObject {
         );
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • selectRuns
 
     Select runs.
 
-    • Attach horizontal bracket to each run.
+    '''
+    Attach horizontal bracket to each run.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,nil,64,64], [1/4,1/24,1/12,1/8,1/4,1/4]));
@@ -1563,13 +1470,8 @@ FoscObject {
 
     img:: ![](../img/base-object-12.png)
     '''
-
     p = "%/fosc/docs/img/base-object-12".format(Platform.userExtensionDir);
     a.writePNG("%.ly".format(p));
-
-
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
     selectRuns { |exclude|
         FoscObject.prCheckIsIterable(this, thisMethod);
@@ -1579,32 +1481,26 @@ FoscObject {
     // PLAYBACK
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isPlaying
-    '''
     -------------------------------------------------------------------------------------------------------- */
     isPlaying {
         if (this.respondsTo('player')) { ^this.player.isPlaying };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pause
-    '''
     -------------------------------------------------------------------------------------------------------- */
     pause {
         if (this.respondsTo('player')) { this.player.pause };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • play
-    '''
     -------------------------------------------------------------------------------------------------------- */
     play {
         var player;
-        
+
         if (this.respondsTo('player')) {
             player = this.player;
-            
+
             if (player.isNil) {
                 this.instVarPut('player', FoscPlayer(this).play);
             } {
@@ -1613,17 +1509,13 @@ FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • resume
-    '''
     -------------------------------------------------------------------------------------------------------- */
     resume {
         if (this.respondsTo('player')) { this.player.resume };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    • *stop
-    '''
+    • stop
     -------------------------------------------------------------------------------------------------------- */
     stop {
         if (this.respondsTo('player')) { this.player.stop };
@@ -1632,9 +1524,7 @@ FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prCheckIsIterable
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prCheckIsIterable { |object, method|
         var prototype, isIterable;
