@@ -121,7 +121,7 @@ USAGE::
         if (precision >= 1) {
             result = "%.%".format(characteristic, mantissa).padLeft(width, " ");
         } {
-            result = "%".format(characteristic).padLeft(width, " ");   
+            result = "%".format(characteristic).padLeft(width, " ");
         };
         ^result;
     }
@@ -171,7 +171,7 @@ USAGE::
 	-------------------------------------------------------------------------------------------------------- */
 	removeLeadingWhiteSpace {
 		var result, regexBody, res;
-		
+
 		result = [];
 		regexBody = "\\s{2,}(.*)";
 
@@ -182,7 +182,7 @@ USAGE::
 		};
 
 		result = result.join("\n");
-		
+
 		^result;
 	}
 	/* --------------------------------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ USAGE::
 	• strip
 
 	Similar to strip in python.
-	
+
  code::
 	"__one_two__three___".strip($_);
 	"__one_two__three___".strip("_");
