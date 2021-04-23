@@ -5,7 +5,7 @@ TITLE:: FoscObject
 SUMMARY:: Returns a FoscObject.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: This is the base class for all Fosc objects.
 
 
 USAGE::
@@ -221,16 +221,7 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscClef('bass'));
     a[0].wrappers;
-    a.format;
-
-    post::
-    -> \new Staff {
-        \clef "bass"
-        c'4
-        d'4
-        e'4
-        f'4
-    }
+    a.format.postln;
     '''
 
     '''
@@ -239,16 +230,7 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[3].attach(FoscArticulation('>'));
-    a.format;
-
-    post::
-    -> \new Staff {
-        c'4
-        d'4
-        e'4
-        f'4
-        -\accent
-    }
+    a.format.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     attach { |attachment, context, deactivate, syntheticOffset, tag, wrapper=false|
@@ -356,15 +338,11 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscArticulation('>'));
-    a.format;
-
-    post::
+    a.format.postln;
 
     code::
     a[0].detach(FoscArticulation);
-    a.format;
-
-    post::
+    a.format.postln;
     '''
 
     '''
@@ -374,15 +352,11 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     i = FoscArticulation('>');
     a[0].attach(i);
-    a.format;
-
-    post::
+    a.format.postln;
 
     code::
     a[0].detach(i);
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     detach { |object, byID=false|
@@ -477,9 +451,7 @@ FoscObject {
     a = FoscNote(60, 1/4);
     override(a).noteHead.color = 'red';
     override(a).noteHead.size = 12;
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     override {
@@ -506,12 +478,7 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], 1/8));
     set(a).instrumentName = FoscMarkup("Violin");
     a.show;
-
-    img:: ![](../img/base-object-1.png)
     '''
-
-    p = "%/fosc/docs/img/base-object-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     set {
         if (this.respondsTo('lilypondSettingNameManager').not) {
@@ -543,12 +510,7 @@ FoscObject {
     code::
     a = FoscNote(60, 1/4);
     a.show;
-
-    img:: ![](../img/base-object-2.png)
     '''
-
-    p = "%/fosc/docs/img/base-object-2".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     show { |path|
         var result, pdfPath, success;
@@ -574,9 +536,7 @@ FoscObject {
     tweak(m).color = 'red';
     m.format;
     a[0].attach(m);
-    a.format;
-
-    post::
+    a.format.postln;
     '''
 
     ### abjad:
@@ -600,10 +560,7 @@ FoscObject {
     tweak(m).color = 'red';
     n = m.copy;
     a.leafAt(0).attach(n);
-    //a.show;
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     ### abjad:
     \new Staff
@@ -628,10 +585,7 @@ FoscObject {
     tweak(m).color = 'red';
     m = m.italic;
     a.leafAt(0).attach(m);
-    //a.show;
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     ### abjad:
     \new Staff
@@ -662,10 +616,7 @@ FoscObject {
     tweak(n).color = 'blue';
     tweak(n).staffPadding = 4;
     a.leafAt(0).attach(n);
-    //a.show;
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     ### abjad:
     \new Staff
@@ -696,10 +647,7 @@ FoscObject {
     tweak(n).color = 'blue';
     tweak(n).staffPadding = 4;
     a.leafAt(0).attach(n);
-    //a.show;
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     ### abjad:
     \new Staff
@@ -725,9 +673,7 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
     tweak(a[1].noteHead).color = 'red';
     a.show;
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     ### abjad:
     \new Staff
@@ -741,7 +687,6 @@ FoscObject {
     ###
 
     '''
-
     Tweaks grob aggregated to note-head
 
     !!!TODO: NOT YET IMPLEMENTED FOR FoscComponents
@@ -750,9 +695,7 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
     tweak(a[1].noteHead).accidental.color = 'red';
     a.show;
-    a.format;
-
-    post::
+    a.format.postln;
     '''
     ### abjad:
     \new Staff
@@ -771,9 +714,7 @@ FoscObject {
 
     code::
     m = FoscMarkup('Allegro assai', direction: 'above');
-    tweak(m);
-
-    post::
+    tweak(m).postln;
     '''
 
     '''
@@ -796,23 +737,19 @@ FoscObject {
 
     '''
     code::
-    a = FoscHairpin('p < f');
+    a = FoscHairpin('p < f'); // FIXME class not defined nointerpret
     b = FoscLilypondTweakManager();
     b.setTweaks(a, #[['dynamicLineSpanner', 5]]);
     a.tweaks;
     a.tweaks.prGetAttributePairs;
-
-    post::
     '''
 
     '''
     code::
-    a = FoscHorizontalBracket();
+    a = FoscHorizontalBracket(); // FIXME class not defined nointerpret
     tweak(a).color = 'red';
     tweak(a).staffPadding = 5;
     a.tweaks.prGetAttributePairs;
-
-    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
@@ -876,8 +813,6 @@ FoscObject {
     code::
     a = FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]);
     a.doComponents({ |each, i| each.cs.postln }, FoscNote);
-
-    post::
     '''
     '''
     Reverse iterate notes in a selection
@@ -885,8 +820,6 @@ FoscObject {
     code::
     a = FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]);
     a.doComponents({ |each, i| each.cs.postln }, FoscNote, reverse: true);
-
-    post::
     '''
     '''
     Iterate notes in a staff
@@ -894,8 +827,6 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     a.doComponents({ |each, i| each.cs.postln }, FoscNote);
-
-    post::
     '''
     '''
     Iterate all components in a staff
@@ -903,8 +834,6 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     a.doComponents({ |each, i| each.cs.postln });
-
-    post::
     '''
     '''
     Iterate leaf
@@ -912,17 +841,16 @@ FoscObject {
     code::
     a = FoscNote(60, 1/4);
     a.doComponents({ |each, i| each.cs.postln }, FoscNote);
-
-    post::
     '''
     '''
     Throw error
 
     code::
-    a = FoscDynamic('p');
+    a = FoscDynamic('p'); nointerpret
     a.doComponents({ |each, i| each.cs.postln });
 
     post::
+    ERROR: doComponents: receiver is not iterable: a FoscDynamic.
     '''
     -------------------------------------------------------------------------------------------------------- */
     doComponents { |function, prototype, exclude, doNotIterateGraceContainers=false, graceNotes=false,
@@ -947,8 +875,6 @@ FoscObject {
     code::
     a = FoscLeafMaker().(#[60,62,nil,65,67,nil], [1/8]);
     a.doLeaves { |each| each.cs.postln };
-
-    post::
     '''
     '''
     Iterate pitched leaves
@@ -956,8 +882,6 @@ FoscObject {
     code::
     a = FoscLeafMaker().(#[60,62,nil,65,67,nil], [1/8]);
     a.doLeaves({ |each| each.cs.postln }, pitched: true);
-
-    post::
     '''
     '''
     Iterate non-pitched leaves
@@ -965,8 +889,6 @@ FoscObject {
     code::
     a = FoscLeafMaker().(#[60,62,nil,65,67,nil], [1/8]);
     a.doLeaves({ |each| each.cs.postln }, pitched: false);
-
-    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     doLeaves { |function, pitched, prototype, exclude, doNotIterateGraceContainers=false,
@@ -986,6 +908,8 @@ FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     • doLogicalTies
 
+    FIXME find better way to display or capture post output in these examples
+
     '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,60,62,nil,64,64], [1/4,1/24,1/12,1/8,1/4,1/4]));
@@ -993,66 +917,46 @@ FoscObject {
     tie(m[0..1]);
     tie(m[4..]);
     a.show;
-
-    img:: ![](../img/base-object-3.png)
     '''
-
-    p = "%/fosc/docs/img/base-object-3".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
     '''
     code::
     a.selectLogicalTies.items.do { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     '''
     Iterate all logicalTies
 
     code::
     a.doLogicalTies { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     '''
     Iterate pitched logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, pitched: true);
-
-    post::
     '''
     '''
     Iterate non-pitched logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, pitched: false);
-
-    post::
     '''
     '''
     iterate nontrivial logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, nontrivial: true);
-
-    post::
     '''
     '''
     Iterate trivial logicalTies
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, nontrivial: false);
-
-    post::
     '''
     '''
     Iterate logicalTies in reverse order
 
     code::
     a.doLogicalTies({ |each| each.items.collect { |each| each.cs }.postln }, reverse: true);
-
-    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     doLogicalTies { |function, exclude, graceNotes=false, nontrivial, pitched, reverse=false|
@@ -1083,13 +987,7 @@ FoscObject {
     t = #['bracket-flare', [0,0], 'color', 'red', 'direction', 'up', 'staff-padding', 5];
     a.doRuns { |each| each.horizontalBracket(tweaks: t) };
     a.show;
-
-    img:: ![](../img/base-object-4.png)
     '''
-
-    p = "%/fosc/docs/img/base-object-4".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
     -------------------------------------------------------------------------------------------------------- */
     doRuns { |function, exclude|
         FoscObject.prCheckIsIterable(this, thisMethod);
@@ -1107,11 +1005,7 @@ FoscObject {
     c = FoscScore([a, b]);
     c.doTimeline { |each, i| each.attach(FoscMarkup(i.asString, 'above')) };
     c.show;
-
-    img:: ![](../img/base-object-5.png)
     '''
-    p = "%/fosc/docs/img/base-object-5".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
 
     '''
     Iterate all leaves in reverse
@@ -1122,11 +1016,7 @@ FoscObject {
     c = FoscScore([a, b]);
     c.doTimeline({ |each, i| each.attach(FoscMarkup(i.asString, 'above')) }, reverse: true);
     c.show;
-
-    img:: ![](../img/base-object-6.png)
     '''
-    p = "%/fosc/docs/img/base-object-6".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
 
     '''
     Iterate pitched leaves
@@ -1137,11 +1027,7 @@ FoscObject {
     c = FoscScore([a, b]);
     c.doTimeline({ |each, i| each.attach(FoscMarkup(i, 'above')) }, pitched: true);
     c.show;
-
-    img:: ![](../img/base-object-7.png)
     '''
-    p = "%/fosc/docs/img/base-object-7".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
 
     '''
     Iterate non-pitched leaves
@@ -1152,11 +1038,7 @@ FoscObject {
     c = FoscScore([a, b]);
     c.doTimeline({ |each, i| each.attach(FoscMarkup(i, 'above')) }, pitched: false);
     c.show;
-
-    img:: ![](../img/base-object-8.png)
     '''
-    p = "%/fosc/docs/img/base-object-8".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     doTimeline { |function, prototype, exclude, pitched, reverse=false|
         var iterator;
@@ -1181,11 +1063,7 @@ FoscObject {
     c = FoscScore([a, b]);
     c.doTimelineByLogicalTies({ |each, i| each.head.attach(FoscMarkup(i, 'above')) });
     c.show;
-
-    img:: ![](../img/base-object-9.png)
     '''
-    p = "%/fosc/docs/img/base-object-9".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
 
     '''
     Iterate pitched logical ties
@@ -1196,11 +1074,7 @@ FoscObject {
     c = FoscScore([a, b]);
     c.doTimelineByLogicalTies({ |each, i| each.head.attach(FoscMarkup(i, 'above')) }, pitched: true);
     c.show;
-
-    img:: ![](../img/base-object-10.png)
     '''
-    p = "%/fosc/docs/img/base-object-10".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     doTimelineByLogicalTies { |function, exclude, pitched, reverse=false|
         var iterator;
@@ -1220,36 +1094,28 @@ FoscObject {
 
     code::
     a = FoscSelection([FoscNote(60, 1/4), FoscNote(62, 1/4)]);
-    a.leafAt(1).str;
-
-    post::
+    a.leafAt(1).str.postln;
     '''
     '''
     Selection: pitched
 
     code::
     a = FoscSelection([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
-    a.leafAt(0, pitched: true).str;
-
-    post::
+    a.leafAt(0, pitched: true).str.postln;
     '''
     '''
     Container
 
     code::
     a = FoscStaff([FoscNote(60, 1/4), FoscNote(62, 1/4)]);
-    a.leafAt(1).str;
-
-    post::
+    a.leafAt(1).str.postln;
     '''
     '''
     Container: pitched
 
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
-    a.leafAt(0, pitched: true).str;
-
-    post::
+    a.leafAt(0, pitched: true).str.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     leafAt { |index, pitched|
@@ -1266,8 +1132,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectComponents;
     b.do { |each| each.str.postln };
-
-    post::
     '''
     '''
     Select notes
@@ -1276,8 +1140,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectComponents(prototype: FoscNote);
     b.do { |each| each.str.postln };
-
-    post::
     '''
     '''
     Select notes and rests
@@ -1286,8 +1148,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectComponents(prototype: [FoscNote, FoscRest]);
     b.do { |each| each.str.postln };
-
-    post::
     '''
     '''
     Select notes and rests in reverse order
@@ -1296,8 +1156,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectComponents(prototype: [FoscNote, FoscRest], reverse: true);
     b.do { |each| each.str.postln };
-
-    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     selectComponents { |prototype, exclude, graceNotes=false, reverse=false|
@@ -1320,8 +1178,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectLeaves;
     b.do { |each| each.str.postln };
-
-    post::
     '''
     '''
     Select pitched leaves
@@ -1330,8 +1186,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectLeaves(pitched: true);
     b.do { |each| each.str.postln };
-
-    post::
     '''
     '''
     Select non-pitched leaves
@@ -1340,8 +1194,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectLeaves(pitched: false);
     b.do { |each| each.str.postln };
-
-    post::
     '''
     '''
     Select leaves in reverse order
@@ -1350,8 +1202,6 @@ FoscObject {
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = a.selectLeaves(reverse: true);
     b.do { |each| each.str.postln };
-
-    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     selectLeaves { |prototype, exclude, graceNotes=false, pitched, reverse=false|
@@ -1379,11 +1229,7 @@ FoscObject {
     tie(m[0..1]);
     tie(m[4..]);
     a.show;
-
-    img:: ![](../img/base-object-11.png)
     '''
-    p = "%/fosc/docs/img/base-object-11".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
 
     '''
     Select all logicalTies
@@ -1391,8 +1237,6 @@ FoscObject {
     code::
     b = a.selectLogicalTies;
     b.do { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     '''
     Select pitched logicalTies
@@ -1400,8 +1244,6 @@ FoscObject {
     code::
     b = a.selectLogicalTies(pitched: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     '''
     Select non-pitched logicalTies
@@ -1409,8 +1251,6 @@ FoscObject {
     code::
     b = a.selectLogicalTies(pitched: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     '''
     Select nontrivial logicalTies
@@ -1418,8 +1258,6 @@ FoscObject {
     code::
     b = a.selectLogicalTies(nontrivial: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     '''
     Select trivial logicalTies
@@ -1427,8 +1265,6 @@ FoscObject {
     code::
     b = a.selectLogicalTies(nontrivial: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     '''
     Select logicalTies in reverse order
@@ -1436,8 +1272,6 @@ FoscObject {
     code::
     b = a.selectLogicalTies(reverse: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
-
-    post::
     '''
     -------------------------------------------------------------------------------------------------------- */
     selectLogicalTies { |exclude, graceNotes=false, nontrivial, pitched, reverse=false|
@@ -1467,11 +1301,7 @@ FoscObject {
     tie(m[4..]);
     a.selectRuns.do { |each| each.horizontalBracket(tweaks: #[['direction', 'up']]) };
     a.show;
-
-    img:: ![](../img/base-object-12.png)
     '''
-    p = "%/fosc/docs/img/base-object-12".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     selectRuns { |exclude|
         FoscObject.prCheckIsIterable(this, thisMethod);
