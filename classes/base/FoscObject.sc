@@ -12,7 +12,7 @@ USAGE::
 ------------------------------------------------------------------------------------------------------------ */
 FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     • ==
@@ -166,7 +166,7 @@ FoscObject {
         };
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: TOP LEVEL
+    // PUBLIC INSTANCE METHODS: Top Level
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     • annotate
@@ -178,10 +178,7 @@ FoscObject {
     code::
     a = FoscNote(60, 1/4);
     a.annotate('foo', FoscClef('bass'));
-    FoscInspection(a).annotation('foo');
-
-    post::
-    -> a FoscClef
+    FoscInspection(a).annotation('foo').class.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     annotate { |annotation, indicator|
@@ -221,7 +218,7 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscClef('bass'));
     a[0].wrappers;
-    a.format.postln;
+    a.format;
     '''
 
     '''
@@ -230,7 +227,7 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[3].attach(FoscArticulation('>'));
-    a.format.postln;
+    a.format;
     '''
     -------------------------------------------------------------------------------------------------------- */
     attach { |attachment, context, deactivate, syntheticOffset, tag, wrapper=false|
@@ -338,11 +335,11 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[0].attach(FoscArticulation('>'));
-    a.format.postln;
+    a.format;
 
     code::
     a[0].detach(FoscArticulation);
-    a.format.postln;
+    a.format;
     '''
 
     '''
@@ -352,11 +349,11 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     i = FoscArticulation('>');
     a[0].attach(i);
-    a.format.postln;
+    a.format;
 
     code::
     a[0].detach(i);
-    a.format.postln;
+    a.format;
     '''
     -------------------------------------------------------------------------------------------------------- */
     detach { |object, byID=false|
@@ -451,7 +448,7 @@ FoscObject {
     a = FoscNote(60, 1/4);
     override(a).noteHead.color = 'red';
     override(a).noteHead.size = 12;
-    a.format.postln;
+    a.format;
     '''
     -------------------------------------------------------------------------------------------------------- */
     override {
@@ -536,7 +533,7 @@ FoscObject {
     tweak(m).color = 'red';
     m.format;
     a[0].attach(m);
-    a.format.postln;
+    a.format;
     '''
 
     ### abjad:
@@ -560,7 +557,7 @@ FoscObject {
     tweak(m).color = 'red';
     n = m.copy;
     a.leafAt(0).attach(n);
-    a.format.postln;
+    a.format;
     '''
     ### abjad:
     \new Staff
@@ -585,7 +582,7 @@ FoscObject {
     tweak(m).color = 'red';
     m = m.italic;
     a.leafAt(0).attach(m);
-    a.format.postln;
+    a.format;
     '''
     ### abjad:
     \new Staff
@@ -616,7 +613,7 @@ FoscObject {
     tweak(n).color = 'blue';
     tweak(n).staffPadding = 4;
     a.leafAt(0).attach(n);
-    a.format.postln;
+    a.format;
     '''
     ### abjad:
     \new Staff
@@ -647,7 +644,7 @@ FoscObject {
     tweak(n).color = 'blue';
     tweak(n).staffPadding = 4;
     a.leafAt(0).attach(n);
-    a.format.postln;
+    a.format;
     '''
     ### abjad:
     \new Staff
@@ -673,7 +670,7 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
     tweak(a[1].noteHead).color = 'red';
     a.show;
-    a.format.postln;
+    a.format;
     '''
     ### abjad:
     \new Staff
@@ -695,7 +692,7 @@ FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
     tweak(a[1].noteHead).accidental.color = 'red';
     a.show;
-    a.format.postln;
+    a.format;
     '''
     ### abjad:
     \new Staff
@@ -917,16 +914,15 @@ FoscObject {
     tie(m[0..1]);
     tie(m[4..]);
     a.show;
-    '''
-    '''
+
     code::
-    a.selectLogicalTies.items.do { |each| each.items.collect { |each| each.cs }.postln };
+    a.selectLogicalTies.items.collect { |each| each.items.collect { |each| each.cs }}.postln;
     '''
     '''
     Iterate all logicalTies
 
     code::
-    a.doLogicalTies { |each| each.items.collect { |each| each.cs }.postln };
+    a.doLogicalTies { |each| each.items.collect { |each| each.postcs } };
     '''
     '''
     Iterate pitched logicalTies
