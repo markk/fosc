@@ -6,20 +6,12 @@ TITLE:: FoscRepeat
 SUMMARY:: Returns a FoscRepeat.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Repeat
 
 
 USAGE::
 
 '''
-
-• FoscRepeat (abjad 3.0)
-
-Repeat
-
-
-• Example 1
-
 Volta repeat.
 
 code::
@@ -27,19 +19,9 @@ a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 m = FoscRepeat();
 a.attach(m);
 a.show;
-
-img:: ![](../img/indicator-repeat-1.png)
 '''
 
-p = "%/fosc/docs/img/indicator-repeat-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 Unfold repeat.
 
 code::
@@ -48,15 +30,6 @@ m = FoscRepeat(repeatCount: 3, repeatType: 'unfold');
 a.attach(m);
 b = FoscScore([a]);
 b.show;
-
-img:: ![](../img/indicator-repeat-2.png)
-'''
-
-p = "%/fosc/docs/img/indicator-repeat-2".format(Platform.userExtensionDir);
-b.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscRepeat : FoscObject {
@@ -78,49 +51,39 @@ FoscRepeat : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • context
 
     Gets context.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscRepeat();
-    m.context.cs;
+    m.context.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • repeatCount
 
     Gets repeat count of repeat.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscRepeat();
-    m.repeatCount;
+    m.repeatCount.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • repeatType
 
     Gets repeat type of repeat.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscRepeat();
-    m.repeatType.cs;
+    m.repeatType.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Tweaks are not implemented on repeat.
@@ -128,7 +91,6 @@ FoscRepeat : FoscObject {
     The LilyPond \repeat command refuses tweaks.
 
     Override the LilyPond 'BarLine' grob instead.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     tweaks {
         // pass
@@ -137,14 +99,11 @@ FoscRepeat : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
 
     Gets string representation of repeat
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscRepeat();
     m.str.cs;
@@ -157,17 +116,13 @@ FoscRepeat : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormat
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle;
