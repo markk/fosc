@@ -6,20 +6,12 @@ TITLE:: FoscLilypondComment
 SUMMARY:: Returns a FoscLilypondComment.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A LilyPond code comment
 
 
 USAGE::
 
 '''
-
-• FoscLilypondComment (abjad 3.0)
-
-LilyPond comment.
-
-
-• Example 1
-
 code::
 a = FoscNote(60, 1/4);
 m = FoscLilypondComment("a comment");
@@ -61,45 +53,36 @@ FoscLilypondComment : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • formatSlot
 
     Format slot of LilyPond comment.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscLilypondComment("a comment");
-    m.formatSlot;
+    m.formatSlot.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • string
 
     Gets string.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscLilypondComment("a comment");
-    m.string;
+    m.string.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •  str
 
     Gets string representation of LilyPond comment.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscLilypondComment("a comment");
     m.str;
@@ -112,17 +95,13 @@ FoscLilypondComment : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormat
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, formatSlot;
