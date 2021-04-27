@@ -105,7 +105,7 @@ FoscTimeSignature : FoscObject {
         assert(argPair.every { |each| each.isInteger });
 		pair = argPair;
         # numerator, denominator = pair;
-        if (argPartial.notNil) { 
+        if (argPartial.notNil) {
             partial = FoscDuration(argPartial);
             partialReprString = ", partial=%".format(partial);
         } {
@@ -137,10 +137,10 @@ FoscTimeSignature : FoscObject {
     • denominator
 
     Gets denominator of time signature:
-    
-    
+
+
     • Example 1
-    
+
     code::
     a = FoscTimeSignature(#[3,4]);
     a.denominator;
@@ -149,12 +149,12 @@ FoscTimeSignature : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • duration
-    
+
     Gets duration of time signature.
-    
+
 
     • Example 1
-    
+
     code::
     a = FoscTimeSignature(#[3,4]);
     a.duration.cs;
@@ -169,16 +169,16 @@ FoscTimeSignature : FoscObject {
 
     Is true when time signature has non-power-of-two denominator.
 
-    
+
     • Example 1
-    
+
     code::
     a = FoscTimeSignature(#[7,12]);
     a.hasNonPowerOfTwoDenominator;
 
-    
+
     • Example 2
-    
+
     code::
     a = FoscTimeSignature(#[3,4]);
     a.hasNonPowerOfTwoDenominator;
@@ -225,8 +225,8 @@ FoscTimeSignature : FoscObject {
     • impliedProlation
 
     Gets implied prolation of time signature.
-   
-    
+
+
     • Example 1
 
     Implied prolation of time signature with power-of-two denominator.
@@ -253,8 +253,8 @@ FoscTimeSignature : FoscObject {
     • numerator
 
     Gets numerator of time signature.
-    
-    
+
+
     • Example 1
 
     code::
@@ -267,8 +267,8 @@ FoscTimeSignature : FoscObject {
     • pair
 
     Gets numerator / denominator pair corresponding to time signature.
-    
-    
+
+
     • Example 1
 
     code::
@@ -298,7 +298,7 @@ FoscTimeSignature : FoscObject {
     • partial
 
     Gets duration of pick-up to time signature.
-    
+
 
     • Example 1
 
@@ -322,16 +322,16 @@ FoscTimeSignature : FoscObject {
         // pass
     }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
+	// PUBLIC INSTANCE METHODS: Special Methods
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • add !!!TODO: incomplete
 
     Adds time signature to 'timeSignature'.
-    
+
     Returns new time signature.
-    
+
     code::
 	a = FoscTimeSignature([3, 4]);
 	b = FoscTimeSignature([7, 8]);
@@ -361,7 +361,7 @@ FoscTimeSignature : FoscObject {
     • ==
 
     Is true when arg is a time signature with numerator and denominator equal to this time signature. Also true when arg is a tuple with first and second elements equal to numerator and denominator of this time signature. Otherwise false.
-    
+
     Returns true or false.
 
     code::
@@ -405,7 +405,7 @@ FoscTimeSignature : FoscObject {
     Is true when duration of time signature is greater than or equal to duration of arg. Otherwise false.
 
     Returns true or false.
-    
+
     code::
 	a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([2, 4]);
@@ -419,11 +419,11 @@ FoscTimeSignature : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • >
-    
+
     Is true when duration of time signature is greater than duration of arg. Otherwise false.
-    
+
     Returns true or false.
-    
+
     code::
     a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([2, 4]);
@@ -439,9 +439,9 @@ FoscTimeSignature : FoscObject {
     • <=
 
     Is true when duration of time signature is less than or equal to duration of arg. Otherwise false.
-    
+
     Returns true or false.
-    
+
     code::
     a = FoscTimeSignature([3, 4]);
     b = FoscTimeSignature([2, 4]);
@@ -485,7 +485,7 @@ FoscTimeSignature : FoscObject {
     • str
 
     Gets string representation of time signature.
-    
+
     code::
     a = FoscTimeSignature([3, 4]);
     a.str;
@@ -500,7 +500,7 @@ FoscTimeSignature : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • withPowerOfTwoDenominator
-    
+
     Makes new time signature equivalent to current time signature with power-of-two denominator.
 
     Returns new time signature.
@@ -515,7 +515,7 @@ FoscTimeSignature : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     code::
     a = FoscTimeSignature([3, 16]);
     a.format;

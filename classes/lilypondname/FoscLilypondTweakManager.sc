@@ -28,7 +28,7 @@ LilyPondTweakManager()
 
 ------
 code::
-b = FoscBeam();     
+b = FoscBeam();
 t = tweak(b);           //###### CORRECT
 ------
 
@@ -97,7 +97,7 @@ a.format;
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondTweakManager : FoscLilypondNameManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -138,7 +138,7 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
 
 
     • Example 1
-    
+
     code::
     a = FoscHairpin('p < f');
     m = tweak(a);
@@ -186,7 +186,7 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
     code::
     l = FoscLilypondLiteral("\\f", 'after', directed: true);
     FoscLilypondTweakManager.setTweaks(l, #['color', 'blue', size, 12]);
-    l.tweaks.prListFormatContributions;    
+    l.tweaks.prListFormatContributions;
     '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
@@ -231,8 +231,7 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
             {
                 throw("%:%: tweak tuple must have length 2 or 3: %."
                     .format(this.species, thisMethod.name, tweak));
-            };  
+            };
         };
     }
 }
-

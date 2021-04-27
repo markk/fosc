@@ -300,7 +300,7 @@ FoscPattern {
         ^indices.size;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -356,7 +356,7 @@ FoscPattern {
     p = FoscPattern.indices(#[0,1,2], 5);
     p.cs;
     '''
-    -------------------------------------------------------------------------------------------------------- */ 
+    -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
     '''
     • format
@@ -442,7 +442,7 @@ FoscPattern {
             ^(maximumIndex + 1);
         };
         ^0;
-    }  
+    }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • storeArgs
@@ -527,10 +527,10 @@ FoscPattern {
 
     code::
     p = FoscPattern.indices(#[4,5,6,7]);
-    
+
     code::
     p.booleanVector(4);
-    
+
     code::
     p.booleanVector(8);
 
@@ -580,23 +580,23 @@ FoscPattern {
     p = FoscPattern.indices(#[4,5,6,7]);
     p.getMatchingItems(a);
 
-    
+
     code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.indices(#[8,9], period: 10);
-    p.getMatchingItems(a);    
+    p.getMatchingItems(a);
 
 
     code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.first(4);
-    p.getMatchingItems(a); 
+    p.getMatchingItems(a);
 
 
     code::
     a = "abcdefghijklmnopqrstuvwxyz";
     p = FoscPattern.last(3);
-    p.getMatchingItems(a);  
+    p.getMatchingItems(a);
 
 
     code::
@@ -685,12 +685,12 @@ FoscPattern {
         }
         { patterns.size == 1 } {
             localPattern = patterns[0];
-            result = localPattern.matchesIndex(index, totalLength, rotation: rotation);  
+            result = localPattern.matchesIndex(index, totalLength, rotation: rotation);
         }
         {
             localOperator = FoscPattern.nameToOperator[operator];
             localPattern = patterns[0];
-            result = localPattern.matchesIndex(index, totalLength, rotation: rotation); 
+            result = localPattern.matchesIndex(index, totalLength, rotation: rotation);
             patterns[1..].do { |pattern|
                 localResult = pattern.matchesIndex(index, totalLength, rotation: rotation);
                 result = result.perform(localOperator, localResult);
@@ -749,7 +749,7 @@ FoscPattern {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • rotate
-    
+
     Rotates pattern by index 'n'.
 
     Returns new pattern.

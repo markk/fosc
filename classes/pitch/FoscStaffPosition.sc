@@ -30,7 +30,7 @@ FoscStaffPosition : FoscObject {
         number = argNumber;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -94,7 +94,7 @@ FoscStaffPosition : FoscObject {
 
     Makes named pitch from staff position and 'clef'.
 
-    
+
     • Example 1
 
     Treble clef.
@@ -144,7 +144,7 @@ FoscStaffPosition : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     toPitch { |clef='treble'|
-        var offsetStaffPositionNumber, offsetStaffPosition, octaveNumber, diatonicPCNumber, pitchClassNumber; 
+        var offsetStaffPositionNumber, offsetStaffPosition, octaveNumber, diatonicPCNumber, pitchClassNumber;
         var pitchNumber, pitch;
 
         clef = FoscClef(clef);

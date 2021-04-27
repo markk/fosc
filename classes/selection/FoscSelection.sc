@@ -32,9 +32,9 @@ FoscSelection : FoscSequence {
     var <player;
     *new { |items|
         if (items.isKindOf(FoscComponent)) { items = [items] };
-        
+
         this.prCheck(items);
-        
+
         ^super.new(items);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,9 +63,9 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     *prCheck { |items|
         var prototype;
-        
+
         prototype = [FoscComponent, FoscSelection];
-        
+
         items.do { |item|
             if (prototype.any { |type| item.isKindOf(type) }.not) {
                 throw("%:new: 'items' must contain components and/or selections: %"
@@ -74,7 +74,7 @@ FoscSelection : FoscSequence {
         };
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -180,10 +180,10 @@ FoscSelection : FoscSequence {
     areContiguousLogicalVoice { |prototype|
         var allowableTypes, first, firstParentage, firstLogicalVoice, firstRoot, previous, currentParentage;
         var currentLogicalVoice;
-       
+
         allowableTypes = [SequenceableCollection, FoscSelection];
         if (allowableTypes.any { |type| this.isKindOf(type) }.not) { ^false };
-        
+
         prototype = prototype ?? [FoscComponent];
         if (prototype.isSequenceableCollection.not) { prototype = [prototype] };
         if (this.size == 0) { ^true };
@@ -199,7 +199,7 @@ FoscSelection : FoscSequence {
 
         first = this[0];
         if (prototype.any { |type| first.isKindOf(type) }.not)  { ^false };
-    
+
         firstParentage = first.prGetParentage(graceNotes: true);
         firstLogicalVoice = firstParentage.logicalVoice;
         firstRoot = firstParentage.root;
@@ -210,11 +210,11 @@ FoscSelection : FoscSequence {
             currentLogicalVoice = currentParentage.logicalVoice;
             if (prototype.any { |type| current.isKindOf(type) }.not) { ^false };
             if (currentLogicalVoice != firstLogicalVoice) { ^false };
-            
+
             if (currentParentage.root == firstRoot) {
                 if (previous.prImmediatelyPrecedes(current).not) { ^false };
             };
-            
+
             previous = current;
         };
         ^true;
@@ -259,17 +259,17 @@ FoscSelection : FoscSequence {
             if (prototype.any { |type| current.isKindOf(type) }.not) { ^false };
             if (current.parent != firstParent) { sameParent = false };
             if (previous.prImmediatelyPrecedes(current).not) { strictlyContiguous = false };
-            
+
             if (
                 current.prGetParentage.isOrphan.not
                 && { sameParent.not || strictlyContiguous.not }
             ) {
                 ^false;
             };
-            
+
             previous = current;
         };
-        
+
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -303,10 +303,10 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     areLogicalVoice { |prototype|
         var sameLogicalVoice=true, first, parentage, firstLogicalVoice;
-        
+
         prototype = prototype ?? [FoscComponent];
-        
-        if (prototype.isSequenceableCollection.not) { prototype = [prototype] };   
+
+        if (prototype.isSequenceableCollection.not) { prototype = [prototype] };
         if (this.size == 0) { ^true };
 
         if (
@@ -325,16 +325,16 @@ FoscSelection : FoscSequence {
 
         this[1..].do { |current|
             parentage = current.prGetParentage(graceNotes: true);
-            
+
             if (parentage.logicalVoice != firstLogicalVoice) {
                 sameLogicalVoice = false;
             };
-            
+
             if (parentage.isOrphan.not && sameLogicalVoice.not) {
                 ^false;
             };
         };
-        
+
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -370,11 +370,11 @@ FoscSelection : FoscSequence {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • collect
-    
+
     Collects components by predicate function.
 
     Returns a new selection.
-    
+
     code::
     a = FoscLeafMaker().(#[60, 61, 62, 63, 64], [1/8]);
     b = a.collect { |each| each.writtenPitch_(each.writtenPitch + 12) };
@@ -387,9 +387,9 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     collect { |function|
         var newItems;
-        
+
         newItems = this.items.collect(function);
-        
+
         ^this.species.new(newItems);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -399,7 +399,7 @@ FoscSelection : FoscSequence {
     Select components.
 
     Return new selection.
-    
+
     • all components
 
     code::
@@ -412,7 +412,7 @@ FoscSelection : FoscSequence {
     '''
 
     • notes
-    
+
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = FoscSelection(a).components(prototype: FoscNote);
@@ -423,7 +423,7 @@ FoscSelection : FoscSequence {
     '''
 
     • notes and rests
-    
+
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = FoscSelection(a).components(prototype: [FoscNote, FoscRest]);
@@ -434,7 +434,7 @@ FoscSelection : FoscSequence {
     '''
 
     • notes and rests in reverse order
-    
+
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = FoscSelection(a).components(prototype: [FoscNote, FoscRest], reverse: true);
@@ -447,16 +447,16 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     components { |prototype, exclude, graceNotes=false, reverse=false|
         var components;
-        
+
         components = FoscIteration(this).components(
             prototype: prototype,
             exclude: exclude,
             graceNotes: graceNotes,
             reverse: reverse
         );
-        
+
         components = all(components);
-        
+
         ^FoscSelection(components);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -466,7 +466,7 @@ FoscSelection : FoscSequence {
     Gets slice of items identified by indices.
 
     Returns a new selection.
-    
+
     code::
     a = FoscSelection([FoscNote(60, 1/4), FoscNote(62, 1/4), FoscNote(64, 1/4)]);
     b = a[1..];
@@ -479,9 +479,9 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     copySeries { |size, start, step|
         var newItems;
-        
+
         newItems = super.copySeries(size, start, step);
-        
+
         ^FoscSelection(newItems);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -587,10 +587,10 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     flat {
         var prototype, result, recurse;
-        
+
         result = [];
         prototype = [FoscSelection, SequenceableCollection];
-        
+
         recurse = { |val|
             val.do { |each|
                 if (prototype.any { |type| each.isKindOf(type) }) {
@@ -600,9 +600,9 @@ FoscSelection : FoscSequence {
                 };
             };
         };
-        
+
         recurse.(this);
-        
+
         ^this.species.new(result);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -616,11 +616,11 @@ FoscSelection : FoscSequence {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • groupBy (synonymous with 'separate')
-    
+
     Groups components by predicate function.
 
     Returns a selection of selections.
-    
+
     code::
     a = FoscLeafMaker().(#[nil, 60, 61, nil, 62, 63, 64], [1/8]);
     b = a.leaves.groupBy { |a, b| a.isPitched != b.isPitched };
@@ -685,10 +685,10 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     groupByContiguity {
         var result, selection, timespanA, timespanB;
-        
+
         result = [];
         selection = [this[0]];
-        
+
         this[1..].do { |item|
             timespanA = selection.last.prGetTimespan;
             timespanB = item.prGetTimespan;
@@ -699,9 +699,9 @@ FoscSelection : FoscSequence {
                 selection = [item];
             };
         };
-        
+
         if (selection.notEmpty) { result = result.add(this.species.new(selection)) };
-        
+
         ^this.species.new(result);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -775,7 +775,7 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
     '''
-    • illustrate 
+    • illustrate
 
     Attempts to illustrate selection. The illustration will usually work for simple selections that represent a contiguous snippet of a single voice of items.
 
@@ -797,7 +797,7 @@ FoscSelection : FoscSequence {
 
 
 
-    
+
     • RhythmicStaff if all pitches = middle-c
 
     code::
@@ -818,11 +818,11 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     illustrate {
         var items, staff, foundDifferentPitch, score, lilypondFile;
-        
+
         items = this.deepCopy.flat;
         staff = FoscStaff(items);
         foundDifferentPitch = false;
-        
+
         FoscIteration(staff).pitches.do { |pitch|
             block { |break|
                 if (pitch != FoscPitch(60)) {
@@ -831,11 +831,11 @@ FoscSelection : FoscSequence {
                 };
             };
         };
-        
+
         if (foundDifferentPitch.not) { staff.lilypondType_('RhythmicStaff') };
-        
+
         score = FoscScore([staff]);
-        
+
         // lilypondFile = FoscLilypondFile(score);
         // lilypondFile.headerBlock.tagline = false;
         // ^lilypondFile;
@@ -958,7 +958,7 @@ FoscSelection : FoscSequence {
     '''
 
     • pitched leaves
-    
+
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = FoscSelection(a).leaves(pitched: true);
@@ -969,7 +969,7 @@ FoscSelection : FoscSequence {
     '''
 
     • non-pitched leaves
-    
+
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = FoscSelection(a).leaves(pitched: false);
@@ -980,7 +980,7 @@ FoscSelection : FoscSequence {
     '''
 
     • leaves in reverse order
-    
+
     code::
     a = FoscStaff([FoscRest(1/4), FoscNote(60, 1/4), FoscNote(62, 1/4)]);
     b = FoscSelection(a).leaves(reverse: true);
@@ -993,15 +993,15 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     leaves { |prototype, exclude, graceNotes=false, pitched, reverse=false|
         prototype = prototype ? FoscLeaf;
-        
-        case 
+
+        case
         { pitched == true } {
             prototype = [FoscChord, FoscNote];
         }
         { pitched == false } {
             prototype = [FoscMultimeasureRest, FoscRest, FoscSkip];
         };
-        
+
         ^this.components(
             prototype: prototype,
             exclude: exclude,
@@ -1045,7 +1045,7 @@ FoscSelection : FoscSequence {
     '''
 
     • select pitched logicalTies
-    
+
     code::
     b = FoscSelection(a).logicalTies(pitched: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
@@ -1055,7 +1055,7 @@ FoscSelection : FoscSequence {
     '''
 
     • select non-pitched logicalTies
-    
+
     code::
     b = FoscSelection(a).logicalTies(pitched: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
@@ -1065,7 +1065,7 @@ FoscSelection : FoscSequence {
     '''
 
     • select nontrivial logicalTies
-    
+
     code::
     b = FoscSelection(a).logicalTies(nontrivial: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
@@ -1075,7 +1075,7 @@ FoscSelection : FoscSequence {
     '''
 
     • select trivial logicalTies
-    
+
     code::
     b = FoscSelection(a).logicalTies(nontrivial: false);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
@@ -1085,7 +1085,7 @@ FoscSelection : FoscSequence {
     '''
 
     • select logicalTies in reverse order
-    
+
     code::
     b = FoscSelection(a).logicalTies(reverse: true);
     b.do { |each| each.items.collect { |each| each.cs }.postln };
@@ -1097,7 +1097,7 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     logicalTies { |exclude, graceNotes=false, nontrivial, pitched, reverse=false|
         var components;
-        
+
         components = FoscIteration(this).logicalTies(
             exclude: exclude,
             graceNotes: graceNotes,
@@ -1105,9 +1105,9 @@ FoscSelection : FoscSequence {
             pitched: pitched,
             reverse: reverse
         );
-        
+
         components = all(components);
-        
+
         ^FoscSelection(components);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1220,8 +1220,8 @@ FoscSelection : FoscSequence {
 
 
 
-    
-    
+
+
     • Example 4
 
      Cyclically partitions leaves into parts equal to (or just less than) 3/16, truncating overhang.
@@ -1241,7 +1241,7 @@ FoscSelection : FoscSequence {
 
 
 
-    
+
 
     • Example 5
 
@@ -1298,7 +1298,7 @@ FoscSelection : FoscSequence {
         if (isCyclic) { durations = FoscCyclicArray(durations) };
         result = [];
         part = [];
-        currentDurationIndex = 0; 
+        currentDurationIndex = 0;
         targetDuration = durations[currentDurationIndex];
         cumulativeDuration = FoscDuration(0);
         componentsCopy = items.copy;
@@ -1308,11 +1308,11 @@ FoscSelection : FoscSequence {
                 if (componentsCopy.isEmpty) { break.value };
                 component = componentsCopy.removeAt(0);
                 componentDuration = component.prGetDuration;
-                
+
                 if (inSeconds) {
                     componentDuration = component.prGetDuration(inSeconds: true);
                 };
-                
+
                 candidateDuration = cumulativeDuration + componentDuration;
 
                 case
@@ -1336,11 +1336,11 @@ FoscSelection : FoscSequence {
                     { fill == 'less' } {
                         result = result.add(part);
                         part = [component];
-                        cumulativeDuration = part.collect { |each| each.prGetDuration(inSeconds) }.sum; 
+                        cumulativeDuration = part.collect { |each| each.prGetDuration(inSeconds) }.sum;
                         currentDurationIndex = currentDurationIndex + 1;
                         targetDuration = durations[currentDurationIndex];
                         if (targetDuration.isNil) { break.value };
-                        
+
                         if (targetDuration < cumulativeDuration) {
                             throw(
                                 "%:%: target duration % is less than cumulative duration %."
@@ -1358,21 +1358,21 @@ FoscSelection : FoscSequence {
                         if (targetDuration.isNil) { break.value };
                     };
                 }
-                
+
             };
         };
 
         if (part.notEmpty && overhang) { result = result.add(part) };
         if (componentsCopy.notEmpty && overhang) { result = result.add(componentsCopy) };
         result = result.collect { |each| FoscSelection(each) };
-        
+
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • partitionByRatio
 
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69,71,72], [1/8,1/8,1/8,1/8]));
     b = a[0..].partitionByRatio(#[5, 11, 4]);
@@ -1393,12 +1393,12 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     partitionByRatio { |ratio|
         var sizes, parts, selections;
-        
+
         //• TODO: ratio = FoscRatio(ratio);
         sizes = this.size.partitionByRatio(ratio);
         parts = this.partitionBySizes(sizes);
         selections = parts.items.collect { |each| this.species.new(each) };
-        
+
         ^this.species.new(selections);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1440,15 +1440,15 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     partitionBySizes { |sizes, isCyclic=false|
         var selections;
-        
+
         if (isCyclic) {
             sizes = sizes.repeatToAbsSum(this.size);
         } {
             sizes = sizes.extendToAbsSum(this.size);
         };
-        
+
         selections = items.clumps(sizes).collect { |each| FoscSelection(each) };
-        
+
         ^this.species.new(selections);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1599,21 +1599,21 @@ FoscSelection : FoscSequence {
     // }
     runs { |exclude|
         var result;
-        
+
         result = this.leaves(exclude: exclude);
         result = result.groupBy { |a, b| a.isPitched != b.isPitched };
         result = result.items.select { |each| each[0].isPitched };
-        
+
         ^this.species.new(result);
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • separate
-    
+
     Groups components by predicate function.
 
     Returns a selection of selections.
-    
+
     code::
     a = FoscLeafMaker().(#[nil, 60, 61, nil, 62, 63, 64], [1/8]);
     b = a.leaves.separate { |a, b| a.isPitched != b.isPitched };
@@ -1626,11 +1626,11 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     separate { |function|
         var newItems;
-        
+
         function = function ? false;
         newItems = items.separate(function);
         newItems = newItems.collect { |each| FoscSelection(each) };
-        
+
         ^this.species.new(newItems);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1653,7 +1653,7 @@ FoscSelection : FoscSequence {
     Gets timespan of contiguous selection.
 
     Returns timespan.
-    
+
     code::
     a = FoscVoice({ FoscNote(60, [1, 8]) } ! 8);
     b = a.select.byLeaf[1..6];
@@ -1666,7 +1666,7 @@ FoscSelection : FoscSequence {
     a = FoscMeasure([4, 4], [FoscNote(60, [1, 32]), FoscNote(62, [7, 8]), FoscNote(62, [1, 16]), FoscNote(64, [1, 32])]);
     a[1..2].attach(FoscTie());
     x = FoscStaff([FoscMeasure([2, 4], [FoscNote(60, [2, 4])]), a]);
-    
+
     code::
     m = FoscMeterManager.iterateRewriteInputs(a).all;
 
@@ -1692,19 +1692,19 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     timespan { |inSeconds=false|
         var timespan, startOffset, stopOffset;
-        
+
         if (inSeconds) { ^this.notYetImplemented(thisMethod) };
-        
+
         timespan = this[0].prGetTimespan; //• TODO: BROKEN if this[0] is a selection
         startOffset = timespan.startOffset;
         stopOffset = timespan.stopOffset;
-        
+
         this[1..].do { |each|
             timespan = each.prGetTimespan;
             if (timespan.startOffset < startOffset) { startOffset = timespan.startOffset };
             if (stopOffset < timespan.stopOffset) { stopOffset = timespan.stopOffset };
         };
-        
+
         ^FoscTimespan(startOffset, stopOffset);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1826,23 +1826,23 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     prAttachTieToLeaves { |repeatTies=false|
         var leaves;
-        
+
         leaves = [];
-        
+
         this.do { |leaf|
             assert(leaf.isKindOf(FoscLeaf));
             leaf.prGetLogicalTie.leaves.do { |each|
                 if (leaves.includes(each).not) { leaves = leaves.add(leaf) };
             };
         };
-        
+
         leaves = FoscSelection(leaves);
-        
+
         leaves.do { |leaf|
             leaf.detach(FoscTie);
             leaf.detach(FoscRepeatTie);
         };
-        
+
         leaves.tie(repeat: repeatTies);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1856,20 +1856,20 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     prCopy {
         var newComponents, newComponent;
-        
+
         assert(this.areContiguousLogicalVoice);
         newComponents = [];
-        
+
         this.do { |component|
             if (component.isKindOf(FoscContainer)) {
                 newComponent = component.prCopyWithChildren;
             } {
                 newComponent = component.copy;
             };
-            
+
             newComponents = newComponents.add(newComponent);
         };
-        
+
         ^this.species.new(newComponents);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1968,7 +1968,7 @@ FoscSelection : FoscSequence {
 
         groups = leaves.groupBy { |a, b| a.parent != b.parent };
         groups.doAdjacentPairs { |a, b| b.first.writtenPitch_(a.first.writtenPitch) };
-        
+
         groups.do { |leaves, i|
             originallyTied = leaves.last.prHasIndicator(FoscTie);
             totalPreprolated = leaves.prGetPreprolatedDuration;
@@ -2026,7 +2026,7 @@ FoscSelection : FoscSequence {
         leaves.prDetachBeams;
         leaves.prDetachTies;
         groups = leaves.groupBy { |a, b| a.parent != b.parent };
-        
+
         groups.do { |leaves, i|
             totalPreprolated = leaves.prGetPreprolatedDuration;
 
@@ -2048,12 +2048,12 @@ FoscSelection : FoscSequence {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetContentsDuration
-    
+
     Gets summed duration of all leaves in selection.
 
     Returns duration.
-    
-    
+
+
     • Example 1
 
     code::
@@ -2072,15 +2072,15 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     prGetContentsDuration { |inSeconds=false|
         var durations, result;
-        
+
         durations = [];
-        
+
         this.leaves.do { |leaf|
             durations = durations.add(leaf.prGetDuration(inSeconds));
         };
-        
+
         result = durations.sum;
-        
+
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -2090,22 +2090,22 @@ FoscSelection : FoscSequence {
     -------------------------------------------------------------------------------------------------------- */
     prGetParentAndStartStopIndices {
         var first, last, parent, firstIndex, lastIndex;
-        
+
         if (this.areContiguousSameParent.not) {
             throw("%:%: components are not contiguous.".format(this.species, thisMethod.name));
         };
-        
+
         if (this.size > 0) {
             # first, last = [items[0], items.last];
             parent = first.parent;
-            
+
             if (parent.notNil) {
                 firstIndex = parent.indexOf(first);
                 lastIndex = parent.indexOf(last);
                 ^[parent, firstIndex, lastIndex];
             };
         };
-        
+
         ^[nil, nil, nil];
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -2143,7 +2143,7 @@ FoscSelection : FoscSequence {
     • prFuse
 
     • TODO: DEPRECATE -- use 'prFuseLeaves' only
-    
+
     code::
     a = FoscStaff([FoscLeafMaker().(#[60,60], 1/4), FoscTuplet(2/3, { FoscNote(60, 1/8) } ! 3)]);
     a.show;
@@ -2171,7 +2171,7 @@ FoscSelection : FoscSequence {
 
 
     • TODO: tie components and then fuse by parent
-    
+
     code::
     a = FoscStaff([FoscLeafMaker().(#[60,60], 1/4), FoscTuplet(2/3, { FoscNote(60, 1/8) } ! 3)]);
     a.selectLeaves[0..2].prAttachTieToLeaves;
@@ -2206,7 +2206,7 @@ FoscSelection : FoscSequence {
         }
         {
             throw("%:%: can not fuse.".format(this.species, thisMethod.name));
-        }; 
+        };
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -2362,7 +2362,7 @@ FoscSelection : FoscSequence {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prIterateTopDown
-    
+
     • TODO: DEPRECATE !
     '''
     -------------------------------------------------------------------------------------------------------- */

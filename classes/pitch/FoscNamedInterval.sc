@@ -97,7 +97,7 @@ FoscNamedInterval : FoscInterval {
     -------------------------------------------------------------------------------------------------------- */
     *initClass {
         acceptableQualityStrings = #['perfect', 'major', 'minor', 'diminished', 'augmented'];
-        
+
         qualityAbbreviationToQualityString = (
             'M': 'major',
             'm': 'minor',
@@ -105,7 +105,7 @@ FoscNamedInterval : FoscInterval {
             'aug': 'augmented',
             'dim': 'diminished'
         );
-        
+
         semitonesToQualityStringAndNumber = (
             0: #['perfect', 1],
             1: #['minor', 2],
@@ -173,28 +173,28 @@ FoscNamedInterval : FoscInterval {
 
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __abs__(self):
             r'''Gets absolute value of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abs(abjad.NamedInterval('+M9'))
                     NamedInterval('+M9')
-    
+
                 ::
-    
+
                     >>> abs(abjad.NamedInterval('-M9'))
                     NamedInterval('+M9')
-    
+
             Returns named interval.
             '''
             return type(self).from_quality_and_number(
@@ -207,18 +207,18 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __add__(self, argument):
             r'''Adds `argument` to named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('M9') + abjad.NamedInterval('M2')
                     NamedInterval('+M10')
-    
+
             Returns new named interval.
             '''
             from abjad.tools import pitchtools
@@ -235,22 +235,22 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __copy__(self, *arguments):
             r'''Copies named interval.
-    
+
             ::
-    
+
                 >>> import copy
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> copy.copy(abjad.NamedInterval('+M9'))
                     NamedInterval('+M9')
-    
+
             Returns new named interval.
             '''
             return type(self).from_quality_and_number(
@@ -263,47 +263,47 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __eq__(self, argument):
             r'''Is true when named interval equal `argument`.
             Otherwise false.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> interval_1 = abjad.NamedInterval('m2')
                     >>> interval_2 = abjad.NamedInterval('m2')
                     >>> interval_3 = abjad.NamedInterval('m9')
-    
+
                 ::
-    
+
                     >>> interval_1 == interval_1
                     True
                     >>> interval_1 == interval_2
                     True
                     >>> interval_1 == interval_3
                     False
-    
+
                 ::
-    
+
                     >>> interval_2 == interval_1
                     True
                     >>> interval_2 == interval_2
                     True
                     >>> interval_2 == interval_3
                     False
-    
+
                 ::
-    
+
                     >>> interval_3 == interval_1
                     False
                     >>> interval_3 == interval_2
                     False
                     >>> interval_3 == interval_3
                     True
-    
+
             '''
             return super(NamedInterval, self).__eq__(argument)
     '''
@@ -312,54 +312,54 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __hash__(self):
             r'''Hashes named interval.
-    
+
             Returns number.
             '''
             return super(NamedInterval, self).__hash__()
     '''
     -------------------------------------------------------------------------------------------------------- */
-        
+
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __lt__(self, argument):
             r'''Is true when `argument` is a named interval with a number greater
             than that of this named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9') < abjad.NamedInterval('+M10')
                     True
-    
-            
+
+
 • Example ---
-    
+
                 Also true when `argument` is a named interval with a
                 number equal to this named interval and with semitones greater than
                 this named interval:
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+m9') < abjad.NamedInterval('+M9')
                     True
-    
-            
+
+
 • Example ---
-    
+
                 Otherwise false:
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9') < abjad.NamedInterval('+M2')
                     False
-    
+
             Returns true or false.
             '''
             if isinstance(argument, type(self)):
@@ -373,18 +373,18 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __mul__(self, argument):
             r'''Multiplies named interval by `argument`.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> 3 * abjad.NamedInterval('+M9')
                     NamedInterval('+aug25')
-    
+
             Returns new named interval.
             '''
             from abjad.tools import pitchtools
@@ -408,26 +408,26 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __neg__(self):
             r'''Negates named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> -abjad.NamedInterval('+M9')
                     NamedInterval('-M9')
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> -abjad.NamedInterval('-M9')
                     NamedInterval('+M9')
-    
+
             Returns new named interval.
             '''
             return type(self).from_quality_and_number(
@@ -440,18 +440,18 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __radd__(self, argument):
             r'''Adds named interval to `argument`.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('M9') + abjad.NamedInterval('M2')
                     NamedInterval('+M10')
-    
+
             Returns new named interval.
             '''
             from abjad.tools import pitchtools
@@ -466,18 +466,18 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __rmul__(self, argument):
             r'''Multiplies `argument` by named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9') * 3
                     NamedInterval('+aug25')
-    
+
             Returns new named interval.
             '''
             return self * argument
@@ -487,18 +487,18 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __str__(self):
             r'''Gets string representation of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> str(abjad.NamedInterval('+M9'))
                     '+M9'
-    
+
             Returns string.
             '''
             return self.name
@@ -508,23 +508,23 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __sub__(self, argument):
             r'''Subtracts `argument` from named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9') - abjad.NamedInterval('+M2')
                     NamedInterval('+P8')
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M2') - abjad.NamedInterval('+M9')
                     NamedInterval('-P8')
-    
+
             Returns new named interval.
             '''
             from abjad.tools import pitchtools
@@ -543,7 +543,7 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def _interval_string(self):
     code::
@@ -585,7 +585,7 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def _quality_abbreviation(self):
     code::
@@ -601,7 +601,7 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def _get_format_specification(self):
             import abjad
             values = [self.name]
@@ -612,14 +612,14 @@ FoscNamedInterval : FoscInterval {
                 storage_format_is_indented=False,
                 storage_format_args_values=values,
                 )
-    
+
     '''
     -------------------------------------------------------------------------------------------------------- */
-    
+
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def _transpose_pitch(self, pitch):
             from abjad.tools import pitchtools
             pitch_number = pitch.number + self.semitones
@@ -642,19 +642,19 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def direction_number(self):
             r'''Gets direction number of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').direction_number
                     1
-    
+
             Returns ``-1``, ``0`` or ``1``.
             '''
             if self.quality_string == 'perfect' and abs(self.number) == 1:
@@ -667,35 +667,35 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def direction_string(self):
             r'''Gets direction string of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').direction_string
                     'ascending'
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('-M9').direction_string
                     'descending'
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('P1').direction_string is None
                     True
-    
+
             Returns ``'ascending'``, ``'descending'`` or none.
             '''
             if self.direction_number == -1:
@@ -710,19 +710,19 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def interval_class(self):
             r'''Gets interval class of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').interval_class
                     2
-    
+
             Returns nonnegative integer.
             '''
             return ((abs(self.number) - 1) % 7) + 1
@@ -732,19 +732,19 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def interval_string(self):
             r'''Gets interval string of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').interval_string
                     'ninth'
-    
+
             Returns string.
             '''
             return self._interval_string
@@ -754,19 +754,19 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def name(self):
             r'''Gets name of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').name
                     '+M9'
-    
+
             Returns string.
             '''
             return '{}{}{}'.format(
@@ -780,36 +780,36 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def named_interval_class(self):
             r'''DEPRECATED.
-            
+
             Gets named interval class of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').named_interval_class
                     NamedIntervalClass('+M2')
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('-M9').named_interval_class
                     NamedIntervalClass('-M2')
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('P1').named_interval_class
                     NamedIntervalClass('P1')
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+P8').named_interval_class
                     NamedIntervalClass('+P8')
-    
+
             Returns named inversion-equivalent interval-class.
             '''
             from abjad.tools import pitchtools
@@ -824,19 +824,19 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def number(self):
             r'''Gets number of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').number
                     9
-    
+
             Returns nonnegative number.
             '''
             return self._number
@@ -846,18 +846,18 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def octaves(self):
             r'''Gets octaves of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
                     >>> abjad.NamedInterval('+M9').octaves
                     1
-    
+
             Returns nonnegative number.
             '''
             return self.semitones // 12
@@ -867,77 +867,77 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def quality_string(self):
             r'''Gets quality string of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').quality_string
                     'major'
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+m9').quality_string
                     'minor'
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+P8').quality_string
                     'perfect'
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+aug4').quality_string
                     'augmented'
-    
+
             Returns string.
             '''
             return self._quality_string
-    
+
     '''
     -------------------------------------------------------------------------------------------------------- */
-    
+
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def semitones(self):
             r'''Gets semitones of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').semitones
                     14
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('-M9').semitones
                     -14
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('P1').semitones
                     0
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+P8').semitones
                     12
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('-P8').semitones
                     -12
-    
+
             Returns number.
             '''
             from abjad.tools import pitchtools
@@ -984,39 +984,39 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def staff_spaces(self):
             r'''Gets staff spaces of named interval.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+M9').staff_spaces
                     8
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('-M9').staff_spaces
                     -8
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('P1').staff_spaces
                     0
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('+P8').staff_spaces
                     7
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval('-P8').staff_spaces
                     -7
-    
+
             Returns nonnegative integer.
             '''
             if self.direction_string == 'descending':
@@ -1033,33 +1033,33 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @classmethod
         def from_pitch_carriers(class_, pitch_carrier_1, pitch_carrier_2):
             '''Makes named interval calculated from `pitch_carrier_1` to
             `pitch_carrier_2`.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> abjad.NamedInterval.from_pitch_carriers(
                     ...     abjad.NamedPitch(-2),
                     ...     abjad.NamedPitch(12),
                     ...     )
                     NamedInterval('+M9')
-    
+
                 ::
-    
+
                     ..  todo:: Improve this behavior.
-    
+
                     >>> abjad.NamedInterval.from_pitch_carriers(
                     ...     abjad.NamedPitch("cs'"),
                     ...     abjad.NamedPitch("cf'"),
                     ...     )
                     NamedInterval('-M2')
-    
+
             Returns named interval.
             '''
             import abjad
@@ -1089,22 +1089,22 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @classmethod
         def from_quality_and_number(class_, quality, number):
             r'''Makes named interval from `quality` and `number`.
-    
-            
+
+
 • Example ---
-                
+
                 ::
-    
+
                     >>> abjad.NamedInterval.from_quality_and_number(
                     ...     'major',
                     ...     -3,
                     ...     )
                     NamedInterval('-M3')
-    
+
             Returns newly constructed named interval.
             '''
             assert isinstance(quality, str), repr(quality)
@@ -1121,25 +1121,25 @@ FoscNamedInterval : FoscInterval {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def transpose(self, pitch_carrier):
             r'''Transposes `pitch_carrier` by named interval.
-    
-            
+
+
 • Example ---
-    
+
                 Transposes chord:
-    
+
                 ::
-    
+
                     >>> chord = abjad.Chord("<c' e' g'>4")
-    
+
                 ::
-    
+
                     >>> interval = abjad.NamedInterval('+m2')
                     >>> interval.transpose(chord)
                     Chord("<df' f' af'>4")
-    
+
             Returns new (copied) object of `pitch_carrier` type.
             '''
             import abjad
@@ -1162,4 +1162,3 @@ FoscNamedInterval : FoscInterval {
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
-

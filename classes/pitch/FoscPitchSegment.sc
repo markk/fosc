@@ -41,12 +41,12 @@ FoscPitchSegment : FoscTypedList {
 		^super.new(items, FoscPitch);
 	}
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
     • asCompileString
-    
+
     code::
     FoscPitchSegment([60, 62, 64]).cs;
     '''
@@ -130,7 +130,7 @@ FoscPitchSegment : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
 	pitchString {
         var pitchNames;
-        pitchNames = this.pitchNames.collect { |each| each.asString };  
+        pitchNames = this.pitchNames.collect { |each| each.asString };
         ^pitchNames.join(" ").asCompileString;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -192,9 +192,9 @@ FoscPitchSegment : FoscTypedList {
      '''
      • multiply
 	''Multiplies pitch segment.
-	
+
 	Returns new pitch segment.
-   	
+
      code::
    	a = FoscPitchSegment([60, 61, 62]);
 	b = a.multiply(3);
@@ -281,7 +281,7 @@ FoscPitchSegment : FoscTypedList {
  '''
 	• hasDuplicates
 	'''True if pitch segment has duplicate items. Otherwise false.
-	
+
 	Returns true or false.
 	'''
 
@@ -301,10 +301,10 @@ FoscPitchSegment : FoscTypedList {
     '''
     • midicps (abjad: hertz)
 	'''Gets hertz of pitches in pitch segment.
-	
+
 	Returns tuple.
 	'''
-	
+
     code::
 	a = FoscPitchSegment([60, 61, 62]);
 	a.midicps;
@@ -320,7 +320,7 @@ FoscPitchSegment : FoscTypedList {
     Inflection point count of pitch segment.
 
 	Returns nonnegative integer.
-	
+
     code::
 	a = FoscPitchSegment([60, 61, 62, 63, 64, 65, 66, 68, 81, 65, 59, 63, 84, 60]);
   	a.inflectionPointCount.postln;
@@ -336,7 +336,7 @@ FoscPitchSegment : FoscTypedList {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • localMaxima
-    
+
     Local maxima of pitch segment.
 
 	Returns array.
@@ -364,12 +364,12 @@ FoscPitchSegment : FoscTypedList {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • localMinima
-    
+
     Local minima of pitch segment.
 
     code::
  	Returns array;
-	
+
     code::
 	a = FoscPitchSegment([60, 61, 62, 63, 64, 65, 66, 68, 81, 65, 59, 63, 84, 60]);
   	a.localMinima.collect { |each| each.pitchNumber }.postln;

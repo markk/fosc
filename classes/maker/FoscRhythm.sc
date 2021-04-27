@@ -111,7 +111,7 @@ FoscRhythm : FoscTreeContainer {
         preProlatedDuration = FoscDuration(duration ? 1);
         mixin = FoscRhythmMixin();
         items = items.collect { |each, i|
-            case 
+            case
             { each.isInteger } { FoscRhythmLeaf(each) }
             { each.isKindOf(FoscTreeNode) } { each }
             { each.isSequenceableCollection } { FoscRhythm(*each) }
@@ -120,7 +120,7 @@ FoscRhythm : FoscTreeContainer {
         this.addAll(items);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -148,7 +148,7 @@ FoscRhythm : FoscTreeContainer {
         ^result;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -189,7 +189,7 @@ FoscRhythm : FoscTreeContainer {
     • illustrate
 
     Illustrates FoscRhythm.
-    
+
     Returns LilyPond file.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -380,7 +380,7 @@ FoscRhythm : FoscTreeContainer {
     Prolation of rhythm tree node.
 
     Returns multiplier.
-    
+
 
     • Example 1
 
@@ -423,7 +423,7 @@ FoscRhythm : FoscTreeContainer {
 
 
     • Example 1
-    
+
     code::
     b = FoscRhythm(4, #[-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);

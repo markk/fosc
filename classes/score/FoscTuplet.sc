@@ -95,7 +95,7 @@ FoscTuplet : FoscContainer {
     • *newFromDuration
 
     Makes tuplet from 'duration' and 'components'.
-            
+
     Returns newly constructed tuplet equal in duration to 'duration'.
 
 
@@ -133,7 +133,7 @@ FoscTuplet : FoscContainer {
     • *newFromDurationAndRatio
 
     Makes tuplet from duration and ratio.
- 
+
     Reduces ratio relative to each other.
 
     Interprets negative ratio values as rests.
@@ -162,7 +162,7 @@ FoscTuplet : FoscContainer {
     *newFromDurationAndRatio { |duration, ratio, increaseMonotonic=false|
         var basicProlatedDuration, basicWrittenDuration, writtenDurations, leafMaker, notes, denominator;
         var noteDurations, pitches, leafDurations, tuplet;
-        
+
         duration = FoscDuration(duration);
         //!!!TODO: ratio = FoscRatio(ratio);
         basicProlatedDuration = duration / (ratio.abs.sum);
@@ -187,11 +187,11 @@ FoscTuplet : FoscContainer {
 
         tuplet = FoscTuplet.newFromDuration(duration, notes);
         tuplet.normalizeMultiplier;
-        
+
         ^tuplet;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -287,7 +287,7 @@ FoscTuplet : FoscContainer {
     • forceFraction
 
     Gets force fraction flag.
-    
+
     Returns true or false.
 
 
@@ -440,7 +440,7 @@ FoscTuplet : FoscContainer {
 
     Gets multiplied duration of tuplet.
 
- 
+
     • Example 1
 
     code::
@@ -491,14 +491,14 @@ FoscTuplet : FoscContainer {
 
     '''
     -------------------------------------------------------------------------------------------------------- */
-    multiplier_ { |multiplier| 
+    multiplier_ { |multiplier|
         var rational;
         case
         { multiplier.isInteger || { multiplier.isKindOf(FoscFraction) } } {
             rational = FoscMultiplier(multiplier);
         }
         { multiplier.isSequenceableCollection } {
-            rational = FoscMultiplier(multiplier); 
+            rational = FoscMultiplier(multiplier);
         }
         {
             throw("%:%: can't set tuplet multipler from: %."
@@ -508,7 +508,7 @@ FoscTuplet : FoscContainer {
             multiplier = rational;
         } {
             throw("%:%: multiplier must be positive: %."
-                .format(this.species, thisMethod.name, multiplier));   
+                .format(this.species, thisMethod.name, multiplier));
         };
         this.instVarPut('multiplier', multiplier);
     }
@@ -723,7 +723,7 @@ FoscTuplet : FoscContainer {
     Is true when tuplet multiplier is greater than 1.
 
     Returns true or false.
-    
+
 
     • Example 1
 
@@ -762,12 +762,12 @@ FoscTuplet : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • isDiminution (diminution)
-     
+
     Is true when tuplet multiplier is less than 1.
 
     Returns true or false.
 
-    
+
     • Example 1
 
     Augmented tuplet.
@@ -928,7 +928,7 @@ FoscTuplet : FoscContainer {
 
     Normalizes tuplet multiplier.
 
-    
+
     • Example 1
 
     code::
@@ -972,7 +972,7 @@ FoscTuplet : FoscContainer {
         };
         # numerator, denominator = leafMultiplier.pair;
         localMultiplier = FoscMultiplier(denominator, numerator);
-        multiplier = localMultiplier * multiplier; 
+        multiplier = localMultiplier * multiplier;
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -1141,12 +1141,12 @@ FoscTuplet : FoscContainer {
     • toggleProlation
 
     Changes augmented tuplets to diminished; changes diminished tuplets to augmented.
-    
+
     Does not yet work with nested tuplets.
 
 
     • Example 1
-    
+
     Changes augmented tuplet to diminished.
 
     code::
@@ -1177,7 +1177,7 @@ FoscTuplet : FoscContainer {
 
 
     • Example 2
-    
+
     Changes diminished tuplet to augmented.
 
     code::
@@ -1223,7 +1223,7 @@ FoscTuplet : FoscContainer {
                 FoscIteration(this).leaves.do { |leaf|
                     leaf.writtenDuration_(leaf.writtenDuration * 2);
                 };
-            }; 
+            };
         }
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1444,7 +1444,7 @@ FoscTuplet : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a.prGetLilypondFormat;
@@ -1457,7 +1457,7 @@ FoscTuplet : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetMultiplierFractionString
-    
+
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a.prGetMultiplierFractionString;
@@ -1483,7 +1483,7 @@ FoscTuplet : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetPreprolatedDuration
-    
+
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a.prGetPreprolatedDuration.str;
@@ -1511,7 +1511,7 @@ FoscTuplet : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetScaleDurationsCommandString
-    
+
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a.prGetScaleDurationsCommandString;
@@ -1554,7 +1554,7 @@ FoscTuplet : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prHasPowerOfTwoDenominator
-    
+
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a.prHasPowerOfTwoDenominator;
@@ -1658,7 +1658,7 @@ FoscTuplet : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prIsRestFilled
-    
+
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a.prIsRestFilled;

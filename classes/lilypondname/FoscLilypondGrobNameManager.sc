@@ -62,7 +62,7 @@ a.writePNG("%.ly".format(p));
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondGrobNameManager : FoscLilypondNameManager {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
+	// PUBLIC INSTANCE METHODS: Special Methods
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -91,7 +91,7 @@ FoscLilypondGrobNameManager : FoscLilypondNameManager {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prAttributeTuples
-    
+
     code::
     a = FoscNote(60, 1/4);
     m = override(a);
@@ -130,7 +130,7 @@ FoscLilypondGrobNameManager : FoscLilypondNameManager {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prListFormatContributions
-    
+
 
     • Example 1
 
@@ -161,7 +161,7 @@ FoscLilypondGrobNameManager : FoscLilypondNameManager {
             { attributeTuple.size == 4 } {
                 # context, grob, attribute, value = attributeTuple;
             }
-            { 
+            {
                 throw("%:% invalid attribute tuple: %."
                     .format(this.species, thisMethod.name, attributeTuple));
             };
@@ -171,7 +171,7 @@ FoscLilypondGrobNameManager : FoscLilypondNameManager {
             } {
                 revertString = manager.makeLilypondRevertString(grob, attribute, context);
                 result = result.add(revertString);
-            };  
+            };
         };
         result = result.sort;
         ^result;

@@ -69,7 +69,7 @@ FoscInterval : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @abc.abstractmethod
     def __init__(self):
         pass
@@ -84,7 +84,7 @@ FoscInterval : FoscObject {
         number = argInterval;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -93,7 +93,7 @@ FoscInterval : FoscObject {
     Gets absolute value of interval.
 
     Returns new interval.
-    
+
     def __abs__(self):
         return type(self)(abs(self.number))
     '''
@@ -108,7 +108,7 @@ FoscInterval : FoscObject {
     Coerce to float.
 
     Returns float.
-    
+
     def __float__(self):
         return float(self.number)
     '''
@@ -123,7 +123,7 @@ FoscInterval : FoscObject {
     Is true when interval is less than argument.
 
     Returns true or false.
-    
+
     @abc.abstractmethod
     def __lt__(self, argument):
         raise NotImplementedError
@@ -137,7 +137,7 @@ FoscInterval : FoscObject {
     Negates interval.
 
     Returns interval.
-    
+
     def __neg__(self):
         pass
     '''
@@ -150,7 +150,7 @@ FoscInterval : FoscObject {
     Gets string representation of interval.
 
     Returns string.
-    
+
     def __str__(self):
         return str(self.number)
     '''
@@ -164,7 +164,7 @@ FoscInterval : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prDirectionSymbol
-    
+
     def _get_direction_symbol(self):
         if self.direction_number == -1:
             return '-'
@@ -194,7 +194,7 @@ FoscInterval : FoscObject {
     Gets cents of interval.
 
     Returns nonnegative number.
-    
+
     @property
     def cents(self):
         return 100 * self.semitones
@@ -244,7 +244,7 @@ FoscInterval : FoscObject {
     code::
     FoscInterval.isNamedQualityAbbreviation("aug");
 
-    
+
     @staticmethod
     def is_named_interval_quality_abbreviation(argument):
         if not isinstance(argument, str):
@@ -267,7 +267,7 @@ FoscInterval : FoscObject {
     Transposes pitch_carrier by interval.
 
     Returns new pitch carrier.
-   
+
     @abc.abstractmethod
     def transpose(self, pitch_carrier):
         raise NotImplementedError

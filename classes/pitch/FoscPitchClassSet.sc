@@ -60,16 +60,16 @@ FoscPitchClassSet : FoscTypedSet {
         ^super.new(items, FoscPitchClass);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • includes (abjad: __contains__)
 
     Is true when pitch-class set contains `argument`. Otherwise false.
-            
+
     Returns true or false.
-    
+
     def __contains__(self, argument):
         return super(PitchClassSet, self).__contains__(argument)
     '''
@@ -93,7 +93,7 @@ FoscPitchClassSet : FoscTypedSet {
     • illustrate
 
     Illustrates pitch-class set.
-    
+
     def __illustrate__(self):
         import abjad
         chord = abjad.Chord(self, abjad.Duration(1))
@@ -113,7 +113,7 @@ FoscPitchClassSet : FoscTypedSet {
     Gets string representation of pitch-class set.
 
     Returns string.
-    
+
     def __str__(self):
         import abjad
         items = [str(_) for _ in sorted(self)]
@@ -131,7 +131,7 @@ FoscPitchClassSet : FoscTypedSet {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
     def _named_item_class(self):
         from abjad.tools import pitchtools
@@ -142,7 +142,7 @@ FoscPitchClassSet : FoscTypedSet {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
     def _numbered_item_class(self):
         from abjad.tools import pitchtools
@@ -153,7 +153,7 @@ FoscPitchClassSet : FoscTypedSet {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
     def _parent_item_class(self):
         from abjad.tools import pitchtools
@@ -167,7 +167,7 @@ FoscPitchClassSet : FoscTypedSet {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @staticmethod
     def _get_most_compact_ordering(candidates):
         from abjad.tools import pitchtools
@@ -226,7 +226,7 @@ FoscPitchClassSet : FoscTypedSet {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def _sort_self(self):
         from abjad.tools import pitchtools
         def helper(x, y):
@@ -249,9 +249,9 @@ FoscPitchClassSet : FoscTypedSet {
     • *newFromSelection
 
     Makes pitch-class set from `selection`.
-        
+
     Returns pitch-class set.
-    
+
     @classmethod
     def from_selection(
         class_,
@@ -429,7 +429,7 @@ FoscPitchClassSet : FoscTypedSet {
     Gets normal order.
 
     Returns pitch-class segment.
-    
+
     def get_normal_order(self):
         import abjad
         if not len(self):
@@ -455,7 +455,7 @@ FoscPitchClassSet : FoscTypedSet {
     Gets prime form.
 
     Returns new pitch-class set.
-    
+
     def get_prime_form(self, transposition_only=False):
         import abjad
         if not len(self):
@@ -482,9 +482,9 @@ FoscPitchClassSet : FoscTypedSet {
     • invert
 
     Inverts pitch-class set.
-        
+
     Returns numbered pitch-class set.
-    
+
     def invert(self, axis=None):
         return type(self)([pc.invert(axis=axis) for pc in self])
     '''
@@ -497,7 +497,7 @@ FoscPitchClassSet : FoscTypedSet {
     Is true when pitch-class set is transposed subset of `pcset`. Otherwise false.
 
     Returns true or false.
-    
+
     def is_transposed_subset(self, pcset):
         for n in range(12):
             if self.transpose(n).issubset(pcset):
@@ -513,7 +513,7 @@ FoscPitchClassSet : FoscTypedSet {
     Is true when pitch-class set is transposed superset of `pcset`. Otherwise false.
 
     Returns true or false.
-    
+
     def is_transposed_superset(self, pcset):
         for n in range(12):
             if self.transpose(n).issuperset(pcset):
@@ -529,7 +529,7 @@ FoscPitchClassSet : FoscTypedSet {
     Multiplies pitch-class set by `n`.
 
     Returns new pitch-class set.
-    
+
     def multiply(self, n):
         import abjad
         items = (pitch_class.multiply(n) for pitch_class in self)
@@ -544,7 +544,7 @@ FoscPitchClassSet : FoscTypedSet {
     Orders pitch-class set by pitch-class `segment`.
 
     Returns pitch-class segment.
-    
+
     def order_by(self, segment):
         import abjad
         if not len(self) == len(segment):
@@ -566,9 +566,9 @@ FoscPitchClassSet : FoscTypedSet {
     • transpose
 
     Transposes all pitch-classes in pitch-class set by index `n`.
-    
+
     Returns new pitch-class set.
-    
+
     def transpose(self, n=0):
         import abjad
         items = (pitch_class + n for pitch_class in self)

@@ -22,13 +22,13 @@ FoscTupletSpecifier : FoscObject {
     var <denominator, <isDiminution, <durationBracket, <extractTrivial, <forceFraction, <rewriteDots;
     var <rewriteRestFilled, <rewriteSustained, <trivialize;
     *new { |denominator, isDiminution, durationBracket=false, extractTrivial=false, forceFraction=false,
-        rewriteDots=false, rewriteRestFilled=false, rewriteSustained=false, trivialize=false|    
+        rewriteDots=false, rewriteRestFilled=false, rewriteSustained=false, trivialize=false|
         ^super.new.init(denominator, isDiminution, durationBracket, extractTrivial, forceFraction, rewriteDots,
             rewriteRestFilled, rewriteSustained, trivialize);
     }
     init { |argDenominator, argIsDiminution, argDurationBracket, argExtractTrivial, argForceFraction,
         argRewriteDots, argRewriteRestFilled, argRewriteSustained, argTrivialize|
-        
+
         if (argDenominator.notNil) { denominator = argDenominator };
         isDiminution = argIsDiminution;
         durationBracket = argDurationBracket;
@@ -40,7 +40,7 @@ FoscTupletSpecifier : FoscObject {
         trivialize = argTrivialize;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -66,7 +66,7 @@ FoscTupletSpecifier : FoscObject {
     • prApplyDenominator
 
     code::
-    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]); 
+    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(denominator: 4).(m);
     FoscLilypondFile.rhythm(m).show;
 
@@ -82,7 +82,7 @@ FoscTupletSpecifier : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     prApplyDenominator { |selections, divisions|
         var tuplets, localDenominator, division, unitDuration, duration, denominator_, nonreducedFraction;
-        
+
         if (denominator.isNil) { ^this };
         tuplets = all(FoscIteration(selections).components(prototype: FoscTuplet));
         if (divisions.isNil) { divisions = Array.newClear(tuplets.size) };
@@ -118,9 +118,9 @@ FoscTupletSpecifier : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prExtractTrivial
-    
+
     code::
-    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]); 
+    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(extractTrivial: true).(m);
     FoscLilypondFile.rhythm(m).show;
 
@@ -139,7 +139,7 @@ FoscTupletSpecifier : FoscObject {
 
         if (extractTrivial.not) { ^selections };
         newSelections = [];
-    
+
         selections.do { |selection|
             newSelection = [];
             selection.do { |component|
@@ -149,8 +149,8 @@ FoscTupletSpecifier : FoscObject {
                     assert(contents.isKindOf(FoscSelection));
                     newSelection = newSelection.addAll(contents.items);
                 } {
-                    newSelection = newSelection.add(component); 
-                };  
+                    newSelection = newSelection.add(component);
+                };
             };
             newSelection = FoscSelection(newSelection);
             newSelections = newSelections.add(newSelection);
@@ -163,7 +163,7 @@ FoscTupletSpecifier : FoscObject {
     • prForceFraction
 
     code::
-    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]); 
+    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(forceFraction: true).(m);
     FoscLilypondFile.rhythm(m).show;
 
@@ -188,7 +188,7 @@ FoscTupletSpecifier : FoscObject {
     • prRewriteDots
 
     code::
-    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]); 
+    m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(rewriteDots: true).(m);
     FoscLilypondFile.rhythm(m).show;
 
@@ -254,7 +254,7 @@ FoscTupletSpecifier : FoscObject {
         if (rewriteRestFilled.not) { ^selections };
         newSelections = [];
         maker = FoscLeafMaker();
-    
+
         selections.do { |selection|
             newSelection = [];
             selection.do { |component|
@@ -265,8 +265,8 @@ FoscTupletSpecifier : FoscObject {
                     component.multiplier_(FoscMultiplier(1));
                     newSelection = newSelection.add(component);
                 } {
-                    newSelection = newSelection.add(component); 
-                };  
+                    newSelection = newSelection.add(component);
+                };
             };
             newSelection = FoscSelection(newSelection);
             newSelections = newSelections.add(newSelection);
@@ -278,7 +278,7 @@ FoscTupletSpecifier : FoscObject {
     '''
     • prRewriteSustained
 
-    
+
     • rewrite sustained
 
     code::
@@ -321,7 +321,7 @@ FoscTupletSpecifier : FoscObject {
 
         if (rewriteSustained.not) { ^selections };
         newSelections = [];
-    
+
         selections.do { |selection|
             newSelection = [];
             selection.do { |component|
@@ -337,8 +337,8 @@ FoscTupletSpecifier : FoscObject {
                     tuplet.multiplier_(FoscMultiplier(1));
                     newSelection = newSelection.add(tuplet);
                 } {
-                    newSelection = newSelection.add(component); 
-                };  
+                    newSelection = newSelection.add(component);
+                };
             };
             newSelection = FoscSelection(newSelection);
             newSelections = newSelections.add(newSelection);
@@ -385,7 +385,7 @@ FoscTupletSpecifier : FoscObject {
         if (trivialize.not) { ^this };
         FoscIteration(selections).components(prototype: FoscTuplet).do { |tuplet|
             tuplet.trivialize;
-        }; 
+        };
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE CLASS METHODS
@@ -427,7 +427,7 @@ FoscTupletSpecifier : FoscObject {
     *prIsSustainedTuplet { |object|
         var logicalTieHeadCount=0, leaves, logicalTie;
         if (object.isKindOf(FoscTuplet).not) { ^false };
-        leaves = FoscSelection(object).leaves;   
+        leaves = FoscSelection(object).leaves;
         leaves.do { |leaf|
             logicalTie = leaf.prGetLogicalTie;
             if (logicalTie.head === leaf) {

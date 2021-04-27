@@ -39,14 +39,14 @@ FoscAnnotatedTimespan : FoscTimespan {
         annotation = argAnnotation;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • asCompileString
 
     Formats timespan.
-    
+
     Returns string.
 
     code::

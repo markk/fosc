@@ -50,7 +50,7 @@ FoscBlock : FoscObject {
         vars = ();
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -232,7 +232,7 @@ FoscBlock : FoscObject {
     • doesNotUnderstand : test
 
     code::
-    // WORKING   
+    // WORKING
     a = FoscBlock("score");
     a.title = FoscMarkup("Mass in C Minor");
     a.leftMargin = FoscLilypondDimension(2, 'cm');
@@ -297,7 +297,7 @@ FoscBlock : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • name
-    
+
     Gets name of block.
 
     Returns string.

@@ -44,7 +44,7 @@ FoscFraction : AbstractFunction {
             { numerator.isFloat } { numerator.asFraction }
             { numerator.isInteger } { [numerator, 1] }
             { numerator.respondsTo('duration') } { numerator.pair }
-            { numerator.isNil } { #[0,1] };    
+            { numerator.isNil } { #[0,1] };
         } {
             case
             { numerator.isKindOf(FoscFraction) && { denominator.isKindOf(FoscFraction) } } {
@@ -61,7 +61,7 @@ FoscFraction : AbstractFunction {
         # numerator, denominator = pair;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -111,7 +111,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *
-    
+
     code::
     a = FoscFraction(3,2) * FoscFraction(1,2);
     a.str;
@@ -132,7 +132,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • /
-    
+
     code::
     a = FoscFraction(3,2) / FoscFraction(1,2);
     a.str;
@@ -153,7 +153,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • ==
-    
+
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -204,11 +204,11 @@ FoscFraction : AbstractFunction {
     -------------------------------------------------------------------------------------------------------- */
     != { |expr|
         ^(this == expr).not;
-    }   
+    }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • <
-    
+
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -228,7 +228,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • >
-    
+
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -248,7 +248,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • <=
-    
+
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -268,7 +268,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • >=
-    
+
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -288,7 +288,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • abs
-    
+
     code::
     a = FoscFraction(-3,2).abs;
     a.str;
@@ -390,7 +390,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • mod
-    
+
     code::
     a = FoscFraction(3,2) % FoscFraction(1,2);
     a.str;
@@ -416,7 +416,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • neg
-    
+
     code::
     a = FoscFraction(3,2).neg;
     a.str;
@@ -428,7 +428,7 @@ FoscFraction : AbstractFunction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • pow
-    
+
     code::
     a = FoscFraction(3,2) ** FoscFraction(2,1);
     a.str;
@@ -455,7 +455,7 @@ FoscFraction : AbstractFunction {
     '''
     -------------------------------------------------------------------------------------------------------- */
     reciprocal {
-        ^this.species.new(denominator, numerator);  
+        ^this.species.new(denominator, numerator);
     }
     /* --------------------------------------------------------------------------------------------------------
     '''

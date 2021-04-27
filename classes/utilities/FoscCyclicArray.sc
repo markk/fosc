@@ -57,7 +57,7 @@ FoscCyclicArray : FoscObject {
         items = argItems;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -66,7 +66,7 @@ FoscCyclicArray : FoscObject {
     Is true when cyclic tuple contains item.
 
     Returns true or false.
-    
+
     def __contains__(self, item):
         return self._items.__contains__(item)
     '''
@@ -79,9 +79,9 @@ FoscCyclicArray : FoscObject {
     • ==
 
     Is true when argument is a tuple with items equal to those of this cyclic tuple. Otherwise false.
-    
+
     Returns true or false.
-    
+
     def __eq__(self, argument):
         if isinstance(argument, tuple):
             return self._items == argument
@@ -102,7 +102,7 @@ FoscCyclicArray : FoscObject {
     Gets item or slice identified by argument. Returns nil when no item exists at index.
 
     Returns item.
-    
+
     def __getitem__(self, argument):
         if isinstance(argument, slice):
             if ((argument.stop is not None and argument.stop < 0) or
@@ -136,7 +136,7 @@ FoscCyclicArray : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • copySeries (abjad: _get_slice)
-    
+
     def _get_slice(self, start_index, stop_index):
         if stop_index is not None and 1000000 < stop_index:
             stop_index = len(self)
@@ -149,7 +149,7 @@ FoscCyclicArray : FoscObject {
             indices = range(start_index, stop_index)
         result = [self[n] for n in indices]
         return tuple(result)
-    
+
     code::
     a = FoscCyclicArray(#[a,b,c,d,e,f]);
     a[0..12];
@@ -175,7 +175,7 @@ FoscCyclicArray : FoscObject {
         result = [];
         indices = (first, second .. last);
         indices.do { |index| result = result.add(items.wrapAt(index)) };
-        ^result; 
+        ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -184,7 +184,7 @@ FoscCyclicArray : FoscObject {
     Hashes cyclic tuple.
 
     Returns integer.
-    
+
     def __hash__(self):
         return super(CyclicTuple, self).__hash__()
     '''
@@ -197,7 +197,7 @@ FoscCyclicArray : FoscObject {
     Iterates cyclic tuple. Iterates items only once.
 
     Does not iterate infinitely.
-    
+
     def __iter__(self):
         return self._items.__iter__()
     '''
@@ -212,7 +212,7 @@ FoscCyclicArray : FoscObject {
     Gets length of cyclic tuple.
 
     Returns nonnegative integer.
-     
+
     def __len__(self):
         assert isinstance(self._items, tuple)
         return self._items.__len__()
@@ -229,7 +229,7 @@ FoscCyclicArray : FoscObject {
 
     Returns string.
 
-    
+
 • Example ---
 
         Gets string:
@@ -239,7 +239,7 @@ FoscCyclicArray : FoscObject {
             >>> str(abjad.CyclicTuple('abcd'))
             '(a, b, c, d)'
 
-    
+
 • Example ---
 
         Gets string:
@@ -249,7 +249,7 @@ FoscCyclicArray : FoscObject {
             >>> str(abjad.CyclicTuple([1, 2, 3, 4]))
             '(1, 2, 3, 4)'
 
-    
+
     def __str__(self):
         if self:
             contents = [str(item) for item in self._items]
@@ -274,7 +274,7 @@ FoscCyclicArray : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormatSpecification
-    
+
     def _get_format_specification(self):
         from abjad.tools import systemtools
         return systemtools.FormatSpecification(
@@ -297,7 +297,7 @@ FoscCyclicArray : FoscObject {
     Gets items in cyclic tuple.
 
     Returns array.
-    
+
     @property
     def items(self):
         return self._items

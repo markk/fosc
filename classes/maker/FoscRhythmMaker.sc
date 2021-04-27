@@ -278,7 +278,7 @@ FoscRhythmMaker : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     var <beamSpecifier, <durationSpecifier, <meterSpecifier, <tupletSpecifier;
     var selections, previousState;
-    *new { |beamSpecifier, durationSpecifier, meterSpecifier, tupletSpecifier|  
+    *new { |beamSpecifier, durationSpecifier, meterSpecifier, tupletSpecifier|
 
         if (beamSpecifier.notNil) {
             assert(beamSpecifier.isKindOf(FoscBeamSpecifier), thisMethod, 'beamSpecifier', beamSpecifier);
@@ -288,11 +288,11 @@ FoscRhythmMaker : FoscObject {
             assert(durationSpecifier.isKindOf(FoscDurationSpecifier), thisMethod, 'durationSpecifier',
                 durationSpecifier);
         };
-        
+
         if (meterSpecifier.notNil) {
             assert(meterSpecifier.isKindOf(FoscMeterSpecifier), thisMethod, 'meterSpecifier', meterSpecifier);
         };
-        
+
         if (tupletSpecifier.notNil) {
             assert(tupletSpecifier.isKindOf(FoscTupletSpecifier), thisMethod, 'tupletSpecifier',
                 tupletSpecifier);
@@ -308,18 +308,18 @@ FoscRhythmMaker : FoscObject {
         previousState = (
             'divisionsConsumed': 0,
             'incompleteLastNote': false,
-            'logicalTiesProduced': 0  
+            'logicalTiesProduced': 0
         );
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • illustrate
 
     Illustrates rhythm-maker.
-    
+
     Returns LilyPond file.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -530,7 +530,7 @@ FoscRhythmMaker : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prPreviousDivisionsConsumed
-    
+
     def _previous_divisions_consumed(self):
         if not self.previous_state:
             return 0
@@ -538,12 +538,12 @@ FoscRhythmMaker : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     prPreviousDivisionsConsumed {
-        ^previousState['divisionsConsumed'];  
+        ^previousState['divisionsConsumed'];
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prPreviousIncompleteLastNote
-    
+
     def _previous_incomplete_last_note(self):
         if not self.previous_state:
             return False
@@ -551,12 +551,12 @@ FoscRhythmMaker : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     // prPreviousIncompleteLastNote {
-    //     ^previousState['incompleteLastNote'];  
+    //     ^previousState['incompleteLastNote'];
     // }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prPreviousLogicalTiesProduced
-    
+
     def _previous_logical_ties_produced(self):
         if not self.previous_state:
             return 0
@@ -565,7 +565,7 @@ FoscRhythmMaker : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     // prPreviousLogicalTiesProduced {
     //     ^previousState['logicalTiesProduced'];
-    // } 
+    // }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prApplyMeterSpecifier
@@ -658,7 +658,7 @@ FoscRhythmMaker : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     prMakeMusic { |divisions, ratios|
         var n, ratio, duration, selection;
-        
+
         case
         { divisions.isSequenceableCollection && ratios.isSequenceableCollection } {
             n = [divisions.size, ratios.size].maxItem;
@@ -684,7 +684,7 @@ FoscRhythmMaker : FoscObject {
             ratios = ratios.wrapExtend(n);
         }
         { divisions.isKindOf(Pattern) && ratios.isKindOf(Pattern) } {
-            case 
+            case
             { divisions.respondsTo('repeats') && ratios.respondsTo('repeats') } {
                 n = [divisions.repeats, ratios.repeats].minItem;
             }
@@ -697,19 +697,19 @@ FoscRhythmMaker : FoscObject {
             divisions = divisions.asStream.nextN(n);
             ratios = ratios.asStream.nextN(n);
         };
-        
+
 
         selections = [];
         divisions = this.prCoerceDivisions(divisions);
         assert(divisions.every { |each| each.isKindOf(FoscNonreducedFraction) });
-        
+
         divisions.do { |division, i|
             ratio = ratios[i];
             duration = FoscDuration(division);
             selection = FoscRhythm(duration, ratio).value;
             selections = selections.add(selection);
         };
-        
+
         ^selections;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -739,7 +739,7 @@ FoscRhythmMaker : FoscObject {
             };
             if (tuplet.size < 1) {
                 throw("%::prValidateTuplets: tuplet has no children.".format(this.species));
-            }; 
+            };
         };
     }
 }

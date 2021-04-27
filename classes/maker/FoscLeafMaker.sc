@@ -298,7 +298,7 @@ FoscLeafMaker {
     var <skipsInsteadOfRests, <repeatTies, <useMultimeasureRests, <tag;
     *new { |increaseMonotonic=false, forbiddenNoteDuration, forbiddenRestDuration, metricalHierarchy,
         skipsInsteadOfRests=false, repeatTies=false, useMultimeasureRests=false, tag|
-        
+
         if (forbiddenNoteDuration.notNil) { forbiddenNoteDuration = FoscDuration(forbiddenNoteDuration) };
         if (forbiddenRestDuration.notNil) { forbiddenRestDuration = FoscDuration(forbiddenRestDuration) };
         if (tag.notNil) { assert([Symbol, String].any { |type| tag.isKindOf(type) }) };
@@ -308,7 +308,7 @@ FoscLeafMaker {
     }
     init { |argIncreaseMonotonic, argForbiddenNoteDuration, argForbiddenRestDuration, argMetricalHierarchy,
         argSkipsInsteadOfRests, argRepeatTies, argUseMultimeasureRests, argTag|
-        
+
         increaseMonotonic = argIncreaseMonotonic;
         forbiddenNoteDuration = argForbiddenNoteDuration;
         forbiddenRestDuration = argForbiddenRestDuration;
@@ -384,7 +384,7 @@ FoscLeafMaker {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -400,7 +400,7 @@ FoscLeafMaker {
         var denominator, numerator, multiplier, ratio, tupletLeaves, tuplet;
 
         pitches = FoscPitchParser(pitches);
-        if (durations.isSequenceableCollection.not) { durations = [durations] };   
+        if (durations.isSequenceableCollection.not) { durations = [durations] };
         nonreducedFractions = durations.collect { |each| FoscNonreducedFraction(each) };
         size = [pitches.size, nonreducedFractions.size].maxItem;
         nonreducedFractions = nonreducedFractions.wrapExtend(size);
@@ -445,7 +445,7 @@ FoscLeafMaker {
                 ratio = 1 / FoscDuration(*multiplier);
 
                 durationGroup = durationGroup.collect { |duration| ratio * FoscDuration(duration) };
-                
+
                 // make tuplet leaves
                 tupletLeaves = [];
                 currentPitches.do { |pitch, i|
@@ -465,7 +465,7 @@ FoscLeafMaker {
                 result = result.add(tuplet);
             };
         };
- 
+
         result = FoscSelection(result);
         ^result;
     }
@@ -479,7 +479,7 @@ FoscLeafMaker {
     -------------------------------------------------------------------------------------------------------- */
     *prMakeLeafOnPitch { |pitch, duration, increaseMonotonic=false, forbiddenNoteDuration,
         forbiddenRestDuration, skipsInsteadOfRests=false, repeatTies=false, useMultimeasureRests=false, tag|
-        
+
         var notePrototype, chordPrototype, restPrototype, leaves, multimeasureRest, multiplier;
 
         notePrototype = [Number, String, FoscPitch, FoscPitchClass];
@@ -549,7 +549,7 @@ FoscLeafMaker {
 
         var numerators, result, denominators, denominator, forbiddenNumerator, preferredNumerator;
         var betterParts, parts, writtenDuration, args;
-        
+
         duration = FoscDuration(duration);
 
         if (forbiddenDuration.notNil) {
@@ -578,7 +578,7 @@ FoscLeafMaker {
         // make written duration numerators
         numerators = [];
         parts = duration.numerator.partitionIntoCanonicParts;
-        
+
         if (forbiddenDuration.notNil && { forbiddenDuration <= duration }) {
             parts.do { |part|
                 if (forbiddenNumerator <= part) {

@@ -111,7 +111,7 @@ FoscGlissando : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • allowRepeats
-    
+
     Is true when glissando should allow repeated pitches. Otherwise false.
 
     Defaults to false.
@@ -186,7 +186,7 @@ FoscGlissando : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • allowTies
-    
+
     Is true when glissando should allow ties.
 
 
@@ -261,7 +261,7 @@ FoscGlissando : FoscObject {
     • context
 
     Gets context. Returns 'Voice'.
-    
+
 
     • Example 1
 
@@ -273,7 +273,7 @@ FoscGlissando : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • parenthesizeRepeats
-    
+
     Is true when glissando should parenthesize repeated pitches.
 
     Defaults to false.
@@ -424,14 +424,14 @@ FoscGlissando : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • ==
 
     Is true when all initialization values of Abjad value object equal the initialization values of 'argument'.
-    
+
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
     '''
@@ -444,7 +444,7 @@ FoscGlissando : FoscObject {
     • asCompileString
 
     Gets interpreter representation.
-    
+
     def __repr__(self) -> str:
             return StorageFormatManager(self).get_repr_format()
     '''
@@ -457,7 +457,7 @@ FoscGlissando : FoscObject {
     • hash
 
     Hashes Abjad value object.
-    
+
     def __hash__(self) -> int:
         hash_values = StorageFormatManager(self).get_hash_values()
         try:
@@ -465,7 +465,7 @@ FoscGlissando : FoscObject {
         except TypeError:
             raise TypeError(f'unhashable type: {self}')
         return result
-        
+
     '''
     -------------------------------------------------------------------------------------------------------- */
     hash {
@@ -517,7 +517,7 @@ FoscGlissando : FoscObject {
     *prNextLeafChangesCurrentPitch { |leaf|
         var nextLeaf;
         nextLeaf = leaf.prLeafAt(1);
-        case 
+        case
         {
             leaf.isKindOf(FoscNote)
             && { nextLeaf.isKindOf(FoscNote) }

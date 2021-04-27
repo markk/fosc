@@ -37,7 +37,7 @@ FoscStopPhrasingSlur {
     • context
 
     Gets context. Returns 'Voice'.
-    
+
 
     • Example 1
 
@@ -106,7 +106,7 @@ FoscStopPhrasingSlur {
         ^true;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -139,7 +139,7 @@ FoscStopPhrasingSlur {
             string = "<> %".format(string);
             bundle.after.leaks.add(string);
         } {
-            bundle.after.spannerStarts.add(string); 
+            bundle.after.spannerStarts.add(string);
         };
         ^bundle;
     }

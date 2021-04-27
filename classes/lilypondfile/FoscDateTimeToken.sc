@@ -32,12 +32,12 @@ FoscDateTimeToken : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     __slots__ = (
             '_date_string',
             )
-    
-    
+
+
     def __init__(self, date_string=None):
         assert isinstance(date_string, (str, type(None)))
         self._date_string = date_string
@@ -54,24 +54,24 @@ FoscDateTimeToken : FoscObject {
         dateString = string;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • format
-    
+
     def __format__(self, format_specification=''):
             r'''Formats date / time token.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> token = lilypondfiletools.DateTimeToken()
                     >>> print(format(token)) # doctest: +SKIP
                     2014-01-04 14:42
-    
+
             Returns string.
             '''
             from abjad.tools import systemtools
@@ -80,7 +80,7 @@ FoscDateTimeToken : FoscObject {
             elif format_specification == 'storage':
                 return systemtools.StorageFormatAgent(self).get_storage_format()
             return str(self)
-    
+
     code::
     FoscDateTimeToken().format;
     '''
@@ -91,11 +91,11 @@ FoscDateTimeToken : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • asCompileString
-     
+
     def __repr__(self):
         r'''Gets interpreter representation of date / time token.
 
-        
+
 • Example ---
 
             ::
@@ -118,10 +118,10 @@ FoscDateTimeToken : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     def _get_lilypond_format(self):
             return self.date_string
-    
+
     code::
     a = FoscDateTimeToken();
     a.prGetLilypondFormat;
@@ -139,14 +139,14 @@ FoscDateTimeToken : FoscObject {
     • dateString
 
     Gets date string of date / time token.
-    
+
     Returns string.
-    
+
     @property
     def date_string(self):
         date_string = self._date_string or time.strftime('%Y-%m-%d %H:%M')
         return date_string
-    
+
     code::
     a = FoscDateTimeToken();
     a.dateString;

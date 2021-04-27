@@ -63,7 +63,7 @@ FoscWrapper : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • component
-    
+
     Gets start component of indicator wrapper.
 
     Returns component.
@@ -99,14 +99,14 @@ FoscWrapper : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • indicator
-    
+
     Gets indicator of indicator wrapper.
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
     '''
     • startOffset
-    
+
     Gets start offset of indicator wrapper.
 
     This is either the wrapper's synthetic offset or the start offset of the wrapper's component.
@@ -121,7 +121,7 @@ FoscWrapper : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • syntheticOffset
-    
+
     Gets synthetic offset of indicator wrapper.
 
     Returns offset or nil.
@@ -150,7 +150,7 @@ FoscWrapper : FoscObject {
         tag = FoscTag(argTag);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -283,11 +283,11 @@ FoscWrapper : FoscObject {
                     };
                 };
             };
-        } 
+        }
         {
             throw("%:%: must be context, symbol or string: %."
                 .format(this.species, thisMethod.name, localContext));
-        };  
+        };
 
         if (candidate.isKindOf(FoscVoice)) {
             parentage.reverseDo { |component|
@@ -363,10 +363,10 @@ FoscWrapper : FoscObject {
         //!!!TODO: assert(lilypondFormat.isSequenceableCollection);
         lilypondFormat = FoscLilypondFormatManager.tag(lilypondFormat, tag, deactivate: deactivate);
         result = result.addAll(lilypondFormat);
-        
+
         if (this.prGetEffectiveContext.notNil) { ^result };
         //!!!TODO: result = result.collect { |each| "\\%\\%\\% % \\%\\%\\%".format(each) };
-        
+
         result = result.collect { |each| "%".format(each) };
         ^result;
     }
@@ -419,9 +419,9 @@ FoscWrapper : FoscObject {
         var prototype, command, wrapper, myLeak, parentage, wrapperContext, context, message;
 
         if (deactivate == true) { ^this };
-        
+
         prototype = indicator.species;
-        
+
         if (indicator.respondsTo('command') && { indicator.command.notNil }) {
             command = indicator.command;
         };
@@ -448,11 +448,11 @@ FoscWrapper : FoscObject {
         context = component.prGetParentage.firstInstanceOf(FoscContext);
         parentage = wrapper.component.prGetParentage;
         wrapperContext = parentage.firstInstanceOf(FoscContext);
-        
+
         if (wrapper.indicator == this.indicator && { context != wrapperContext }) {
             ^nil;
         };
-       
+
         /*
         '''
         code::

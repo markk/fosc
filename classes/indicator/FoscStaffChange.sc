@@ -66,7 +66,7 @@ FoscStaffChange : FoscObject {
 
 
     • Example 1
-    
+
     code::
     a = FoscStaffChange();
     a.context.cs;
@@ -80,7 +80,7 @@ FoscStaffChange : FoscObject {
 
 
     • Example 1
-    
+
     code::
     a = FoscStaffChange();
     a.staff;
@@ -105,14 +105,14 @@ FoscStaffChange : FoscObject {
         // pass
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • str
 
     Gets string representation of staff change.
-    
+
     Returns string.
 
 

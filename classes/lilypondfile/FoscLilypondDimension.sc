@@ -59,7 +59,7 @@ FoscLilypondDimension : FoscObject {
         unit = argUnit;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -68,7 +68,7 @@ FoscLilypondDimension : FoscObject {
     Formats LilyPond dimension.
 
     Returns string.
-    
+
     def __format__(self, format_specification=''):
         from abjad.tools import systemtools
         if format_specification in ('', 'lilypond'):
@@ -76,7 +76,7 @@ FoscLilypondDimension : FoscObject {
         elif format_specification == 'storage':
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
-    
+
     code::
     a = FoscLilypondDimension(2, 'in');
     a.format;
@@ -91,7 +91,7 @@ FoscLilypondDimension : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormatPieces
-    
+
     def _get_format_pieces(self):
         return [r'{}\{}'.format(self.value, self.unit)]
     '''
@@ -102,7 +102,7 @@ FoscLilypondDimension : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     def _get_lilypond_format(self):
         return '\n'.join(self._get_format_pieces())
     '''
@@ -120,11 +120,11 @@ FoscLilypondDimension : FoscObject {
     Gets unit of LilyPond dimension.
 
     Returns 'cm', 'in', 'mm' or 'pt'
-    
+
     @property
     def unit(self):
         return self._unit
-    
+
     code::
     a = FoscLilypondDimension(2, 'in');
     a.unit;
@@ -137,15 +137,14 @@ FoscLilypondDimension : FoscObject {
     Gets value of LilyPond dimension.
 
     Returns number.
-    
+
     @property
     def value(self):
         return self._value
-    
+
     code::
     a = FoscLilypondDimension(2, "in");
     a.value;
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
-

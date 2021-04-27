@@ -28,7 +28,7 @@ code::
 ]);
 
 code::
-t.show(scale: 0.5); 
+t.show(scale: 0.5);
 
 
 Nonverlapping timespan list.
@@ -41,7 +41,7 @@ code::
 ]);
 
 code::
-t.show(scale: 0.5); 
+t.show(scale: 0.5);
 
 
 Overlapping timespan list.
@@ -56,7 +56,7 @@ code::
 ]);
 
 code::
-t.show(scale: 0.5); 
+t.show(scale: 0.5);
 
 
 Overlapping timespan list.
@@ -78,7 +78,7 @@ code::
 ]);
 
 code::
-t.show(scale: 0.5); 
+t.show(scale: 0.5);
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTimespanList : FoscTypedList {
@@ -89,7 +89,7 @@ FoscTimespanList : FoscTypedList {
         ^super.new(items, FoscTimespan);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -116,7 +116,7 @@ FoscTimespanList : FoscTypedList {
 
 
     • Example 1
-    
+
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(4, 6),
@@ -154,14 +154,14 @@ FoscTimespanList : FoscTypedList {
         }
         {
             # minimum, maximum = [this.startOffset, this.stopOffset];
-        };  
+        };
 
         minimum = FoscOffset(minimum).asFloat;
         maximum = FoscOffset(maximum).asFloat;
         postscriptScale = 150 / (maximum - minimum);
         postscriptScale = postscriptScale * scale;
         postscriptXOffset = (minimum * postscriptScale) - 1;
-        
+
         if (key.isNil) {
             markup = FoscTimespanList.prMakeTimespanListMarkup(
                 this, postscriptXOffset, postscriptScale, sortkey: sortkey, drawOffsets: drawOffsets);
@@ -230,14 +230,14 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     invert {
         var result;
-        
+
         result = this.species.new();
         result.append(this.timespan);
-        
+
         this.do { |timespan|
             result = result - timespan;
         };
-        
+
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -384,7 +384,7 @@ FoscTimespanList : FoscTypedList {
         if (this.size <= 1) { ^true };
         timespans = collection.sort;
         lastStopOffset = timespans[0].stopOffset;
-        
+
         timespans[1..].do { |timespan|
             if (timespan.startOffset != lastStopOffset) { ^false };
             lastStopOffset = timespan.stopOffset;
@@ -440,7 +440,7 @@ FoscTimespanList : FoscTypedList {
         if (this.size <= 1) { ^true };
         timespans = collection.sort;
         lastStopOffset = timespans[0].stopOffset;
-        
+
         timespans[1..].do { |timespan|
             if (timespan.startOffset < lastStopOffset) { ^false };
             if (lastStopOffset < timespan.stopOffset) { lastStopOffset = timespan.stopOffset };
@@ -501,7 +501,7 @@ FoscTimespanList : FoscTypedList {
 
     Return offset or nil.
 
-    
+
     Get axis.
 
     t = FoscTimespanList([
@@ -562,7 +562,7 @@ FoscTimespanList : FoscTypedList {
     code::
     t.duration.cs;
 
-    
+
     Returns zero when timespan list is empty.
 
     code::
@@ -609,12 +609,12 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     isSorted {
         if (this.size < 2) { ^true };
-        
+
         collection.doAdjacentPairs { |a, b|
             if (b.startOffset < a.startOffset) { ^false };
             if (a.startOffset == b.startOffset && { b.stopOffset < a.stopOffset } ) { ^false };
         };
-        
+
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -627,7 +627,7 @@ FoscTimespanList : FoscTypedList {
 
     Returns offset or nil.
 
-    
+
     • Example 1
 
     code::
@@ -727,10 +727,10 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     computeSect {
         var result, timespans;
-        
+
         if (1 < this.size) {
             result = this[0];
-            
+
             this.do { |timespan|
                 if (timespan.intersectsTimespan(result).not) {
                     collection = [];
@@ -742,7 +742,7 @@ FoscTimespanList : FoscTypedList {
                 collection = [result];
             };
         };
-        
+
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -790,7 +790,7 @@ FoscTimespanList : FoscTypedList {
 
         if (this.notEmpty) {
             result = [this[0]];
-            
+
             this[1..].do { |timespan|
                 if (result.last.prCanFuse(timespan)) {
                     timespans = result.last.union(timespan).collection;
@@ -881,14 +881,14 @@ FoscTimespanList : FoscTypedList {
         allFragments = [];
 
         this.do { |timespan1, i|
-            
+
             timespan1Fragments = [timespan1];
-            
+
             this.do { |timespan2, j|
                 if (i != j) {
 
                     revisedTimespan1Fragments = [];
-                    
+
                     timespan1Fragments.do { |timespan1Fragment|
                         if (timespan2.intersectsTimespan(timespan1Fragment)) {
                             result = (timespan1Fragment - timespan2).collection;
@@ -897,17 +897,17 @@ FoscTimespanList : FoscTypedList {
                             revisedTimespan1Fragments = revisedTimespan1Fragments.add(timespan1Fragment);
                         };
                     };
-                    
+
                     timespan1Fragments = revisedTimespan1Fragments;
                 };
             };
-            
+
             allFragments = allFragments.addAll(timespan1Fragments);
         };
 
         collection = allFragments;
         this.sort;
-            
+
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -994,12 +994,12 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     computeOverlapFactor { |timespan|
         var timeRelation, timespans, totalOverlap, overlapFactor;
-        
+
         if (timespan.isNil) { timespan = this.timespan };
         timespans = this.select { |each| each.intersectsTimespan(timespan) };
         totalOverlap = timespans.items.collect { |each| each.getOverlapWithTimespan(timespan) }.sum;
         overlapFactor = totalOverlap / timespan.duration;
-        
+
         ^overlapFactor;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1020,7 +1020,7 @@ FoscTimespanList : FoscTypedList {
         FoscTimespan(20, 30),
     code::
     ]);
-    
+
     code::
     m = l.computeOverlapFactorMapping;
 
@@ -1034,18 +1034,18 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     computeOverlapFactorMapping {
         var mapping, offsets, timespan, overlapFactor;
-        
+
         mapping = ();
         offsets = this.countOffsets.collect { |each| each[0] };
 
         offsets.do { |each| each.cs.postln };
-        
+
         offsets.doAdjacentPairs { |startOffset, stopOffset|
             timespan = FoscTimespan(startOffset, stopOffset);
             overlapFactor = this.computeOverlapFactor(timespan: timespan);
             mapping[timespan] = overlapFactor;
         };
-        
+
         ^mapping;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1172,7 +1172,7 @@ FoscTimespanList : FoscTypedList {
                 globalOverlapFactors[i] = currentOverlapFactor;
             } {
                 nonOverlappingTimespanLists = List[];
-                overlappingTimespanLists = List[];  
+                overlappingTimespanLists = List[];
 
                 resultTimespanLists.do { |resultTimespans, i|
                     localOverlapFactor = resultTimespans.computeOverlapFactor(currentTimespan);
@@ -1371,13 +1371,13 @@ FoscTimespanList : FoscTypedList {
     l.show(range: #[0,30], scale: 0.5);
     '''
     -------------------------------------------------------------------------------------------------------- */
-    reflect { |axis|    
+    reflect { |axis|
         var timespans;
 
         if (axis.isNil) { axis = this.axis };
 
         timespans = [];
-        
+
         this.do { |timespan|
             timespan = timespan.reflect(axis);
             timespans = timespans.add(timespan);
@@ -1385,7 +1385,7 @@ FoscTimespanList : FoscTypedList {
 
         timespans = timespans.reverse;
         collection = timespans;
-        
+
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1411,10 +1411,10 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     removeDegenerateTimespans {
         var timespans;
-        
+
         timespans = this.items.select { |timespan| timespan.isWellFormed };
         collection = timespans;
-        
+
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1439,7 +1439,7 @@ FoscTimespanList : FoscTypedList {
     l.roundOffsets(3);
     l.cs;
 
-    
+
     Rounds offsets relative to timespan list stop offset.
 
     l = FoscTimespanList([
@@ -1456,16 +1456,16 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     roundOffsets { |multiplier, anchor='left', mustBeWellformed=true|
         var timespans;
-        
+
         timespans = [];
-        
+
         this.do { |timespan|
             timespan = timespan.roundOffsets(multiplier, anchor, mustBeWellformed);
             timespans = timespans.add(timespan);
         };
-        
+
         collection = timespans;
-        
+
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1507,16 +1507,16 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     scale { |multiplier, anchor='left'|
         var timespans;
-        
+
         timespans = [];
-        
+
         this.do { |timespan|
             timespan = timespan.scale(multiplier, anchor);
             timespans = timespans.add(timespan);
         };
-        
+
         collection = timespans;
-        
+
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1587,10 +1587,10 @@ FoscTimespanList : FoscTypedList {
         var beforeList, duringList, afterList, beforeTimespan, afterTimespan;
 
         offset = FoscOffset(offset);
-        beforeList = this.species.new; 
-        duringList = this.species.new; 
-        afterList = this.species.new;        
-        
+        beforeList = this.species.new;
+        duringList = this.species.new;
+        afterList = this.species.new;
+
         this.do { |timespan|
             case
             { timespan.stopOffset <= offset } {
@@ -1701,17 +1701,17 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     stretch { |multiplier, anchor|
         var timespans;
-        
+
         timespans = [];
         anchor = anchor ?? { this.startOffset };
-        
+
         this.do { |timespan|
             timespan = timespan.stretch(multiplier, anchor);
             timespans = timespans.add(timespan);
         };
-        
+
         collection = timespans;
-        
+
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -1779,16 +1779,16 @@ FoscTimespanList : FoscTypedList {
     -------------------------------------------------------------------------------------------------------- */
     translateOffsets { |startOffsetTranslation, stopOffsetTranslation|
         var timespans;
-        
+
         timespans = [];
-        
+
         this.do { |timespan|
             timespan = timespan.translateOffsets(startOffsetTranslation, stopOffsetTranslation);
             timespans = timespans.add(timespan);
         };
-        
+
         collection = timespans;
-        
+
         ^this;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1818,7 +1818,7 @@ FoscTimespanList : FoscTypedList {
     b = FoscTimespan(3, 6);
     c = FoscTimespan(6, 10);
     t = FoscTimespanList([a, b, c]);
-    
+
     code::
     m = FoscTimespanList.prMakeTimespanListMarkup(t, -1, 15);
     m.format;
@@ -1828,12 +1828,12 @@ FoscTimespanList : FoscTypedList {
         var explodedTimespanLists, sortedTimespanLists, key, val, ps, offsetMapping, height, postscriptYOffset;
         var markup, level, xOffset, xExtent, yExtent, linesMarkup, fractionMarkups, offset, numerator;
         var denominator, fraction, xTranslation, fractionMarkup;
-        
+
 
         explodedTimespanLists = [];
 
         if (sortkey.isNil) {
-            explodedTimespanLists = explodedTimespanLists.addAll(timespans.explode); 
+            explodedTimespanLists = explodedTimespanLists.addAll(timespans.explode);
         } {
 
             sortedTimespanLists = ();
@@ -1851,7 +1851,7 @@ FoscTimespanList : FoscTypedList {
         };
 
         ps = FoscPostscript();
-        ps = ps.setlinewidth(0.2);  
+        ps = ps.setlinewidth(0.2);
         offsetMapping = ();
         height = ((explodedTimespanLists.size - 1) * 3) + 1;
 
@@ -1909,7 +1909,7 @@ FoscTimespanList : FoscTypedList {
 
         fractionMarkup = FoscMarkup.overlay(fractionMarkups);
         markup = FoscMarkup.column([fractionMarkup, linesMarkup]);
-        
+
         ^markup;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1921,7 +1921,7 @@ FoscTimespanList : FoscTypedList {
     '''
     -------------------------------------------------------------------------------------------------------- */
     prGetOffsets { |object|
-        try { ^[object.startOffset, object.stopOffset] };  
+        try { ^[object.startOffset, object.stopOffset] };
         try { ^object.timespan.offsets };
         throw("%:%: can't get offsets for object: %.".format(this.species, thisMethod.name, object));
     }

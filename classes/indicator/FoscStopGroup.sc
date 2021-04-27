@@ -63,7 +63,7 @@ FoscStopGroup : FoscObject {
         ^true;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -96,12 +96,8 @@ FoscStopGroup : FoscObject {
             string = "<> %".format(string);
             bundle.after.leaks.add(string);
         } {
-            bundle.after.spannerStops.add(string); 
+            bundle.after.spannerStops.add(string);
         };
         ^bundle;
     }
 }
-
-
-
-

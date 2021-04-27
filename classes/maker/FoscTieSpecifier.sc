@@ -37,7 +37,7 @@ FoscTieSpecifier : FoscObject {
         tieConsecutiveNotes = argTieConsecutiveNotes;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -75,7 +75,7 @@ FoscTieSpecifier : FoscObject {
 
 
     • With tie specifier
-    
+
     code::
     m = FoscTieSpecifier(stripTies: true);
     a = FoscTupletMaker(tieSpecifier: m);
@@ -103,7 +103,7 @@ FoscTieSpecifier : FoscObject {
     '''
     • prTieAcrossDivisions
 
-    
+
     • Without ties across divisions
 
     code::
@@ -121,7 +121,7 @@ FoscTieSpecifier : FoscObject {
 
 
     • With ties across divisions
-    
+
     code::
     m = FoscTieSpecifier(tieAcrossDivisions: true);
     a = FoscTupletMaker(tieSpecifier: m);
@@ -172,8 +172,8 @@ FoscTieSpecifier : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prTieConsecutiveNotes
-    
-    
+
+
     • Without ties across consecutive notes
 
     code::
@@ -191,7 +191,7 @@ FoscTieSpecifier : FoscObject {
 
 
     • With ties across consecutive notes
-    
+
     code::
     m = FoscTieSpecifier(tieConsecutiveNotes: true);
     a = FoscTupletMaker(tieSpecifier: m);
@@ -208,7 +208,7 @@ FoscTieSpecifier : FoscObject {
 
 
     • With ties across consecutive notes
-    
+
     code::
     a = FoscTupletMaker();
     b = a.(divisions: [2/16, 3/16, 5/32], tupletRatios: [[2, 1], [3, 2, 4, 1], [4, 3]]);
@@ -234,7 +234,7 @@ FoscTieSpecifier : FoscObject {
         groups = leaves.separate { |a, b| a.class != b.class };
         groups = groups.select { |list| list[0].isPitched };
         groups.do { |group|
-            case 
+            case
             { group[0].isKindOf(FoscNote) } {
                 subgroups = group.separate { |a, b| a.writtenPitch != b.writtenPitch };
             }

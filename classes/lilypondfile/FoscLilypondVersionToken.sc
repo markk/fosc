@@ -42,16 +42,16 @@ FoscLilypondVersionToken : FoscObject {
 
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • format
 
     Formats LilyPond version token.
-    
+
     Return string.
-    
+
     def __format__(self, format_specification=''):
         from abjad.tools import systemtools
         if format_specification in ('', 'lilypond'):
@@ -73,9 +73,9 @@ FoscLilypondVersionToken : FoscObject {
     • asCompileString (abjad: __repr__)
 
     Gets interpreter representation of LilyPond version_string token.
-    
+
     Returns string.
-    
+
     def __repr__(self):
         return '{}({!r})'.format(type(self).__name__, self.version_string)
     '''
@@ -86,7 +86,7 @@ FoscLilypondVersionToken : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     def _get_lilypond_format(self):
             return r'\version "{}"'.format(self.version_string)
     '''
@@ -103,18 +103,18 @@ FoscLilypondVersionToken : FoscObject {
     •
 
     Gets version string of LilyPond version token.
-    
+
     Returns string.
-    
+
     @property
     def version_string(self):
         return self._version_string
-    
+
     code::
     a = FoscLilypondVersionToken();
     a.versionString;
 
-            
+
     Gets version string from install environment:
 
     code::
@@ -122,11 +122,10 @@ FoscLilypondVersionToken : FoscObject {
     a.versionString;
 
     Gets version string from explicit input:
-    
+
     code::
     a = FoscLilypondVersionToken("2.19.0");
     a.versionString;
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
-

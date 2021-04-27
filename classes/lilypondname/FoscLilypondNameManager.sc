@@ -16,7 +16,7 @@ USAGE::
 • FoscLilypondNameManager (abjad 3.0)
 
 LilyPond name manager.
-    
+
 Base class from which grob, setting and tweak managers inherit.
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -44,7 +44,7 @@ FoscLilypondNameManager {
     '''
     -------------------------------------------------------------------------------------------------------- */
     size {
-        ^this.doesNotUnderstand('size');   
+        ^this.doesNotUnderstand('size');
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -89,7 +89,7 @@ FoscLilypondNameManager {
         };
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
+	// PUBLIC INSTANCE METHODS: Special Methods
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -98,7 +98,7 @@ FoscLilypondNameManager {
     Is true when expr is a LilyPond name manager with attribute pairs equal to those of this LilyPond name manager. Otherwise false.
 
 	Returns true or false.
-    
+
     code::
     m = FoscLilypondNameManager().prSetState((foo: 1, bar: 2));
     n = FoscLilypondNameManager().prSetState((foo: 1, bar: 2));
@@ -121,7 +121,7 @@ FoscLilypondNameManager {
 
 
     • Example 1
-    
+
     code::
     m = FoscLilypondNameManager();
     m.prSetState((foo: 1, bar: 2));
@@ -177,7 +177,7 @@ FoscLilypondNameManager {
     • prSetState
 
     Sets object state.
-    
+
     code::
     m = FoscLilypondNameManager();
     m.prSetState((foo: 1, bar: 2));

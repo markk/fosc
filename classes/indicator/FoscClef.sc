@@ -125,9 +125,9 @@ FoscClef : FoscObject {
     • context
 
     Gets context. 'Staff' by default.
-    
 
-    • Example 1   
+
+    • Example 1
 
     code::
     a = FoscClef('treble');
@@ -139,7 +139,7 @@ FoscClef : FoscObject {
     • hide
 
     Is true when clef should not appear in output (but should still determine effective clef).
-    
+
 
     • Example 1
 
@@ -168,14 +168,14 @@ FoscClef : FoscObject {
     Gets middle C position of clef.
 
 
-    • Example 1   
+    • Example 1
 
     code::
     a = FoscClef('treble');
     a.middleCPosition.cs;
 
 
-    • Example 2   
+    • Example 2
 
     code::
     a = FoscClef('alto');
@@ -189,7 +189,7 @@ FoscClef : FoscObject {
     Gets name of clef.
 
 
-    • Example 1   
+    • Example 1
 
     code::
     a = FoscClef('treble');
@@ -203,7 +203,7 @@ FoscClef : FoscObject {
     Is true.
 
 
-    • Example 1   
+    • Example 1
 
     code::
     a = FoscClef('treble');
@@ -217,7 +217,7 @@ FoscClef : FoscObject {
     Is true.
 
 
-    • Example 1   
+    • Example 1
 
     code::
     a = FoscClef('treble');
@@ -239,7 +239,7 @@ FoscClef : FoscObject {
         // pass
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -274,7 +274,7 @@ FoscClef : FoscObject {
         case
         { name.includes($_) } {
             # baseName, suffix = clefName.delimitBy($_);
-            case 
+            case
             { suffix == "8" } { alteration = 7 }
             { suffix == "15" } { alteration = 13 }
             {
@@ -283,7 +283,7 @@ FoscClef : FoscObject {
         }
         { name.includes($^) } {
             # baseName, suffix = clefName.delimitBy($^);
-            case 
+            case
             { suffix == "8" } { alteration = -7 }
             { suffix == "15" } { alteration = -13 }
             {
@@ -299,7 +299,7 @@ FoscClef : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prClefNameToStaffPositionZero
-    
+
     code::
 	a = FoscClef('treble');
 	a.prClefNameToStaffPositionZero('soprano').pitchName;
@@ -311,7 +311,7 @@ FoscClef : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     code::
     a = FoscClef('treble');
     a.prGetLilypondFormat;
@@ -341,7 +341,7 @@ FoscClef : FoscObject {
     • *clefNames
 
     Array of all clef names.
-    
+
 
     • Example 1
 

@@ -47,7 +47,7 @@ code::
 m = FoscMarkup(["\\italic", "Allegro assai"]);
 m.format;
 
- 
+
 • Example 3
 
 Initialize from markup.
@@ -58,7 +58,7 @@ m = FoscMarkup(m);
 m.format;
 
 
-• Example 4 
+• Example 4
 
 Attach markup to score components.
 
@@ -139,7 +139,7 @@ FoscMarkup : FoscObject {
                 {
                     newContents = newContents.add(each.asString);
                 };
-            };           
+            };
         }
         {
             newContents = [contents.asString];
@@ -165,7 +165,7 @@ FoscMarkup : FoscObject {
 
     Returns array.
 
-    
+
     • Example 1
 
     code::
@@ -185,7 +185,7 @@ FoscMarkup : FoscObject {
 
     Returns up, down, center or none.
 
-    
+
     • Example 1
 
     code::
@@ -209,7 +209,7 @@ FoscMarkup : FoscObject {
 
     Gets tweaks.
 
-    
+
     • Example 1
 
     code::
@@ -248,12 +248,12 @@ FoscMarkup : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • ++ (abjad: __add__)
-    
+
 
     Adds markup to 'argument'.
     '''
@@ -264,7 +264,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • copy
-    
+
     Copies markup.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -299,11 +299,11 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • illustrate
-    
+
     Illustrates markup.
 
     Returns LilyPond file.
-    
+
     code::
     m = FoscMarkup("foo");
     m.illustrate;
@@ -342,7 +342,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • str (abjad: __str__)
-    
+
     Gets string representation of markup.
 
     Returns string.
@@ -361,7 +361,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormatPieces
-    
+
     !!!TODO: not being parsed command-by-command to new lines, as in abjad - is a simple parser needed ??
     code::
     m = FoscMarkup("\\italic Allegro");
@@ -402,13 +402,13 @@ FoscMarkup : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         var localTweaks, indent, content, localDirection="", string, pieces;
-        
+
         if (tweaks.notNil) { localTweaks = tweaks.prListFormatContributions };
-        
+
         indent = FoscLilypondFormatManager.indent;
-        
+
         if (direction.notNil) { localDirection = direction.asSymbol.toTridirectionalLilypondSymbol };
-        
+
         if (contents.size == 1 && { contents[0].isString }) {
             content = contents[0];
             if (literal.not) {
@@ -427,14 +427,14 @@ FoscMarkup : FoscObject {
                 ^(localTweaks ++ [string]);
             };
         };
-        
+
         if (localDirection.notNil) {
             string = "%\\markup {".format(localDirection);
             pieces = [string];
         } {
             pieces = ["\\markup {"];
         };
-        
+
         contents.do { |content|
             if (content.isString) {
                 content = FoscScheme.formatSchemeValue(content);
@@ -470,7 +470,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prParseMarkupCommandArgument
-    
+
     code::
     m = FoscMarkup("Los Angeles");
     x = FoscMarkup.prParseMarkupCommandArgument(m);
@@ -535,7 +535,7 @@ FoscMarkup : FoscObject {
     *centerColumn { |markupList, direction|
         var contents, command;
         contents = [];
-        markupList.do { |markup| 
+        markupList.do { |markup|
             contents = contents.add(FoscMarkup.prParseMarkupCommandArgument(markup));
         };
         command = FoscMarkupCommand('center-column', contents);
@@ -548,7 +548,7 @@ FoscMarkup : FoscObject {
     LilyPond \column markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -582,8 +582,8 @@ FoscMarkup : FoscObject {
     LilyPond \combine markup command.
 
     Returns new markup.
-    
-    
+
+
     • Example 1
 
     code::
@@ -655,8 +655,8 @@ FoscMarkup : FoscObject {
     LilyPond \draw-circle markup command.
 
     Returns new markup
-    
-    
+
+
     • Example 1
 
     code::
@@ -785,9 +785,9 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *fraction
-    
+
     LilyPond \fraction markup command.
-    
+
     Returns new markup
 
 
@@ -835,7 +835,7 @@ FoscMarkup : FoscObject {
     LilyPond \hspace markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -856,7 +856,7 @@ FoscMarkup : FoscObject {
     LilyPond \left-column markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -879,7 +879,7 @@ FoscMarkup : FoscObject {
     *leftColumn { |markupList, direction|
         var contents, command;
         contents = [];
-        markupList.do { |markup| 
+        markupList.do { |markup|
             contents = contents.add(FoscMarkup.prParseMarkupCommandArgument(markup));
         };
         command = FoscMarkupCommand('left-column', contents);
@@ -888,7 +888,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *line
-    
+
     LilyPond \line markup command.
 
     Returns new markup.
@@ -939,7 +939,7 @@ FoscMarkup : FoscObject {
     Returns new markup.
 
     !!!TODO: update call to LilypondMusicGlyphs when files in 'ly' folder have been updated
-    
+
 
     • Example 1
 
@@ -956,7 +956,7 @@ FoscMarkup : FoscObject {
 
 
 
-    
+
     • Example 2
 
     LilypondMusicGlyphs.list.printAll;      // valid Lilypond glyph names
@@ -979,7 +979,7 @@ FoscMarkup : FoscObject {
     • *natural
 
     LilyPond \natural markup command.
-    
+
     Returns new markup.
 
 
@@ -1041,7 +1041,7 @@ FoscMarkup : FoscObject {
     LilyPond \null markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1064,7 +1064,7 @@ FoscMarkup : FoscObject {
     LilyPond \overlay markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1096,7 +1096,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *postscript
-    
+
     LilyPond \postscript markup command.
 
     Returns new markup.
@@ -1137,7 +1137,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *rightColumn
-    
+
     LilyPond \right-column markup command.
 
     Returns new markup.
@@ -1164,7 +1164,7 @@ FoscMarkup : FoscObject {
     *rightColumn { |markupList, direction|
     	var contents, command;
         contents = [];
-        markupList.do { |markup| 
+        markupList.do { |markup|
             contents = contents.add(FoscMarkup.prParseMarkupCommandArgument(markup));
         };
         command = FoscMarkupCommand('right-column', contents);
@@ -1173,7 +1173,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *sharp
-    
+
     LilyPond \sharp markup command.
 
     Returns new markup.
@@ -1207,7 +1207,7 @@ FoscMarkup : FoscObject {
     LilyPond \triangle markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1233,11 +1233,11 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *vspace
-   
+
     LilyPond \vspace markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1293,7 +1293,7 @@ FoscMarkup : FoscObject {
 
     Returns new markup.
 
-    
+
     • Example 1
 
     code::
@@ -1324,9 +1324,9 @@ FoscMarkup : FoscObject {
     • bracket
 
     LilyPond \bracket markup command.
-    
+
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1357,7 +1357,7 @@ FoscMarkup : FoscObject {
     LilyPond \caps markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1384,9 +1384,9 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • centerAlign
-    
+
     LilyPond \center-align markup command.
-        
+
     Returns new markup
 
 
@@ -1422,7 +1422,7 @@ FoscMarkup : FoscObject {
     LilyPond \circle markup command.
 
     Returns new markup
-    
+
 
     • Example 1
 
@@ -1442,7 +1442,7 @@ FoscMarkup : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     circle {
-    	var contents, command;  
+    	var contents, command;
         contents = FoscMarkup.prParseMarkupCommandArgument(this);
         command = FoscMarkupCommand('circle', contents);
         ^this.species.new(command, this.direction);
@@ -1486,7 +1486,7 @@ FoscMarkup : FoscObject {
 
     Returns new markup
 
-    
+
     • Example 1
 
     code::
@@ -1564,8 +1564,8 @@ FoscMarkup : FoscObject {
     LilyPond \general-align markup command.
 
     Returns new markup.
-    
-    
+
+
     • Example 1
 
     code::
@@ -1595,9 +1595,9 @@ FoscMarkup : FoscObject {
     • halign
 
     LilyPond halign markup command.
-    
+
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1615,7 +1615,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • hcenterIn
-    
+
     LilyPond \hcenter-in markup command.
 
     Returns new markup.
@@ -1668,7 +1668,7 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • italic
-    
+
     LilyPond \italic markup command.
 
     Returns new markup.
@@ -1702,7 +1702,7 @@ FoscMarkup : FoscObject {
     LilyPond \larger markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1856,9 +1856,9 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • raise
-    
+
     LilyPond \raise markup command.
-    
+
     Returns new markup.
 
 
@@ -1882,7 +1882,7 @@ FoscMarkup : FoscObject {
     LilyPond \rotate markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1913,7 +1913,7 @@ FoscMarkup : FoscObject {
     LilyPond \sans markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1944,7 +1944,7 @@ FoscMarkup : FoscObject {
     LilyPond \scale markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -1977,7 +1977,7 @@ FoscMarkup : FoscObject {
     LilyPond \small markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -2008,7 +2008,7 @@ FoscMarkup : FoscObject {
     LilyPond \smaller markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -2039,7 +2039,7 @@ FoscMarkup : FoscObject {
     LilyPond \sub markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -2134,7 +2134,7 @@ FoscMarkup : FoscObject {
     LilyPond translate markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -2167,7 +2167,7 @@ FoscMarkup : FoscObject {
     LilyPond \upright markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -2194,11 +2194,11 @@ FoscMarkup : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • vcenter
-    
+
     LilyPond \vcenter markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -2220,7 +2220,7 @@ FoscMarkup : FoscObject {
     LilyPond \whiteout markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 
@@ -2242,7 +2242,7 @@ FoscMarkup : FoscObject {
     LilyPond \with-color markup command.
 
     Returns new markup.
-    
+
 
     • Example 1
 

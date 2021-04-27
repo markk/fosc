@@ -29,7 +29,7 @@ FoscNonreducedFraction : FoscFraction {
         # numerator, denominator = pair;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -71,7 +71,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *
-    
+
     code::
     a = FoscNonreducedFraction(3, 2) * FoscNonreducedFraction(1, 2);
     a.pair;
@@ -91,7 +91,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • /
-    
+
     code::
     a = FoscNonreducedFraction(3, 2) / FoscNonreducedFraction(1, 2);
     a.pair;`
@@ -131,7 +131,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • mod
-    
+
     code::
     a = FoscNonreducedFraction(3, 2) % FoscNonreducedFraction(1, 2);
     a.pair;
@@ -148,7 +148,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • pow
-    
+
     code::
     a = FoscNonreducedFraction(3, 2) ** FoscNonreducedFraction(2, 1);
     a.pair;
@@ -165,7 +165,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • abs
-    
+
     code::
     a = FoscNonreducedFraction(-6, 4).abs;
     a.pair;
@@ -174,7 +174,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • neg
-    
+
     code::
     a = FoscNonreducedFraction(6, 4).neg;
     a.pair;
@@ -200,7 +200,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • ==
-    
+
     code::
     a = FoscNonreducedFraction(3, 2);
     b = FoscNonreducedFraction(6, 4);
@@ -233,11 +233,11 @@ FoscNonreducedFraction : FoscFraction {
     c != d;     // false
     d != c;     // false
     '''
-    -------------------------------------------------------------------------------------------------------- */ 
+    -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
     '''
     • <
-    
+
     code::
     a = FoscNonreducedFraction(3, 2);
     b = FoscNonreducedFraction(6, 4);
@@ -254,7 +254,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • >
-    
+
     code::
     a = FoscNonreducedFraction(3, 2);
     b = FoscNonreducedFraction(6, 4);
@@ -271,7 +271,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • <=
-    
+
     code::
     a = FoscNonreducedFraction(3, 2);
     b = FoscNonreducedFraction(6, 4);
@@ -288,7 +288,7 @@ FoscNonreducedFraction : FoscFraction {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • >=
-    
+
     code::
     a = FoscNonreducedFraction(3, 2);
     b = FoscNonreducedFraction(6, 4);

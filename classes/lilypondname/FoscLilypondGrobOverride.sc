@@ -30,7 +30,7 @@ FoscLilypondGrobOverride : FoscObject {
         grobName = grobName.asSymbol;
         if ([Symbol, String].any { |type| propertyPath.isKindOf(type) }) { propertyPath = [propertyPath] };
         ^super.new.init(lilypondType, grobName, isOnce, isRevert, propertyPath, value);
-    } 
+    }
     init { |argLilypondType, argGrobName, argIsOnce, argIsRevert, argPropertyPath, argValue|
         lilypondType = argLilypondType;
         grobName = argGrobName;
@@ -47,10 +47,10 @@ FoscLilypondGrobOverride : FoscObject {
     • grobName
 
     LilyPond grob override grob name.
-    
+
     Returns Symbol.
-    
-    
+
+
     • Example 1
 
     code::
@@ -65,8 +65,8 @@ FoscLilypondGrobOverride : FoscObject {
     Is true when grob override is to be applied only once.
 
     Returns true or false.
-    
-    
+
+
     • Example 1
 
     code::
@@ -88,8 +88,8 @@ FoscLilypondGrobOverride : FoscObject {
     Is true when grob override is a grob revert.
 
     Returns true or false.
-    
-    
+
+
     • Example 1
 
     code::
@@ -109,10 +109,10 @@ FoscLilypondGrobOverride : FoscObject {
     • lilypondType
 
     Optional Lilypond grob override context name.
-    
+
     Returns Symbol or nil.
-    
-    
+
+
     • Example 1
 
     code::
@@ -132,10 +132,10 @@ FoscLilypondGrobOverride : FoscObject {
     • overrideFormatPieces
 
     Gets LilyPond grob override \override format pieces.
-    
+
     Returns array of strings.
-    
-    
+
+
     • Example 1
 
     a = FoscLilypondGrobOverride(
@@ -170,12 +170,12 @@ FoscLilypondGrobOverride : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • overrideString
-    
+
     Gets LilyPond grob override \override string.
-            
+
     Returns string.
-    
-    
+
+
     • Example 1
 
     a = FoscLilypondGrobOverride(
@@ -195,10 +195,10 @@ FoscLilypondGrobOverride : FoscObject {
     • propertyPath
 
     LilyPond grob override property path.
-    
+
     Returns array of symbols.
-    
-    
+
+
     • Example 1
 
     a = FoscLilypondGrobOverride(
@@ -217,10 +217,10 @@ FoscLilypondGrobOverride : FoscObject {
     • revertFormatPieces
 
     Gets LilyPond grob override \revert format pieces.
-    
+
     Returns array of strings.
-    
-    
+
+
     • Example 1
 
     a = FoscLilypondGrobOverride(
@@ -242,10 +242,10 @@ FoscLilypondGrobOverride : FoscObject {
     • revertString
 
     Gets LilyPond grob override \revert string.
-            
+
     Returns string.
-    
-    
+
+
     • Example 1
 
     a = FoscLilypondGrobOverride(
@@ -267,8 +267,8 @@ FoscLilypondGrobOverride : FoscObject {
     Value of LilyPond grob override.
 
     Returns arbitrary object.
-    
-    
+
+
     • Example 1
 
     a = FoscLilypondGrobOverride(
@@ -329,16 +329,16 @@ FoscLilypondGrobOverride : FoscObject {
         var result, propertyPath, string;
 
         result =  if (isDirected) { ["- \\tweak"] } { ["\\tweak"] };
-        
+
         if (grob) {
             propertyPath = [grobName] ++ this.propertyPath;
         } {
             propertyPath = this.propertyPath;
         };
-        
+
         string = propertyPath.join(".");
         result = result.add(string);
-        
+
         if (value.isKindOf(FoscLilypondLiteral)) {
             value.name.class.postln;
             assert(
@@ -356,14 +356,14 @@ FoscLilypondGrobOverride : FoscObject {
         ^result;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • ==
 
     Is true when 'object' is a FoscLilypondGrobOverride with equivalent instance variable values.
-    
+
 
     • Example 1
 

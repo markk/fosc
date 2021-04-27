@@ -20,7 +20,7 @@ A selection of components in a logical tie.
 ------------------------------------------------------------------------------------------------------------ */
 FoscLogicalTie : FoscSelection {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -47,8 +47,8 @@ FoscLogicalTie : FoscSelection {
     • at
 
     Gets item at 'index' in container. Traverses top-level items only.
-    
-    Returns component or selection.  
+
+    Returns component or selection.
 
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
@@ -63,8 +63,8 @@ FoscLogicalTie : FoscSelection {
     • copySeries
 
     Gets item at indices in container. Traverses top-level items only.
-    
-    Returns component or selection.  
+
+    Returns component or selection.
 
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
@@ -86,7 +86,7 @@ FoscLogicalTie : FoscSelection {
 
         newWrittenDuration = FoscDuration(newWrittenDuration);
         maker = FoscLeafMaker();
-      
+
         case
         { newWrittenDuration.isAssignable } {
             this[0].writtenDuration_(newWrittenDuration);
@@ -99,7 +99,7 @@ FoscLogicalTie : FoscSelection {
             items.do { |leaf, i|
                 leaf.writtenDuration_(durations[i].writtenDuration);
             };
-        
+
             case { this.size == durations.size } {
                 // pass
             }
@@ -140,7 +140,7 @@ FoscLogicalTie : FoscSelection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prFuseLeavesByImmediateParentend(part._fuse())
-    
+
     code::
     a = FoscContainer({ FoscNote(60, 1/4) } ! 4);
     a.selectLeaves[1..2].prAttachTieToLeaves;
@@ -191,7 +191,7 @@ FoscLogicalTie : FoscSelection {
     // a.show;
     b = a.selectLogicalTies[1];
     b.prGetLeavesGroupedByImmediateParents;
-    
+
     code::
     a = FoscStaff({ FoscNote(60, 1/4) } ! 4);
     a.selectLeaves[1..2].prAttachTieToLeaves;
@@ -273,9 +273,9 @@ FoscLogicalTie : FoscSelection {
     • head
 
     Reference to element 0 in logical tie.
-    
+
     Returns component.
-    
+
     code::
     a = FoscContainer([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     b = FoscLogicalTie(a[0..]);
@@ -290,10 +290,10 @@ FoscLogicalTie : FoscSelection {
     • isPitched
 
     Is true when logical tie head is a note or chord.
-    
+
     Returns true or false.
 
-    
+
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a.isPitched;
@@ -310,11 +310,11 @@ FoscLogicalTie : FoscSelection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • isTrivial
-    
+
     Is true when length of logical tie is less than or equal to 1.
-    
+
     Returns true or false.
-    
+
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a.isTrivial;
@@ -343,11 +343,11 @@ FoscLogicalTie : FoscSelection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • tail
-    
+
     Reference to element -1 in logical tie.
-    
+
     Returns component.
-    
+
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a.tail;
@@ -363,7 +363,7 @@ FoscLogicalTie : FoscSelection {
     Sum of written duration of all components in logical tie.
 
     Returns duration.
-    
+
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 2/4)]);
     a.writtenDuration.cs;
@@ -379,7 +379,7 @@ FoscLogicalTie : FoscSelection {
     Written pitch of logical tie if logical is pitched.
 
     Returns pitch.
-    
+
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 2/4)]);
     a.writtenPitch.cs;
@@ -393,7 +393,7 @@ FoscLogicalTie : FoscSelection {
     • writtenPitch_
 
     Sets written pitch of logical tie if logical is pitched.
-    
+
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 2/4)]);
     a.writtenPitch_(61);
@@ -432,23 +432,23 @@ FoscLogicalTie : FoscSelection {
     toTuplet { |proportions|
         var targetDuration, prolatedDuration, basicWrittenDuration, writtenDurations, maker, writtenPitch;
         var denominator, noteDurations, pitches, notes, tuplet;
-        
+
         if (this.head.parent.isNil) {
             throw("%:%: leaves must have a parent.".format(this.species, thisMethod.name));
         };
-        
+
         if (this.areContiguousSameParent.not) {
             throw("%:%: leaves must all be children of the same parent."
                 .format(this.species, thisMethod.name));
         };
-        
+
         targetDuration = this.prGetPreprolatedDuration;
         prolatedDuration = targetDuration / proportions.sum;
-        basicWrittenDuration = prolatedDuration.equalOrGreaterPowerOfTwo;   
+        basicWrittenDuration = prolatedDuration.equalOrGreaterPowerOfTwo;
         writtenDurations = proportions.abs.collect { |each| basicWrittenDuration * each };
         maker = FoscLeafMaker();
         writtenPitch = if (this.isPitched) { this.head.writtenPitch } { 60 };
-        
+
         if (writtenDurations.every { |each| each.isAssignable }) {
             notes = writtenDurations.collect { |duration, i|
                 if (proportions[i] > 0) { FoscNote(writtenPitch, duration) } { FoscRest(duration) };
@@ -462,14 +462,14 @@ FoscLogicalTie : FoscSelection {
 
         tuplet = FoscTuplet.newFromDuration(targetDuration, notes);
         tuplet.normalizeMultiplier;
-        
+
         this.do { |leaf|
             leaf.detach(FoscTie);
             leaf.detach(FoscRepeatTie);
         };
 
         mutate(this).replace(tuplet);
-        
+
         ^tuplet;
     }
     // toTuplet { |proportions|
@@ -480,14 +480,14 @@ FoscLogicalTie : FoscSelection {
     //         throw("%:%: leaves must all be children of the same parent."
     //             .format(this.species, thisMethod.name));
     //     };
-        
+
     //     targetDuration = this.prGetPreprolatedDuration;
     //     prolatedDuration = targetDuration / proportions.sum;
-    //     basicWrittenDuration = prolatedDuration.equalOrGreaterPowerOfTwo;   
+    //     basicWrittenDuration = prolatedDuration.equalOrGreaterPowerOfTwo;
     //     writtenDurations = proportions.collect { |each| basicWrittenDuration * each };
     //     maker = FoscLeafMaker();
     //     writtenPitch = if (this.isPitched) { this.head.writtenPitch } { 60 };
-        
+
     //     if (writtenDurations.every { |each| each.isAssignable }) {
     //         notes = writtenDurations.collect { |duration| FoscNote(writtenPitch, duration) };
     //     } {
@@ -497,14 +497,14 @@ FoscLogicalTie : FoscSelection {
     //     };
 
     //     tuplet = FoscTuplet.newFromDuration(targetDuration, notes);
-        
+
     //     this.do { |leaf|
     //         leaf.detach(FoscTie);
     //         leaf.detach(FoscRepeatTie);
     //     };
 
     //     mutate(this).replace(tuplet);
-        
+
     //     ^tuplet;
     // }
 
@@ -520,7 +520,7 @@ FoscLogicalTie : FoscSelection {
 
     Returns true or false.
 
-    
+
     code::
     a = FoscContainer([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     b = FoscLogicalTie(a[0..]);
@@ -543,9 +543,9 @@ FoscLogicalTie : FoscSelection {
     • tieSpanner
 
     Tie spanner governing logical tie.
-    
+
     Returns tie spanner.
-    
+
     code::
     a = FoscContainer([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     b = FoscSelection(a[0..]);

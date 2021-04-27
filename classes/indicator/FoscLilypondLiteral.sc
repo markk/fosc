@@ -138,7 +138,7 @@ FoscLilypondLiteral : FoscObject {
     • *allowableFormatSlots
 
     Lists allowable format slots.
-    
+
     code::
     FoscLilypondLiteral.allowableFormatSlots;
     '''
@@ -174,14 +174,14 @@ FoscLilypondLiteral : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • formatSlot
-    
+
     Gets format slot of LilyPond literal.
 
     Returns string.
 
-    
+
     • Example 1
-    
+
     code::
     a = FoscLilypondLiteral(\slurDotted);
     a.formatSlot;
@@ -206,8 +206,8 @@ FoscLilypondLiteral : FoscObject {
     • tweaks
 
     Gets tweaks.
-    
-    
+
+
     • Example 1
 
     code::
@@ -227,7 +227,7 @@ FoscLilypondLiteral : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -267,6 +267,6 @@ FoscLilypondLiteral : FoscObject {
         };
         pieces = this.prGetFormatPieces;
         formatSlot.commands.addAll(pieces);
-        ^bundle;  
+        ^bundle;
     }
 }

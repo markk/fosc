@@ -40,7 +40,7 @@ FoscStopTrillSpan : FoscObject {
     • context
 
     Gets context. Returns 'Voice'.
-    
+
 
     • Example 1
 
@@ -123,7 +123,7 @@ FoscStopTrillSpan : FoscObject {
         ^true;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -170,7 +170,7 @@ FoscStopTrillSpan : FoscObject {
             string = "<> %".format(string);
             bundle.after.leaks.add(string);
         } {
-            bundle.after.spannerStarts.add(string); 
+            bundle.after.spannerStarts.add(string);
         };
         ^bundle;
     }

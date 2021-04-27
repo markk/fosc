@@ -115,12 +115,12 @@ FoscChord : FoscLeaf {
     var <noteHeads;
     *new { |writtenPitches, writtenDuration, multiplier, tag|
         var leaf, n, areCautionary, areForced, areParenthesized, drums, noteHeads, noteHead;
-        
+
         if (writtenPitches.isKindOf(FoscLeaf)) {
-            
+
             leaf = writtenPitches;
-            
-            case 
+
+            case
             { leaf.isKindOf(FoscChord) } {
                 writtenPitches = leaf.writtenPitches;
                 writtenDuration = leaf.writtenDuration;
@@ -179,7 +179,7 @@ FoscChord : FoscLeaf {
         };
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -341,7 +341,7 @@ FoscChord : FoscLeaf {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetCompactRepresentation
-    
+
     code::
     a = FoscChord("C4 E4 G4", 1/4);
     a.prGetCompactRepresentation;
@@ -481,11 +481,11 @@ FoscChord : FoscLeaf {
     • writtenDuration_
 
     Sets written duration of chord.
-    
+
     code::
     a = FoscChord("C4 E4 G4", 1/4);
     a.writtenDuration.str;
-    
+
     code::
     a.writtenDuration_(1/16);
     a.writtenDuration.str;
@@ -509,13 +509,13 @@ FoscChord : FoscLeaf {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • writtenPitches_
-    
+
     Sets written pitches in chord.
-    
+
     code::
     a = FoscChord("C4 E4 G4", [1, 4]);
     a.writtenPitches.ps;
-    
+
     code::
     a.writtenPitches_("F#4 B4 D#5 E5");
     a.writtenPitches.ps;

@@ -48,7 +48,7 @@ FoscStartPianoPedal : FoscObject {
     • context
 
     Gets context. Returns 'StaffGroup'.
-    
+
 
     • Example 1
 
@@ -145,7 +145,7 @@ FoscStartPianoPedal : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -154,7 +154,7 @@ FoscStartPianoPedal : FoscObject {
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of argument.
-    
+
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
     '''

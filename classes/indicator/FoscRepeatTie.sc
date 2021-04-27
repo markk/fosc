@@ -62,7 +62,7 @@ FoscRepeatTie : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -130,7 +130,7 @@ FoscRepeatTie : FoscObject {
         //     strings,
         //     deactivate=True,
         //     tag=abjad_tags.SHOW_TO_JOIN_BROKEN_SPANNERS,
-        //     )  
+        //     )
         ^FoscLilypondFormatManager.tag(
             strings,
             deactivate: true,

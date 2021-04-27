@@ -156,7 +156,7 @@ FoscBeamSpecifier : FoscObject {
         hideNibs=true, stemletLength, useFeatherBeams=false|
 
         var beamSpanArgs, msg;
-        
+
         assert(beamEachDivision.isBoolean, thisMethod, 'beamEachDivision', beamEachDivision);
         assert(beamEachRun.isBoolean, thisMethod, 'beamEachRun', beamEachRun);
         assert(beamDivisionsTogether.isBoolean, thisMethod, 'beamDivisionsTogether', beamDivisionsTogether);
@@ -174,13 +174,13 @@ FoscBeamSpecifier : FoscObject {
             msg = msg ++ "\nbeamDivisionsTogether: %".format(beamDivisionsTogether);
             ^throw(msg);
         };
-        
+
         ^super.new.init(beamEachDivision, beamEachRun, beamDivisionsTogether, beamRests, hideNibs,
             stemletLength, useFeatherBeams);
     }
     init { |argBeamEachDivision, argBeamEachRun, argBeamDivisionsTogether, argBeamRests, argHideNibs,
         argStemletLength, argUseFeatherBeams|
-        
+
         beamEachDivision = argBeamEachDivision;
         beamEachRun = argBeamEachRun;
         beamDivisionsTogether = argBeamDivisionsTogether;
@@ -196,7 +196,7 @@ FoscBeamSpecifier : FoscObject {
     '''
     • beamDivisionsTogether
 
-    Is true when divisions should beam together. 
+    Is true when divisions should beam together.
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
@@ -235,7 +235,7 @@ FoscBeamSpecifier : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -244,7 +244,7 @@ FoscBeamSpecifier : FoscObject {
     !!!TODO: not yet implemented
 
     Gets interpreter representation of beam specifier.
-    
+
     Returns string.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -260,7 +260,7 @@ FoscBeamSpecifier : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     value { |selections|
         var beam, durations, duration, components, leaves, runs;
-        
+
         this.prDetachAllBeams(selections);
 
         case

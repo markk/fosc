@@ -60,7 +60,7 @@ FoscLeaf : FoscComponent {
         multiplier = argMultiplier;
 	}
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
+	// PUBLIC INSTANCE METHODS: Special Methods
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
@@ -122,9 +122,9 @@ FoscLeaf : FoscComponent {
     • str
 
     String representation of leaf.
-    
+
     Returns string.
-   
+
 
     • Example 1
 
@@ -214,7 +214,7 @@ FoscLeaf : FoscComponent {
         leaf.wrappers.do { |wrapper|
             newWrapper = wrapper.copy;
             newWrappers = newWrappers.add(newWrapper);
-        }; 
+        };
         newWrappers.do { |newWrapper| this.attach(newWrapper) };
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -453,7 +453,7 @@ FoscLeaf : FoscComponent {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetDurationInSeconds
-    
+
     code::
     a = FoscScore([FoscStaff(FoscLeafMaker().(60 ! 4, [1/4]))]);
     a.doLeaves { |leaf| leaf.prGetDurationInSeconds.asFloat.postln };
@@ -523,7 +523,7 @@ FoscLeaf : FoscComponent {
     // abjad 3.0
     prGetLogicalTie {
         var leavesBefore, leavesAfter, currentLeaf, previousLeaf, nextLeaf, leaves;
-        
+
         leavesBefore = [];
         leavesAfter = [];
         currentLeaf = this;
@@ -569,7 +569,7 @@ FoscLeaf : FoscComponent {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetMultipliedDuration
-    
+
     code::
     a = FoscLeaf(writtenDuration: 1/4, multiplier: 3/2);
     a.prGetMultipliedDuration.str;
@@ -652,21 +652,21 @@ FoscLeaf : FoscComponent {
     // abjad 3.0
     prLeafAt { |n|
         var sibling, components;
-        
+
         // assert n in (-1, 0, 1), repr(n)
-        
+
         if (n == 0) { ^this };
-        
+
         sibling = this.prSibling(n);
-        
+
         if (sibling.isNil) { ^nil };
-        
+
         if (n == 1) {
             components = sibling.prGetDescendantsStartingWith;
         } {
             components = sibling.prGetDescendantsStoppingWith;
         };
-        
+
         components.do { |component|
             if (component.isKindOf(FoscLeaf)) {
                 if (FoscSelection([this, component]).areLogicalVoice) {
@@ -711,7 +711,7 @@ FoscLeaf : FoscComponent {
     -------------------------------------------------------------------------------------------------------- */
     prRecurse { |pulseDuration|
        writtenDuration = FoscDuration(pulseDuration);
-    }   
+    }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prScale
@@ -731,7 +731,7 @@ FoscLeaf : FoscComponent {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prSetDuration
-    
+
     •
     code::
     a = FoscNote(60, 1/4, multiplier: 5);
@@ -823,9 +823,9 @@ FoscLeaf : FoscComponent {
     prSetDuration { |newDuration, repeatTies=false|
         var maker, components, newLeaves, followingLeafCount, followingLeaves, allLeaves, logicalTie;
         var logicalTieLeaves, index, next, tuplet;
-        
+
         newDuration = FoscDuration(newDuration);
-        
+
         if (multiplier.notNil) {
             this.multiplier_(newDuration / writtenDuration);
             ^FoscSelection(this);
@@ -836,14 +836,14 @@ FoscLeaf : FoscComponent {
             ^FoscSelection(this);
         };
 
-        maker = FoscLeafMaker(repeatTies: repeatTies); 
+        maker = FoscLeafMaker(repeatTies: repeatTies);
         components = maker.([60], [newDuration]);
 
         newLeaves = FoscSelection(components).leaves;
         followingLeafCount = newLeaves.size - 1;
-        followingLeaves = this ! followingLeafCount; 
-        allLeaves = [this] ++ followingLeaves; 
-        allLeaves.do { |leaf, i| leaf.writtenDuration_(newLeaves[i].writtenDuration) }; 
+        followingLeaves = this ! followingLeafCount;
+        allLeaves = [this] ++ followingLeaves;
+        allLeaves.do { |leaf, i| leaf.writtenDuration_(newLeaves[i].writtenDuration) };
 
         logicalTie = this.prGetLogicalTie;
         logicalTieLeaves = all(FoscIteration(logicalTie).leaves);
@@ -860,7 +860,7 @@ FoscLeaf : FoscComponent {
         index = logicalTieLeaves.indexOf(this);
         next = index + 1;
         logicalTieLeaves = logicalTieLeaves.prSetItem((next..next), followingLeaves);
-        
+
         if (
             1 < logicalTieLeaves.size
             && { [FoscNote, FoscChord].any { |type| this.isKindOf(type) } }
@@ -885,7 +885,7 @@ FoscLeaf : FoscComponent {
 
 
     • Example 1
-    
+
     code::
     a = FoscNote(60, 4/4);
     b = a.prSplitByDurations([1/16, 3/16], tieSplitNotes: false);
@@ -1041,10 +1041,10 @@ FoscLeaf : FoscComponent {
             && { this.isKindOf(FoscNote) || { this.isKindOf(FoscChord) } }
         ) {
             resultLeaves.prAttachTieToLeaves(repeatTies: repeatTies);
-        };  
+        };
 
         resultLeaves[0].detach(FoscRepeatTie);
-        resultLeaves.last.detach(FoscTie); 
+        resultLeaves.last.detach(FoscTie);
         if (originallyRepeatTied) {
             tie = FoscRepeatTie();
             resultLeaves[0].attach(tie);

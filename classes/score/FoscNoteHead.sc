@@ -31,7 +31,7 @@ FoscNoteHead : FoscObject {
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     var <alternative, <client, <isCautionary, <isForced, <isParenthesized, <tweaks, <writtenPitch;
-    *new { |writtenPitch, client, isCautionary=false, isForced=false, isParenthesized=false, tweaks| 
+    *new { |writtenPitch, client, isCautionary=false, isForced=false, isParenthesized=false, tweaks|
         ^super.new.init(writtenPitch, client, isCautionary, isForced, isParenthesized, tweaks);
     }
     init { |writtenPitch, argClient, argIsCautionary, argIsForced, argIsParenthesized, argTweaks|
@@ -52,14 +52,14 @@ FoscNoteHead : FoscObject {
         FoscLilypondTweakManager.setTweaks(this, argTweaks);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
      /* --------------------------------------------------------------------------------------------------------
     '''
     • asCompileString
 
     Gets interpreter representation of note-head.
-    
+
     Returns string.
 
     !!!TODO: incomplete
@@ -91,7 +91,7 @@ FoscNoteHead : FoscObject {
     Is true when argument is a note-head with written writtenPitch equal to that of this note-head. Otherwise false.
 
     Returns true or false.
-    
+
     '''
     -------------------------------------------------------------------------------------------------------- */
     == { |object|
@@ -105,10 +105,10 @@ FoscNoteHead : FoscObject {
     • format
 
     Formats note-head.
-    
+
     Returns string.
 
-    
+
     code::
     a = FoscNoteHead(writtenPitch: "Db4");
     a.format;
@@ -141,7 +141,7 @@ FoscNoteHead : FoscObject {
     • <
 
     Is true when argument is a note-head with written writtenPitch greater than that of this note-head. Otherwise false.
-    
+
     Returns true or false.
 
     !!!TODO: not yet implemented.
@@ -176,7 +176,7 @@ FoscNoteHead : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormatSpecification
-    
+
     code::
     a = FoscNoteHead(writtenPitch: FoscPitch("Db4"));
     a.prGetFormatSpecification;
@@ -211,17 +211,17 @@ FoscNoteHead : FoscObject {
         if (tweaks.notNil) {
             strings = tweaks.prListFormatContributions(directed: false);
             result = result.addAll(strings);
-        };  
+        };
         kernel = writtenPitch.format;
-        if (isForced) { kernel = kernel ++ "!" };   
+        if (isForced) { kernel = kernel ++ "!" };
         if (isCautionary) { kernel = kernel ++ "?" };
         result = result.add(kernel);
-        ^result; 
+        ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     code::
     a = FoscNoteHead("Db4");
     a.prGetLilypondFormat;
@@ -264,7 +264,7 @@ FoscNoteHead : FoscObject {
             };
             pieces_ = FoscLilypondFormatManager.tag(pieces_, deactivate: true, tag: alternative[1]);
             pieces = pieces.addAll(pieces_);
-        };  
+        };
         result = pieces.join("\n");
         ^result;
     }
@@ -274,7 +274,7 @@ FoscNoteHead : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • alternative
-    
+
     !!!TODO: not yet implemented
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -301,7 +301,7 @@ FoscNoteHead : FoscObject {
     • client
 
     Client of note-head.
-    
+
     Returns note, chord or nil.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -318,7 +318,7 @@ FoscNoteHead : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • isCautionary_
-    
+
     Sets isCautionary accidental flag.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -338,7 +338,7 @@ FoscNoteHead : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • isForced_
-    
+
     Sets isForced accidental flag.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -359,7 +359,7 @@ FoscNoteHead : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • isParenthesized_
-    
+
     Sets isParenthesized flag.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -386,7 +386,7 @@ FoscNoteHead : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • writtenPitch_
-    
+
     Sets written pitch of note-head.
 
     code::

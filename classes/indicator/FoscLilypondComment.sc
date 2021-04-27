@@ -89,7 +89,7 @@ FoscLilypondComment : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -129,6 +129,6 @@ FoscLilypondComment : FoscObject {
         bundle = FoscLilypondFormatBundle();
         formatSlot = bundle.perform(this.formatSlot);
         formatSlot.comments.add(this.prGetLilypondFormat);
-        ^bundle;  
+        ^bundle;
     }
 }

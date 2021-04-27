@@ -95,16 +95,16 @@ FoscVerticalMoment : FoscSelection {
         components = components[order];
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
-    • == (abjad: __eq__) 
+    • == (abjad: __eq__)
 
     Is true when argument is a vertical moment with the same components as this vertical moment. Otherwise false.
-    
+
     Returns true or false.
-    
+
     def __eq__(self, argument):
         if isinstance(argument, VerticalMoment):
             if len(self) == len(argument):
@@ -131,9 +131,9 @@ FoscVerticalMoment : FoscSelection {
     • hash
 
     Hases vertical moment.
-    
+
     Returns integer.
-    
+
     def __hash__(self):
         return super(VerticalMoment, self).__hash__()
     '''
@@ -148,7 +148,7 @@ FoscVerticalMoment : FoscSelection {
     Defined equal to the number of components in vertical moment.
 
     Returns nonnegative integer.
-    
+
     def __len__(self):
         return len(self.components)
     '''
@@ -161,9 +161,9 @@ FoscVerticalMoment : FoscSelection {
     • asCompileString (abjad: __repr__)
 
     Gets interpreter representation of vertical moment.
-    
+
     Returns string.
-    
+
     def __repr__(self):
         if not self.components:
             return '{}()'.format(type(self).__name__)
@@ -187,7 +187,7 @@ FoscVerticalMoment : FoscSelection {
     • *prFindIndex
 
     Based off of Python's bisect.bisect() function.
-    
+
     @staticmethod
     def _find_index(container, offset):
         lo = 0
@@ -215,7 +215,7 @@ FoscVerticalMoment : FoscSelection {
             mid = (lo + hi).div(2);
             startOffset = container[mid].prGetTimespan.startOffset;
             stopOffset = container[mid].prGetTimespan.stopOffset;
-            case 
+            case
             { startOffset <= offset && { offset < stopOffset } } {
                 lo = mid + 1;
             }
@@ -234,7 +234,7 @@ FoscVerticalMoment : FoscSelection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *prFromOffset
-    
+
     @staticmethod
     def _from_offset(argument, offset):
         from abjad.tools import scoretools
@@ -300,7 +300,7 @@ FoscVerticalMoment : FoscSelection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *prRecurse
-    
+
     @staticmethod
     def _recurse(component, offset):
         result = []
@@ -316,7 +316,7 @@ FoscVerticalMoment : FoscSelection {
                         VerticalMoment._find_index(component, offset)]
                     result.extend(VerticalMoment._recurse(child, offset))
         return result
-    
+
     code::
     g = FoscStaffGroup();
     a = FoscStaff([FoscLeafMaker().([60, 62, 52, 53, nil, 61, 59, 50, 66], [[1, 8]])]);
@@ -359,7 +359,7 @@ FoscVerticalMoment : FoscSelection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormatSpecification
-    
+
     def _get_format_specification(self):
         return systemtools.FormatSpecification(client=self)
     '''
@@ -375,9 +375,9 @@ FoscVerticalMoment : FoscSelection {
     • attackCount
 
     Positive integer number of pitch carriers starting at vertical moment.
-    
+
     @property
-    def attack_count(self):    
+    def attack_count(self):
         from abjad.tools import scoretools
         attack_carriers = []
         for leaf in self.start_leaves:
@@ -400,11 +400,11 @@ FoscVerticalMoment : FoscSelection {
     • components
 
     Tuple of zero or more components happening at vertical moment.
-    
+
     It is always the case that self.components = self.overlap_components + self.start_components.
-    
+
     @property
-    def components(self):            
+    def components(self):
         return self._components
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -413,9 +413,9 @@ FoscVerticalMoment : FoscSelection {
     • governors
 
     Tuple of one or more containers in which vertical moment is evaluated.
-    
+
     @property
-    def governors(self):            
+    def governors(self):
         return self._governors
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -424,7 +424,7 @@ FoscVerticalMoment : FoscSelection {
     • leaves
 
     Tuple of zero or more leaves at vertical moment.
-    
+
     @property
     def leaves(self):
         import abjad
@@ -448,7 +448,7 @@ FoscVerticalMoment : FoscSelection {
     • measures
 
     Tuple of zero or more measures at vertical moment.
-    
+
     @property
     def measures(self):
         from abjad.tools import scoretools
@@ -471,9 +471,9 @@ FoscVerticalMoment : FoscSelection {
     • items
 
     Gets items of vertical moment.
-    
+
     Returns component or selection.
-    
+
     @property
     def items(self):
         return self._items
@@ -484,7 +484,7 @@ FoscVerticalMoment : FoscSelection {
     • nextVerticalMoment
 
     Reference to next vertical moment forward in time.
-    
+
     @property
     def next_vertical_moment(self):
         from abjad.tools import scoretools
@@ -507,7 +507,7 @@ FoscVerticalMoment : FoscSelection {
     • notes
 
     Tuple of zero or more notes at vertical moment.
-    
+
     @property
     def notes(self):
         from abjad.tools import scoretools
@@ -531,7 +531,7 @@ FoscVerticalMoment : FoscSelection {
     • notesAndChords
 
     Tuple of zero or more notes and chords at vertical moment.
-    
+
     @property
     def notes_and_chords(self):
         from abjad.tools import scoretools
@@ -558,7 +558,7 @@ FoscVerticalMoment : FoscSelection {
     • offset
 
     Rational-valued score offset at which vertical moment is evaluated.
-    
+
     @property
     def offset(self):
         return self._offset
@@ -569,7 +569,7 @@ FoscVerticalMoment : FoscSelection {
     • overlapComponents
 
     Tuple of components in vertical moment starting before vertical moment, ordered by score index.
-    
+
     @property
     def overlap_components(self):
         result = []
@@ -593,7 +593,7 @@ FoscVerticalMoment : FoscSelection {
     • overlapLeaves
 
     Tuple of leaves in vertical moment starting before vertical moment, ordered by score index.
-    
+
     @property
     def overlap_leaves(self):
         from abjad.tools import scoretools
@@ -614,7 +614,7 @@ FoscVerticalMoment : FoscSelection {
     • overlapMeasures
 
     Tuple of measures in vertical moment starting before vertical moment, ordered by score index.
-    
+
     @property
     def overlap_measures(self):
         from abjad.tools import scoretools
@@ -635,7 +635,7 @@ FoscVerticalMoment : FoscSelection {
     • overlapNotes
 
     Tuple of notes in vertical moment starting before vertical moment, ordered by score index.
-    
+
     @property
     def overlap_notes(self):
         from abjad.tools import scoretools
@@ -656,7 +656,7 @@ FoscVerticalMoment : FoscSelection {
     • previousVerticalMoment
 
     Reference to previous vertical moment backward in time.
-    
+
     @property
     def previous_vertical_moment(self):
         from abjad.tools import scoretools
@@ -701,7 +701,7 @@ FoscVerticalMoment : FoscSelection {
     • startComponents
 
     Tuple of components in vertical moment starting with at vertical moment, ordered by score index.
-    
+
     @property
     def start_components(self):
         result = []
@@ -727,7 +727,7 @@ FoscVerticalMoment : FoscSelection {
     • startLeaves
 
     Tuple of leaves in vertical moment starting with vertical moment, ordered by score index.
-    
+
     @property
     def start_leaves(self):
         from abjad.tools import scoretools
@@ -750,7 +750,7 @@ FoscVerticalMoment : FoscSelection {
     • startNotes
 
     Tuple of notes in vertical moment starting with vertical moment, ordered by score index.
-    
+
     @property
     def start_notes(self):
         from abjad.tools import scoretools

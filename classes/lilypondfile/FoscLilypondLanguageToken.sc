@@ -27,16 +27,16 @@ FoscLilypondLanguageToken : FoscObject {
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL METHODS
+    // PUBLIC METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • format
 
     Formats LilyPond language token.
-    
+
     Returns string.
-    
+
     def __format__(self, format_specification=''):
         from abjad.tools import systemtools
         if format_specification in ('', 'lilypond'):
@@ -44,7 +44,7 @@ FoscLilypondLanguageToken : FoscObject {
         elif format_specification == 'storage':
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
-    
+
     code::
     a = FoscLilypondLanguageToken();
     a.format;
@@ -60,7 +60,7 @@ FoscLilypondLanguageToken : FoscObject {
     Gets interpreter representation of LilyPond language token.
 
     Returns string.
-    
+
     def __repr__(self):
         return '{}()'.format(type(self).__name__)
 
@@ -76,7 +76,7 @@ FoscLilypondLanguageToken : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetLilypondFormat
-    
+
     def _get_lilypond_format(self):
         string = r'\language "english"'
         return string

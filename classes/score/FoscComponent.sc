@@ -21,7 +21,7 @@ FoscComponent : FoscObject {
 	// INIT
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     var <indicatorsAreCurrent=false, <isForbiddenToUpdate=false, <overrides, <lilypondSettingNameManager;
-    var <measureNumber, <offsetsAreCurrent=false, <offsetsInSecondsAreCurrent=false, <parent, <player; 
+    var <measureNumber, <offsetsAreCurrent=false, <offsetsInSecondsAreCurrent=false, <parent, <player;
     var <startOffset, startOffsetInSeconds, <stopOffset, stopOffsetInSeconds, <tag, <timespan, <wrappers;
 	*new { |tag|
         if (tag.notNil) { assert([String, Symbol].any { |type| tag.isKindOf(type) }) };
@@ -71,7 +71,7 @@ FoscComponent : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: SPECIAL METHODS
+	// PUBLIC INSTANCE METHODS: Special Methods
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -149,7 +149,7 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • format
-    
+
     Formats component.
 
     Returns string.
@@ -197,7 +197,7 @@ FoscComponent : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
     '''
     • storeArgs (abjad: __getnewargs__)
-    
+
     Gets new arguments.
 
     Returns array.
@@ -357,7 +357,7 @@ FoscComponent : FoscObject {
         result = result.addAll(this.prFormatAbsoluteAfterSlot(bundle));
         result.do { |each|
             # contributor, contribution = if (each.size == 1) { each[0] } { each };
-            contributions = contributions.addAll(contribution) 
+            contributions = contributions.addAll(contribution)
         };
         if (pieces) { ^contributions } { ^contributions.join("\n") };
     }
@@ -478,7 +478,7 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetDuration
- 
+
     code::
     a = FoscNote(60, 1/4);
     a.prGetDuration.str;
@@ -523,7 +523,7 @@ FoscComponent : FoscObject {
     '''
 
     • metronome marks persist
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     b = FoscScore([a]);
@@ -554,7 +554,7 @@ FoscComponent : FoscObject {
             };
             localWrappers = [];
 
-            component.wrappers.do { |wrapper|          
+            component.wrappers.do { |wrapper|
                 case { wrapper.annotation.notNil } {
                     // continue
                 }
@@ -593,7 +593,7 @@ FoscComponent : FoscObject {
                 // continue
             } {
                 component.dependentWrappers.do { |wrapper|
-                    case 
+                    case
                     { wrapper.annotation.notNil } {
                         // continue
                     } {
@@ -614,7 +614,7 @@ FoscComponent : FoscObject {
                                 };
                                 if (appendWrapper) {
                                     offset = wrapper.startOffset;
-                                    if (candidateWrappers[offset].isNil) { 
+                                    if (candidateWrappers[offset].isNil) {
                                         candidateWrappers[offset] = List[];
                                     };
                                     candidateWrappers[offset].add(wrapper);
@@ -662,7 +662,7 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormatPieces
-    
+
     code::
     a = FoscContainer([FoscNote(60, [1, 4])]);
     a.prGetFormatPieces;
@@ -692,7 +692,7 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetIndicator
-    
+
     code::
     x = FoscNote(60, 1/4);
     x.attach(FoscDynamic('p'));
@@ -712,7 +712,7 @@ FoscComponent : FoscObject {
     prGetIndicator { |prototype, attributes, unwrap=true|
         var indicators;
         indicators = this.prGetIndicators(prototype, attributes, unwrap);
-        case 
+        case
         { indicators.isEmpty } {
             throw("%:% no attached indicators found matching %."
                 .format(this.species, thisMethod.name,prototype));
@@ -828,7 +828,7 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetParentage
-    
+
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 1/4)]);
     a[0].prGetParentage.components;
@@ -881,7 +881,7 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prHasIndicator
-    
+
     code::
     a = FoscNote(60, 1/4);
     a.attach(FoscDynamic('p'));
@@ -898,7 +898,7 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prImmediatelyPrecedes
-    
+
     code::
 `   a = FoscNote(60, 1/4);
     b = FoscNote(60, 1/4);
@@ -1039,13 +1039,13 @@ FoscComponent : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prSibling
-    
+
     code::
     a = FoscNote(60, 1/4);
     b = FoscNote(60, 1/4);
     c = FoscNote(60, 1/4);
     FoscVoice([a, b, c]);
-    
+
     a.prSibling(1) === b;       // true
     b.prSibling(-1) === a;      // true
     a.prSibling(-1) === b;      // false
@@ -1053,7 +1053,7 @@ FoscComponent : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     prSibling { |n|
         var getSibling, sibling, componentParent, index;
-        
+
         assert(
             #[-1, 1].includes(n),
             "%:%: n must be -1 or 1: %.".format(this.species, thisMethod.name, n);
@@ -1075,7 +1075,7 @@ FoscComponent : FoscObject {
             sibling = getSibling.(parent, n.sign);
             if (sibling.notNil) { ^sibling };
         };
-        
+
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------

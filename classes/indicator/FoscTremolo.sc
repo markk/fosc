@@ -137,7 +137,7 @@ FoscTremolo : FoscObject {
     • tweaks
 
     Tweaks are not implemented on tremolo.
-        
+
     The Lilypond '\repeat tremolo' command refuses tweaks.
 
     Override the Lilypond 'Beam' grob instead.
@@ -147,12 +147,12 @@ FoscTremolo : FoscObject {
         // pass
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • format
-    
+
     Formats stem tremolo.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -164,4 +164,3 @@ FoscTremolo : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
-

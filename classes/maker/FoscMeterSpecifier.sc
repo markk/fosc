@@ -123,15 +123,15 @@ FoscMeterSpecifier : FoscObject {
     *new { |meters, attachTimeSignatures=false, boundaryDepth, maximumDotCount, rewriteTuplets=false,
         multimeasureRests=false|
         meters = meters.collect { |each| FoscMeter(each) };
-        assert(attachTimeSignatures.isKindOf(Boolean));  
-        assert(rewriteTuplets.isKindOf(Boolean));  
-        assert(multimeasureRests.isKindOf(Boolean));  
+        assert(attachTimeSignatures.isKindOf(Boolean));
+        assert(rewriteTuplets.isKindOf(Boolean));
+        assert(multimeasureRests.isKindOf(Boolean));
         ^super.new.init(meters, attachTimeSignatures, boundaryDepth, maximumDotCount, rewriteTuplets,
             multimeasureRests);
     }
     init { |argMeters, argAttachTimeSignatures, argBoundaryDepth, argMaximumDotCount, argRewriteTuplets,
-        argMultimeasureRests|    
-        
+        argMultimeasureRests|
+
         meters = argMeters;
         attachTimeSignatures = argAttachTimeSignatures;
         boundaryDepth = argBoundaryDepth;
@@ -144,13 +144,13 @@ FoscMeterSpecifier : FoscObject {
     // *new { |meters, boundaryDepth, maximumDotCount, rewriteTuplets=false,
     //     multimeasureRests=true|
     //     meters = meters.collect { |each| FoscMeter(each) };
-    //     assert(rewriteTuplets.isKindOf(Boolean));  
-    //     assert(multimeasureRests.isKindOf(Boolean));  
+    //     assert(rewriteTuplets.isKindOf(Boolean));
+    //     assert(multimeasureRests.isKindOf(Boolean));
     //     ^super.new.init(meters, boundaryDepth, maximumDotCount, rewriteTuplets,
     //         multimeasureRests);
     // }
-    // init { |argMeters, argBoundaryDepth, argMaximumDotCount, argRewriteTuplets, argMultimeasureRests|    
-        
+    // init { |argMeters, argBoundaryDepth, argMaximumDotCount, argRewriteTuplets, argMultimeasureRests|
+
     //     meters = argMeters;
     //     boundaryDepth = argBoundaryDepth;
     //     maximumDotCount = argMaximumDotCount;
@@ -158,7 +158,7 @@ FoscMeterSpecifier : FoscObject {
     //     multimeasureRests = argMultimeasureRests;
     // }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -167,7 +167,7 @@ FoscMeterSpecifier : FoscObject {
     !!!TODO: NOT YET IMPLEMENTED
 
     Gets interpreter representation.
-    
+
     Returns string.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -178,7 +178,7 @@ FoscMeterSpecifier : FoscObject {
     !!!TODO: NOT YET IMPLEMENTED
 
     Formats duration spelling specifier.
-    
+
     Returns string.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -230,12 +230,12 @@ FoscMeterSpecifier : FoscObject {
         durations = meters.collect { |each| FoscDuration(each) };
         meterDuration = durations.sum;
         musicDuration = selections.collect { |each| each.duration }.sum;
-        
+
         if (meterDuration != musicDuration) {
             ^throw("%:%: duration of meters must be equal to duration of selections: meters: %, selections: %."
                 .format(this.species, thisMethod.name, meterDuration.str, musicDuration.str));
         };
-        
+
         newSelections = [];
         staff = FoscStaff();
 
@@ -292,11 +292,11 @@ FoscMeterSpecifier : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     *prRewriteRestFilled { |selections, multimeasureRests=false|
         var localSelections, maker, prototype, duration, multiplier, rest, rests;
-        
+
         localSelections = [];
         maker = FoscLeafMaker();
         prototype = [FoscMultimeasureRest, FoscRest];
-        
+
         selections.do { |selection|
             if (selection.every { |each| prototype.any { |type| each.isKindOf(type) }}.not) {
                 localSelections = localSelections.add(selection);
@@ -319,8 +319,8 @@ FoscMeterSpecifier : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *prSplitAtMeasureBoundaries
-  
-    
+
+
     • Example 1
 
     code::
@@ -378,7 +378,7 @@ FoscMeterSpecifier : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     *prSplitAtMeasureBoundaries { |selections, meters|
         var durations, container, components, componentDurations, partSizes;
-        
+
         durations = meters.collect { |each| FoscDuration(each) };
         container = FoscContainer(selections);
         mutate(container[0..]).split(durations: durations, tieSplitNotes: true);
@@ -386,7 +386,7 @@ FoscMeterSpecifier : FoscObject {
         componentDurations = components.items.collect { |each| each.prGetDuration };
         partSizes = componentDurations.split(durations).collect { |each| each.size };
         selections = components.partitionBySizes(partSizes).items;
-        
+
         ^selections;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -397,9 +397,9 @@ FoscMeterSpecifier : FoscObject {
     • decreaseMonotonic
 
     Is true when all durations should be spelled as a tied series of monotonically decreasing values. Otherwise false.
-    
+
     Defaults to true.
-    
+
     Returns true or false.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -408,9 +408,9 @@ FoscMeterSpecifier : FoscObject {
     • forbidMeterRewriting
 
     Is true when meter rewriting is forbidden.
-    
+
     Defaults to nil.
-    
+
     Returns boolean or nil.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -419,9 +419,9 @@ FoscMeterSpecifier : FoscObject {
     • forbiddenDuration
 
     Gets forbidden written duration.
-    
+
     Defaults to nil.
-    
+
     Returns duration or nil.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -430,11 +430,11 @@ FoscMeterSpecifier : FoscObject {
     • rewriteMeter
 
     Is true when all output divisions should rewrite meter. Otherwise false.
-    
+
     Defaults to nil.
-    
+
     Set to true, false or nil.
-    
+
     Returns true, false or nil.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -443,11 +443,11 @@ FoscMeterSpecifier : FoscObject {
     • spellMetrically
 
     Is true when durations should spell according to approximate common practice understandings of meter. Otherwise false.
-    
+
     Spells unassignable durations like 5/16 and 9/4 metrically when set to 'unassignable'. Leaves other durations unchanged.
-    
+
     Defaults to nil.
-    
+
     Returns boolean, 'unassignable' or nil..
     '''
     -------------------------------------------------------------------------------------------------------- */

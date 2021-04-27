@@ -38,7 +38,7 @@ FoscStartPhrasingSlur : FoscObject {
     • context
 
     Gets context. Returns 'Voice'.
-    
+
 
     • Example 1
 
@@ -121,7 +121,7 @@ FoscStartPhrasingSlur : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -130,7 +130,7 @@ FoscStartPhrasingSlur : FoscObject {
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of ``argument``.
-    
+
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
     '''

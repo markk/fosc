@@ -23,13 +23,13 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     __documentation_section__ = 'Managers'
-    
+
         __slots__ = (
             '_allow_percussion_clef',
             )
-    
+
         _publish_storage_format = True
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -40,7 +40,7 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __init__(
             self,
             allow_percussion_clef=None,
@@ -50,15 +50,15 @@ FoscWellformednessManager : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def __call__(self, argument=None):
             r'''Calls all wellformedness checks on `argument`.
-    
+
             Returns triples.
             '''
             if argument is None:
@@ -80,11 +80,11 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     @property
         def allow_percussion_clef(self):
             r'''Is true when manager allows percussion clef. Otherwise false.
-    
+
             Returns true, false or none.
             '''
             return self._allow_percussion_clef
@@ -97,10 +97,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_beamed_quarter_notes(self, argument=None):
             r'''Checks to make sure there are no beamed quarter notes.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -127,21 +127,21 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_conflicting_clefs(self, argument=None):
             r'''Checks for conflicting clefs.
-    
+
             Conflicting clefs defined equal to the situation in which a first clef
             is attached to a container and a second clef is attached to a child of
             the container that starts at the same time as the container.
-    
+
             Situation does not usually arise because an exception raises on attempt
             to attach a clef to any component that starts at the same time as some
             other component in the score tree.
-    
+
             But advanced users can stumble into this situation as described in
             the following examples.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -167,15 +167,15 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_discontiguous_spanners(self, argument=None):
             r'''Checks for discontiguous spanners.
-    
+
             There are now two different types of spanner. Most spanners demand that
             spanner components be logical-voice-contiguous. But a few special
             spanners (like MetronomeMark) do not make such a demand. The check here
             consults the experimental `_contiguity_constraint`.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -196,10 +196,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_duplicate_ids(self, argument=None):
             r'''Checks to make sure there are no components with duplicated IDs.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -219,10 +219,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_empty_containers(self, argument=None):
             r'''Checks to make sure there are no empty containers in score.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -240,11 +240,11 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_intermarked_hairpins(self, argument=None):
             r'''Checks to make sure there are no hairpins in score with intervening
             dynamic marks.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -266,10 +266,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_misdurated_measures(self, argument=None):
             r'''Checks to make sure there are no misdurated measures in score.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -290,11 +290,11 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_misfilled_measures(self, argument=None):
             r'''Checks that time signature duration equals measure contents
             duration for every measure.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -312,23 +312,23 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_mismatched_enchained_hairpins(self, argument=None):
             r'''Checks mismatched enchained hairpins.
-    
-            
+
+
 • Example ---
-    
+
                 Checks mismatched enchained hairpins:
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("c'4 d' e' f'")
                     >>> abjad.attach(abjad.Hairpin('p < f'), staff[:2])
                     >>> abjad.attach(abjad.Hairpin('p > pp'), staff[1:])
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations())
                     0 / 4 beamed quarter notes
@@ -353,9 +353,9 @@ FoscWellformednessManager : FoscObject {
                     0 / 0 overlapping ties
                     0 / 2 short hairpins
                     0 / 0 tied rests
-    
+
             Enchained hairpins are fine so long as hairpin ends match.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -371,10 +371,10 @@ FoscWellformednessManager : FoscObject {
                     raise Exception('too many hairpins')
                 assert len(hairpins) == 2
                 hairpins_are_enchained = False
-                if (hairpins[0]._is_my_last_leaf(leaf) and 
+                if (hairpins[0]._is_my_last_leaf(leaf) and
                     hairpins[-1]._is_my_first_leaf(leaf)):
                     hairpins_are_enchained = True
-                if (hairpins[-1]._is_my_last_leaf(leaf) and 
+                if (hairpins[-1]._is_my_last_leaf(leaf) and
                     hairpins[0]._is_my_first_leaf(leaf)):
                     hairpins_are_enchained = True
                 if not hairpins_are_enchained:
@@ -398,22 +398,22 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_mispitched_ties(self, argument=None):
             r'''Checks for mispitched notes.
-    
-            
+
+
 • Example ---
-    
+
                 Checks for mispitched ties attached to notes:
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("c'4 ~ c'")
                     >>> staff[1].written_pitch = abjad.NamedPitch("d'")
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations())
                     0 / 2 beamed quarter notes
@@ -438,19 +438,19 @@ FoscWellformednessManager : FoscObject {
                     0 / 1 overlapping ties
                     0 / 0 short hairpins
                     0 / 0 tied rests
-    
-            
+
+
 • Example ---
-    
+
                 Checks for mispitched ties attached to chords:
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("<c' d' bf'>4 ~ <c' d' bf'>")
                     >>> staff[1].written_pitches = [6, 9, 10]
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations())
                     0 / 2 beamed quarter notes
@@ -475,9 +475,9 @@ FoscWellformednessManager : FoscObject {
                     0 / 1 overlapping ties
                     0 / 0 short hairpins
                     0 / 0 tied rests
-            
+
             Does not check tied rests, chords or skips.
-    
+
             Returns violator ties together with total number of ties.
             '''
             import abjad
@@ -508,10 +508,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_misrepresented_flags(self, argument=None):
             r'''Checks to make sure there are no misrepresented flags in score.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -539,11 +539,11 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_missing_parents(self, argument=None):
             r'''Checks to make sure there are no components in score with missing
             parent.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -562,10 +562,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_nested_measures(self, argument=None):
             r'''Checks to make sure there are no nested measures in score.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -583,24 +583,24 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_notes_on_wrong_clef(self, argument=None):
             r'''Checks notes and chords on wrong clef.
-    
-            
+
+
 • Example ---
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("c'8 d'8 e'8 f'8")
                     >>> clef = abjad.Clef(name='alto')
                     >>> abjad.attach(clef, staff[0])
                     >>> violin = abjad.instrumenttools.Violin()
                     >>> abjad.attach(violin, staff[0])
                     >>> show(staff) # doctest: +SKIP
-    
+
                 ..  docs::
-    
+
                     >>> f(staff)
     code::
                     \new Staff {
@@ -612,9 +612,9 @@ FoscWellformednessManager : FoscObject {
                         e'8
                         f'8
                     }
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations())
                     0 / 4 beamed quarter notes
@@ -639,23 +639,23 @@ FoscWellformednessManager : FoscObject {
                     0 / 0 overlapping ties
                     0 / 0 short hairpins
                     0 / 0 tied rests
-    
-            
+
+
 • Example ---
-    
+
                 Allows percussion clef:
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("c'8 d'8 e'8 f'8")
                     >>> clef = abjad.Clef(name='percussion')
                     >>> abjad.attach(clef, staff[0])
                     >>> violin = abjad.instrumenttools.Violin()
                     >>> abjad.attach(violin, staff[0])
                     >>> show(staff) # doctest: +SKIP
-    
+
                 ..  docs::
-    
+
                     >>> f(staff)
     code::
                     \new Staff {
@@ -667,9 +667,9 @@ FoscWellformednessManager : FoscObject {
                         e'8
                         f'8
                     }
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations(
                     ...     allow_percussion_clef=True,
@@ -696,14 +696,14 @@ FoscWellformednessManager : FoscObject {
                     0 / 0 overlapping ties
                     0 / 0 short hairpins
                     0 / 0 tied rests
-    
-            
+
+
 • Example ---
-    
+
                 Forbids percussion clef:
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations(
                     ...     allow_percussion_clef=False,
@@ -730,7 +730,7 @@ FoscWellformednessManager : FoscObject {
                     0 / 0 overlapping ties
                     0 / 0 short hairpins
                     0 / 0 tied rests
-    
+
             Returns true or false.
             '''
             import abjad
@@ -756,25 +756,25 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_out_of_range_notes(self, argument=None):
             r'''Checks to make sure notes and chords are within traditional
             instrument ranges.
-    
-            
+
+
 • Example ---
-    
+
                 Out of range:
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("c'8 r8 <d fs>8 r8")
                     >>> violin = abjad.instrumenttools.Violin()
                     >>> abjad.attach(violin, staff[0])
                     >>> show(staff) # doctest: +SKIP
-    
+
                 ..  docs::
-    
+
                     >>> f(staff)
     code::
                     \new Staff {
@@ -785,9 +785,9 @@ FoscWellformednessManager : FoscObject {
                         <d fs>8
                         r8
                     }
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations())
                     0 / 4 beamed quarter notes
@@ -812,7 +812,7 @@ FoscWellformednessManager : FoscObject {
                     0 / 0 overlapping ties
                     0 / 0 short hairpins
                     0 / 2 tied rests
-    
+
             Returns true or false.
             '''
             import abjad
@@ -833,10 +833,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_overlapping_beams(self, argument=None):
             r'''Checks to make sure there are no overlapping beams in score.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -857,10 +857,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_overlapping_glissandi(self, argument=None):
             r'''Checks to make sure there are no overlapping glissandi in score.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -895,23 +895,23 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_overlapping_hairpins(self, argument=None):
             r'''Checks to make sure there are no overlapping hairpins in score.
-    
-            
+
+
 • Example ---
-    
+
                 Checks overlapping hairpins:
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("c'4 d' e' f'")
                     >>> abjad.attach(abjad.Hairpin('<'), staff[:])
                     >>> abjad.attach(abjad.Hairpin('>'), staff[:])
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations())
                     0 / 4 beamed quarter notes
@@ -936,9 +936,9 @@ FoscWellformednessManager : FoscObject {
                     0 / 0 overlapping ties
                     0 / 2 short hairpins
                     0 / 0 tied rests
-    
+
             Enchained hairpins are fine so long as hairpin ends match.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -973,11 +973,11 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_overlapping_octavation_spanners(self, argument=None):
             r'''Checks to make sure there are no overlapping octavation spanners in
             score.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -999,25 +999,25 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_overlapping_ties(self, argument=None):
             r'''Checks to make sure there are no overlapping ties in score.
-    
-            
+
+
 • Example ---
-    
+
                 Checks overlapping ties:
-    
+
                 ::
-    
+
                     >>> staff = abjad.Staff("c'4 c' c' c''")
                     >>> abjad.attach(abjad.Tie(), staff[:2])
                     >>> tie = abjad.Tie()
                     >>> tie._ignore_attachment_test = True
                     >>> abjad.attach(tie, staff[1:3])
-    
+
                 ::
-    
+
                     >>> agent = abjad.inspect(staff)
                     >>> print(agent.tabulate_well_formedness_violations())
                     0 / 4 beamed quarter notes
@@ -1042,7 +1042,7 @@ FoscWellformednessManager : FoscObject {
                     2 / 2 overlapping ties
                     0 / 0 short hairpins
                     0 / 0 tied rests
-    
+
             Returns violators and count of total ties.
             '''
             import abjad
@@ -1060,10 +1060,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_short_hairpins(self, argument=None):
             r'''Checks to make sure that hairpins span at least two leaves.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -1081,10 +1081,10 @@ FoscWellformednessManager : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     •
-    
+
     def check_tied_rests(self, argument=None):
             r'''Checks to make sure there are no tied rests.
-    
+
             Returns violators and total.
             '''
             import abjad
@@ -1098,4 +1098,3 @@ FoscWellformednessManager : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
-

@@ -104,7 +104,7 @@ FoscContainer : FoscComponent {
         this.instVarPut('name', name);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -131,7 +131,7 @@ FoscContainer : FoscComponent {
     Iterates container.
 
     Returns a Routine.
-    
+
 
     • Example 1
 
@@ -213,9 +213,9 @@ FoscContainer : FoscComponent {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • size
-    
+
     Gets number of items in container.
-    
+
     Returns integer.
 
     code::
@@ -265,7 +265,7 @@ FoscContainer : FoscComponent {
 
 
     • add a new container to end of container
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.add(FoscTuplet(2/3, [FoscNote(67, 1/4), FoscNote(69, 1/8)]));
@@ -281,7 +281,7 @@ FoscContainer : FoscComponent {
 
 
     • add a selection to end of container
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.add(FoscLeafMaker().(#[67,69], [1/4]));
@@ -297,7 +297,7 @@ FoscContainer : FoscComponent {
 
     '''
     -------------------------------------------------------------------------------------------------------- */
-    add { |component|        
+    add { |component|
         this.prSetItem(this.size, component);
     }
     /* --------------------------------------------------------------------------------------------------------
@@ -324,7 +324,7 @@ FoscContainer : FoscComponent {
 
 
     • add tuplet containers to end of container
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     b = FoscTuplet(2/3, [FoscNote(67, 1/4), FoscNote(69, 1/8)]);
@@ -342,7 +342,7 @@ FoscContainer : FoscComponent {
 
 
     • add selections to end of container
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     b = FoscLeafMaker().(#[67,69], [1/4]);
@@ -368,14 +368,14 @@ FoscContainer : FoscComponent {
     • at
 
     Gets item at 'index' in container. Traverses top-level items only.
-    
-    Returns component or selection.    
+
+    Returns component or selection.
 
 
     • Example 1
 
     Get by index. Returns component.
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a[2];
@@ -399,11 +399,11 @@ FoscContainer : FoscComponent {
     • copySeries
 
     Gets item at indices in container. Traverses top-level items only.
-    
-    Returns component or selection.    
+
+    Returns component or selection.
 
     • Example 1
-    
+
     code::
     a = FoscVoice();
     a.addAll({ |i| FoscNote(60 + i, 1/4) } ! 8);
@@ -441,7 +441,7 @@ FoscContainer : FoscComponent {
         if (item.isKindOf(String) || { item.isKindOf (Symbol) }) {
             ^namedChildren.keys.includes(item.asSymbol);
         } {
-            components.do { |each| if (each == item) { ^true } };            
+            components.do { |each| if (each == item) { ^true } };
         };
         ^false;
     }
@@ -558,7 +558,7 @@ FoscContainer : FoscComponent {
 
     Gets leaf at 'index' in container.
 
-    
+
     • Example 1
 
     Get leaf at index 1.
@@ -746,7 +746,7 @@ FoscContainer : FoscComponent {
             };
             newContainer.add(newComponent);
         };
-        ^newContainer;  
+        ^newContainer;
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -755,7 +755,7 @@ FoscContainer : FoscComponent {
     Deletes components(s) at 'index' in container.
 
     Returns components.
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prDelItem(2);
@@ -807,7 +807,7 @@ FoscContainer : FoscComponent {
         var contents;
         if (this.prGetParentage.parent.notNil) {
             //throw("%:%: can't eject contents of in-score container.".format(this.species, thisMethod.name));
-            
+
             // throw handler not reliably being caught
             "ERROR: %:%: can't eject contents of in-score container."
                 .format(this.species, thisMethod.name).postln;
@@ -817,7 +817,7 @@ FoscContainer : FoscComponent {
         contents.do { |component| component.prSetParent(nil) };
         components = [];
         ^contents;
-    } 
+    }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prFormatAfterSlot
@@ -852,7 +852,7 @@ FoscContainer : FoscComponent {
         var result, bracketsClose;
         result = [];
         bracketsClose = if (isSimultaneous) { [">>"] } { ["}"] };
-        
+
         if (isSimultaneous) {
             if (identifier.notNil) {
                 bracketsClose = [">> ".format(identifier)];
@@ -921,7 +921,7 @@ FoscContainer : FoscComponent {
     prFormatOpenBracketsSlot { |bundle|
         var result, bracketsOpen;
         result = [];
-        
+
         if (isSimultaneous) {
             if (identifier.notNil) {
                 bracketsOpen = ["<< ".format(identifier)];
@@ -1001,14 +1001,14 @@ FoscContainer : FoscComponent {
     -------------------------------------------------------------------------------------------------------- */
     prGetAbbreviatedStringFormat {
         var summary, openBracketString, closeBracketString, localName, result;
-        summary = if (0 < this.size) { this.size.asString } { "" };    
+        summary = if (0 < this.size) { this.size.asString } { "" };
         if (isSimultaneous) {
             openBracketString = "<<";
             closeBracketString = ">>";
         }  {
             openBracketString = "{";
             closeBracketString = "}";
-        };   
+        };
         localName = if (name.notNil) { "-\"%\"" } { "" };
         if (this.respondsTo('lilypondType') && { this.lilypondType.notNil }) {
             result = "<%%%%%>"
@@ -1118,7 +1118,7 @@ FoscContainer : FoscComponent {
     • prGetItem (abjad: __getitem__)
 
     Gets item at index in container. Traverses top-level items only.
-    
+
     Returns component or selection.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -1131,7 +1131,7 @@ FoscContainer : FoscComponent {
             if (index.every { |each| each.notNil }) {
                 ^FoscSelection(components.prGetItem(index));
             } {
-                ^FoscSelection([]);      
+                ^FoscSelection([]);
             };
         }
         { [Symbol, String].includes(index.species) } {
@@ -1184,7 +1184,7 @@ FoscContainer : FoscComponent {
         if (this.prAllAreOrphanComponents(components)) {
             this.instVarPut('components', components);
             FoscSelection(components).prSetParents(this);
-        };        
+        };
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -1205,7 +1205,7 @@ FoscContainer : FoscComponent {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prIterateBottomUp
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/12,1/12,1/12,1/4]));
     a.prIterateBottomUp.do { |each| each.postln };
@@ -1218,7 +1218,7 @@ FoscContainer : FoscComponent {
     prIterateBottomUp {
         var routine, recurse;
         recurse = { |node|
-            routine = Routine { 
+            routine = Routine {
                 if (node.isKindOf(FoscContainer)) {
                     node.do { |each|
                         recurse.(each).do { |elem| elem.yield };
@@ -1246,7 +1246,7 @@ FoscContainer : FoscComponent {
     prIterateTopDown {
         var routine, recurse;
         recurse = { |node|
-            routine = Routine { 
+            routine = Routine {
                 node.yield;
                 if (node.isKindOf(FoscContainer)) {
                     node.do { |each|
@@ -1369,7 +1369,7 @@ FoscContainer : FoscComponent {
 
 
     • add tuplet to end of container
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prSetItem(a.size, FoscTuplet(2/3, [FoscNote(67, 1/4), FoscNote(69, 1/8)]));
@@ -1385,7 +1385,7 @@ FoscContainer : FoscComponent {
 
 
     • add selection to end of container
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prSetItem(a.size, FoscLeafMaker().(#[67,69], [1/4]));
@@ -1417,7 +1417,7 @@ FoscContainer : FoscComponent {
 
 
     • replace last two items in container with tuplet
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prSetItem((2..4), FoscTuplet(2/3, [FoscNote(67, 1/4), FoscNote(69, 1/8)]));
@@ -1433,7 +1433,7 @@ FoscContainer : FoscComponent {
 
 
     • replace last two items in container with selection
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prSetItem((2..4), FoscLeafMaker().(#[67,69], [1/4]));
@@ -1465,7 +1465,7 @@ FoscContainer : FoscComponent {
 
 
     • insert tuplet in container at index
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prSetItem(#[1,1], FoscTuplet(2/3, [FoscNote(67, 1/4), FoscNote(69, 1/8)]));
@@ -1481,7 +1481,7 @@ FoscContainer : FoscComponent {
 
 
     • insert selection in container at index
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prSetItem(#[1,1], FoscLeafMaker().(#[67,69], [1/4]));
@@ -1498,7 +1498,7 @@ FoscContainer : FoscComponent {
 
 
     • grow container if index is greater than container size
-    
+
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     a.prSetItem(#[4,4], FoscLeafMaker().(#[67,69], [1/4]));
@@ -1517,7 +1517,7 @@ FoscContainer : FoscComponent {
     prSetItem { |index, object|
         var componentIndicators, wrappers, prototype, newObject, start, stop, oldComponents;
 
-        componentIndicators = []; 
+        componentIndicators = [];
         FoscIteration(object).components.do { |component|
             //wrappers = component.prGetIndicators(unwrap: false);
             wrappers = FoscInspection(component).wrappers;
@@ -1527,7 +1527,7 @@ FoscContainer : FoscComponent {
         if (index.isInteger) { index = [index, index + 1] };
         prototype = [FoscComponent, FoscSelection];
         assert(object.every { |item| prototype.any { |type| item.isKindOf(type) } });
-        newObject = [];   
+        newObject = [];
         object.do { |each|
             if (each.isKindOf(FoscSelection)) {
                 newObject = newObject.addAll(each.flat.items);
@@ -1612,7 +1612,7 @@ FoscContainer : FoscComponent {
             right = this.copy;
             mutate(rightComponents).wrap(right);
         };
-        
+
         // # save left and right containers together for iteration
         // halves = (left, right)
         // nonempty_halves = [half for half in halves if len(half)]
@@ -1623,7 +1623,7 @@ FoscContainer : FoscComponent {
         nonEmptyHalves = halves.select { |half| half.components.notEmpty };
         selection = FoscSelection(this);
         # parent, start, stop = selection.prGetParentAndStartStopIndices;
-        
+
         // if parent is not None:
         //     parent._components.__setitem__(slice(start, stop + 1), nonempty_halves)
         //     for part in nonempty_halves:
@@ -1640,7 +1640,7 @@ FoscContainer : FoscComponent {
             left.prSetParent(nil);
             right.prSetParent(nil);
         };
-        
+
         ^halves;
     }
 
@@ -1762,8 +1762,8 @@ FoscContainer : FoscComponent {
 
 
 
-   
-   
+
+
     '''
     -------------------------------------------------------------------------------------------------------- */
     prSplitByDuration { |duration, tieSplitNotes=true, repeatTies=false|
@@ -1788,13 +1788,13 @@ FoscContainer : FoscComponent {
         //     return [], self
         // # get split point score offset
         // timespan = inspect(self).timespan()
-        // global_split_point = timespan.start_offset + duration 
+        // global_split_point = timespan.start_offset + duration
         duration = FoscDuration(duration);
         assert(0 <= duration);
         if (duration == 0) { ^[[], this] };
         timespan = FoscInspection(this).timespan;
         globalSplitPoint = timespan.startOffset + duration;
-    
+
         \b.postln;
         // # get any duration-crossing descendents
         // cross_offset = timespan.start_offset + duration
@@ -1815,13 +1815,13 @@ FoscContainer : FoscComponent {
             startOffset = timespan.startOffset;
             stopOffset = timespan.stopOffset;
             if (startOffset < crossOffset && { crossOffset < stopOffset }) {
-                durationCrossingDescendants = durationCrossingDescendants.add(descendant);  
+                durationCrossingDescendants = durationCrossingDescendants.add(descendant);
             };
         };
         bottom = durationCrossingDescendants.last;
         didSplitLeaf = false;
-      
-        \c.postln;  
+
+        \c.postln;
         // # if split point necessitates leaf split
         // if isinstance(bottom, Leaf):
         //     assert isinstance(bottom, Leaf)
@@ -1902,7 +1902,7 @@ FoscContainer : FoscComponent {
                 throw("%:%: can't split empty container: %.".format(this.species, thisMethod.name, bottom));
             };
         };
-        
+
 
         \d.postln;
         // assert leaf_left_of_split is not None
@@ -1928,7 +1928,7 @@ FoscContainer : FoscComponent {
             };
             throw("%:%: should not be able to get here.".format(this.species, thisMethod.name));
         };
-      
+
 
 
         \e.postln;
@@ -1945,7 +1945,7 @@ FoscContainer : FoscComponent {
             index = container.indexOf(previous);
             # left, right = container.prSplitAtIndex(index);
             previous = right;
-        }; 
+        };
 
 
         \f.postln;
@@ -1990,7 +1990,7 @@ FoscContainer : FoscComponent {
         var leafLeftOfSplit, durationCrossingContainers, agent, parentage, component, parent, index;
         var highestLevelComponentRightOfSplit, previous, leftLogicalTie, rightLogicalTie, leavesAroundSplit;
         var selection;
-        
+
         duration = FoscDuration(duration);
         // assert 0 <= duration, repr(duration)
         if (duration == 0) { ^[[], this] };
@@ -2005,7 +2005,7 @@ FoscContainer : FoscComponent {
             startOffset = timespan.startOffset;
             stopOffset = timespan.stopOffset;
             if (startOffset < crossOffset && { crossOffset < stopOffset }) {
-                durationCrossingDescendants = durationCrossingDescendants.add(descendant);  
+                durationCrossingDescendants = durationCrossingDescendants.add(descendant);
             };
         };
 
@@ -2038,7 +2038,7 @@ FoscContainer : FoscComponent {
                         startOffset = timespan.startOffset;
                         stopOffset = timespan.stopOffset;
                         if (startOffset < crossOffset && { crossOffset < stopOffset }) {
-                            durationCrossingDescendants = durationCrossingDescendants.add(descendant);  
+                            durationCrossingDescendants = durationCrossingDescendants.add(descendant);
                         };
                     };
                 };
@@ -2253,10 +2253,10 @@ FoscContainer : FoscComponent {
     //     var prototype;
     //     prototype = [FoscComponent, FoscSelection];
     //     if (prototype.any { |type| node.isKindOf(type) }.not) {
-    //         throw("%: can't insert a % in this container.".format(this.species, node.species)); 
+    //         throw("%: can't insert a % in this container.".format(this.species, node.species));
     //     };
     //     super.prOnInsertionCheck(index, node);
-    // } 
+    // }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prolation

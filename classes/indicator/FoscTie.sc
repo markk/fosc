@@ -40,7 +40,7 @@ FoscTie : FoscObject {
     • context
 
     Gets context. Returns 'Voice'.
-    
+
 
     • Example 1
 
@@ -54,10 +54,10 @@ FoscTie : FoscObject {
     • direction
 
     Gets direction. Defaults to none.
-    
+
     Returns up, down or none.
 
-    
+
     • Example 1
 
     Force ties up.
@@ -125,7 +125,7 @@ FoscTie : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -134,7 +134,7 @@ FoscTie : FoscObject {
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of ``argument``.
-    
+
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
     '''

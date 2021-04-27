@@ -72,7 +72,7 @@ FoscLilypondFile : FoscObject {
     var <lilypondLanguageToken, <lilypondVersionToken, <useRelativeIncludes;
     var <headerBlock, <layoutBlock, <paperBlock, <scoreBlock; //!!!TODO: REMOVE THESE ?
     *new { |items, dateTimeToken, defaultPaperSize, comments, includes, globalStaffSize,
-        lilypondLanguageToken, lilypondVersionToken, useRelativeIncludes=false|     
+        lilypondLanguageToken, lilypondVersionToken, useRelativeIncludes=false|
         ^super.new.init(items, dateTimeToken, defaultPaperSize, comments, includes, globalStaffSize,
             lilypondLanguageToken, lilypondVersionToken, useRelativeIncludes);
     }
@@ -128,7 +128,7 @@ FoscLilypondFile : FoscObject {
         var staves, staff, score, lilypondFile, block, scheme, moment;
         // if pitches.rank == 1 pitches = [[pitches]]
         staves = [];
-        
+
         pitches.do { |each|
             // assert every in each isKindOf FoscPitch
             //each.do { |p| p.str.postln };
@@ -139,7 +139,7 @@ FoscLilypondFile : FoscObject {
         score = FoscScore(staves);
 
         //score.illustrate.format.postln;
-        
+
         lilypondFile = this.new(
             score,
             defaultPaperSize: defaultPaperSize,
@@ -150,7 +150,7 @@ FoscLilypondFile : FoscObject {
             ],
             useRelativeIncludes: true
         );
-        
+
         //!!!TODO: isn't all the stuff below set in the stylesheet?
         lilypondFile.headerBlock.tagline = false;
         lilypondFile.paperBlock.leftMargin = 20;
@@ -158,7 +158,7 @@ FoscLilypondFile : FoscObject {
         lilypondFile.layoutBlock.indent = 0;
         lilypondFile.layoutBlock.raggedRight = true;
         lilypondFile.layoutBlock.items.add(FoscLilypondLiteral("\\accidentalStyle dodecaphonic"));
-        
+
         // voice
         block = FoscContextBlock(sourceLilypondType: 'Voice');
         lilypondFile.layoutBlock.items.add(block);
@@ -170,7 +170,7 @@ FoscLilypondFile : FoscObject {
         block.removeCommands.add('Bar_engraver');
         block.removeCommands.add('Bar_number_engraver');
         block.removeCommands.add('Time_signature_engraver');
-        
+
         // score
         block = FoscContextBlock(sourceLilypondType: 'Score');
         lilypondFile.layoutBlock.items.add(block);
@@ -187,11 +187,11 @@ FoscLilypondFile : FoscObject {
     • *rhythm
 
     Makes rhythm-maker-style LilyPond file.
-    
+
     Used in rhythm-maker docs.
-    
+
     Returns LilyPond file.
-    
+
 
     • Example 1
 
@@ -200,7 +200,7 @@ FoscLilypondFile : FoscObject {
     code::
     d = #[[3,4],[4,8],[1,4]];
     m = FoscLeafMaker();
-    
+
     code::
     x = [m.(64 ! 6, 1/8), m.(64 ! 8, 1/16), m.(64 ! 2, 1/8)];
     x.do { |each| each.beam };
@@ -217,7 +217,7 @@ FoscLilypondFile : FoscObject {
 
 
 
-    
+
 
     !!!TODO: functionality removed - bring it back?
     • Example 2
@@ -227,7 +227,7 @@ FoscLilypondFile : FoscObject {
     code::
     d = #[[3,4],[4,8],[1,4]];
     m = FoscLeafMaker();
-    
+
     code::
     x = [m.(64 ! 6, 1/8), m.(64 ! 8, 1/16), m.(64 ! 2, 1/8)];
     x.do { |each| each.beam };
@@ -254,7 +254,7 @@ FoscLilypondFile : FoscObject {
     code::
     d = #[[3,4],[4,8],[1,4]];
     m = FoscLeafMaker();
-    
+
     code::
     x = [m.(64 ! 6, 1/8), m.(64 ! 8, 1/16), m.(64 ! 2, 1/8)];
     x.do { |each| each.beam };
@@ -353,14 +353,14 @@ FoscLilypondFile : FoscObject {
 
         case
         { selections.isSequenceableCollection } {
-            selections.do { |each| 
+            selections.do { |each|
                 if (each.isKindOf(FoscSelection).not) {
                     throw("%:%: must be a selection: %".format(this.species, thisMethod.name, each));
                 };
             };
         }
         { selections.isKindOf(Dictionary) } {
-            selections.values.do { |each| 
+            selections.values.do { |each|
                 if (each.isKindOf(FoscSelection).not) {
                     throw("%:%: must be a selection: %".format(this.species, thisMethod.name, each));
                 };
@@ -371,7 +371,7 @@ FoscLilypondFile : FoscObject {
         }
         {
             throw("%:%: must be a SequenceableCollection or Dictionary: %"
-                .format(this.species, thisMethod.name, selections)); 
+                .format(this.species, thisMethod.name, selections));
         };
 
         score = FoscScore();
@@ -461,7 +461,7 @@ FoscLilypondFile : FoscObject {
                 fraction;
             };
         };
-        
+
         timeSignatures = timeSignatures.collect { |each| FoscTimeSignature(each) };
 
         score.doComponents({ |staff, i|
@@ -469,7 +469,7 @@ FoscLilypondFile : FoscObject {
             if (#[1,2].includes(duration.denominator)) { duration = duration.withDenominator(4) };
             staff.leafAt(0).attach(FoscTimeSignature(duration.pair));
         }, prototype: FoscStaff);
-        
+
         ^lilypondFile;
     }
     // *rhythm { |selections, divisions, attachLilypondVoiceCommands=false, pitchedStaff=false, stretch=1|
@@ -478,14 +478,14 @@ FoscLilypondFile : FoscObject {
 
     //     case
     //     { selections.isSequenceableCollection } {
-    //         selections.do { |each| 
+    //         selections.do { |each|
     //             if (each.isKindOf(FoscSelection).not) {
     //                 throw("%:%: must be a selection: %".format(this.species, thisMethod.name, each));
     //             };
     //         };
     //     }
     //     { selections.isKindOf(Dictionary) } {
-    //         selections.values.do { |each| 
+    //         selections.values.do { |each|
     //             if (each.isKindOf(FoscSelection).not) {
     //                 throw("%:%: must be a selection: %".format(this.species, thisMethod.name, each));
     //             };
@@ -496,7 +496,7 @@ FoscLilypondFile : FoscObject {
     //     }
     //     {
     //         throw("%:%: must be a SequenceableCollection or Dictionary: %"
-    //             .format(this.species, thisMethod.name, selections)); 
+    //             .format(this.species, thisMethod.name, selections));
     //     };
 
     //     score = FoscScore();
@@ -586,7 +586,7 @@ FoscLilypondFile : FoscObject {
     //             fraction;
     //         };
     //     };
-        
+
     //     timeSignatures = timeSignatures.collect { |each| FoscTimeSignature(each) };
     //     context = FoscContext(lilypondType: 'GlobalContext');
     //     skips = [];
@@ -606,9 +606,9 @@ FoscLilypondFile : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • comments
-    
+
     Gets comments of Lilypond file.
-    
+
     code::
     a = FoscLilypondFile();
     a.comments;
@@ -617,9 +617,9 @@ FoscLilypondFile : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • dateTimeToken
-    
+
     Gets date-time token.
-    
+
     code::
     a = FoscLilypondFile();
     a.dateTimeToken;
@@ -630,7 +630,7 @@ FoscLilypondFile : FoscObject {
     • defaultPaperSize
 
     Gets default paper size of Lilypond file. Set to pair or nil. Defaults to nil.
-    
+
     code::
     a = FoscLilypondFile();
     a.defaultPaperSize;
@@ -641,7 +641,7 @@ FoscLilypondFile : FoscObject {
     • globalStaffSize
 
     Gets global staff size of Lilypond file. Set to number or nil. Defaults to nil.
-    
+
     code::
     a = FoscLilypondFile();
     a.globalStaffSize;
@@ -654,7 +654,7 @@ FoscLilypondFile : FoscObject {
     Gets header block.
 
     Returns block or nil.
-    
+
     code::
     a = FoscLilypondFile();
     a.headerBlock.name;
@@ -671,7 +671,7 @@ FoscLilypondFile : FoscObject {
     • includes
 
     Gets includes of Lilypond file.
-    
+
     code::
     a = FoscLilypondFile();
     a.includes;
@@ -682,7 +682,7 @@ FoscLilypondFile : FoscObject {
     • items
 
     Gets items in Lilypond file.
-    
+
     code::
     a = FoscLilypondFile();
     a.items;
@@ -696,7 +696,7 @@ FoscLilypondFile : FoscObject {
 
     Returns block or nil.
 
-    
+
     code::
     a = FoscLilypondFile();
     a.layoutBlock.name;
@@ -713,7 +713,7 @@ FoscLilypondFile : FoscObject {
     • lilypondLanguageToken
 
     Gets Lilypond language token.
-    
+
     code::
     a = FoscLilypondFile();
     a.lilypondLanguageToken;
@@ -738,7 +738,7 @@ FoscLilypondFile : FoscObject {
 
     Returns block or nil.
 
-    
+
     code::
     a = FoscLilypondFile();
     a.paperBlock.name;
@@ -757,7 +757,7 @@ FoscLilypondFile : FoscObject {
     Gets score block.
 
     Returns block or nil.
-    
+
 
     code::
     a = FoscLilypondFile();
@@ -782,7 +782,7 @@ FoscLilypondFile : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -799,7 +799,7 @@ FoscLilypondFile : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • at (abjad: __getitem__)
-    
+
     Gets item with name.
 
     Returns item.
@@ -813,7 +813,7 @@ FoscLilypondFile : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • illustrate
-    
+
     Illustrates Lilypond file.
 
     Returns Lilypond file unchanged.
@@ -827,7 +827,7 @@ FoscLilypondFile : FoscObject {
     • asCompileString
 
     Gets interpreter representation of Lilypond file.
-    
+
     Returns string.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -840,7 +840,7 @@ FoscLilypondFile : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormatPieces
-    
+
     code::
     c = ["File construct as an example.", "Second comment."];
     i = ["external-settings-file-1.ly", "external-settings-file-2.ly"];
@@ -901,7 +901,7 @@ FoscLilypondFile : FoscObject {
         var result, string;
         result = [];
         items.do { |item|
-            case 
+            case
             { item.isKindOf(FoscBlock) && { item.items.isEmpty } } {
                 // pass
             }
@@ -948,7 +948,7 @@ FoscLilypondFile : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetFormattedIncludes
-    
+
     i = [
         "external-settings-file-1.ly",
         "external-settings-file-2.ly"

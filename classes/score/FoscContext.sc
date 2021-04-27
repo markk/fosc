@@ -56,9 +56,9 @@ FoscContext : FoscContainer {
 		consistsCommands = List[];
         dependentWrappers = List[];
 		removeCommands = List[];
-	}  
+	}
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
  	/* --------------------------------------------------------------------------------------------------------
     '''
@@ -90,7 +90,7 @@ FoscContext : FoscContainer {
     '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
-        ^[[], lilypondType, isSimultaneous, name, playbackManager];   
+        ^[[], lilypondType, isSimultaneous, name, playbackManager];
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
@@ -98,7 +98,7 @@ FoscContext : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
      '''
      • prFormatClosingSlot
- 	
+
      code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     b = FoscLilypondFormatManager.bundleFormatContributions(a);
@@ -116,7 +116,7 @@ FoscContext : FoscContainer {
 	/* --------------------------------------------------------------------------------------------------------
   '''
  	• prFormatConsistsCommands
- 	
+
   code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.consistsCommands.add('Horizontal_bracket_engraver');
@@ -135,7 +135,7 @@ FoscContext : FoscContainer {
 	/* --------------------------------------------------------------------------------------------------------
   '''
  	• prFormatInvocation
-    
+
   code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.prFormatInvocation;
@@ -213,7 +213,7 @@ FoscContext : FoscContainer {
 	/* --------------------------------------------------------------------------------------------------------
   '''
  	• prFormatRemoveCommands
- 	
+
   code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.removeCommands.add('Horizontal_bracket_engraver');
@@ -235,7 +235,7 @@ FoscContext : FoscContainer {
     /* --------------------------------------------------------------------------------------------------------
   '''
  	• prGetLilypondFormat
- 	
+
   code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.prGetLilypondFormat;
@@ -253,9 +253,9 @@ FoscContext : FoscContainer {
     // abjad 3.0
     prGetPersistentWrappers {
         var wrappers, indicator, key;
-        this.prUpdateNow(indicators: true);    
+        this.prUpdateNow(indicators: true);
         dependentWrappers.do { |wrapper|
-            if (this.respondsTo('persistent') && { this.persistent }) { 
+            if (this.respondsTo('persistent') && { this.persistent }) {
                 case
                 { this.respondsTo('parameter') } {
                     key = indicator.parameter;
@@ -295,9 +295,9 @@ FoscContext : FoscContainer {
     • lilypondType
 
     Gets and sets context name of context.
-    
+
     Returns string.
-    
+
     code::
     a = FoscStaff([]);
     a.lilypondType;
@@ -317,9 +317,9 @@ FoscContext : FoscContainer {
     • lilypondContext
 
     Gets LilyPondContext associated with context.
-    
+
     Returns FoscLilypondContext instance.
-    
+
     code::
     a = FoscStaff([]);
     a.lilypondContext.name;
@@ -341,7 +341,7 @@ FoscContext : FoscContainer {
     Set of LilyPond engravers to remove from context.
 
     Returns set.
-    
+
     code::
     a = FoscStaff([]);
     a.removeCommands.add('Horizontal_bracket_engraver');

@@ -50,7 +50,7 @@ FoscStopPianoPedal : FoscObject {
     • context
 
     Gets context. Returns 'StaffGroup'.
-    
+
 
     • Example 1
 
@@ -147,7 +147,7 @@ FoscStopPianoPedal : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -190,7 +190,7 @@ FoscStopPianoPedal : FoscObject {
             strings = strings.insert(0, "<> %".format(string));
             bundle.after.leaks.addAll(strings);
         } {
-            bundle.after.spannerStops.addAll(strings); 
+            bundle.after.spannerStops.addAll(strings);
         };
         ^bundle;
     }

@@ -26,7 +26,7 @@ FoscDurationSpecifier : FoscObject {
     var <publishStorageFormat=true;
     *new { |decreaseMonotonic=true, forbidMeterRewriting=false, forbiddenDuration, rewriteMeter=false,
         spellMetrically=false|
-        
+
         assert(decreaseMonotonic.isKindOf(Boolean));
         assert(forbidMeterRewriting.isKindOf(Boolean));
         if (forbiddenDuration.notNil) {
@@ -34,13 +34,13 @@ FoscDurationSpecifier : FoscObject {
         };
         assert(rewriteMeter.isKindOf(Boolean));
         assert(spellMetrically.isKindOf(Boolean));
-        
+
         ^super.new.init(decreaseMonotonic, forbidMeterRewriting, forbiddenDuration, rewriteMeter,
             spellMetrically);
     }
     init { |argDecreaseMonotonic, argForbidMeterRewriting, argForbiddenDuration, argRewriteMeter,
         argSpellMetrically|
-        
+
         decreaseMonotonic = argDecreaseMonotonic;
         forbidMeterRewriting = argForbidMeterRewriting;
         forbiddenDuration = argForbiddenDuration;
@@ -48,7 +48,7 @@ FoscDurationSpecifier : FoscObject {
         spellMetrically = argSpellMetrically;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -57,7 +57,7 @@ FoscDurationSpecifier : FoscObject {
     !!!TODO: NOT YET IMPLEMENTED
 
     Gets interpreter representation.
-    
+
     Returns string.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -68,7 +68,7 @@ FoscDurationSpecifier : FoscObject {
     !!!TODO: NOT YET IMPLEMENTED
 
     Formats duration spelling specifier.
-    
+
     Returns string.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -212,7 +212,7 @@ FoscDurationSpecifier : FoscObject {
 
     code::
     // use temporary containers to rewrite in-score selections of music
-    n = m.partitionBySizes(#[1,3,2]);    
+    n = m.partitionBySizes(#[1,3,2]);
     n.do { |selection| mutate(selection).wrap(FoscContainer()) };
     mutate(a[1][0..]).rewriteMeter(FoscMeter(#[4,4]));
     x = a.prDelItem(1);
@@ -344,8 +344,8 @@ FoscDurationSpecifier : FoscObject {
     • *prSplitAtMeasureBoundaries
 
     !!!TODO: duplicated in FoscMeterSpecifier:prSplitAtMeasureBoundaries - REFACTOR
-  
-    
+
+
     • Example 1
 
     code::
@@ -428,9 +428,9 @@ FoscDurationSpecifier : FoscObject {
     • decreaseMonotonic
 
     Is true when all durations should be spelled as a tied series of monotonically decreasing values. Otherwise false.
-    
+
     Defaults to true.
-    
+
     Returns true or false.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -439,9 +439,9 @@ FoscDurationSpecifier : FoscObject {
     • forbidMeterRewriting
 
     Is true when meter rewriting is forbidden.
-    
+
     Defaults to nil.
-    
+
     Returns boolean or nil.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -450,9 +450,9 @@ FoscDurationSpecifier : FoscObject {
     • forbiddenDuration
 
     Gets forbidden written duration.
-    
+
     Defaults to nil.
-    
+
     Returns duration or nil.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -461,11 +461,11 @@ FoscDurationSpecifier : FoscObject {
     • rewriteMeter
 
     Is true when all output divisions should rewrite meter. Otherwise false.
-    
+
     Defaults to nil.
-    
+
     Set to true, false or nil.
-    
+
     Returns true, false or nil.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -474,11 +474,11 @@ FoscDurationSpecifier : FoscObject {
     • spellMetrically
 
     Is true when durations should spell according to approximate common practice understandings of meter. Otherwise false.
-    
+
     Spells unassignable durations like 5/16 and 9/4 metrically when set to 'unassignable'. Leaves other durations unchanged.
-    
+
     Defaults to nil.
-    
+
     Returns boolean, 'unassignable' or nil..
     '''
     -------------------------------------------------------------------------------------------------------- */

@@ -64,7 +64,7 @@ FoscOttava : FoscObject {
     '''
     • formatSlot
 
-    
+
     • Example 1
 
     code::
@@ -112,7 +112,7 @@ FoscOttava : FoscObject {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -121,7 +121,7 @@ FoscOttava : FoscObject {
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of 'argument'.
-    
+
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
     '''
@@ -184,7 +184,7 @@ FoscOttava : FoscObject {
         if (formatSlot == 'before') {
             bundle.before.commands.add(string);
         } {
-            bundle.after.commands.add(string);  
+            bundle.after.commands.add(string);
         };
         ^bundle;
     }
