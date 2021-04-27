@@ -1,5 +1,4 @@
 /* ------------------------------------------------------------------------------------------------------------
-
 TITLE:: FoscMultiplier
 
 
@@ -11,94 +10,93 @@ DESCRIPTION:: TODO
 
 USAGE::
 
+FoscMultiplier
+
 '''
-
-• FoscMultiplier
-
-FoscMultiplier.
-
-
-• Example 1
-
 Initializes from integer numerator.
 
-FoscMultiplier(3)
+code::
+FoscMultiplier(3).format;
+'''
 
-
-• Example 2
-
+'''
 Initializes from integer numerator and denominator.
 
-FoscMultiplier(3, 16)
+code::
+FoscMultiplier(3, 16).format;
+'''
 
-
-• Example 3
-
+'''
 Initializes from integer-equivalent numeric numerator.
 
-FoscMultiplier(3.0)
+code::
+FoscMultiplier(3.0).format;
+'''
 
-
-• Example 4
-
+'''
 Initializes from integer-equivalent numeric numerator and denominator.
 
-FoscMultiplier(3.0, 16)
+FIXME: returns ERROR: Array:reduceFraction: items in receiver must be integers: 3.0.
 
+code::
+FoscMultiplier(3.0, 16).format;
+nointerpret
+'''
 
-• Example 5
-
+'''
 Initializes from integer-equivalent singleton.
 
-FoscMultiplier(3)
+code::
+FoscMultiplier(3).format;
+'''
 
-
-• Example 6
-
+'''
 Initializes from integer-equivalent pair.
 
-FoscMultiplier([3, 16])
+code::
+FoscMultiplier([3, 16]).format;
+'''
 
-
-• Example 7
-
+'''
 Initializes from other duration.
 
-FoscMultiplier(FoscDuration(3, 16))
+code::
+FoscMultiplier(FoscDuration(3, 16)).format
+'''
 
-
-• Example 8
-
+'''
 Intializes from fraction.
 
-FoscMultiplier(FoscFraction(3, 16))
+code::
+FoscMultiplier(FoscFraction(3, 16)).format;
+'''
 
-
-• Example 9
-
+'''
 Initializes from nonreduced fraction.
 
-
+code::
 m = FoscMultiplier(FoscNonreducedFraction(6, 32))
-m.pair; //!!!! BROKEN
+m.pair.postln; //!!!! BROKEN
+'''
 
-
-• Example 10
-
+'''
 FoscMultipliers inherit from built-in fraction.
 
-FoscMultiplier(3, 16).isKindOf(FoscFraction);       // true
+code::
+FoscMultiplier(3, 16).isKindOf(FoscFraction).postln; // true
+'''
 
-• Example 11
-
+'''
 FoscMultipliers are numbers.
 
-FoscMultiplier(3, 16).isKindOf(Number); //!!! BROKEN
+code::
+FoscMultiplier(3, 16).isKindOf(Number).postln; //!!! BROKEN
+'''
 
-
-• Example 12
-
+'''
 Attaching a multiplier to a score component multiplies that component's duration.
+
+FIXME: this doesn't seem to work...
 
 code::
 n = FoscNote(60, 1);
@@ -108,30 +106,33 @@ n.format;
 ------------------------------------------------------------------------------------------------------------ */
 FoscMultiplier : FoscDuration {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *
 
     Multiplier times duration returns duration.
 
     Returns duration.
-    
-    def __mul__(self, *arguments):
-    if len(arguments) == 1 and type(arguments[0]) is Duration:
-        return Duration(Duration.__mul__(self, *arguments))
-    else:
-        return Duration.__mul__(self, *arguments)
-    
+
+    '''
     code::
     a = FoscMultiplier(1, 1);
     b = FoscMultiplier(1, 3);
     c = FoscDuration(1, 3);
 
-    (a * b).inspect;        // returns a FoscMultiplier
-    (a * c).inspect;        // returns a FoscDuration
+    (a * b).class.postln;        // returns a FoscMultiplier
+
+    code::
+    (a * c).class.postln;        // returns a FoscDuration
     '''
+
+    def __mul__(self, *arguments):
+    if len(arguments) == 1 and type(arguments[0]) is Duration:
+        return Duration(Duration.__mul__(self, *arguments))
+    else:
+        return Duration.__mul__(self, *arguments)
+
     -------------------------------------------------------------------------------------------------------- */
     * { |expr|
         if (expr.species == FoscDuration) {
@@ -144,19 +145,24 @@ FoscMultiplier : FoscDuration {
     // PUBLIC CLASS PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *fromDotCount
 
     Makes multiplier from 'dotCount'.
 
-
-    • Example 1
-
+    '''
     code::
     FoscMultiplier.fromDotCount(0).str;
+
+    code::
     FoscMultiplier.fromDotCount(1).str;
+
+    code::
     FoscMultiplier.fromDotCount(2).str;
+
+    code::
     FoscMultiplier.fromDotCount(3).str;
+
+    code::
     FoscMultiplier.fromDotCount(4).str;
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -172,19 +178,18 @@ FoscMultiplier : FoscDuration {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isNormalized
 
-    Is true when mutliplier is greater than 1/2 and less than 2. Otherwise false:
-    
+    Is true when mutliplier is greater than 1/2 and less than 2. Otherwise false.
+
     Returns true or false.
 
-
-    • Example 1
+    '''
+    code::
+    FoscMultiplier(3, 2).isNormalized.postln;
 
     code::
-    FoscMultiplier(3, 2).isNormalized;
-    FoscMultiplier(7, 2).isNormalized;
+    FoscMultiplier(7, 2).isNormalized.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     isNormalized {
