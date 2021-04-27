@@ -6,17 +6,10 @@ TITLE:: FoscStartPianoPedal
 SUMMARY:: Returns a FoscStartPianoPedal.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Lilypond ``\sustainOn``, ``\sostenutoOn``, ``\unaCorda`` commands.
 
 
 USAGE::
-
-'''
-
-• FoscStartPianoPedal (abjad 3.0)
-
-Lilypond \sustainOn, \sostenutoOn, \unaCorda commands.
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStartPianoPedal : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,147 +37,127 @@ FoscStartPianoPedal : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • context
 
     Gets context. Returns 'StaffGroup'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartPianoPedal();
-    a.context;
+    a.context.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • direction
 
     Gets direction.
 
-
-    • Example 1
+    '''
+    FIXME: ERROR: Message 'direction' not understood.
 
     code::
     a = FoscStartPianoPedal();
-    a.direction;
+    a.direction.postln;
+    nointerpret
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • parameter
 
     Gets parameter. Returns 'Beam'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartPianoPedal();
-    a.parameter;
+    a.parameter.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • persistent
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartPianoPedal();
-    a.persistent;
+    a.persistent.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spannerStart
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartPianoPedal();
-    a.spannerStart;
+    a.spannerStart.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     spannerStart {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Gets tweaks.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartPianoPedal();
-    a.tweaks;
+    a.tweaks.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • type
 
     Gets type.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartPianoPedal();
-    a.type.cs;
+    a.type.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of argument.
-
+    '''
+    '''
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     == {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO
 
     Gets interpreter representation.
-
+    '''
+    '''
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     !!!TODO
 
     Hashes Abjad value object.
-
+    '''
+    '''
     def __hash__(self) -> int:
         hash_values = StorageFormatManager(self).get_hash_values()
         try:
@@ -192,7 +165,6 @@ FoscStartPianoPedal : FoscObject {
         except TypeError:
             raise TypeError(f'unhashable type: {self}')
         return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hash {
         ^this.notYetImplemented(thisMethod);
@@ -201,9 +173,7 @@ FoscStartPianoPedal : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string;
