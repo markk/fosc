@@ -6,20 +6,12 @@ TITLE:: FoscMetronomeMark
 SUMMARY:: Returns a FoscMetronomeMark.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Tempo indicator.
 
 
 USAGE::
 
 '''
-
-• FoscMetronomeMark (abjad 3.0)
-
-Tempo indicator.
-
-
-• Example 1
-
 Initialize integer-valued metronome mark.
 
 code::
@@ -29,18 +21,10 @@ a.add(b);
 m = FoscMetronomeMark(#[1,4], 90);
 b[0].attach(m);
 a.show;
-
-img:: ![](../img/indicator-metronome-mark-1.png)
 '''
 
-p = "%/fosc/docs/img/indicator-metronome-mark-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2 !!!TODO: incomplete implementation
+'''
+!!!TODO: incomplete implementation
 
 Initialize rational-valued metronome mark.
 
@@ -51,19 +35,10 @@ a.add(b);
 m = FoscMetronomeMark(#[1,4], FoscFraction(182, 2));
 b[0].attach(m);
 a.show;
-
-img:: ![](../img/indicator-metronome-mark-2.png)
+nointerpret
 '''
 
-p = "%/fosc/docs/img/indicator-metronome-mark-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 3
-
+'''
 Initialize from text, duration, and range.
 
 code::
@@ -73,18 +48,10 @@ a.add(b);
 m = FoscMetronomeMark(#[1,4], #[120, 133], "Quick");
 b[0].attach(m);
 a.show;
-
-img:: ![](../img/indicator-metronome-mark-3.png)
 '''
 
-p = "%/fosc/docs/img/indicator-metronome-mark-3".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 4 !!!TODO: incomplete implementation
+'''
+!!!TODO: incomplete implementation
 
 Use rational-value units-per-minute together with custom markup for float-valued metronome marks.
 
@@ -96,15 +63,7 @@ t = FoscMetronomeMark.makeTempoEquationMarkup(#[1,4], 90.1);
 m = FoscMetronomeMark(#[1,4], FoscFraction(#[900,10]), customMarkup: t);
 b[0].attach(m);
 a.show;
-
-img:: ![](../img/indicator-metronome-mark-4.png)
-'''
-
-p = "%/fosc/docs/img/indicator-metronome-mark-4".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
+nointerpret
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscMetronomeMark : FoscObject {
@@ -127,45 +86,42 @@ FoscMetronomeMark : FoscObject {
         hide = argHide;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: SPECIAL
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • + (abjad: __add__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     add {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • / (abjad: __div__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     div {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
-    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • == (not in abjad ?)
 
+    '''
     code::
     a = FoscMetronomeMark([1, 4], 72);
     b = FoscMetronomeMark([1, 4], 72);
     c = FoscMetronomeMark([1, 8], 72);
     d = FoscMetronomeMark([1, 4], 60);
+    (a == b).postln;         // true
 
-    a == b;         // true
-    a == c;         // false
-    a == d;         // false
+    code::
+    (a == c).postln;         // false
+
+    code::
+    (a == d).postln;         // false
     '''
     -------------------------------------------------------------------------------------------------------- */
     == { |expr|
@@ -175,31 +131,23 @@ FoscMetronomeMark : FoscObject {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • < (abjad: __lt__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     < {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • * (abjad __mul__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     mul {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • (abjad: __rmul__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString (abjad: __str__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         var string;
@@ -207,23 +155,17 @@ FoscMetronomeMark : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • - (abjad: __sub__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • (abjad: __truediv__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *makeTempoEquationMarkup
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *makeTempoEquationMarkup { |referenceDuration, unitsPerMinute|
         var selection, maker, lhsScoreMarkup, equalMarkup, rhsMarkup, markup;
@@ -245,7 +187,7 @@ FoscMetronomeMark : FoscObject {
         } {
             rhsMarkup = FoscMarkup(unitsPerMinute);
             rhsMarkup = rhsMarkup.generalAlign('Y', -0.5);
-        };  
+        };
         markup = lhsScoreMarkup ++ equalMarkup ++ rhsMarkup;
         ^markup;
     }
@@ -253,27 +195,22 @@ FoscMetronomeMark : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • durationToSeconds (abjad: duration_to_milliseconds)
-    
-    
 
-    • Example 1
-
+    '''
     A quarter-note lasts a second at quarter equals 60.
 
     code::
     a = FoscMetronomeMark(#[1,4], 60);
-    a.durationToSeconds(1/4).asFloat;
+    a.durationToSeconds(1/4).asFloat.postln;
+    '''
 
-
-    • Example 2
-
+    '''
     A quarter-note lasts 2/3 of a second at quarter equals 60.
 
     code::
     a = FoscMetronomeMark(#[1,4], 90);
-    a.durationToSeconds(1/4).asFloat;
+    a.durationToSeconds(1/4).asFloat.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     durationToSeconds { |duration|
@@ -284,48 +221,40 @@ FoscMetronomeMark : FoscObject {
         ^duration;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • listRelatedTempos (abjad: list_related_tempos)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     listRelatedTempos {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • unitDuration (not in abjad -- for compatibility with SuperCollider)
 
+    '''
     code::
     a = FoscMetronomeMark([1, 4], 60);
     a.unitDuration.asFloat.postln;
-
-    post::
-    POSTOUTPUT
     '''
 
+    '''
     code::
     a = FoscMetronomeMark([1, 4], 120);
     a.unitDuration.asFloat.postln;
-
-    post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     unitDuration {
         ^this.durationToSeconds(FoscDuration(1, 4));
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • unitTempo (not in abjad -- for compatibility with SuperCollider)
 
+    '''
     code::
     a = FoscMetronomeMark([1, 4], 60);
-    a.unitTempo.asFloat;
+    a.unitTempo.asFloat.postln;
 
     code::
     a = FoscMetronomeMark([1, 4], 120);
-    a.unitTempo;
+    a.unitTempo.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     unitTempo {
@@ -335,17 +264,14 @@ FoscMetronomeMark : FoscObject {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prDotted
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prDotted {
         ^this.referenceDuration.lilypondDurationString;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prEquation
-    
+    '''
     code::
     a = FoscMetronomeMark(FoscDuration(1, 8), 96);
     a.prEquation;
@@ -354,7 +280,7 @@ FoscMetronomeMark : FoscObject {
     prEquation {
         var markup;
         if (this.referenceDuration.isNil) { ^nil };
-        case 
+        case
         { this.unitsPerMinute.isSequenceableCollection } {
             ^"%=%-%".format(this.prDotted, this.unitsPerMinute[0], this.unitsPerMinute[1]);
         }
@@ -368,9 +294,8 @@ FoscMetronomeMark : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormat
-    
+    '''
     code::
     a = FoscMetronomeMark(FoscDuration(1, 8), 96);
     a.prGetLilypondFormat;
@@ -401,9 +326,7 @@ FoscMetronomeMark : FoscObject {
         { ^"\\tempo \\default" };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle {
         var bundle;
@@ -417,33 +340,33 @@ FoscMetronomeMark : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • context
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • customMarkup
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isImprecise
 
     Is true if tempo is entirely textual or if tempo's units_per_minute is a range. Otherwise false.
 
     Returns true or false.
 
-    
-    FoscMetronomeMark(FoscDuration(1, 4), 60).isImprecise           // false
+    '''
+    code::
+    FoscMetronomeMark(FoscDuration(1, 4), 60).isImprecise.postln;           // false
 
-    FoscMetronomeMark(4, 60, 'Langsam').isImprecise                 // false
+    code::
+    FoscMetronomeMark(4, 60, 'Langsam').isImprecise.postln;                 // false
 
-    FoscMetronomeMark(textualIndication: 'Langsam').isImprecise     // true
+    code::
+    FoscMetronomeMark(textualIndication: 'Langsam').isImprecise.postln;     // true
 
-    FoscMetronomeMark(4, [35, 50], 'Langsam').isImprecise           // true
+    code::
+    FoscMetronomeMark(4, [35, 50], 'Langsam').isImprecise.postln;           // true
 
-    FoscMetronomeMark(FoscDuration(1, 4), [35, 50]).isImprecise     // true
+    code::
+    FoscMetronomeMark(FoscDuration(1, 4), [35, 50]).isImprecise.postln;     // true
     '''
     -------------------------------------------------------------------------------------------------------- */
     isImprecise {
@@ -457,12 +380,12 @@ FoscMetronomeMark : FoscObject {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • quartersPerMinute
-    
+
+    '''
     code::
     a = FoscMetronomeMark(FoscDuration(1, 8), 60);
-    a.quartersPerMinute;
+    a.quartersPerMinute.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     //!!!INCOMPLETE
@@ -474,18 +397,12 @@ FoscMetronomeMark : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • referenceDuration
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • textualIndication
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • unitsPerMinute
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
