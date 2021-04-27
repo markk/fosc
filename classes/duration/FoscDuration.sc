@@ -6,40 +6,51 @@ TITLE:: FoscDuration
 SUMMARY:: Returns a FoscDuration.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A musical duration.
 
 
 USAGE::
 
 '''
-
-• FoscDuration
+FoscDuration
 
 code::
 FoscDuration(1, 4).str;
+
+code::
 FoscDuration(0.25).str;
+
+code::
 FoscDuration(pi).str;
+
+code::
 FoscDuration(inf).str;
 
 code::
 FoscDuration(4, 4).str;
+
+code::
 FoscDuration(3, 8).str;
+
+code::
 FoscDuration(7, 16).str;
+
+code::
 FoscDuration(17, 16).str;   // not assignable error
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDuration : FoscFraction {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: SPECIAL METHODS
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • abs
-    
+
     Gets absolute value of duration.
-    
+
     Returns nonnegative duration.
-    
+
+    '''
     code::
     a = FoscDuration(-1, 4);
     b = a.abs;
@@ -47,26 +58,22 @@ FoscDuration : FoscFraction {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
+    '''
     code::
     a = FoscDuration(1, 4);
-    a.asCompileString;
+    a.asCompileString.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • +
-   
+
     Adds duration to expr.
 
     Returns duration.
 
-
-    • Example 1
-    
-
+    '''
     Returns duration when expr is a duration.
 
     code::
@@ -74,11 +81,8 @@ FoscDuration : FoscFraction {
     b = FoscDuration(3, 2);
     c = (a + b);
     c.str;
-
-
-    • Example 2
-
-    
+    '''
+    '''
     Returns nonreduced fraction when expr is a nonreduced fraction.
 
     code::
@@ -96,22 +100,22 @@ FoscDuration : FoscFraction {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asFloat
 
+    '''
     code::
-    FoscDuration(3, 2).asFloat;
+    FoscDuration(3, 2).asFloat.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • /
 
     Divides duration by expr.
-    
+
     Returns multiplier.
 
 
+    '''
     Returns multiplier when expr is a duration.
 
     code::
@@ -119,8 +123,9 @@ FoscDuration : FoscFraction {
     b = FoscDuration(2, 1);
     c = (a / b);
     c.str;
+    '''
 
-    
+    '''
     Returns nonreduced fraction when expr is a nonreduced fraction.
 
     code::
@@ -140,16 +145,16 @@ FoscDuration : FoscFraction {
         }
         {
             ^this.species.new(FoscFraction(this) / expr);
-        };     
+        };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • divmod
-    
+
     Equals the pair (duration // args, duration % args).
 
     Returns pair.
 
+    '''
     code::
     a = FoscDuration(7, 4);
     b = a.divmod(FoscDuration(4, 4));
@@ -163,129 +168,145 @@ FoscDuration : FoscFraction {
         ^[div, mod];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    • == 
+    • ==
 
     Is true when duration equals arg. Otherwise false.
-    
+
     Returns true or false.
 
+    '''
     code::
-    FoscDuration(4, 4) == FoscDuration(4, 4);
-    FoscDuration(4, 4) == FoscDuration(2, 4);
-    FoscDuration(4, 4) == FoscDuration(2, 2);
+    (FoscDuration(4, 4) == FoscDuration(4, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) == FoscDuration(2, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) == FoscDuration(2, 2)).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
     Formats duration.
-    
+
     Set format_specification to '' or 'storage'. Interprets '' equal to 'storage'.
-    
+
     Returns string.
 
+    '''
     code::
     FoscDuration(1, 4).format;
-
+    '''
 
     def __format__(self, format_specification=''):
         from abjad.tools import systemtools
         if format_specification in ('', 'storage'):
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     format { |formatSpecification=''|
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • >=
-    
+
     Is true when duration is greater than or equal to arg. Otherwise false.
-    
+
     Returns true or false.
-    
+
+    '''
     code::
-    FoscDuration(4, 4) >= FoscDuration(4, 4);
-    FoscDuration(4, 4) >= FoscDuration(2, 4);
-    FoscDuration(4, 4) >= FoscDuration(2, 2);
+    (FoscDuration(4, 4) >= FoscDuration(4, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) >= FoscDuration(2, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) >= FoscDuration(2, 2)).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • >
 
     Is true when duration is greater than arg. Otherwise false.
 
     Returns true or false.
 
+    '''
     code::
-    FoscDuration(4, 4) > FoscDuration(4, 4);
-    FoscDuration(4, 4) > FoscDuration(2, 4);
-    FoscDuration(4, 4) > FoscDuration(2, 2);
+    (FoscDuration(4, 4) > FoscDuration(4, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) > FoscDuration(2, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) > FoscDuration(2, 2)).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • <=
 
     Is true when duration is less than or equal to arg. Otherwise false.
-    
+
     Returns true or false.
-    
+
+    '''
     code::
-    FoscDuration(4, 4) <= FoscDuration(4, 4);
-    FoscDuration(4, 4) <= FoscDuration(2, 4);
-    FoscDuration(4, 4) <= FoscDuration(2, 2);
+    (FoscDuration(4, 4) <= FoscDuration(4, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) <= FoscDuration(2, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) <= FoscDuration(2, 2)).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • <
 
     Is true when duration is less than arg. Otherwise false.
-    
+
     Returns true or false.
-    
+
+    '''
     code::
-    FoscDuration(4, 4) < FoscDuration(4, 4);
-    FoscDuration(4, 4) < FoscDuration(2, 4);
-    FoscDuration(4, 4) < FoscDuration(2, 2);
+    (FoscDuration(4, 4) < FoscDuration(4, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) < FoscDuration(2, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) < FoscDuration(2, 2)).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • mod
 
     Modulus operator applied to duration.
-    
+
     Returns duration.
-    
+
+    '''
     code::
     a = FoscDuration(4, 4);
     b = FoscDuration(2, 4);
-    
-    code::
     c = (a % b);
     c.str;
-    
+
     code::
     d = (b % a);
     d.str;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *
 
     Duration multiplied by expr.
-    
-    Returns duration.
-    
 
+    Returns duration.
+
+    '''
     Returns duration when expr is a duration.
 
     code::
@@ -293,8 +314,9 @@ FoscDuration : FoscFraction {
     b = FoscDuration(3, 2);
     c = (a * b);
     c.str;
+    '''
 
-    
+    '''
     Returns nonreduced fraction when expr is a nonreduced fraction.
 
     code::
@@ -312,27 +334,31 @@ FoscDuration : FoscFraction {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • !=
-    
+
     Is true when duration does not equal arg. Otherwise false.
-    
+
     Returns true or false.
-    
+
+    '''
     code::
-    FoscDuration(4, 4) != FoscDuration(4, 4);
-    FoscDuration(4, 4) != FoscDuration(2, 4);
-    FoscDuration(4, 4) != FoscDuration(2, 2);
+    (FoscDuration(4, 4) != FoscDuration(4, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) != FoscDuration(2, 4)).postln;
+
+    code::
+    (FoscDuration(4, 4) != FoscDuration(2, 2)).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • neg
 
     Negates duration.
-    
+
     Returns new duration.
 
+    '''
     code::
     a = FoscDuration(1, 4);
     b = a.neg;
@@ -340,32 +366,29 @@ FoscDuration : FoscFraction {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • **
-    
+
     Raises duration to expr power.
-    
+
     Returns new duration.
 
+    '''
     code::
     a = FoscDuration(4, 2) ** 2;
     a.str;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reduce
-    '''
     -------------------------------------------------------------------------------------------------------- */
-
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • -
 
     Subtracts expr from duration.
-    
+
     Returns new duration.
 
+    '''
     Returns duration when expr is a duration.
 
     code::
@@ -373,8 +396,8 @@ FoscDuration : FoscFraction {
     b = FoscDuration(1, 2);
     c = (a - b);
     c.str;
-
-    
+    '''
+    '''
     Returns nonreduced fraction when expr is a nonreduced fraction.
 
     code::
@@ -392,37 +415,37 @@ FoscDuration : FoscFraction {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
+    • truediv
+
+    Documentation required.
+
     '''
-    •
+    '''
     def __truediv__(self, *args):
-            r'''Documentation required.
-            '''
             return self.__div__(*args)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   /* --------------------------------------------------------------------------------------------------------
-   '''
-   • prGetFormatSpecification
-
-   def _get_format_specification(self):
-       return systemtools.FormatSpecification(
-           client=self,
-           storage_format_args_values=[
-               self.numerator,
-               self.denominator,
-               ],
-           storage_format_is_indented=False,
-           storage_format_kwargs_names=[],
-           )
-   '''
-   -------------------------------------------------------------------------------------------------------- */
-
     /* --------------------------------------------------------------------------------------------------------
     '''
+    • prGetFormatSpecification
+
+    def _get_format_specification(self):
+        return systemtools.FormatSpecification(
+            client=self,
+            storage_format_args_values=[
+                self.numerator,
+                self.denominator,
+                ],
+            storage_format_is_indented=False,
+            storage_format_kwargs_names=[],
+            )
+    '''
+    -------------------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------
     • prGroupNonreducedFractionsByImpliedProlation
 
     @staticmethod
@@ -445,25 +468,18 @@ FoscDuration : FoscFraction {
                 group = [d]
                 result.append(group)
         return result
-    
 
+    '''
     code::
     d = [[3, 4], [6, 8], [2, 4], [8, 16], [7, 14], [2, 3]];
     d = d.collect { |each| FoscDuration(each) };
     x = FoscDuration.prGroupNonreducedFractionsByImpliedProlation(d);
     x.do { |e| e.collect { |i| i.str }.postln };
-
-    post::
-    POSTOUTPUT
     '''
-
+    '''
     code::
     x = FoscDuration.prGroupNonreducedFractionsByImpliedProlation([1, 4] ! 13);
     x.do { |e| e.do { |i| i.str.postln } };
-
-    post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     *prGroupByImpliedProlation { |durations|
@@ -570,12 +586,11 @@ FoscDuration : FoscFraction {
         markup = markuptools.Markup(command)
         return markup
     '''
-    -------------------------------------------------------------------------------------------------------- */ 
+    -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • dotCount
 
     Gets dot count.
@@ -585,12 +600,27 @@ FoscDuration : FoscFraction {
     Raises assignability error when duration is not assignable.
 
     Returns positive integer.
-    
+
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(num, 16);
         if (d.isAssignable) { d.str.post; Post.tab; d.dotCount.postln };
     };
+    nointerpret
+
+    post::
+    1/16	0
+    1/8	0
+    3/16	1
+    1/4	0
+    3/8	1
+    7/16	2
+    1/2	0
+    3/4	1
+    7/8	2
+    15/16	3
+    1/1	0
     '''
     -------------------------------------------------------------------------------------------------------- */
     dotCount {
@@ -599,13 +629,13 @@ FoscDuration : FoscFraction {
         } { throw("%:%: duration % is not assignable.".format(this.species, thisMethod.name, this.str)) };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • equalOrGreaterAssignable
 
     Gets assignable duration equal to or just greater than this duration.
-    
+
     Returns new duration.
 
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(num, 16);
@@ -613,6 +643,25 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.equalOrGreaterAssignable.str.postln;
     };
+    nointerpret
+
+    post::
+    1/16	1/16
+    1/8	1/8
+    3/16	3/16
+    1/4	1/4
+    5/16	3/8
+    3/8	3/8
+    7/16	7/16
+    1/2	1/2
+    9/16	3/4
+    5/8	3/4
+    11/16	3/4
+    3/4	3/4
+    13/16	7/8
+    7/8	7/8
+    15/16	15/16
+    1/1	1/1
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrGreaterAssignable {
@@ -631,14 +680,13 @@ FoscDuration : FoscFraction {
         ^candidate;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • equalOrGreaterPowerOfTwo
 
     Gets duration equal or just greater power of two.
-    
+
     Returns new duration.
 
-
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(num, 16);
@@ -646,20 +694,38 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.equalOrGreaterPowerOfTwo.str.postln;
     };
+    nointerpret
+
+    post::
+    1/16	1/16
+    1/8	1/8
+    3/16	1/4
+    1/4	1/4
+    5/16	1/2
+    3/8	1/2
+    7/16	1/2
+    1/2	1/2
+    9/16	1/1
+    5/8	1/1
+    11/16	1/1
+    3/4	1/1
+    13/16	1/1
+    7/8	1/1
+    15/16	1/1
+    1/1	1/1
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrGreaterPowerOfTwo {
         ^this.species.new(this.asFloat.nextPowerOf(2));
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • equalOrLesserAssignable
 
     Gets assignable duration equal or just less than this duration.
-    
+
     Returns new duration.
 
-
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(num, 16);
@@ -667,6 +733,25 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.equalOrLesserAssignable.str.postln;
     };
+    nointerpret
+
+    post::
+    1/16	1/16
+    1/8	1/8
+    3/16	3/16
+    1/4	1/4
+    5/16	1/4
+    3/8	3/8
+    7/16	7/16
+    1/2	1/2
+    9/16	1/2
+    5/8	1/2
+    11/16	1/2
+    3/4	3/4
+    13/16	3/4
+    7/8	7/8
+    15/16	15/16
+    1/1	1/1
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrLesserAssignable {
@@ -681,14 +766,13 @@ FoscDuration : FoscFraction {
         ^candidate;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • equalOrLesserPowerOfTwo
-    
+
     Gets duration equal to or just less than power of two.
-    
+
     Returns new duration.
 
-
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(num, 16);
@@ -696,6 +780,25 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.equalOrLesserPowerOfTwo.str.postln;
     };
+    nointerpret
+
+    post::
+    1/16	1/16
+    1/8	1/8
+    3/16	1/8
+    1/4	1/4
+    5/16	1/4
+    3/8	1/4
+    7/16	1/4
+    1/2	1/2
+    9/16	1/2
+    5/8	1/2
+    11/16	1/2
+    3/4	1/2
+    13/16	1/2
+    7/8	1/2
+    15/16	1/2
+    1/1	1/1
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrLesserPowerOfTwo {
@@ -706,13 +809,13 @@ FoscDuration : FoscFraction {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • flagCount
 
     Gets flag count. Flag count defined equal to number of flags required to notate duration.
-    
+
     Returns nonnegative integer.
 
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(num, 64);
@@ -720,37 +823,54 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.flagCount.postln;
     };
+    nointerpret
+
+    post::
+    1/64	4
+    1/32	3
+    3/64	3
+    1/16	2
+    5/64	2
+    3/32	2
+    7/64	2
+    1/8	1
+    9/64	1
+    5/32	1
+    11/64	1
+    3/16	1
+    13/64	1
+    7/32	1
+    15/64	1
+    1/4	0
     '''
     -------------------------------------------------------------------------------------------------------- */
     flagCount {
         ^max(floor(log2(numerator / denominator)).neg.asInteger - 2, 0);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hasPowerOfTwoDenominator
 
     Is true when duration is an integer power of two. Otherwise false.
-    
+
+    '''
+    code::
+    FoscDuration(1, 4).hasPowerOfTwoDenominator.postln;
 
     code::
-    FoscDuration(1, 4).hasPowerOfTwoDenominator;
-
-    code::
-    FoscDuration(1, 7).hasPowerOfTwoDenominator;
+    FoscDuration(1, 7).hasPowerOfTwoDenominator.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     hasPowerOfTwoDenominator {
         ^denominator.isPowerOfTwo;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • impliedProlation
 
     Gets implied prolation.
 
     Returns multipler.
-    
 
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(1, num);
@@ -758,6 +878,25 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.impliedProlation.str.postln;
     };
+    nointerpret
+
+    post::
+    1/1	1/1
+    1/2	1/1
+    1/3	2/3
+    1/4	1/1
+    1/5	4/5
+    1/6	2/3
+    1/7	4/7
+    1/8	1/1
+    1/9	8/9
+    1/10	4/5
+    1/11	8/11
+    1/12	2/3
+    1/13	8/13
+    1/14	4/7
+    1/15	8/15
+    1/16	1/1
     '''
     -------------------------------------------------------------------------------------------------------- */
     impliedProlation {
@@ -770,15 +909,14 @@ FoscDuration : FoscFraction {
         ^FoscMultiplier(numerator, denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isAssignable
 
 
     Is true when duration is assignable. Otherwise false.
-    
+
     Returns true or false.
 
- 
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(num, 8);
@@ -786,6 +924,25 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.isAssignable.postln;
     };
+    nointerpret
+
+    post::
+    1/8	true
+    1/4	true
+    3/8	true
+    1/2	true
+    5/8	false
+    3/4	true
+    7/8	true
+    1/1	true
+    9/8	false
+    5/4	false
+    11/8	false
+    3/2	true
+    13/8	false
+    7/4	true
+    15/8	true
+    2/1	true
     '''
     -------------------------------------------------------------------------------------------------------- */
     isAssignable {
@@ -798,17 +955,21 @@ FoscDuration : FoscFraction {
         ^bool;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondDurationString
 
     Gets LilyPond duration string. Raises assignability error when duration is not assignable.
 
     Returns string.
-    
-    code::
-    FoscDuration(3, 16).lilypondDurationString;
 
-    FoscDuration(5, 16).lilypondDurationString;     // assignability error
+    '''
+    code::
+    FoscDuration(3, 16).lilypondDurationString.postln;
+
+    code::
+    FoscDuration(5, 16).lilypondDurationString;     // assignability error nointerpret
+
+    post::
+    ERROR: FoscDuration:lilypondDurationString: duration 5/16 is not assignable.
     '''
     -------------------------------------------------------------------------------------------------------- */
     lilypondDurationString {
@@ -827,9 +988,9 @@ FoscDuration : FoscFraction {
         ^(undottedRationalStr ++ dotStr);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str (inherited in abjad)
 
+    '''
     code::
     FoscDuration(1, 4).str;
 
@@ -851,26 +1012,25 @@ FoscDuration : FoscFraction {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pair
-    
+
     Gets numerator and denominator.
 
     Returns integer pair.
-
+    '''
     code::
     FoscDuration(3, 16).str;
     '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    •
+    • prolationString
 
     Gets prolation string.
 
     Returns string.
-    
+
+    '''
     code::
     (1..16).do { |num|
         d = FoscDuration(1, num);
@@ -878,6 +1038,25 @@ FoscDuration : FoscFraction {
         Post.tab;
         d.prolationString.postln;
     };
+    nointerpret
+
+    post::
+    1/1	1:1
+    1/2	2:1
+    1/3	3:1
+    1/4	4:1
+    1/5	5:1
+    1/6	6:1
+    1/7	7:1
+    1/8	8:1
+    1/9	9:1
+    1/10	10:1
+    1/11	11:1
+    1/12	12:1
+    1/13	13:1
+    1/14	14:1
+    1/15	15:1
+    1/16	16:1
     '''
     -------------------------------------------------------------------------------------------------------- */
     prolationString {
@@ -888,7 +1067,7 @@ FoscDuration : FoscFraction {
     • reciprocal
 
     Gets reciprocal.
-    
+
 
     Returns new duration.
 
@@ -900,22 +1079,15 @@ FoscDuration : FoscFraction {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • durationsToNonreducedFractions
 
     Changes 'durations' to nonreduced fractions sharing least common denominator.
 
-
-    • Example 1
-
+    '''
     code::
     d = [FoscDuration(2, 4), 3, [5, 16]];
     f = FoscDuration.durationsToNonreducedFractions(d);
-    f.do { |each| each.str.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    f.collect { |each| each.str }.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     *durationsToNonreducedFractions { |durations|
@@ -929,17 +1101,13 @@ FoscDuration : FoscFraction {
         ^nonreducedFractions;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • fromLilypondDurationString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *fromLilypondDurationString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isToken
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *isToken {
         ^this.notYetImplemented(thisMethod);
@@ -948,36 +1116,28 @@ FoscDuration : FoscFraction {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • toClockString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     toClockString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • toScoreMarkup
-    '''
     -------------------------------------------------------------------------------------------------------- */
     toScoreMarkup {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    • withDenominator 
+    • withDenominator
 
     Changes duration to nonreduced fraction with denominator.
-    
+
     Returns new duration.
-    
+
+    '''
     code::
     a = FoscDuration(1, 4);
-    [4, 8, 16, 32].do { |each| a.withDenominator(each).str.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    [4, 8, 16, 32].collect { |each| a.withDenominator(each).str }.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
