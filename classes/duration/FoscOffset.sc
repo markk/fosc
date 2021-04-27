@@ -1,5 +1,4 @@
 /* --------------------------------------------------------------------------------------------------------
-
 TITLE:: FoscOffset
 
 
@@ -11,54 +10,105 @@ DESCRIPTION:: TODO
 
 USAGE::
 
+FoscOffset
+
 '''
+Initializes from integer numerator:
 
-• FoscOffset
+code::
+FoscOffset(3, 1).format;
+'''
+'''
+Initializes from integer numerator and denominator:
 
-**Example 1.** Initializes from integer numerator:
-Offset(3, 1)
+code::
+FoscOffset(3, 16).format;
+'''
+'''
+Initializes from integer-equivalent numeric numerator:
 
-**Example 2.** Initializes from integer numerator and denominator:
-Offset(3, 16)
- 
-**Example 3.** Initializes from integer-equivalent numeric numerator:
-Offset(3.0)
+code::
+FoscOffset(3.0).format;
+'''
+'''
+Initializes from integer-equivalent numeric numerator and denominator:
 
-**Example 4.** Initializes from integer-equivalent numeric numerator and denominator:
-Offset(3.0, 16)
+FIXME: returns ERROR: Array:reduceFraction: items in receiver must be integers: 3.0.
 
-**Example 5.** Initializes from integer-equivalent singleton:
-Offset((3,))
+code::
+FoscOffset(3.0, 16).format;
+nointerpret
+'''
+'''
+Initializes from integer-equivalent singleton:
 
-**Example 6.** Initializes from integer-equivalent pair:
-Offset((3, 16))
+code::
+FoscOffset(3).format;
+'''
+'''
+Initializes from integer-equivalent pair:
 
-**Example 7.** Initializes from duration:
-Offset(Duration(3, 16))
+code::
+FoscOffset([3, 16]).format;
+'''
+'''
+Initializes from duration:
 
-**Example 8.** Initializes from other offset:
-Offset(Offset(3, 16))
- 
-**Example 9.** Initializes from other offset with grace displacement:
-a = Offset((3, 16), grace_displacement=(-1, 16))
-Offset(a)
+code::
+FoscOffset(FoscDuration(3, 16)).format;
+'''
+'''
+Initializes from other offset:
 
-**Example 10.** Intializes from fraction:
-Offset(Fraction(3, 16))
+code::
+FoscOffset(FoscOffset(3, 16)).format;
+'''
+'''
+Initializes from other offset with grace displacement:
 
-**Example 11.** Initializes from solidus string:
-Offset("3/16")
+code::
+a = FoscOffset([3, 16], graceDisplacement: [-1, 16]);
+FoscOffset(a).format;
+'''
+'''
+Intializes from fraction:
 
-**Example 12.** Initializes from nonreduced fraction:
-Offset(mathtools.NonreducedFraction(6, 32))
+code::
+FoscOffset(FoscFraction(3, 16)).format;
+'''
+'''
+Initializes from solidus string:
 
-**Example 13.** Offsets inherit from built-in fraction:
-isinstance(Offset(3, 16), Fraction)
-True
+FIXME ERROR: String:reduceFraction: receiver size must be 2: 4.
 
-**Example 14.** Offsets are numeric:
-isinstance(Offset(3, 16), numbers.Number)
-True
+code::
+FoscOffset("3/16").format;
+nointerpret
+'''
+'''
+Initializes from nonreduced fraction:
+
+FIXME: ERROR: syntax error, unexpected CLASSNAME, expecting NAME or WHILE or '[' or '('
+
+code::
+FoscOffset(mathtools.NonreducedFraction(6, 32)).format;
+nointerpret
+'''
+'''
+FoscOffsets inherit from built-in fraction:
+
+FIXME: surely duration?
+
+code::
+FoscOffset(3, 16).isKindOf(FoscDuration).postln;
+'''
+'''
+FoscOffsets are numeric:
+
+FIXME: not sure of an example for this.
+
+code::
+FoscOffset(3, 16);
 '''
 -------------------------------------------------------------------------------------------------------- */
 FoscOffset : FoscDuration {
@@ -66,14 +116,13 @@ FoscOffset : FoscDuration {
 	// INIT
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
- '''
 	•
 	__slots__ = (
 	        '_grace_displacement',
 	        )
-	
+
 	    ### CONSTRUCTOR ###
-	
+
 	    def __new__(class_, *args, **kwargs):
 	        grace_displacement = None
 	        for arg in args:
@@ -90,7 +139,6 @@ FoscOffset : FoscDuration {
 	        self = Duration.__new__(class_, *args)
 	        self._grace_displacement = grace_displacement
 	        return self
- '''
 	-------------------------------------------------------------------------------------------------------- */
 	var <graceDisplacement;
 	*new { |numerator, denominator, graceDisplacement|
@@ -101,43 +149,44 @@ FoscOffset : FoscDuration {
 		if (graceDisplacement.notNil) { graceDisplacement = FoscDuration(graceDisplacement) };
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// SPECIAL METHODS
+	// PUBLIC INSTANCE METHODS: Special Methods
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • copy
-    
+    '''
     code::
     a = FoscOffset(FoscDuration(3, 16), graceDisplacement: [1, 16]);
     a.copy;
-    a.pair;
-    a.graceDisplacement.pair;
+    a.pair.postln;
+
+    code::
+    a.graceDisplacement.pair.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • deepCopy
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
+    '''
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a == b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a == b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a == b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a == b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(1, 4);
-	b = FoscOffset(2, 4);
-	a == b;
+    a = FoscOffset(1, 4);
+    b = FoscOffset(2, 4);
+    (a == b).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     == { |expr|
@@ -149,23 +198,24 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) == FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
+    • >=
     '''
-    • >= 
-    
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a >= b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a >= b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a >= b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a >= b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(1, 4);
-	b = FoscOffset(2, 4);
-	a >= b;
+    a = FoscOffset(1, 4);
+    b = FoscOffset(2, 4);
+    (a >= b).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     >= { |expr|
@@ -177,32 +227,34 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) >= FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • storeArgs
-    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^this.pair;
     }
     /* --------------------------------------------------------------------------------------------------------
+    • >
+
     '''
-    • > 
+    code::
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a > b).postln;
+    '''
+    '''
+    code::
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a > b).postln;
+    '''
+    '''
+    code::
+    a = FoscOffset(2, 4);
+    b = FoscOffset(1, 4);
+    (a > b).postln;
 
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a > b;
-
-    code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a > b;
-
-    code::
-	a = FoscOffset(2, 4);
-	b = FoscOffset(1, 4);
-	a > b;
-	a > a;
+    (a > a).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     > { |expr|
@@ -214,29 +266,28 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) > FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • <=
-	
+    '''
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a <= b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a <= b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a <= b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a <= b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(2, 4);
-	b = FoscOffset(1, 4);
-	a <= b;
+    a = FoscOffset(2, 4);
+    b = FoscOffset(1, 4);
+    (a <= b).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     <= { |expr|
@@ -248,23 +299,24 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) <= FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • <
-	
+    '''
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a < b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a < b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
-	b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
-	a < b;
-
+    a = FoscOffset(1, 4, graceDisplacement: [-1, 8]);
+    b = FoscOffset(1, 4, graceDisplacement: [-1, 16]);
+    (a < b).postln;
+    '''
+    '''
     code::
-	a = FoscOffset(2, 4);
-	b = FoscOffset(1, 4);
-	a < b;
+    a = FoscOffset(2, 4);
+    b = FoscOffset(1, 4);
+    (a < b).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     < { |expr|
@@ -276,15 +328,11 @@ FoscOffset : FoscDuration {
     	^(FoscDuration(this) < FoscDuration(expr));
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • -
-    '''
     -------------------------------------------------------------------------------------------------------- */
     - { |expr|
     	if (expr.isKindOf(this.species)) { ^(FoscDuration(this) - FoscDuration(expr)) };
@@ -293,35 +341,41 @@ FoscOffset : FoscDuration {
     	^(this - expr);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ADDITIONAL PUBLIC INSTANCE METHODS
+    // PUBLIC INSTANCE METHODS: Additional
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • exclusivelyBetween
-    
+    '''
     code::
-	a = FoscOffset(1, 4);
-	b = FoscOffset(4, 4);
-	c = FoscOffset(2, 4);
-	c.exclusivelyBetween(a, b);
-	a.exclusivelyBetween(a, b);
-	a.exclusivelyBetween(b, c);
+    a = FoscOffset(1, 4);
+    b = FoscOffset(4, 4);
+    c = FoscOffset(2, 4);
+    c.exclusivelyBetween(a, b).postln;
+
+    code::
+    a.exclusivelyBetween(a, b).postln;
+
+    code::
+    a.exclusivelyBetween(b, c).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     exclusivelyBetween { |a, b|
     	^(this > a && { this < b });
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • inclusivelyBetween
-
+    '''
     code::
     a = FoscOffset(1, 4);
-	b = FoscOffset(4, 4);
-	c = FoscOffset(2, 4);
-	c.inclusivelyBetween(a, b);
-	a.inclusivelyBetween(a, b);
-	a.inclusivelyBetween(b, c);
+    b = FoscOffset(4, 4);
+    c = FoscOffset(2, 4);
+    c.inclusivelyBetween(a, b).postln;
+
+    code::
+    a.inclusivelyBetween(a, b).postln;
+
+    code::
+    a.inclusivelyBetween(b, c).postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     inclusivelyBetween { |a, b|
@@ -362,62 +416,39 @@ FoscOffset : FoscDuration {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC PROPERTIES
+    // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
+    • graceDisplacement
+
+    Gets grace displacement.
+
+    Defaults to nil.
+
+    Set to duration or nil.
+
+    Returns duration or nil.
+
     '''
-    •
-    @property
-        def grace_displacement(self):
-            r'''Gets grace displacement.
-    
-            
-• Example ---
-    
-                **Example 1.** Gets grace displacement equal to none:
-    
-                ::
-    
-                    >>> offset = Offset(1, 4)
-                    >>> offset.grace_displacement is None
-                    True
-    
-            
-• Example ---
-    
-                **Example 2.** Gets grace displacement equal to a negative
-                sixteenth:
-    
-                ::
-    
-                    >>> offset = Offset(1, 4, grace_displacement=(-1, 16))
-                    >>> offset.grace_displacement
-                    Duration(-1, 16)
-    
-            
-• Example ---
-    
-                **Example 3.** Stores zero-valued grace displacement as none:
-    
-                ::
-    
-                    >>> offset = Offset(1, 4, grace_displacement=0)
-                    >>> offset.grace_displacement is None
-                    True
-    
-                ::
-    
-                    >>> offset
-                    Offset(1, 4)
-    
-            Defaults to none.
-    
-            Set to duration or none.
-    
-            Returns duration or none.
-            '''
-            return self._grace_displacement
+    Gets grace displacement equal to nil
+
+    code::
+    a = FoscOffset(1, 4);
+    a.graceDisplacement.isNil.postln;
+    '''
+    '''
+    Gets grace displacement equal to a negative sixteenth
+
+    code::
+    a = FoscOffset([1, 4], graceDisplacement: [-1, 16]);
+    a.graceDisplacement.format;
+    '''
+    '''
+    Stores zero-valued grace displacement as nil
+
+    code::
+    a = FoscOffset([1, 4], graceDisplacement: nil);
+    a.graceDisplacement.isNil.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
-
 }
