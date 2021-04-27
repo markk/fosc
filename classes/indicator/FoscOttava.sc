@@ -6,33 +6,16 @@ TITLE:: FoscOttava
 SUMMARY:: Returns a FoscOttava.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Attaches ottava indicators.
 
 
 USAGE::
 
 '''
-
-• FoscOttava (abjad 3.0)
-
-Attaches ottava indicators.
-
-
-• Example 1
-
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 a[0..].ottava;
 a.show;
-
-img:: ![](../img/indicator-ottava-1.png)
-'''
-
-p = "%/fosc/docs/img/indicator-ottava-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscOttava : FoscObject {
@@ -61,97 +44,87 @@ FoscOttava : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • formatSlot
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscOttava();
-    a.formatSlot;
+    a.formatSlot.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • n
 
-    • Example 1
-
+    '''
     code::
     a = FoscOttava();
-    a.n;
+    a.n.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • persistent
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscOttava();
-    a.persistent;
+    a.persistent.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Gets tweaks.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscOttava();
-    a.tweaks;
+    a.tweaks.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of 'argument'.
 
+    '''
+    '''
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     == {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO
 
     Gets interpreter representation.
 
+    '''
+    '''
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     !!!TODO
 
     Hashes Abjad value object.
 
+    '''
+    '''
     def __hash__(self) -> int:
         hash_values = StorageFormatManager(self).get_hash_values()
         try:
@@ -159,7 +132,6 @@ FoscOttava : FoscObject {
         except TypeError:
             raise TypeError(f'unhashable type: {self}')
         return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hash {
         ^this.notYetImplemented(thisMethod);
@@ -168,9 +140,7 @@ FoscOttava : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string;
