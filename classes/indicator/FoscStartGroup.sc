@@ -6,17 +6,10 @@ TITLE:: FoscStartGroup
 SUMMARY:: Returns a FoscStartGroup.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: !!!TODO: text argument -> Lilypond 2.19.82 and up
 
 
 USAGE::
-
-'''
-
-• FoscStartGroup (abjad 3.0)
-
-!!!TODO: text argument -> Lilypond 2.19.82 and up
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStartGroup : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,91 +34,80 @@ FoscStartGroup : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • persistent
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartGroup();
-    a.persistent;
+    a.persistent.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spannerStart
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartGroup();
-    a.spannerStart;
+    a.spannerStart.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     spannerStart {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Gets tweaks.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartGroup();
-    a.tweaks;
+    a.tweaks.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of 'argument'.
-
+    '''
+    '''
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     == {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO
 
     Gets interpreter representation.
-
+    '''
+    '''
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     !!!TODO
 
     Hashes Abjad value object.
-
+    '''
+    '''
     def __hash__(self) -> int:
         hash_values = StorageFormatManager(self).get_hash_values()
         try:
@@ -133,7 +115,6 @@ FoscStartGroup : FoscObject {
         except TypeError:
             raise TypeError(f'unhashable type: {self}')
         return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hash {
         ^this.notYetImplemented(thisMethod);
@@ -142,9 +123,7 @@ FoscStartGroup : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string;
