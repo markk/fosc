@@ -6,36 +6,18 @@ TITLE:: FoscPaperBlock
 SUMMARY:: Returns a FoscPaperBlock.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A LilyPond file ``\paper`` block.
 
 
 USAGE::
 
 '''
-
-• FoscPaperBlock
-
-A LilyPond file paper block.
-
 code::
 a = FoscBlock(name: 'paper');
 a.leftMargin = FoscLilypondDimension(2, 'cm');
 a.rightMargin = FoscLilypondDimension(2, 'cm');
 a.format;
-
-code::
-\paper {
-    left-margin = 2\cm
-    right-margin = 2\cm
-}
-
-
-code::
-a = FoscPaperBlock();
-a.name;
-a.leftMargin_("Missa sexti tonus");
-a.rightMargin_("Josquin");
-a.format;
+'''
 
 %% Fixed vertical spacing
 top-margin-default = 5\mm     % scaled to paper-size
@@ -88,23 +70,28 @@ first-page-number = #1
 print-first-page-number = ##f
 print-page-number = ##t
 page-number-type = #'arabic
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPaperBlock : FoscBlock {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INIT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	*new {
-		^super.new('paper');
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // properties -- _ly/paper-defaults.init.ly
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // INIT
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    *new {
+      ^super.new('paper');
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE PROPERTIES
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
+    • leftMargin
+    -------------------------------------------------------------------------------------------------------- */
     leftMargin_ { |string|
         var markup, key;
         markup = FoscMarkup(string);
         vars['left-margin'] = markup;
     }
+    /* --------------------------------------------------------------------------------------------------------
+    • rightMargin
+    -------------------------------------------------------------------------------------------------------- */
     rightMargin_ { |string|
         var markup, key;
         markup = FoscMarkup(string);
