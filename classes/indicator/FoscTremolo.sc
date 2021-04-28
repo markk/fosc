@@ -6,76 +6,42 @@ TITLE:: FoscTremolo
 SUMMARY:: Returns a FoscTremolo.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Tremolo (of exactly two notes).
 
 
 USAGE::
 
 '''
-
-• FoscTremolo (abjad 3.0)
-
-Tremolo (of exactly two notes).
-
-
-• Example 1
-
 With three beams by default.
 
 code::
 a = FoscChord([61, 64], 1/4);
 m = FoscTremolo();
 a.attach(m);
-a.show;
-
-img:: ![](../img/indicator-tremolo-1.png)
+a.show; // ERROR: Message 'prTremoloReattackDuration' not understood.
+nointerpret
 '''
 
-p = "%/fosc/docs/img/indicator-tremolo-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 With two beams.
 
 code::
 a = FoscChord([61, 64], 1/4);
 m = FoscTremolo(beamCount: 2);
 a.attach(m);
-a.show;
-
-img:: ![](../img/indicator-tremolo-2.png)
+a.show; // ERROR: Message 'prTremoloReattackDuration' not understood.
+nointerpret
 '''
 
-p = "%/fosc/docs/img/indicator-tremolo-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 3
-
+'''
 With slur.
 
 code::
 a = FoscChord([61, 64], 1/4);
 m = FoscTremolo(isSlurred: true);
 a.attach(m);
-a.show;
-
-img:: ![](../img/indicator-tremolo-3.png)
-'''
-
-p = "%/fosc/docs/img/indicator-tremolo-3".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
+a.show; // ERROR: Message 'prTremoloReattackDuration' not understood.
+nointerpret
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTremolo : FoscObject {
@@ -98,50 +64,41 @@ FoscTremolo : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • beamCount
 
     Gets beam count of tremolo.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscTremolo();
-    m.beamCount;
+    m.beamCount.postln;
+    '''
 
-
-    • Example 2
-
+    '''
     code::
     m = FoscTremolo(beamCount: 2);
-    m.beamCount;
+    m.beamCount.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isSlurred
 
     Is true when tremolo is slurred.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscTremolo(isSlurred: true);
-    m.isSlurred;
+    m.isSlurred.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Tweaks are not implemented on tremolo.
 
-    The Lilypond '\repeat tremolo' command refuses tweaks.
+    The Lilypond ``\repeat tremolo`` command refuses tweaks.
 
     Override the Lilypond 'Beam' grob instead.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     tweaks {
         // pass
@@ -150,17 +107,13 @@ FoscTremolo : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
     Formats stem tremolo.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
 
     Gets string representation of tremolo.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
