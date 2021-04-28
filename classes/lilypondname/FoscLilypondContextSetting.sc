@@ -6,26 +6,18 @@ TITLE:: FoscLilypondContextSetting
 SUMMARY:: Returns a FoscLilypondContextSetting.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: LilyPond context setting.
 
 
 USAGE::
 
 '''
-
-• FoscLilypondContextSetting (abjad 3.0)
-
-LilyPond context setting.
-
-
-• Example 1
-
 code::
 a = FoscLilypondContextSetting('Score', 'autoBeaming', value: true);
-a.formatPieces.join("\n");
+a.formatPieces.join("\n").postln;
+'''
 
-
-
+'''
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 a = FoscScore([a]);
@@ -33,18 +25,11 @@ m = FoscRehearsalMark(number: 1);
 a[0][0].attach(m);
 z = set(a).markFormatter = FoscScheme('format-mark-box-alphabet');
 a.show;
-
-img:: ![](../img/lilypondname-lilypond-context-setting-1.png)
 '''
 
-p = "%/fosc/docs/img/lilypondname-lilypond-context-setting-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
+'''
 code::
-z.prAttributeTuples;
+z.prAttributeTuples.postln;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondContextSetting : FoscObject {
@@ -67,32 +52,24 @@ FoscLilypondContextSetting : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondType
 
     Gets LilyPond type.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • name
 
     Optional LilyPond context name.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • contextProperty
 
     Gets LilyPond context property name.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • formatPieces
 
-    Gets LilyPond context setting '\set' or '\unset' format pieces.
-    '''
+    Gets LilyPond context setting ``\set`` or ``\unset`` format pieces.
     -------------------------------------------------------------------------------------------------------- */
     formatPieces {
         var result, string, valuePieces;
@@ -117,36 +94,28 @@ FoscLilypondContextSetting : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isUnset
 
     Is true if context setting unsets its value. Otherwise false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Value of LilyPond context setting.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • == !!!TODO
 
     Is true when 'argument' is a LilyPond context setting with equivalent keyword values.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle {
         var bundle, string;
