@@ -6,15 +6,10 @@ TITLE:: FoscStartTrillSpan
 SUMMARY:: Returns a FoscStartTrillSpan.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Start a trill span.
 
 
 USAGE::
-
-'''
-
-• FoscStartTrillSpan (abjad 3.0)
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStartTrillSpan : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,148 +31,124 @@ FoscStartTrillSpan : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • context
 
     Gets context. Returns 'Voice'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartTrillSpan();
-    a.context;
+    a.context.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • interval
 
     Gets interval.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartTrillSpan();
-    a.interval;
+    a.interval.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • parameter
 
     Gets parameter. Returns 'TRILL'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartTrillSpan();
-    a.parameter;
+    a.parameter.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • persistent
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartTrillSpan();
-    a.persistent;
+    a.persistent.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pitch
-
 
     Gets pitch.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartTrillSpan();
-    a.pitch;
+    a.pitch.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spannerStart
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartTrillSpan();
-    a.spannerStart;
+    a.spannerStart.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     spannerStart {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Gets tweaks.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStartTrillSpan();
-    a.tweaks;
+    a.tweaks.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of ``argument``.
-
+    '''
+    '''
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     == {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO
 
     Gets interpreter representation.
-
+    '''
+    '''
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     !!!TODO
 
     Hashes Abjad value object.
-
+    '''
+    '''
     def __hash__(self) -> int:
         hash_values = StorageFormatManager(self).get_hash_values()
         try:
@@ -185,7 +156,6 @@ FoscStartTrillSpan : FoscObject {
         except TypeError:
             raise TypeError(f'unhashable type: {self}')
         return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hash {
         ^this.notYetImplemented(thisMethod);
@@ -194,9 +164,7 @@ FoscStartTrillSpan : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string, localPitch;
