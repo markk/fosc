@@ -6,16 +6,10 @@ TITLE:: FoscTie
 SUMMARY:: Returns a FoscTie.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Attach a tie.
 
 
 USAGE::
-
-'''
-
-• FoscTie (abjad 3.0)
-
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTie : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,135 +30,119 @@ FoscTie : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • context
 
     Gets context. Returns 'Voice'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscTie();
-    a.context;
+    a.context.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • direction
 
     Gets direction. Defaults to none.
 
     Returns up, down or none.
 
-
-    • Example 1
-
+    '''
     Force ties up.
 
     code::
     a = FoscStaff(FoscLeafMaker().(60 ! 4, [1/8]));
     m = FoscTie(direction: 'up');
-    a[0..].attach(m);
+    a[0..].attach(m); // FIXME: ERROR: Object:assert
     a.show;
     m.direction;
+    nointerpret
+    '''
 
-
-    • Example 2
-
+    '''
     Force ties down.
 
     code::
     a = FoscStaff(FoscLeafMaker().(60 ! 4, [1/8]));
     m = FoscTie(direction: 'down');
-    a[0..].attach(m);
+    a[0..].attach(m); // FIXME: ERROR: Object:assert
     a.show;
     m.direction;
+    nointerpret
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • persistent
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscTie();
-    a.persistent;
+    a.persistent.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rightBroken
 
     Is true when tie is right-broken.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscTie();
-    a.rightBroken;
+    a.rightBroken.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Gets tweaks.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscTie();
-    a.tweaks;
+    a.tweaks.postcs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     !!!TODO
 
     Is true when all initialization values of Abjad value object equal the initialization values of ``argument``.
-
+    '''
+    '''
     def __eq__(self, argument) -> bool:
         return StorageFormatManager.compare_objects(self, argument)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // == {
     //     ^this.notYetImplemented(thisMethod);
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO
 
     Gets interpreter representation.
-
+    '''
+    '''
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     !!!TODO
 
     Hashes Abjad value object.
-
+    '''
+    '''
     def __hash__(self) -> int:
         hash_values = StorageFormatManager(self).get_hash_values()
         try:
@@ -172,7 +150,6 @@ FoscTie : FoscObject {
         except TypeError:
             raise TypeError(f'unhashable type: {self}')
         return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
     hash {
         ^this.notYetImplemented(thisMethod);
@@ -181,9 +158,7 @@ FoscTie : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prAddDirection
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prAddDirection { |string|
         if (direction.notNil) {
@@ -192,9 +167,7 @@ FoscTie : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, strings, string;
@@ -212,9 +185,7 @@ FoscTie : FoscObject {
         ^bundle;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prTagShow
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prTagShow { |strings|
         ^FoscLilypondFormatManager.tag(
