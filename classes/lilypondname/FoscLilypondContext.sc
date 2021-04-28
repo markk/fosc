@@ -6,16 +6,9 @@ TITLE:: FoscLilypondContext
 SUMMARY:: Returns a FoscLilypondContext.
 
 
-DESCRIPTION:: TODO
-
+DESCRIPTION:: LilyPond context.
 
 USAGE::
-
-'''
-
-• FoscLilypondContext
-
-LilyPond context.
 
 >>> context = lilypondnametools.LilyPondContext('MensuralStaff')
 >>> print(format(context))
@@ -72,19 +65,32 @@ lilypondnametools.LilyPondContext(
 [ ] [ ] [ ] [X] [ ] VaticanaStaff
 [ ] [ ] [ ] [ ] [X] VaticanaVoice
 [ ] [ ] [ ] [ ] [X] Voice
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondContext : FoscObject {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INIT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//classvar contexts;
-	var <name, contexts;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // INIT
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //classvar contexts;
+    var <name, contexts;
     // _identity_map = {}
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
+    '''
+    code::
+    a = FoscLilypondContext('Staff');
+    a.name;
+    a = FoscLilypondContext('blerk');       // throw exception
+    nointerpret
+
+    post::
+    ERROR: FoscLilypondContext: blerk is not a valid lilypond context name.
+    '''
+
+    '''
+    code::
+    FoscLilypondContext.listAllContexts.postln;
+    '''
     def __new__(class_, name='Voice'):
         if isinstance(name, class_):
             name = name.name
@@ -99,14 +105,7 @@ FoscLilypondContext : FoscObject {
         from abjad.ly import contexts
         assert name in contexts
         self._name = name
-    
-    code::
-    a = FoscLilypondContext('Staff');
-    a.name;
-    a = FoscLilypondContext('blerk');       // throw exception
-    code::
-    FoscLilypondContext.listAllContexts;
-    '''
+
     -------------------------------------------------------------------------------------------------------- */
     *new { |name='Voice'|
     	^super.new.init(name);
@@ -121,9 +120,12 @@ FoscLilypondContext : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • listAllContexts
-    
+
+    '''
+    code::
+    FoscLilypondContext.listAllContexts.collect { |each| each.name }.postln;
+    '''
     @staticmethod
     def list_all_contexts():
         r'''Lists all contexts.
@@ -170,22 +172,13 @@ FoscLilypondContext : FoscObject {
         '''
         from abjad.ly import contexts
         return tuple(LilyPondContext(name=name) for name in sorted(contexts))
-    
-    code::
-	FoscLilypondContext.listAllContexts.do { |each| each.name.postln };
-
-    post::
-    POSTOUTPUT
-    '''
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *listAllContexts {
     	^LilypondContexts.list.collect { |each| FoscLilypondContext(each) };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @classmethod
     def register(
         class_,
@@ -320,13 +313,11 @@ FoscLilypondContext : FoscObject {
             contexts[accepting_context]['accepts'].add(name)
         custom_context = class_(name=name)
         return custom_context
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     def unregister(
         self,
         context=None,
@@ -406,16 +397,13 @@ FoscLilypondContext : FoscObject {
         for context_name, context_info in contexts.items():
             if self.name in context_info['accepts']:
                 context_info['accepts'].remove(self.name)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def accepted_by(self):
         r'''Gets contexts accepting LilyPond context.
@@ -562,13 +550,11 @@ FoscLilypondContext : FoscObject {
                 accepting_context = LilyPondContext(context_name)
                 accepting_contexts.add(accepting_context)
         return tuple(sorted(accepting_contexts, key=lambda x: x.name))
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def accepts(self):
         r'''Gets contexts accepted by LilyPond context.
@@ -588,13 +574,11 @@ FoscLilypondContext : FoscObject {
         accepts = (LilyPondContext(name=name)
             for name in contexts[self.name]['accepts'])
         return tuple(sorted(accepts, key=lambda x: x.name))
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def alias(self):
         r'''Gets alias of LilyPond context.
@@ -614,13 +598,11 @@ FoscLilypondContext : FoscObject {
                 return None
             return LilyPondContext(name=alias)
         return None
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def default_child(self):
         r'''Gets default child of LilyPond context.
@@ -698,13 +680,11 @@ FoscLilypondContext : FoscObject {
                 return alias.default_child
         if default_child_name and default_child_name in contexts:
             return LilyPondContext(name=default_child_name)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def engravers(self):
         r'''Gets engravers belonging to LilyPond context.
@@ -752,13 +732,11 @@ FoscLilypondContext : FoscObject {
             engravers.add(engraver)
         engravers = tuple(sorted(engravers, key=lambda x: x.name))
         return engravers
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def grobs(self):
         r'''Gets grobs created by LilyPond context.
@@ -812,13 +790,11 @@ FoscLilypondContext : FoscObject {
         for engraver in self.engravers:
             grobs.update(engraver.grobs)
         return tuple(sorted(grobs, key=lambda x: x.name))
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def is_bottom_context(self):
         r'''Is true if LilyPond context is a bottom context. Otherwise false.
@@ -867,13 +843,11 @@ FoscLilypondContext : FoscObject {
         if not self.accepts:
             return True
         return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def is_custom(self):
         r'''Is true if LilyPond context is user-created. Otherwise false.
@@ -887,13 +861,11 @@ FoscLilypondContext : FoscObject {
         '''
         from abjad.ly import contexts
         return bool(contexts[self.name].get('is_custom', False))
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def is_global_context(self):
         r'''Is true if LilyPond context is a global context. Otherwise false.
@@ -946,13 +918,11 @@ FoscLilypondContext : FoscObject {
         elif self.alias is type(self)('Global'):
             return True
         return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def is_score_context(self):
         r'''Is true if LilyPond context is a score context. Otherwise false.
@@ -1005,13 +975,11 @@ FoscLilypondContext : FoscObject {
         elif self.alias is type(self)('Score'):
             return True
         return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def is_staff_context(self):
         r'''Is true if LilyPond context is a staff context. Otherwise false.
@@ -1064,13 +1032,11 @@ FoscLilypondContext : FoscObject {
         elif self.alias is type(self)('Staff'):
             return True
         return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def is_staff_group_context(self):
         r'''Is true if LilyPond context is a staff group context. Otherwise false.
@@ -1122,13 +1088,11 @@ FoscLilypondContext : FoscObject {
             self.is_staff_context,
             self.is_bottom_context,
             ])
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def name(self):
         r'''Gets name of LilyPond context.
@@ -1141,13 +1105,11 @@ FoscLilypondContext : FoscObject {
         Returns string.
         '''
         return self._name
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
-    
+
     @property
     def property_names(self):
         r'''Gets property names of LilyPond context.
@@ -1223,6 +1185,5 @@ FoscLilypondContext : FoscObject {
         for engraver in self.engravers:
             property_names.update(engraver.property_names)
         return tuple(sorted(property_names))
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
