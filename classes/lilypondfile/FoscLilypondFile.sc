@@ -6,57 +6,30 @@ TITLE:: FoscLilypondFile
 SUMMARY:: Returns a FoscLilypondFile.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A Lilypond file.
 
 
 USAGE::
 
 '''
-
-• FoscLilypondFile
-
-
-A Lilypond file.
-
-
-• Example 1
-
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 f = FoscLilypondFile(a);
 f.show;
-
-img:: ![](../img/lilypondfile-lilypond-file-1.png)
 '''
 
-p = "%/fosc/docs/img/lilypondfile-lilypond-file-1".format(Platform.userExtensionDir);
-f.writePNG("%.ly".format(p));
 
-
-
-
-
-• Example 2: Set proportional notation duration.
+'''
+Set proportional notation duration.
 
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 f = FoscLilypondFile(a);
 b = f.layoutBlock['Score'];
-if (b.isNil) {
-    b = FoscContextBlock(sourceLilypondType: 'Score');
-    f.layoutBlock.items.add(b);
-};
+if (b.isNil) { b = FoscContextBlock(sourceLilypondType: 'Score') };
+f.layoutBlock.items.add(b);
 set(b).proportionalNotationDuration = FoscSchemeMoment([1, 20]);
 f.show;
-
-img:: ![](../img/lilypondfile-lilypond-file-2.png)
-'''
-
-p = "%/fosc/docs/img/lilypondfile-lilypond-file-2".format(Platform.userExtensionDir);
-f.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondFile : FoscObject {
@@ -64,9 +37,7 @@ FoscLilypondFile : FoscObject {
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • !!!TODO: add 'tag' argument
-    '''
     -------------------------------------------------------------------------------------------------------- */
     var <comments, <dateTimeToken, <defaultPaperSize, <globalStaffSize, <includes, <items, <tag;
     var <lilypondLanguageToken, <lilypondVersionToken, <useRelativeIncludes;
@@ -102,26 +73,23 @@ FoscLilypondFile : FoscObject {
         lilypondVersionToken = FoscLilypondVersionToken(lilypondVersionToken);
         useRelativeIncludes = argUseRelativeIncludes;
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC CLASS METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *pitch
 
     One staff per array in 'pitches'.
+
+    '''
+    FIXME: Lilypond compile fails, error: cannot find file: `../stylesheets/default.ily'
 
     code::
     a = (60,60.25..71);
     b = (60..53);
     f = FoscLilypondFile.pitch([a, b]);
     f.show;
-
-    img:: ![](../img/lilypondfile-lilypond-file-3.png)
-    '''
-
-    p = "%/fosc/docs/img/lilypondfile-lilypond-file-3".format(Platform.userExtensionDir);
-    f.writePNG("%.ly".format(p));
-
-
-
+    nointerpret
     '''
     -------------------------------------------------------------------------------------------------------- */
     *pitch { |pitches, defaultPaperSize=#['a4', 'portrait'], globalStaffSize=16|
@@ -183,7 +151,6 @@ FoscLilypondFile : FoscObject {
         ^lilypondFile;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *rhythm
 
     Makes rhythm-maker-style LilyPond file.
@@ -192,35 +159,22 @@ FoscLilypondFile : FoscObject {
 
     Returns LilyPond file.
 
-
-    • Example 1
-
+    '''
     Make a rhythmic staff.
 
     code::
     d = #[[3,4],[4,8],[1,4]];
     m = FoscLeafMaker();
 
-    code::
     x = [m.(64 ! 6, 1/8), m.(64 ! 8, 1/16), m.(64 ! 2, 1/8)];
     x.do { |each| each.beam };
 
-    code::
     f = FoscLilypondFile.rhythm(x, d);
     f.show;
-
-    img:: ![](../img/lilypondfile-lilypond-file-4.png)
     '''
 
-    p = "%/fosc/docs/img/lilypondfile-lilypond-file-4".format(Platform.userExtensionDir);
-    f.writePNG("%.ly".format(p));
-
-
-
-
-
+    '''
     !!!TODO: functionality removed - bring it back?
-    • Example 2
 
     Set time signatures explicitly.
 
@@ -228,72 +182,39 @@ FoscLilypondFile : FoscObject {
     d = #[[3,4],[4,8],[1,4]];
     m = FoscLeafMaker();
 
-    code::
     x = [m.(64 ! 6, 1/8), m.(64 ! 8, 1/16), m.(64 ! 2, 1/8)];
     x.do { |each| each.beam };
 
-    code::
     t = #[[6,8],[4,8],[2,8]];
     f = FoscLilypondFile.rhythm(x, t);
     f.show;
-
-    img:: ![](../img/lilypondfile-lilypond-file-5.png)
     '''
 
-    p = "%/fosc/docs/img/lilypondfile-lilypond-file-5".format(Platform.userExtensionDir);
-    f.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 3
-
+    '''
     Make pitched staff.
 
     code::
     d = #[[3,4],[4,8],[1,4]];
     m = FoscLeafMaker();
 
-    code::
     x = [m.(64 ! 6, 1/8), m.(64 ! 8, 1/16), m.(64 ! 2, 1/8)];
     x.do { |each| each.beam };
 
-    code::
     f = FoscLilypondFile.rhythm(x, d, pitchedStaff: true);
     f.show;
-
-    img:: ![](../img/lilypondfile-lilypond-file-6.png)
     '''
 
-    p = "%/fosc/docs/img/lilypondfile-lilypond-file-6".format(Platform.userExtensionDir);
-    f.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 4
-
+    '''
     Adjust horizontal spacing with 'stretch'. Defaults to 1.
-
 
     code::
     m = FoscRhythmMaker().(divisions: [1/4], ratios: #[[2,1],[3,2],[4,3]]);
     f = FoscLilypondFile.rhythm(m, stretch: 4);
     f.show;
-
-    img:: ![](../img/lilypondfile-lilypond-file-7.png)
     '''
 
-    p = "%/fosc/docs/img/lilypondfile-lilypond-file-7".format(Platform.userExtensionDir);
-    f.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 5 !!!TODO: not yet working
+    '''
+    !!!TODO: not yet working
 
     Make simultaneous voices.
 
@@ -301,50 +222,26 @@ FoscLilypondFile : FoscObject {
     d = #[[3,4],[4,8],[1,4]];
     m = FoscLeafMaker();
 
-    code::
     x = [m.(64 ! 6, 1/8), m.(64 ! 8, 1/16), m.(64 ! 2, 1/8)];
     x.do { |each| each.beam };
     x = FoscSelection(x).flat;
 
-    code::
     y = [m.(60 ! 12, 1/16), m.(60 ! 16, 1/32), m.(60 ! 4, 1/16)];
     y.do { |each| each.beam };
     y = FoscSelection(y).flat;
 
-    code::
     a = ('Voice_1': x, 'Voice_2': y);
     f = FoscLilypondFile.rhythm(a, divisions: d, attachLilypondVoiceCommands: true);
-
-    code::
     f.show;
-
-    img:: ![](../img/lilypondfile-lilypond-file-8.png)
     '''
 
-    p = "%/fosc/docs/img/lilypondfile-lilypond-file-8".format(Platform.userExtensionDir);
-    f.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 6
-
+    '''
     Use implicitly when displaying state of rhythm-makers.
 
     code::
     a = FoscRhythmMaker();
     a.(divisions: [1/4], ratios: #[[2,1],[3,2],[4,3]]);
     a.show;
-
-    img:: ![](../img/lilypondfile-lilypond-file-9.png)
-    '''
-
-    p = "%/fosc/docs/img/lilypondfile-lilypond-file-9".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     *rhythm { |selections, divisions, attachLilypondVoiceCommands=false, pitchedStaff=false|
@@ -604,60 +501,63 @@ FoscLilypondFile : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • comments
 
     Gets comments of Lilypond file.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.comments;
+    a.comments.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • dateTimeToken
 
     Gets date-time token.
 
+    '''
+    FIXME: this returns ERROR: NotYetImplementedError when run by make, works fine in emacs...
+
     code::
     a = FoscLilypondFile();
-    a.dateTimeToken;
+    a.dateTimeToken.postln;
+    nointerpret
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • defaultPaperSize
 
     Gets default paper size of Lilypond file. Set to pair or nil. Defaults to nil.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.defaultPaperSize;
+    a.defaultPaperSize.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • globalStaffSize
 
     Gets global staff size of Lilypond file. Set to number or nil. Defaults to nil.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.globalStaffSize;
+    a.globalStaffSize.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • headerBlock
 
     Gets header block.
 
     Returns block or nil.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.headerBlock.name;
+    a.headerBlock.name.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     // headerBlock {
@@ -667,39 +567,38 @@ FoscLilypondFile : FoscObject {
     //     ^nil;
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • includes
 
     Gets includes of Lilypond file.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.includes;
+    a.includes.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • items
 
     Gets items in Lilypond file.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.items;
+    a.items.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • layoutBlock
 
     Gets layout block.
 
     Returns block or nil.
 
-
+    '''
     code::
     a = FoscLilypondFile();
-    a.layoutBlock.name;
+    a.layoutBlock.name.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     // layoutBlock {
@@ -709,39 +608,38 @@ FoscLilypondFile : FoscObject {
     //     ^nil;
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondLanguageToken
 
     Gets Lilypond language token.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.lilypondLanguageToken;
+    a.lilypondLanguageToken.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondVersionToken
 
     Gets Lilypond version token.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.lilypondVersionToken;
+    a.lilypondVersionToken.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • paperBlock
 
     Gets paper block.
 
     Returns block or nil.
 
-
+    '''
     code::
     a = FoscLilypondFile();
-    a.paperBlock.name;
+    a.paperBlock.name.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     // paperBlock {
@@ -751,17 +649,16 @@ FoscLilypondFile : FoscObject {
     //     ^nil;
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • scoreBlock
 
     Gets score block.
 
     Returns block or nil.
 
-
+    '''
     code::
     a = FoscLilypondFile();
-    a.scoreBlock.name;
+    a.scoreBlock.name.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     // scoreBlock {
@@ -771,33 +668,30 @@ FoscLilypondFile : FoscObject {
     //     ^nil;
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • useRelativeIncludes
 
     Is true when Lilypond file should use relative includes.
 
+    '''
     code::
     a = FoscLilypondFile();
-    a.useRelativeIncludes;
+    a.useRelativeIncludes.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
     Formats Lilypond file.
 
     Returns string.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • at (abjad: __getitem__)
 
     Gets item with name.
@@ -805,31 +699,26 @@ FoscLilypondFile : FoscObject {
     Returns item.
 
     Raises key error when no item with name is found.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     at { |name|
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • illustrate
 
     Illustrates Lilypond file.
 
     Returns Lilypond file unchanged.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     illustrate {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     Gets interpreter representation of Lilypond file.
 
     Returns string.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
@@ -838,9 +727,8 @@ FoscLilypondFile : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetFormatPieces
-
+    '''
     code::
     c = ["File construct as an example.", "Second comment."];
     i = ["external-settings-file-1.ly", "external-settings-file-2.ly"];
@@ -888,9 +776,8 @@ FoscLilypondFile : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetFormattedBlocks
-
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
     f = FoscLilypondFile(a);
@@ -921,14 +808,13 @@ FoscLilypondFile : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-   '''
-   • prGetFormattedComments
-
-   code::
+    • prGetFormattedComments
+    '''
+    code::
     c = ["File construct as an example.", "A second comment on a new line."];
     a = FoscLilypondFile(comments: c);
     a.prGetFormattedComments;
-   '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormattedComments {
         var result, lilypondFormat;
@@ -946,13 +832,11 @@ FoscLilypondFile : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetFormattedIncludes
-
+    '''
     i = [
         "external-settings-file-1.ly",
         "external-settings-file-2.ly"
-    code::
     ];
     a = FoscLilypondFile(includes: i);
     a.prGetFormattedIncludes;
@@ -975,9 +859,8 @@ FoscLilypondFile : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetFormattedSchemeSettings
-
+    '''
     code::
     a = FoscLilypondFile(defaultPaperSize: #['a5', 'portrait'], globalStaffSize: 16);
     a.defaultPaperSize;
@@ -1002,9 +885,7 @@ FoscLilypondFile : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormat
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.prGetFormatPieces.join("\n\n");
