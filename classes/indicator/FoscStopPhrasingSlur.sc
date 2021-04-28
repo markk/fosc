@@ -6,15 +6,10 @@ TITLE:: FoscStopPhrasingSlur
 SUMMARY:: Returns a FoscStopPhrasingSlur.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: End a phrasing slur.
 
 
 USAGE::
-
-'''
-
-• FoscStopPhrasingSlur (abjad 3.0)
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStopPhrasingSlur {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,73 +28,60 @@ FoscStopPhrasingSlur {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • context
 
     Gets context. Returns 'Voice'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopPhrasingSlur();
-    a.context;
+    a.context.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leak
 
-    Is true when stop beam leaks LilyPond '<>'' empty chord
+    Is true when stop beam leaks LilyPond ``<>`` empty chord
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopPhrasingSlur();
-    a.leak;
+    a.leak.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • parameter
 
-    Gets parameter. Returns 'Beam'.
+    Gets parameter. Returns 'PHRASING_SLUR'.
 
-
+    '''
     • Example 1
 
     code::
     a = FoscStopPhrasingSlur();
-    a.parameter;
+    a.parameter.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • persistent
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopPhrasingSlur();
-    a.persistent;
+    a.persistent.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spannerStop
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopPhrasingSlur();
-    a.spannerStop;
+    a.spannerStop.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     spannerStop {
@@ -109,16 +91,15 @@ FoscStopPhrasingSlur {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO
 
     Gets interpreter representation.
-
+    '''
+    '''
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
@@ -127,9 +108,7 @@ FoscStopPhrasingSlur {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string;
