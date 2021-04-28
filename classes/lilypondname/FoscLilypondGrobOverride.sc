@@ -6,17 +6,10 @@ TITLE:: FoscLilypondGrobOverride
 SUMMARY:: Returns a FoscLilypondGrobOverride.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: LilyPond grob override.
 
 
 USAGE::
-
-'''
-
-• FoscLilypondGrobOverride (abjad 3.0)
-
-LilyPond grob override.
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondGrobOverride : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,114 +36,94 @@ FoscLilypondGrobOverride : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • grobName
 
     LilyPond grob override grob name.
 
     Returns Symbol.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando');
-    a.grobName;
+    a.grobName.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isOnce
 
     Is true when grob override is to be applied only once.
 
     Returns true or false.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", isOnce: true);
-    a.isOnce;
+    a.isOnce.postln;
+    '''
 
-
-    • Example 2
-
+    '''
     code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando', isOnce: false);
-    a.isOnce;
+    a.isOnce.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isRevert
 
     Is true when grob override is a grob revert.
 
     Returns true or false.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", isRevert: true);
-    a.isRevert;
+    a.isRevert.postln;
 
-
-    • Example 2
-
+    '''
     code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando', isRevert: false);
-    a.isRevert;
+    a.isRevert.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondType
 
     Optional Lilypond grob override context name.
 
     Returns Symbol or nil.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
-    a.lilypondType;
+    a.lilypondType.postln;
+    '''
 
-
-    • Example 2
-
+    '''
     code::
     a = FoscLilypondGrobOverride(grobName: 'Glissando');
-    a.lilypondType == nil;
+    a.lilypondType.isNil.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • overrideFormatPieces
 
     Gets LilyPond grob override \override format pieces.
 
     Returns array of strings.
 
-
-    • Example 1
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         lilypondType: "Staff",
         grobName: "TextSpanner",
         isOnce: true,
         propertyPath: #['bound-details', 'left', 'text'],
         value: FoscMarkup("\\bold { over pressure }")
-    code::
     );
     a.overrideFormatPieces.printAll;
 
     post::
-    POSTOUTPUT
-    '''
+    \once \override Staff.TextSpanner.bound-details.left.text = \markup { "\bold { over pressure }" }
     '''
     -------------------------------------------------------------------------------------------------------- */
     overrideFormatPieces {
@@ -168,68 +141,59 @@ FoscLilypondGrobOverride : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • overrideString
 
     Gets LilyPond grob override \override string.
 
     Returns string.
 
-
-    • Example 1
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
-    code::
     );
-    a.overrideString;
+    a.overrideString.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     overrideString {
         ^this.overrideFormatPieces.join("\n");
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • propertyPath
 
     LilyPond grob override property path.
 
     Returns array of symbols.
 
-
-    • Example 1
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         lilypondType: "Staff",
         grobName: "TextSpanner",
         isOnce: true,
         propertyPath: #['bound-details', 'left', 'text'],
         value: FoscMarkup("\\bold { over pressure }")
-    code::
     );
-    a.propertyPath[0];
+    a.propertyPath[0].postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • revertFormatPieces
 
-    Gets LilyPond grob override \revert format pieces.
+    Gets LilyPond grob override ``\revert`` format pieces.
 
     Returns array of strings.
 
-
-    • Example 1
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
-    code::
     );
-    a.revertFormatPieces;
+    a.revertFormatPieces.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     revertFormatPieces {
@@ -238,91 +202,83 @@ FoscLilypondGrobOverride : FoscObject {
         ^[result];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • revertString
 
-    Gets LilyPond grob override \revert string.
+    Gets LilyPond grob override ``\revert`` string.
 
     Returns string.
 
-
-    • Example 1
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
-    code::
     );
-    a.revertString;
+    a.revertString.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     revertString {
         ^this.revertFormatPieces.join("\n");
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Value of LilyPond grob override.
 
     Returns arbitrary object.
 
-
-    • Example 1
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         lilypondType: "Staff",
         grobName: "TextSpanner",
         isOnce: true,
         propertyPath: #['bound-details', 'left', 'text'],
         value: FoscMarkup("\\bold { over pressure }")
-    code::
     );
-    a.value;
+    a.value.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweakString
 
-
-    • Example 1
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         grobName: "Glissando",
         propertyPath: 'style',
         value: FoscSchemeSymbol('zigzag')
-    code::
     );
-    a.tweakString;
+    a.tweakString.postln;
+    '''
 
-
-    • Example 2
-
+    '''
+    code::
     a = FoscLilypondGrobOverride(
         grobName: "RehearsalMark",
         propertyPath: 'color',
         value: 'red'
-    code::
     );
-    a.tweakString;
+    a.tweakString.postln;
+    '''
 
-
-    • Example 3
-
+    '''
     Lilypond literals are allowed.
 
+    FIXME: ERROR: Message 'name' not understood.
+
+    code::
     a = FoscLilypondGrobOverride(
         grobName: "TextSpan",
         propertyPath: #['bound-details', 'left-broken', 'text'],
         value: FoscLilypondLiteral("\\markup \\upright pont.")
-    code::
     );
-    a.tweakString;
+    a.tweakString.postln;
+    nointerpret
     '''
     -------------------------------------------------------------------------------------------------------- */
     tweakString { |isDirected=true, grob=false|
@@ -359,26 +315,28 @@ FoscLilypondGrobOverride : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     Is true when 'object' is a FoscLilypondGrobOverride with equivalent instance variable values.
 
-
-    • Example 1
+    '''
+    FIXME: ERROR: Message 'instVarDict' not understood.
 
     code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
     b = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
-    a == b;
+    (a == b).postln;
+    nointerpret
+    '''
 
-
-    • Example 2
+    '''
+    FIXME: ERROR: Message 'instVarDict' not understood.
 
     code::
     a = FoscLilypondGrobOverride("Staff", "NoteHead", true, false, 'color', 'red');
     b = FoscLilypondGrobOverride("Voice", "NoteHead", true, false, 'color', 'red');
-    a == b;
+    (a == b).postln;
+    nointerpret
     '''
     -------------------------------------------------------------------------------------------------------- */
     == { |object|
@@ -390,9 +348,7 @@ FoscLilypondGrobOverride : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, revertFormat, overrideFormat;
@@ -408,9 +364,7 @@ FoscLilypondGrobOverride : FoscObject {
         ^bundle;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prOverridePropertyPathString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prOverridePropertyPathString {
         var parts, path;
@@ -422,9 +376,7 @@ FoscLilypondGrobOverride : FoscObject {
         ^path;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRevertPropertyPathString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prRevertPropertyPathString {
         var parts, path;
