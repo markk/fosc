@@ -6,18 +6,12 @@ TITLE:: FoscLilypondVersionToken
 SUMMARY:: Returns a FoscLilypondVersionToken.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A LilyPond file ``\version`` token.
 
 
 USAGE::
 
 '''
-
-• FoscLilypondVersionToken
-
-A LilyPond file \version token.
-
-
 code::
 FoscLilypondVersionToken('2.19.0').format;
 
@@ -42,16 +36,22 @@ FoscLilypondVersionToken : FoscObject {
 
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: Special Methods
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
     Formats LilyPond version token.
 
     Return string.
 
+    '''
+    code::
+    FoscLilypondVersionToken('2.19.0').format;
+
+    code::
+    FoscLilypondVersionToken().format;
+    '''
     def __format__(self, format_specification=''):
         from abjad.tools import systemtools
         if format_specification in ('', 'lilypond'):
@@ -59,73 +59,65 @@ FoscLilypondVersionToken : FoscObject {
         elif format_specification == 'storage':
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
-
-    code::
-    FoscLilypondVersionToken('2.19.0').format;
-    FoscLilypondVersionToken().format;
-    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString (abjad: __repr__)
 
     Gets interpreter representation of LilyPond version_string token.
 
     Returns string.
-
+    '''
+    '''
     def __repr__(self):
         return '{}({!r})'.format(type(self).__name__, self.version_string)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormat
 
     def _get_lilypond_format(self):
             return r'\version "{}"'.format(self.version_string)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^"\\version %".format(versionString.asString.quote);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC PROPERTIES
+    // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    •
+    • versionString
 
     Gets version string of LilyPond version token.
 
     Returns string.
 
+    '''
+    code::
+    a = FoscLilypondVersionToken();
+    a.versionString.postln;
+    '''
     @property
     def version_string(self):
         return self._version_string
 
-    code::
-    a = FoscLilypondVersionToken();
-    a.versionString;
-
-
+    '''
     Gets version string from install environment:
 
     code::
     a = FoscLilypondVersionToken();
-    a.versionString;
-
+    a.versionString.postln;
+    '''
+    '''
     Gets version string from explicit input:
 
     code::
     a = FoscLilypondVersionToken("2.19.0");
-    a.versionString;
+    a.versionString.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
