@@ -6,15 +6,10 @@ TITLE:: FoscStopTrillSpan
 SUMMARY:: Returns a FoscStopTrillSpan.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: End a trill.
 
 
 USAGE::
-
-'''
-
-• FoscStopTrillSpan (abjad 3.0)
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStopTrillSpan : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,87 +31,69 @@ FoscStopTrillSpan : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • context
 
     Gets context. Returns 'Voice'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopTrillSpan();
-    a.context;
+    a.context.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leak
 
     Is true when stop beam leaks LilyPond '<>'' empty chord
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopTrillSpan();
-    a.leak;
+    a.leak.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • parameter
 
     Gets parameter. Returns 'TRILL'.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopTrillSpan();
-    a.parameter;
+    a.parameter.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • persistent
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopTrillSpan();
-    a.persistent;
+    a.persistent.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rightBroken
 
     Is true when stop trill spanner is right-broken.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopTrillSpan();
-    a.rightBroken;
+    a.rightBroken.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spannerStop
 
     Is true.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStopTrillSpan();
-    a.spannerStop;
+    a.spannerStop.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     spannerStop {
@@ -126,16 +103,15 @@ FoscStopTrillSpan : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO
 
     Gets interpreter representation.
-
+    '''
+    '''
     def __repr__(self) -> str:
         return StorageFormatManager(self).get_repr_format()
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
@@ -144,7 +120,6 @@ FoscStopTrillSpan : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
 
     bundle = LilyPondFormatBundle()
@@ -157,7 +132,6 @@ FoscStopTrillSpan : FoscObject {
     else:
         bundle.after.spanner_stops.append(string)
     return bundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, localTweaks, string;
@@ -175,9 +149,7 @@ FoscStopTrillSpan : FoscObject {
         ^bundle;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prTagHide
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prTagHide { |strings|
         ^this.notYetImplemented(thisMethod);
