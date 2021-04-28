@@ -6,19 +6,14 @@ TITLE:: FoscLilypondDimension
 SUMMARY:: Returns a FoscLilypondDimension.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A LilyPond file \paper block dimension.
+
+Use for LilyPond file \paper block attributes.
 
 
 USAGE::
 
 '''
-
-• FoscLilypondDimension
-
-A LilyPond file \paper block dimension.
-
-Use for LilyPond file \paper block attributes.
-
 code::
 a = FoscLilypondDimension(2, 'in');
 a.format;
@@ -59,16 +54,20 @@ FoscLilypondDimension : FoscObject {
         unit = argUnit;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: Special Methods
+    // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
     Formats LilyPond dimension.
 
     Returns string.
 
+    '''
+    code::
+    a = FoscLilypondDimension(2, 'in');
+    a.format;
+    '''
     def __format__(self, format_specification=''):
         from abjad.tools import systemtools
         if format_specification in ('', 'lilypond'):
@@ -76,11 +75,6 @@ FoscLilypondDimension : FoscObject {
         elif format_specification == 'storage':
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
-
-    code::
-    a = FoscLilypondDimension(2, 'in');
-    a.format;
-    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
@@ -89,62 +83,56 @@ FoscLilypondDimension : FoscObject {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetFormatPieces
 
     def _get_format_pieces(self):
         return [r'{}\{}'.format(self.value, self.unit)]
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         ^[value.asString ++ "\\" ++ unit.asString];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormat
 
     def _get_lilypond_format(self):
         return '\n'.join(self._get_format_pieces())
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormat {
         ^this.prGetFormatPieces.join("\n");
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC PROPERTIES
+    // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • unit
 
     Gets unit of LilyPond dimension.
 
     Returns 'cm', 'in', 'mm' or 'pt'
 
+    '''
+    code::
+    a = FoscLilypondDimension(2, 'in');
+    a.unit.postln;
+    '''
     @property
     def unit(self):
         return self._unit
-
-    code::
-    a = FoscLilypondDimension(2, 'in');
-    a.unit;
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Gets value of LilyPond dimension.
 
     Returns number.
 
+    '''
+    code::
+    a = FoscLilypondDimension(2, "in");
+    a.value.postln;
+    '''
     @property
     def value(self):
         return self._value
-
-    code::
-    a = FoscLilypondDimension(2, "in");
-    a.value;
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
