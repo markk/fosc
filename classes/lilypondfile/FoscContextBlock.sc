@@ -6,24 +6,14 @@ TITLE:: FoscContextBlock
 SUMMARY:: Returns a FoscContextBlock.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A LilyPond file ``\context`` block.
 
 
 USAGE::
 
 '''
-
-• FoscContextBlock
-
-!!!TODO: needs to be updated
-
-A LilyPond file \context block.
-
-
 code::
 a = FoscContextBlock(sourceLilypondType: 'Staff', name: 'FluteStaff', type: 'Engraver_group', alias: 'Staff');
-
-code::
 a.removeCommands.add('Forbid_line_break_engraver');
 a.consistsCommands.add('Horizontal_bracket_engraver');
 a.acceptsCommands.add('FluteUpperVoice');
@@ -59,14 +49,12 @@ FoscContextBlock : FoscBlock {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetFormatPieces
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetFormatPieces {
         var indent, result, string, manager, pieces, overrides, settingContributions, settingContribution;
         var key, val;
-        
+
         indent = FoscLilypondFormatManager.indent;
         result = [];
         string = "% {".format(escapedName);
@@ -140,107 +128,99 @@ FoscContextBlock : FoscBlock {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • acceptsCommands
-    
-    Gets arguments of LilyPond \accepts commands.
+
+    Gets arguments of LilyPond ``\accepts`` commands.
 
     Returns list.
 
+    '''
     code::
-    a.acceptsCommands;
-    >> ['FluteUpperVoice', 'FluteLowerVoice']
+    a.acceptsCommands.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • alias
 
-    Gets and sets argument of LilyPond \alias command.
+    Gets and sets argument of LilyPond ``\alias`` command.
 
     Returns string or none.
 
+    '''
     code::
-    a.alias;
-    >> 'Staff'
+    a.alias.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • consistsCommands
 
-    Gets arguments of LilyPond \consists commands.
+    Gets arguments of LilyPond ``\consists`` commands.
 
     Returns list.
-    
+
+    '''
     code::
-    a.consistsCommands;
-    >> ['Horizontal_bracket_engraver']
+    a.consistsCommands.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • items
 
     Gets items in context block.
 
     Returns list.
-        
+
+    '''
     code::
-    a.items;
-    >> ['\accidentalStyle dodecaphonic']
+    a.items.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • name
-    
-    Gets and sets argument of LilyPond \name command.
+
+    Gets and sets argument of LilyPond ``\name`` command.
 
     Returns string or none.
-    
+
+    '''
     code::
-    a.name;
-    >> 'FluteStaff'
+    a.name.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • removeCommands
-    
-    Gets arguments of LilyPond \remove commands.
-        
+
+    Gets arguments of LilyPond ``\remove`` commands.
+
     Returns list.
-        
+
+    '''
     code::
-    a.removeCommands;
-    >> ['Horizontal_bracket_engraver']
+    a.removeCommands.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sourceLilypondType
-    
+
     Gets and sets source context name.
 
     Returns string or none.
-    
+
+    '''
     code::
-    a.sourceLilypondType;
-    >> 'Staff'
+    a.sourceLilypondType.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • type
-    
+
     Gets and sets argument of LilyPond \type command.
 
     Returns string or none.
-    
+
+    '''
     code::
-    a.type;
-    >> 'Engraver_group'
+    a.type.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
