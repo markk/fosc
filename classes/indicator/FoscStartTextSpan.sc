@@ -6,18 +6,12 @@ TITLE:: FoscStartTextSpan
 SUMMARY:: Returns a FoscStartTextSpan.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Attaches text span indicators.
 
 
 USAGE::
 
 '''
-
-• FoscStartTextSpan (abjad 3.0)
-
-
-• Example 1
-
 Attaches text span indicators.
 
 code::
@@ -26,44 +20,23 @@ x = FoscStartTextSpan(
     leftText: FoscMarkup('pont.').upright,
     rightText: FoscMarkup('tasto').upright,
     style: 'solidLineWithArrow'
-code::
 );
 a[0..].textSpanner(x);
 a.show;
-
-img:: ![](../img/indicator-start-text-span-1.png)
 '''
 
-p = "%/fosc/docs/img/indicator-start-text-span-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 Strings are automatically wrapped as markups.
 
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], 1/4));
 x = FoscStartTextSpan("pont.", "tasto", 'solidLineWithArrow');
 a[0..].textSpanner(x);
-override(a).textSpanner.staffPadding = 4;
+// override(a).textSpanner.staffPadding = 4; // FIXME staff padding override crops spanner
 a.show;
-
-img:: ![](../img/indicator-start-text-span-2.png)
 '''
 
-p = "%/fosc/docs/img/indicator-start-text-span-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 3
-
+'''
 Enchained spanners.
 
 code::
@@ -72,17 +45,8 @@ x = FoscStartTextSpan("pont.", style: 'solidLineWithArrow');
 a[..2].textSpanner(x);
 x = FoscStartTextSpan("tasto", "pont.", 'solidLineWithArrow');
 a[2..].textSpanner(x);
-override(a).textSpanner.staffPadding = 4;
+// override(a).textSpanner.staffPadding = 4;
 a.show;
-
-img:: ![](../img/indicator-start-text-span-3.png)
-'''
-
-p = "%/fosc/docs/img/indicator-start-text-span-3".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStartTextSpan : FoscObject {
@@ -142,7 +106,7 @@ FoscStartTextSpan : FoscObject {
         ^super.new.init(leftText, rightText, style, direction, command, concatHspaceLeft, concatHspaceRight,
             leftBrokenText, rightPadding, tweaks);
     }
-    init { |argLeftText, argRightText, argStyle, argDirection, argCommand, argConcatHspaceLeft, 
+    init { |argLeftText, argRightText, argStyle, argDirection, argCommand, argConcatHspaceLeft,
         argConcatHspaceRight, argLeftBrokenText, argRightPadding, argTweaks|
         leftText = argLeftText;
         rightText = argRightText;
@@ -159,122 +123,81 @@ FoscStartTextSpan : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • command
 
     Gets command.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • concatHspaceLeft
 
     Gets left hspace.
 
     Only included in LilyPond output when left text is set.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • concatHspaceRight
 
     Gets right hspace.
 
     Only included in LilyPond output when right text is set.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • direction
 
     Gets direction.
-
-
-    • Example 1
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • enchained
 
     Returns true.
-
-
-    • Example 1
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leftBrokenText
 
     Gets left broken text.
-
-
-    • Example 1
-
-    code::
-    m = FoscRepeat();
-    m.repeatType.cs;
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leftText
 
     Gets left text.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rightPadding
 
     Gets right padding.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rightText
 
     Gets right text.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • spannerStart
 
     Is true.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • style
 
     Gets style.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tweaks
 
     Gets tweaks.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prAddDirection
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prAddDirection { |string|
         if (direction.notNil) { string = "% %".format(direction, string) };
         ^string;
-    }   
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prLeftBrokenTextTweak
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prLeftBrokenTextTweak {
         var override, string;
@@ -287,9 +210,7 @@ FoscStartTextSpan : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prLeftTextTweak
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prLeftTextTweak {
         var markup, concatHspaceLeftMarkup, markupList, override, string;
@@ -299,7 +220,7 @@ FoscStartTextSpan : FoscObject {
             concatHspaceLeftMarkup = FoscMarkup.hspace(concatHspaceLeft);
             markupList = [leftText, concatHspaceLeftMarkup];
             markup = FoscMarkup.concat(markupList);
-        }; 
+        };
         override = FoscLilypondGrobOverride(
             grobName: "TextSpanner",
             propertyPath: #['bound-details', 'left', 'text'],
@@ -309,9 +230,7 @@ FoscStartTextSpan : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormatBundle
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetLilypondFormatBundle { |component|
         var bundle, string, localTweaks;
@@ -342,13 +261,11 @@ FoscStartTextSpan : FoscObject {
         };
         string = this.prAddDirection(command);
         bundle.after.spannerStarts.add(string);
-        
+
         ^bundle;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRightPaddingTweak
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prRightPaddingTweak {
         var override, string;
@@ -361,9 +278,7 @@ FoscStartTextSpan : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRightTextTweak
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prRightTextTweak {
         var number, concatHspaceRightMarkup, markupList, markup, override, string;
@@ -384,17 +299,13 @@ FoscStartTextSpan : FoscObject {
         ^string;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prStaffPaddingTweak
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prStaffPaddingTweak {
         // TODO ???
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prStartCommand
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prStartCommand {
         var string;
@@ -402,13 +313,11 @@ FoscStartTextSpan : FoscObject {
         ^"\\start%".format(string);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prStyleTweak
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prStyleTweak { |syle|
         var string, pieces, rightPadding;
-        switch(style, 
+        switch(style,
             'dashedLineWithArrow', {
                 pieces = #[
                     "- \\tweak Y-extent ##f",
@@ -460,7 +369,7 @@ FoscStartTextSpan : FoscObject {
                 // pieces = pieces.add("- \\tweak bound-details.right.arrow ##t");
                 // if (concatHspaceRight.notNil && { concatHspaceRight > 0 }) {
                 //     rightPadding = concatHspaceRight + 0.25;
-                //     pieces = pieces.add("- \\tweak bound-details.right.padding #%".format(rightPadding));      
+                //     pieces = pieces.add("- \\tweak bound-details.right.padding #%".format(rightPadding));
                 // };
                 // pieces = pieces.add("- \\tweak bound-details.right.stencil-align-dir-y #CENTER");
                 // pieces = pieces.add("- \\tweak style #'line");
