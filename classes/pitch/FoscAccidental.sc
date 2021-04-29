@@ -6,66 +6,59 @@ TITLE:: FoscAccidental
 SUMMARY:: Returns a FoscAccidental.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Accidental
 
 
 USAGE::
 
 '''
-
-• FoscAccidental
-
-
-
 code::
 a = FoscAccidental('b', arrow: 'up');
 a.name;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscAccidental : FoscObject {
-	var <name, <arrow;
-	classvar manager;
-	*new { |val, arrow|
-		var name;
-        // if (#[nil, 'up', 'down'].includes(arrow).not) {
-        //     throw("%:%: bad value for 'arrow': %.".format(this.species, thisMethod.name, arrow));
-        // };
-		manager = FoscPitchNameManager;
-		name = case
-		{ val.isNumber && { val.inclusivelyBetween(-2, 2) } } {
-			manager.semitonesToAccidentalName(val.round(0.5));
-		}
-		{ val.asString.isAccidentalName } { val }
-		{ val.asString.isLilyPondAccidentalName } { manager.lilypondAccidentalNameToAccidentalName(val) }
-		{ val.asString.isEmpty } { "" }
-		{ throw("Can not initialize % from value: %.".format(this.name, val)) };
-		^super.new.init(name, arrow);
-	}
-	init { |argName, argArrow|
+    var <name, <arrow;
+    classvar manager;
+    *new { |val, arrow|
+        var name;
+            // if (#[nil, 'up', 'down'].includes(arrow).not) {
+            //     throw("%:%: bad value for 'arrow': %.".format(this.species, thisMethod.name, arrow));
+            // };
+        manager = FoscPitchNameManager;
+        name = case
+        { val.isNumber && { val.inclusivelyBetween(-2, 2) } } {
+          manager.semitonesToAccidentalName(val.round(0.5));
+        }
+        { val.asString.isAccidentalName } { val }
+        { val.asString.isLilyPondAccidentalName } { manager.lilypondAccidentalNameToAccidentalName(val) }
+        { val.asString.isEmpty } { "" }
+        { throw("Can not initialize % from value: %.".format(this.name, val)) };
+        ^super.new.init(name, arrow);
+    }
+    init { |argName, argArrow|
         name = manager.accidentalNameToLilypondAccidentalName(argName);
         if (argArrow.notNil) { this.arrow_(argArrow) };
         // name = manager.accidentalNameToLilypondAccidentalName(argName);
         // if (arrow.notNil) {
-        //     switch(arrow, 
+        //     switch(arrow,
         //         'up', { name = name ++ "r" },
         //         'down', { name = name ++ "l" }
         //     );
         // };
-	}
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • arrow_
-    '''
     -------------------------------------------------------------------------------------------------------- */
     arrow_ { |direction='up'|
         if (#['up', 'down'].includes(direction).not) {
             throw("%:%: bad value for 'arrow': %.".format(this.species, thisMethod.name, direction));
         };
         arrow = direction;
-        switch(arrow, 
+        switch(arrow,
             'up', { name = name ++ "r" },
             'down', { name = name ++ "l" }
         );
@@ -73,29 +66,24 @@ FoscAccidental : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    /* --------------------------------------------------------------------------------------------------------
     • inspect
     !!! DEPRECATE
-    '''
     -------------------------------------------------------------------------------------------------------- */
     inspect {
-		super.inspect(#[name, semitones, lpStr]);
-	}
+        super.inspect(#[name, semitones, lpStr]);
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lpStr
     !!! DEPRECATE
-    '''
     -------------------------------------------------------------------------------------------------------- */
-	lpStr {
-		^this.str;
-	}
+    lpStr {
+        ^this.str;
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • semitones
 
-    
+    '''
     code::
     FoscAccidental('s').name;
 
@@ -112,21 +100,21 @@ FoscAccidental : FoscObject {
     FoscAccidental('', arrow: 'down').semitones;
     '''
     -------------------------------------------------------------------------------------------------------- */
-	semitones {
+    semitones {
         var result;
-		result = manager.accidentalNameToSemitones(name);
+        result = manager.accidentalNameToSemitones(name);
         // if (arrow.notNil) {
-        //     switch(arrow, 
+        //     switch(arrow,
         //         'up', { result = result + 0.25 },
         //         'down', { result = result - 0.25 }
         //     );
         // };
         ^result;
-	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
-    
+
+    '''
     code::
     FoscAccidental('s').str;
 
@@ -141,11 +129,11 @@ FoscAccidental : FoscObject {
         ^this.name;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • unabbreviatedName
 
     ! Temporary: used for arrow overrides in FoscPitch
-    
+
+    '''
     code::
     FoscAccidental("#").unabbreviatedName;
     '''
