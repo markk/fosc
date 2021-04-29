@@ -5,52 +5,29 @@ TITLE:: FoscRhythmLeaf
 SUMMARY:: Returns a FoscRhythmLeaf.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A rhythm-tree leaf.
 
 
 USAGE::
 
 '''
-
-• RhythmTreeLeaf
-
-A rhythm-tree leaf.
-
-
-• Example 1
-
 code::
 a = FoscRhythmLeaf(5);
 b = a.(1/16);
 b.duration.str;
-FoscVoice(b).show;
 
-img:: ![](../img/maker-rhythm-leaf-1.png)
+code::
+FoscVoice(b).show;
 '''
 
-p = "%/fosc/docs/img/maker-rhythm-leaf-1".format(Platform.userExtensionDir);
-FoscVoice(b).writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 code::
 a = FoscRhythmLeaf(-5);
 b = a.(1/16);
 b.duration.str;
+
+code::
 FoscVoice(b).show;
-
-img:: ![](../img/maker-rhythm-leaf-2.png)
-'''
-
-p = "%/fosc/docs/img/maker-rhythm-leaf-2".format(Platform.userExtensionDir);
-FoscVoice(b).writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscRhythmLeaf : FoscTreeNode {
@@ -73,11 +50,9 @@ FoscRhythmLeaf : FoscTreeNode {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doesNotUnderstand
 
-    Delegate unkown methods to FoscRhythmMixin.
-    '''
+    Delegate unknown methods to FoscRhythmMixin.
     -------------------------------------------------------------------------------------------------------- */
     doesNotUnderstand { |selector ... args|
         if (mixin.respondsTo(selector)) {
@@ -87,30 +62,21 @@ FoscRhythmLeaf : FoscTreeNode {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Generate Abjad score components.
 
-    ## Returns sequence of components.
-
     Returns selection.
-    
+
+    '''
     code::
     a = FoscRhythmLeaf(5);
     a.prGetPreprolatedDuration.str;
     b = a.([1, 16]);
     FoscVoice(b).show;
-
-    img:: ![](../img/maker-rhythm-leaf-3.png)
     '''
 
-    p = "%/fosc/docs/img/maker-rhythm-leaf-3".format(Platform.userExtensionDir);
-    FoscVoice(b).writePNG("%.ly".format(p));
-
-
-
-
+    '''
     code::
     a = FoscNonreducedFraction(#[2, 4]);
     a = a * 3;
@@ -134,96 +100,92 @@ FoscRhythmLeaf : FoscTreeNode {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • duration
 
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm(3/4, [1, 2, 2, 1, 1]);
     a.duration.str;
+    '''
 
-    • Example 2
-    
+    '''
     code::
     b = FoscRhythm(4, [-3, 2]);
-    a = FoscRhythm(3/4, [1, 2, b]);
-    
+    c = FoscRhythm(3/4, [1, 2, b]);
+    c.duration.str;
+
     code::
-    a.duration.str;
     b.duration.str;
+
+    code::
     b.items.last.duration.str;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • improperParentage
 
-    • Example 1
-    
+    '''
     code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);
-    
-    code::
+
     a.improperParentage;
+
+    code::
     b.improperParentage;
+
+    code::
     b.items.last.improperParentage;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • parentageRatios
 
     A sequence describing the relative durations of the nodes in a node's improper parentage.
 
-    The first item in the sequence is the preprolated_duration of the root node, and subsequent items are pairs of the preprolated duration of the next node in the parentage and the total preprolated_duration of that node and its siblings.
+    The first item in the sequence is the preprolated_duration of the root node,
+    and subsequent items are pairs of the preprolated duration of the next node
+    in the parentage and the total preprolated_duration of that node and its
+    siblings.
 
     Returns array.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prolation
 
     Prolation of rhythm tree node.
 
     Returns multiplier.
-    
+
+    '''
     code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
     a.prolation.pair;
+
+    code::
     b.prolation.pair;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prolations
 
     Prolations of rhythm tree node.
 
     Returns array.
 
-    • Example 1
-    
+    '''
     code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
-    a.prolations.do { |each| each.pair.postln };
+    a.prolations.do { |each| each.pair.postln };  // FIXME
     b.prolations.do { |each| each.pair.postln };
-
-    post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • properParentage
 
-    • Example 1
-    
+    '''
     code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
@@ -232,41 +194,57 @@ FoscRhythmLeaf : FoscTreeNode {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • startOffset
 
     The starting offset of a node in a rhythm-tree relative to the root.
 
     Returns a FoscOffset.
 
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm([1, 1], [1, [1, [1, 1]], [1, [1, 1]]]);
-    a.do { |node| node.depth.do { Post.tab }; node.startOffset.pair.postln };
+    a.do { |node|
+        node.depth.do { Post.tab };
+        node.startOffset.pair.postln;
+    };
+    nointerpret
 
     post::
-    POSTOUTPUT
-    '''
+    [ 0, 1 ]
+      [ 0, 1 ]
+      [ 1, 3 ]
+        [ 1, 3 ]
+        [ 1, 2 ]
+      [ 2, 3 ]
+        [ 2, 3 ]
+        [ 5, 6 ]
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • stopOffset
 
     The stopping offset of a node in a rhythm-tree relative to the root.
 
     Returns a FoscOffset.
 
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm(1, [1, [1, [1, 1]], [1, [1, 1]]]);
-    a.do { |node| node.depth.do { Post.tab }; node.stopOffset.pair.postln };
+    a.do { |node|
+        node.depth.do { Post.tab };
+        node.stopOffset.pair.postln
+    };
+    nointerpret
 
     post::
-    POSTOUTPUT
-    '''
+    [ 1, 1 ]
+      [ 1, 3 ]
+      [ 2, 3 ]
+        [ 1, 2 ]
+        [ 2, 3 ]
+      [ 1, 1 ]
+        [ 5, 6 ]
+        [ 1, 1 ]
     '''
     -------------------------------------------------------------------------------------------------------- */
 
@@ -275,9 +253,7 @@ FoscRhythmLeaf : FoscTreeNode {
     // DEPRECATE
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isTiedToPrevLeaf_
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // isTiedToPrevLeaf_ { |bool|
     //     isTiedToPrevLeaf = bool;
