@@ -119,6 +119,7 @@ FoscNamedInterval : FoscInterval {
     }
     /* --------------------------------------------------------------------------------------------------------
     '''
+    '''
     def __init__(self, name='P1'):
         from abjad.tools import pitchtools
         named_prototype = (type(self), pitchtools.NamedIntervalClass)
@@ -157,7 +158,6 @@ FoscNamedInterval : FoscInterval {
             raise ValueError(message)
         self._quality_string = quality_string
         self._number = number
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *new { |name='P1'|
         var namedPrototype, numberedPrototype, match, result, directionString, qualityAbbreviation;
@@ -172,9 +172,10 @@ FoscNamedInterval : FoscInterval {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __abs__(self):
             r'''Gets absolute value of named interval.
 
@@ -197,13 +198,13 @@ FoscNamedInterval : FoscInterval {
                 self.quality_string,
                 abs(self.number),
                 )
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __add__(self, argument):
             r'''Adds `argument` to named interval.
 
@@ -253,13 +254,13 @@ FoscNamedInterval : FoscInterval {
                 self.quality_string,
                 self.number,
                 )
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __eq__(self, argument):
             r'''Is true when named interval equal `argument`.
             Otherwise false.
@@ -302,13 +303,13 @@ FoscNamedInterval : FoscInterval {
 
             '''
             return super(NamedInterval, self).__eq__(argument)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __hash__(self):
             r'''Hashes named interval.
 
@@ -319,9 +320,10 @@ FoscNamedInterval : FoscInterval {
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __lt__(self, argument):
             r'''Is true when `argument` is a named interval with a number greater
             than that of this named interval.
@@ -363,13 +365,13 @@ FoscNamedInterval : FoscInterval {
                     return self.semitones < argument.semitones
                 return self.number < argument.number
             return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __mul__(self, argument):
             r'''Multiplies named interval by `argument`.
 
@@ -398,13 +400,13 @@ FoscNamedInterval : FoscInterval {
             if argument < 0:
                 return -result
             return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __neg__(self):
             r'''Negates named interval.
 
@@ -430,13 +432,13 @@ FoscNamedInterval : FoscInterval {
                 self.quality_string,
                 -self.number,
                 )
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __radd__(self, argument):
             r'''Adds named interval to `argument`.
 
@@ -456,13 +458,13 @@ FoscNamedInterval : FoscInterval {
                 message = message.format(argument)
                 raise TypeError(message)
             return argument.__add__(self)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __rmul__(self, argument):
             r'''Multiplies `argument` by named interval.
 
@@ -477,13 +479,13 @@ FoscNamedInterval : FoscInterval {
             Returns new named interval.
             '''
             return self * argument
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __str__(self):
             r'''Gets string representation of named interval.
 
@@ -498,13 +500,13 @@ FoscNamedInterval : FoscInterval {
             Returns string.
             '''
             return self.name
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def __sub__(self, argument):
             r'''Subtracts `argument` from named interval.
 
@@ -531,15 +533,15 @@ FoscNamedInterval : FoscInterval {
             dummy_pitch = pitchtools.NamedPitch(0)
             new_pitch = dummy_pitch + self - argument
             return NamedInterval.from_pitch_carriers(dummy_pitch, new_pitch)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def _interval_string(self):
     code::
@@ -575,13 +577,13 @@ FoscNamedInterval : FoscInterval {
                     suffix = 'th'
                 interval_string = '%s%s' % (abs_number, suffix)
             return interval_string
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def _quality_abbreviation(self):
     code::
@@ -589,15 +591,15 @@ FoscNamedInterval : FoscInterval {
                 'major': 'M', 'minor': 'm', 'perfect': 'P',
                 'augmented': 'aug', 'diminished': 'dim'}
             return _quality_string_to_quality_abbreviation[self.quality_string]
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def _get_format_specification(self):
             import abjad
             values = [self.name]
@@ -609,13 +611,13 @@ FoscNamedInterval : FoscInterval {
                 storage_format_args_values=values,
                 )
 
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def _transpose_pitch(self, pitch):
             from abjad.tools import pitchtools
             pitch_number = pitch.number + self.semitones
@@ -630,15 +632,15 @@ FoscNamedInterval : FoscInterval {
                 diatonic_pitch_class_name,
                 )
             return type(pitch)(named_pitch)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def direction_number(self):
             r'''Gets direction number of named interval.
@@ -657,13 +659,13 @@ FoscNamedInterval : FoscInterval {
                 return 0
             else:
                 return mathtools.sign(self.number)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def direction_string(self):
             r'''Gets direction string of named interval.
@@ -700,13 +702,13 @@ FoscNamedInterval : FoscInterval {
                 return None
             elif self.direction_number == 1:
                 return 'ascending'
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def interval_class(self):
             r'''Gets interval class of named interval.
@@ -722,13 +724,13 @@ FoscNamedInterval : FoscInterval {
             Returns nonnegative integer.
             '''
             return ((abs(self.number) - 1) % 7) + 1
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def interval_string(self):
             r'''Gets interval string of named interval.
@@ -744,13 +746,13 @@ FoscNamedInterval : FoscInterval {
             Returns string.
             '''
             return self._interval_string
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def name(self):
             r'''Gets name of named interval.
@@ -770,13 +772,13 @@ FoscNamedInterval : FoscInterval {
                 self._quality_abbreviation,
                 abs(self.number),
                 )
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def named_interval_class(self):
             r'''DEPRECATED.
@@ -814,13 +816,13 @@ FoscNamedInterval : FoscInterval {
                 quality_string,
                 number,
                 )
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def number(self):
             r'''Gets number of named interval.
@@ -836,13 +838,13 @@ FoscNamedInterval : FoscInterval {
             Returns nonnegative number.
             '''
             return self._number
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def octaves(self):
             r'''Gets octaves of named interval.
@@ -857,13 +859,13 @@ FoscNamedInterval : FoscInterval {
             Returns nonnegative number.
             '''
             return self.semitones // 12
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def quality_string(self):
             r'''Gets quality string of named interval.
@@ -895,13 +897,13 @@ FoscNamedInterval : FoscInterval {
             '''
             return self._quality_string
 
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def semitones(self):
             r'''Gets semitones of named interval.
@@ -974,13 +976,13 @@ FoscNamedInterval : FoscInterval {
             if self.number < 0:
                 result *= -1
             return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @property
         def staff_spaces(self):
             r'''Gets staff spaces of named interval.
@@ -1021,15 +1023,15 @@ FoscNamedInterval : FoscInterval {
                 return 0
             elif self.direction_string == 'ascending':
                 return self.number - 1
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @classmethod
         def from_pitch_carriers(class_, pitch_carrier_1, pitch_carrier_2):
             '''Makes named interval calculated from `pitch_carrier_1` to
@@ -1079,13 +1081,13 @@ FoscNamedInterval : FoscInterval {
             else:
                 named_interval = absolute_named_interval
             return class_(named_interval)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     @classmethod
         def from_quality_and_number(class_, quality, number):
             r'''Makes named interval from `quality` and `number`.
@@ -1109,15 +1111,15 @@ FoscNamedInterval : FoscInterval {
             interval._quality_string = quality
             interval._number = number
             return interval
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
+    '''
+    '''
     def transpose(self, pitch_carrier):
             r'''Transposes `pitch_carrier` by named interval.
 
@@ -1155,6 +1157,5 @@ FoscNamedInterval : FoscInterval {
                 return new_chord
             else:
                 return pitch_carrier
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
