@@ -6,21 +6,28 @@ TITLE:: FoscFraction
 SUMMARY:: Returns a FoscFraction.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Fractions
 
 
 USAGE::
 
 '''
-
-• FoscFraction
-
 code::
 FoscFraction(3).cs;
+
+code::
 FoscFraction(3.14159).cs;
+
+code::
 FoscFraction(#[3,2]).cs;
+
+code::
 FoscFraction(6,2).cs;
+
+code::
 FoscNonreducedFraction(6,2).cs;
+
+code::
 FoscFraction().cs;
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -64,17 +71,19 @@ FoscFraction : AbstractFunction {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • +
 
+    '''
     code::
     a = FoscFraction(3,2) + FoscFraction(1,2);
     a.str;
-
+    '''
+    '''
     code::
     a = FoscFraction(3,2) + 0.5;
     a.str;
-
+    '''
+    '''
     code::
     a = 1.5 + FoscFraction(1,2);
     a.str;
@@ -88,17 +97,19 @@ FoscFraction : AbstractFunction {
         ^this.species.new(num, denom);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • -
 
+    '''
     code::
     a = FoscFraction(3,2) - FoscFraction(1,2);
     a.str;
-
+    '''
+    '''
     code::
     a = FoscFraction(3,2) - 0.5;
     a.str;
-
+    '''
+    '''
     code::
     a = 1.5 - FoscFraction(1,2);
     a.str;
@@ -109,17 +120,19 @@ FoscFraction : AbstractFunction {
         ^(this + expr.neg);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *
 
+    '''
     code::
     a = FoscFraction(3,2) * FoscFraction(1,2);
     a.str;
-
+    '''
+    '''
     code::
     a = FoscFraction(3,2) * 0.5;
     a.str;
-
+    '''
+    '''
     code::
     a = 0.5 * FoscFraction(3,2);
     a.str;
@@ -130,17 +143,19 @@ FoscFraction : AbstractFunction {
         ^this.species.new(numerator * expr.numerator, denominator * expr.denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • /
 
+    '''
     code::
     a = FoscFraction(3,2) / FoscFraction(1,2);
     a.str;
-
+    '''
+    '''
     code::
     a = FoscFraction(3,2) / 0.5;
     a.str;
-
+    '''
+    '''
     code::
     a = 1.5 / FoscFraction(1,2);
     a.str;
@@ -151,9 +166,9 @@ FoscFraction : AbstractFunction {
         ^this.species.new(numerator * expr.denominator, denominator * expr.numerator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
+    '''
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -161,9 +176,17 @@ FoscFraction : AbstractFunction {
     d = 2;
 
     a == a;     // true
+
+    code::
     a == b;     // true
+
+    code::
     a == c;     // false
+
+    code::
     c == d;     // true
+
+    code::
     d == c;     // true
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -172,13 +195,27 @@ FoscFraction : AbstractFunction {
         ^(numerator == expr.numerator && { denominator == expr.denominator });
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ===
 
+    '''
+    code::
+    a = FoscFraction(3,2);
+    b = FoscFraction(6,4);
+    c = FoscFraction(2,1);
+    d = 2;
+
     a === a;     // true
+
+    code::
     a === b;     // true  !!!TODO: override for FoscNonreducedFraction
+
+    code::
     a === c;     // false
+
+    code::
     c === d;     // true
+
+    code::
     d === c;     // true
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -186,9 +223,9 @@ FoscFraction : AbstractFunction {
         ^(this == expr);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • !=
 
+    '''
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -196,9 +233,17 @@ FoscFraction : AbstractFunction {
     d = 2;
 
     a != a;     // false
+
+    code::
     a != b;     // false
+
+    code::
     a != c;     // true
+
+    code::
     c != d;     // false
+
+    code::
     d != c;     // false
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -206,9 +251,9 @@ FoscFraction : AbstractFunction {
         ^(this == expr).not;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • <
 
+    '''
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -216,9 +261,17 @@ FoscFraction : AbstractFunction {
     d = 2;
 
     a < a;     // false
+
+    code::
     a < b;     // false
+
+    code::
     a < c;     // true
+
+    code::
     c < d;     // false
+
+    code::
     d < c;     // false
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -226,9 +279,9 @@ FoscFraction : AbstractFunction {
         ^(this.asFloat < expr.asFloat);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • >
 
+    '''
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -236,9 +289,17 @@ FoscFraction : AbstractFunction {
     d = 2;
 
     a > a;     // false
+
+    code::
     a > b;     // false
+
+    code::
     a > c;     // true
+
+    code::
     c > b;     // true
+
+    code::
     b > c;     // false
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -246,9 +307,9 @@ FoscFraction : AbstractFunction {
         ^(this.asFloat > expr.asFloat);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • <=
 
+    '''
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -256,9 +317,17 @@ FoscFraction : AbstractFunction {
     d = 2;
 
     a <= a;     // true
+
+    code::
     a <= b;     // true
+
+    code::
     a <= c;     // true
+
+    code::
     c <= d;     // true
+
+    code::
     d <= c;     // true
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -266,9 +335,9 @@ FoscFraction : AbstractFunction {
         ^(this.asFloat <= expr.asFloat);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • >=
 
+    '''
     code::
     a = FoscFraction(3,2);
     b = FoscFraction(6,4);
@@ -276,9 +345,17 @@ FoscFraction : AbstractFunction {
     d = 2;
 
     a >= a;     // true
+
+    code::
     a >= b;     // true
+
+    code::
     a >= c;     // false
+
+    code::
     c >= d;     // true
+
+    code::
     d >= c;     // true
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -286,9 +363,9 @@ FoscFraction : AbstractFunction {
         ^(this.asFloat >= expr.asFloat);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • abs
 
+    '''
     code::
     a = FoscFraction(-3,2).abs;
     a.str;
@@ -298,9 +375,9 @@ FoscFraction : AbstractFunction {
         ^this.species.new(numerator.abs, denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
+    '''
     code::
     a = FoscFraction(1,4);
     a.cs;
@@ -310,9 +387,9 @@ FoscFraction : AbstractFunction {
         ^"%(%, %)".format(this.species, this.numerator, this.denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asFloat
 
+    '''
     code::
     a = FoscFraction(3,2);
     a.asFloat;
@@ -322,9 +399,9 @@ FoscFraction : AbstractFunction {
         ^(numerator / denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asInteger
 
+    '''
     code::
     a = FoscFraction(5,2);
     a.asInteger;
@@ -334,25 +411,21 @@ FoscFraction : AbstractFunction {
         ^this.asFloat.asInteger;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • copy
-    '''
     -------------------------------------------------------------------------------------------------------- */
     copy {
         ^this; // immutable
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • deepCopy
-    '''
     -------------------------------------------------------------------------------------------------------- */
     deepCopy {
         ^this; // immutable
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • div
 
+    '''
     code::
     a = FoscFraction(3,2).div(FoscFraction(1,2));
     a.str;
@@ -374,13 +447,15 @@ FoscFraction : AbstractFunction {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
+    '''
     code::
     a = FoscFraction([1,4]);
     b = FoscFraction([1,4]);
     a.hash;
+
+    code::
     a.hash == b.hash;
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -388,9 +463,9 @@ FoscFraction : AbstractFunction {
         ^(this.asFloat).hash;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • mod
 
+    '''
     code::
     a = FoscFraction(3,2) % FoscFraction(1,2);
     a.str;
@@ -414,9 +489,9 @@ FoscFraction : AbstractFunction {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • neg
 
+    '''
     code::
     a = FoscFraction(3,2).neg;
     a.str;
@@ -426,9 +501,9 @@ FoscFraction : AbstractFunction {
         ^this.species.new(numerator.neg, denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pow
 
+    '''
     code::
     a = FoscFraction(3,2) ** FoscFraction(2,1);
     a.str;
@@ -446,9 +521,9 @@ FoscFraction : AbstractFunction {
         ^this.species.new(this.asFloat ** expr.asFloat)
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reciprocal
 
+    '''
     code::
     a = FoscFraction(3,2);
     a.reciprocal.str;
@@ -458,9 +533,9 @@ FoscFraction : AbstractFunction {
         ^this.species.new(denominator, numerator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sign
 
+    '''
     code::
     a = FoscFraction(3,4);
     a.sign;
@@ -474,17 +549,15 @@ FoscFraction : AbstractFunction {
         ^numerator.sign;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • storeArgs
-    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^[numerator, denominator];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
 
+    '''
     code::
     a = FoscFraction(3,2);
     a.str;
@@ -497,9 +570,9 @@ FoscFraction : AbstractFunction {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • withDenominator
 
+    '''
     code::
     a = FoscNonreducedFraction(3,2);
     a = a.withDenominator(4);
@@ -523,9 +596,7 @@ FoscFraction : AbstractFunction {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • performBinaryOpOnSimpleNumber
-    '''
     -------------------------------------------------------------------------------------------------------- */
     performBinaryOpOnSimpleNumber { |selector, number|
         if (FoscFraction.methodNames.includes(selector).not) {
