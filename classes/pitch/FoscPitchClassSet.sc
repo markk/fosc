@@ -6,21 +6,13 @@ TITLE:: FoscPitchClassSet
 SUMMARY:: Returns a FoscPitchClassSet.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Pitch-class set.
 
 
 USAGE::
 
 '''
-
-• FoscPitchClassSet
-
-Pitch-class set.
-
-### INCOMPLETE
-### abjad.PitchClassSet subclasses from Set
-
-code::
+code::nointerpret
 a = FoscPitchClassSet[0, 2, 4, 8];
 
 code::
@@ -30,17 +22,15 @@ a.items;
 code::
 a = FoscPitchClassSet([0, 2, 4, 8]);
 b = FoscPitchClassSet([1, 3, 4, 8]);
-a.sect(b).do { |each| each.pitchClassNumber.postln };
-
-post::
-POSTOUTPUT
-'''
+a.sect(b).items.collect { |each| each.pitchClassNumber };
 
 code::
 b = FoscPitchSet([60, 61, 62]);
 a = FoscPitchClassSet(b);
-a.items.do { |each| each.pitchClassNumber.postln }
+a.items.collect { |each| each.pitchClassNumber };
 '''
+### INCOMPLETE
+### abjad.PitchClassSet subclasses from Set
 ------------------------------------------------------------------------------------------------------------ */
 FoscPitchClassSet : FoscTypedSet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,37 +53,35 @@ FoscPitchClassSet : FoscTypedSet {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • includes (abjad: __contains__)
 
     Is true when pitch-class set contains `argument`. Otherwise false.
 
     Returns true or false.
-
+    '''
+    '''
     def __contains__(self, argument):
         return super(PitchClassSet, self).__contains__(argument)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     Hashes pitch-class set.
 
     Returns integer.
-
+    '''
+    '''
     def __hash__(self):
         return super(PitchClassSet, self).__hash__()
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • illustrate
 
     Illustrates pitch-class set.
-
+    '''
+    '''
     def __illustrate__(self):
         import abjad
         chord = abjad.Chord(self, abjad.Duration(1))
@@ -103,17 +91,16 @@ FoscPitchClassSet : FoscTypedSet {
         lilypond_file = abjad.LilyPondFile.new(score)
         lilypond_file.header_block.tagline = False
         return lilypond_file
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
 
     Gets string representation of pitch-class set.
 
     Returns string.
-
+    '''
+    '''
     def __str__(self):
         import abjad
         items = [str(_) for _ in sorted(self)]
@@ -121,7 +108,6 @@ FoscPitchClassSet : FoscTypedSet {
         if self.item_class is abjad.NumberedPitchClass:
             separator = ', '
         return 'PC{{{}}}'.format(separator.join(items))
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,43 +115,36 @@ FoscPitchClassSet : FoscTypedSet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
     @property
     def _named_item_class(self):
         from abjad.tools import pitchtools
         return pitchtools.NamedPitchClass
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
     @property
     def _numbered_item_class(self):
         from abjad.tools import pitchtools
         return pitchtools.NumberedPitchClass
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
     @property
     def _parent_item_class(self):
         from abjad.tools import pitchtools
         return pitchtools.PitchClass
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
     @staticmethod
@@ -220,11 +199,9 @@ FoscPitchClassSet : FoscTypedSet {
             item_class=pitchtools.NumberedPitchClass,
             )
         return segment
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
 
     def _sort_self(self):
@@ -237,7 +214,6 @@ FoscPitchClassSet : FoscTypedSet {
         result = list(self)
         result.sort(helper)
         return result
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -245,13 +221,13 @@ FoscPitchClassSet : FoscTypedSet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *newFromSelection
 
     Makes pitch-class set from `selection`.
 
     Returns pitch-class set.
-
+    '''
+    '''
     @classmethod
     def from_selection(
         class_,
@@ -264,72 +240,67 @@ FoscPitchClassSet : FoscTypedSet {
             items=pitch_segment,
             item_class=item_class,
             )
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • difference
 
     Set-theoretic difference of receiver and expr.
 
     Returns new pitch class set.
 
+    '''
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.difference(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.difference(b).items.collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sect
 
     Set-theoretic intersection of receiver and expr.
 
     Returns new pitch class set.
 
+    '''
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.sect(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.sect(b).items.collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isDisjoint
 
     Is true when typed receiver shares no elements with expr. Otherwise false.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3], Number);
     b = FoscPitchClassSet([4], Number);
     c = FoscPitchClassSet([3, 4], Number);
     isDisjoint(a, b);
+
+    code::
     isDisjoint(a, c);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isEmpty
 
     Is true when pitch class set is empty.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3], Number);
     a.isEmpty;
@@ -340,43 +311,47 @@ FoscPitchClassSet : FoscTypedSet {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isSubsetOf
 
     Is true when receiver is a subset of expr. Otherwise false.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3]);
     a.isSubsetOf(b);
+
+    code::
     b.isSubsetOf(a);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isSupersetOf
 
     Is true when receiver is a superset of expr. Otherwise false.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3]);
     a.isSupersetOf(b);
+
+    code::
     b.isSupersetOf(a);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • notEmpty
 
     Is true when set is not empty.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3], Number);
     a.notEmpty;
@@ -387,49 +362,41 @@ FoscPitchClassSet : FoscTypedSet {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • symmetricDifference
 
     Symmetric difference of receiver and expr.
 
     Returns new pitch class set.
 
-    code::
+    '''
+    code::nointerpret
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.symmetricDifference(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.symmetricDifference(b).collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • union
 
     Union of receiver and expr.
 
     Returns new pitch class set.
 
+    '''
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.union(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.union(b).items.collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • normalOrder
 
     Gets normal order.
 
     Returns pitch-class segment.
-
+    '''
+    '''
     def get_normal_order(self):
         import abjad
         if not len(self):
@@ -445,17 +412,16 @@ FoscPitchClassSet : FoscTypedSet {
             candidate = abjad.Sequence(candidate).rotate(n=-i)
             candidates.append(candidate)
         return self._get_most_compact_ordering(candidates)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • primeForm
 
     Gets prime form.
 
     Returns new pitch-class set.
-
+    '''
+    '''
     def get_prime_form(self, transposition_only=False):
         import abjad
         if not len(self):
@@ -474,77 +440,72 @@ FoscPitchClassSet : FoscTypedSet {
             item_class=abjad.NumberedPitchClass,
             )
         return prime_form
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • invert
 
     Inverts pitch-class set.
 
     Returns numbered pitch-class set.
-
+    '''
+    '''
     def invert(self, axis=None):
         return type(self)([pc.invert(axis=axis) for pc in self])
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isTransposedSubset
 
     Is true when pitch-class set is transposed subset of `pcset`. Otherwise false.
 
     Returns true or false.
-
+    '''
+    '''
     def is_transposed_subset(self, pcset):
         for n in range(12):
             if self.transpose(n).issubset(pcset):
                 return True
         return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isTransposedSuperset
 
     Is true when pitch-class set is transposed superset of `pcset`. Otherwise false.
 
     Returns true or false.
-
+    '''
+    '''
     def is_transposed_superset(self, pcset):
         for n in range(12):
             if self.transpose(n).issuperset(pcset):
                 return True
         return False
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • multiply
 
     Multiplies pitch-class set by `n`.
 
     Returns new pitch-class set.
-
+    '''
+    '''
     def multiply(self, n):
         import abjad
         items = (pitch_class.multiply(n) for pitch_class in self)
         return abjad.new(self, items=items)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • orderBy
 
     Orders pitch-class set by pitch-class `segment`.
 
     Returns pitch-class segment.
-
+    '''
+    '''
     def order_by(self, segment):
         import abjad
         if not len(self) == len(segment):
@@ -558,21 +519,19 @@ FoscPitchClassSet : FoscTypedSet {
         message = '{!s} can not order by {!s}.'
         message = message.format(self, segment)
         raise ValueError(message)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • transpose
 
     Transposes all pitch-classes in pitch-class set by index `n`.
 
     Returns new pitch-class set.
-
+    '''
+    '''
     def transpose(self, n=0):
         import abjad
         items = (pitch_class + n for pitch_class in self)
         return abjad.new(self, items=items)
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
