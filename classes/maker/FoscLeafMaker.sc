@@ -6,180 +6,86 @@ TITLE:: FoscLeafMaker
 SUMMARY:: Returns a FoscLeafMaker.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Leaf-maker.
+
+Returns a FoscSelection.
 
 
 USAGE::
 
 '''
-
-• FoscLeafMaker
-
-Leaf-maker.
-
-Returns a FoscSelection.
-
-
-• Example 1
-
 Integer and string elements in pitches result in notes.
 
 code::
 m = FoscLeafMaker().(#[62,64,"F#5","G#5"], [1/4]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-1.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-1".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 Tuple elements in pitches result in chords.
 
 code::
 m = FoscLeafMaker().(#[[60,62,64], ["F#5","G#5","A#5"]], [1/2]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-2.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-2".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
+'''
 !!!TODO: single string as chord not working
+
 code::
 m = FoscLeafMaker().(#[[60,62,64], "F#5 G#5 A#5"], [1/2]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-3.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-3".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 3
-
+'''
 Nil-valued elements in 'pitches' result in rests.
 
 code::
 m = FoscLeafMaker().(nil, 1/4 ! 4);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-4.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-4".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 4
-
+'''
 Values passed to 'pitches' can be mixed and matched.
 
 code::
 m = FoscLeafMaker().(#[[60,62,64], nil, "C#5", "D#5"], [1/4]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-5.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-5".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 5
-
+'''
 Works with pitch segments.
 
 code::
 m = FoscLeafMaker().(FoscPitchSegment(#["E5","Eb5","D5","Db5", "C5"]), [1/4]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-6.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-6".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 6
-
+'''
 Reads pitches cyclically when the length of 'pitches' is less than the length of 'durations'.
 
 code::
 m = FoscLeafMaker().(#[72], [3/8, 1/8, 3/8, 1/8]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-7.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-7".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 7
-
+'''
 Reads durations cyclically when the length of durations is less than the length of pitches.
 
 code::
 m = FoscLeafMaker().(#[72,74,76,77], [1/4]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-8.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-8".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 8
-
+'''
 Elements in durations with non-power-of-two denominators result in tuplet-nested leaves.
 
 code::
 m = FoscLeafMaker().(#[60,62,64,65], [1/4, 1/12, 1/6, 1/2]);
 m.show;
-
-img:: ![](../img/maker-leaf-maker-9.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-9".format(Platform.userExtensionDir);
-m.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 9
-
+'''
 Set 'increaseMonotonic' to false to return nonassignable durations tied from greatest to least.
 
 code::
@@ -187,19 +93,9 @@ m = FoscLeafMaker(increaseMonotonic: false).(#["E5"], [13/16]);
 x = FoscStaff(m);
 x[0].attach(FoscTimeSignature(#[13, 16]));
 x.show;
-
-img:: ![](../img/maker-leaf-maker-10.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-10".format(Platform.userExtensionDir);
-x.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 10
-
+'''
 Set 'increaseMonotonic' to true to return nonassignable durations tied from least to greatest.
 
 code::
@@ -207,18 +103,10 @@ m = FoscLeafMaker(increaseMonotonic: true).(#["E5"], [13/16]);
 x = FoscStaff(m);
 x[0].attach(FoscTimeSignature(#[13, 16]));
 x.show;
-
-img:: ![](../img/maker-leaf-maker-11.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-11".format(Platform.userExtensionDir);
-x.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 11 !!!TODO: update to abjad 3.0 documentation
+'''
+!!!TODO: update to abjad 3.0 documentation
 
 Set 'forbiddenNoteDuration' to avoid notes greater than or equal to a certain written duration.
 
@@ -227,19 +115,9 @@ m = FoscLeafMaker(forbiddenNoteDuration: FoscDuration(1, 2)).(#[65,67], [5/8]);
 x = FoscStaff(m);
 x[0].attach(FoscTimeSignature(#[5, 4]));
 x.show;
-
-img:: ![](../img/maker-leaf-maker-12.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-12".format(Platform.userExtensionDir);
-x.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 12
-
+'''
 forbiddenWrittenDuration and increaseMonotonic may be set together.
 
 code::
@@ -248,19 +126,9 @@ m = m.(#[65,67], [5/8]);
 x = FoscStaff(m);
 x[0].attach(FoscTimeSignature(#[5, 4]));
 x.show;
-
-img:: ![](../img/maker-leaf-maker-13.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-13".format(Platform.userExtensionDir);
-x.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 14
-
+'''
 Nil-valued elements in 'pitches' result in multimeasure rests when the multimeasure rest keyword is set.
 
 code::
@@ -269,19 +137,9 @@ x = FoscStaff(m, lilypondType: 'RhythmicStaff');
 x.leafAt(0).attach(FoscTimeSignature(#[3, 8]));
 x.leafAt(1).attach(FoscTimeSignature(#[5, 8]));
 x.show;
-
-img:: ![](../img/maker-leaf-maker-14.png)
 '''
 
-p = "%/fosc/docs/img/maker-leaf-maker-14".format(Platform.userExtensionDir);
-x.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 16
-
+'''
 Make skips instead of rests.
 
 code::
@@ -322,78 +180,60 @@ FoscLeafMaker {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • forbiddenNoteDuration
 
     Gets forbidden note duration.
 
     Returns duration or nil.
-    '''
     -------------------------------------------------------------------------------------------------------- */
      /* --------------------------------------------------------------------------------------------------------
-    '''
     • forbiddenRestDuration
 
     Gets forbidden rest duration.
 
     Returns duration or nil.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • increaseMonotonic
 
     Is true when durations increase monotonically. Otherwise false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • metricalHierarchy
 
     Gets metrical hierarchy.
 
     Returns metrical hierarchy or none.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • skipsInsteadOfRests
 
     Is true when skips appear in place of rests. Otherwise false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • repeatTies
 
     Is true when ties are repeat ties.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • useMultimeasureRests
 
     Is true when rests are multimeasure.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tag
 
     Gets tag.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Calls leaf-maker on pitches and durations.
 
     Returns selection.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |pitches, durations|
         var nonreducedFractions, size, durationGroups, result, factors, currentPitches, leaves;
@@ -473,9 +313,7 @@ FoscLeafMaker {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prMakeLeafOnPitch
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prMakeLeafOnPitch { |pitch, duration, increaseMonotonic=false, forbiddenNoteDuration,
         forbiddenRestDuration, skipsInsteadOfRests=false, repeatTies=false, useMultimeasureRests=false, tag|
@@ -540,9 +378,7 @@ FoscLeafMaker {
         ^leaves;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prMakeTiedLeaf
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prMakeTiedLeaf { |class, duration, increaseMonotonic=false, forbiddenDuration, multiplier, pitches,
         tieParts=true, repeatTies=false, tag|
