@@ -6,83 +6,58 @@ TITLE:: FoscPitchParser
 SUMMARY:: Returns a FoscPitchParser.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Pitch parser
 
 
 USAGE::
 
 '''
-
-• FoscPitchParser
-
-• Example 1
-
 code::
 n = [60, 62, 64];
-FoscPitchParser(n).do { |each| each.cs.postln };
-
-post::
-POSTOUTPUT
+FoscPitchParser(n).collect { |each| each.cs };
 '''
 
-
-• Example 2
-
--  can contain nil (for use in FoscMaker classes)
+'''
+Can contain nil (for use in FoscMaker classes)
 
 code::
 n = [60, 62, nil, 64];
-FoscPitchParser(n).do { |each| each.cs.postln };
-
-post::
-POSTOUTPUT
+FoscPitchParser(n).collect { |each| each.cs };
 '''
 
-
-• Example 3
-
+'''
 code::
 n = "Bb4 F#5 C4 <Cb4 E+4 G4> D+5 <C4 E4 G4>";
-FoscPitchParser(n).do { |each| each.cs.postln };
-
-post::
-POSTOUTPUT
+FoscPitchParser(n).collect { |each| each.cs };
 '''
 
-
-• Example 4
-
+'''
 code::
 n = [60, 62, 64, 'F#5', 'G#5', 'A#5'];
-FoscPitchParser(n).do { |each| each.cs.postln };
-
-post::
-POSTOUTPUT
+FoscPitchParser(n).collect { |each| each.cs };
 '''
 
-
-• Example 5
-
+'''
 code::
 n = [60, 62, 64, ['F#5', 'G#5', 'A#5']];
-FoscPitchParser(n).do { |each| each.cs.postln };
-
-post::
-POSTOUTPUT
+FoscPitchParser(n).collect { |each| each.cs };
 '''
 
+'''
+!!!TODO: this should raise an exception
 
-• Example 6: !!!TODO: this should raise an exception
-
-code::
+code::nointerpret
 FoscPitchParser(['foo']);
+
+post::
+ERROR: Message 'at' not understood.
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPitchParser : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var <pitches; 
+    var <pitches;
     *new { |items|
         var pitches;
         pitches = [];
@@ -94,28 +69,28 @@ FoscPitchParser : FoscObject {
             items.do { |each|
                 case
                 { each.isKindOf(FoscPitchSegment) } {
-                    pitches = pitches.add(each);  
+                    pitches = pitches.add(each);
                 }
                 { each.isKindOf(FoscPitch) } {
-                    pitches = pitches.add(each);  
+                    pitches = pitches.add(each);
                 }
                 { each.isKindOf(FoscNote) } {
-                    pitches = pitches.add(each.pitch);  
+                    pitches = pitches.add(each.pitch);
                 }
                 { each.isKindOf(FoscChord) } {
-                    pitches = pitches.add(each.pitches); 
+                    pitches = pitches.add(each.pitches);
                 }
                 { each.isNumber } {
-                    pitches = pitches.add(FoscPitch(each)); 
+                    pitches = pitches.add(FoscPitch(each));
                 }
                 { each.isString || each.isKindOf(Symbol) } {
                     pitches = pitches.add(FoscPitchStringParser(each)[0]);
                 }
                 { each.isSequenceableCollection } {
-                    pitches = pitches.add(FoscPitchSegment(each));  
+                    pitches = pitches.add(FoscPitchSegment(each));
                 }
                 { each.isNil } {
-                    pitches = pitches.add(nil);  
+                    pitches = pitches.add(nil);
                 }
                 {
                     throw("%:new: can't instantiate with: %.".format(this.species, each));
@@ -126,17 +101,15 @@ FoscPitchParser : FoscObject {
     }
 }
 /* ------------------------------------------------------------------------------------------------------------
-'''
 • FoscPitchStringParser
 
+'''
 code::
 x = "Bb4 F#5 C4 <Cb4 E+4 G4> D+5 <C4 E4 G4>";
-FoscPitchStringParser(x).do { |each| each.cs.postln };
+FoscPitchStringParser(x).collect { |each| each.cs };
+'''
 
-post::
-POSTOUTPUT
-'''
-'''
+FIXME: deal with class files containing multiple classes
 ------------------------------------------------------------------------------------------------------------ */
 FoscPitchStringParser {
     var string, matchingItems, matchedIndices;
@@ -172,28 +145,22 @@ FoscPitchStringParser {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pitches
 
     Returns parser result as an array of pitches and/or pitch segments.
 
-    code::
+    '''
+    code::nointerpret
     x = "Bb4 A#2 C3 <Cb4 E+4 G4> D+-1 <C4 Eb4 G4>";
     y = FoscPitchStringParser(x);
     y.pitches.printAll;
-
-    post::
-    POSTOUTPUT
     '''
 
-    code::
+    '''
+    code::nointerpret
     x = "Bb4 A#2 C3 C4 Eb4 Gb~4 D~5 C#+4 Eb4 G4";
     y = FoscPitchStringParser(x);
     y.matchingItems.printAll;
-
-    post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     pitches {
@@ -215,9 +182,7 @@ FoscPitchStringParser {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prMatchPitchSegments
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prMatchPitchSegments {
         var regexBody, match, result, index, str;
@@ -234,9 +199,7 @@ FoscPitchStringParser {
         result.do { |each| matchingItems = matchingItems.add(each) };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prMatchPitches
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prMatchPitches {
         var regexBody, match;
