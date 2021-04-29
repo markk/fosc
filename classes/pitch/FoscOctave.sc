@@ -6,16 +6,15 @@ TITLE:: FoscOctave
 SUMMARY:: Returns a FoscOctave.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Octave
 
 
 USAGE::
 
 '''
+FIXME: make examples which don't use gui
 
-• FoscOctave
-
-code::
+code::nointerpret
 inspect(FoscOctave(7));
 inspect(FoscOctave("A-1"));
 inspect(FoscOctave("cs''"));
