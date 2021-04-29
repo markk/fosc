@@ -6,20 +6,12 @@ TITLE:: FoscBeamSpecifier
 SUMMARY:: Returns a FoscBeamSpecifier.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Beam specifier.
 
 
 USAGE::
 
 '''
-
-• FoscBeamSpecifier
-
-Beam specifier.
-
-
-• Example 1
-
 Beams each division by default.
 
 code::
@@ -29,19 +21,9 @@ set(a).autoBeaming = false;
 b = a.selectLeaves.partitionBySizes(#[4,6]);
 FoscBeamSpecifier().(b);
 a.show;
-
-img:: ![](../img/maker-beam-specifier-1.png)
 '''
 
-p = "%/fosc/docs/img/maker-beam-specifier-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 Beams each division but exclude rests.
 
 code::
@@ -50,19 +32,9 @@ set(a).autoBeaming = false;
 b = a.selectLeaves.partitionBySizes(#[4,6]);
 FoscBeamSpecifier(beamEachDivision: true, beamRests: false).(b);
 a.show;
-
-img:: ![](../img/maker-beam-specifier-2.png)
 '''
 
-p = "%/fosc/docs/img/maker-beam-specifier-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 3
-
+'''
 Beams each division and include rests.
 
 code::
@@ -71,20 +43,15 @@ set(a).autoBeaming = false;
 b = a.selectLeaves.partitionBySizes(#[4,6]);
 FoscBeamSpecifier(beamEachDivision: true, beamRests: true).(b);
 a.show;
-
-img:: ![](../img/maker-beam-specifier-3.png)
 '''
 
-p = "%/fosc/docs/img/maker-beam-specifier-3".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 4
-
+'''
 Beams divisions together but exclude rests.
+
+FIXME ERROR: Meta_FoscBeamSpecifier:new: only one of these arguments should be true:
+beamEachDivision: true
+beamEachRun: false
+beamDivisionsTogether: true
 
 code::
 a = FoscStaff(FoscLeafMaker().((60 ! 7) ++ [nil] ++ (60 ! 2), (1/8 ! 2) ++ (1/16 ! 4) ++ (1/8 ! 4)));
@@ -92,20 +59,16 @@ set(a).autoBeaming = false;
 b = a.selectLeaves.partitionBySizes(#[4,6]);
 FoscBeamSpecifier(beamDivisionsTogether: true, beamRests: false).(b);
 a.show;
-
-img:: ![](../img/maker-beam-specifier-4.png)
+nointerpret
 '''
 
-p = "%/fosc/docs/img/maker-beam-specifier-4".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 5
-
+'''
 Beams divisions together and include rests.
+
+FIXME ERROR: Meta_FoscBeamSpecifier:new: only one of these arguments should be true:
+beamEachDivision: true
+beamEachRun: false
+beamDivisionsTogether: true
 
 code::
 a = FoscStaff(FoscLeafMaker().((60 ! 7) ++ [nil] ++ (60 ! 2), (1/8 ! 2) ++ (1/16 ! 4) ++ (1/8 ! 4)));
@@ -113,19 +76,10 @@ set(a).autoBeaming = false;
 b = a.selectLeaves.partitionBySizes(#[4,6]);
 FoscBeamSpecifier(beamDivisionsTogether: true, beamRests: true).(b);
 a.show;
-
-img:: ![](../img/maker-beam-specifier-5.png)
+nointerpret
 '''
 
-p = "%/fosc/docs/img/maker-beam-specifier-5".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 6
-
+'''
 Beams rests with stemlets.
 
 code::
@@ -134,15 +88,6 @@ set(a).autoBeaming = false;
 b = a.selectLeaves.partitionBySizes(#[4,6]);
 FoscBeamSpecifier(beamRests: true, stemletLength: 2).(b);
 a.show;
-
-img:: ![](../img/maker-beam-specifier-6.png)
-'''
-
-p = "%/fosc/docs/img/maker-beam-specifier-6".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscBeamSpecifier : FoscObject {
@@ -193,52 +138,39 @@ FoscBeamSpecifier : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • beamDivisionsTogether
 
     Is true when divisions should beam together.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • beamEachDivision
 
     Is true when specifier beams each division.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • beamRests
 
     Is true when beams should include rests.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hideNibs
 
     Is true when specifier hides nibs.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • stemletLength
 
     Gets stemlet length.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • useFeatherBeams
 
     Is true when multiple beams should feather.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     !!!TODO: not yet implemented
@@ -246,17 +178,14 @@ FoscBeamSpecifier : FoscObject {
     Gets interpreter representation of beam specifier.
 
     Returns string.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // asCompileString {
     //     ^this.notYetImplemented(thisMethod);
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Calls beam specifier on 'selections'.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |selections|
         var beam, durations, duration, components, leaves, runs;
@@ -309,9 +238,7 @@ FoscBeamSpecifier : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prDetachAllBeams
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prDetachAllBeams { |selections, graceNotes=false|
         FoscIteration(selections).leaves(graceNotes: graceNotes).do { |leaf|
