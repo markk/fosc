@@ -6,22 +6,22 @@ TITLE:: LilypondMusicGlyphs
 SUMMARY:: Returns a LilypondMusicGlyphs.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: LilypondMusicGlyphs
 
 
 USAGE::
 
 '''
-
-• LilypondMusicGlyphs
-
-abjad: abjad/ly/music_glyphs.py
+code::
+LilypondMusicGlyphs.list.printAll.postln;
 
 code::
-LilypondMusicGlyphs.list.printAll;
-LilypondMusicGlyphs.includes("accidentals.doublesharp");
-LilypondMusicGlyphs.includes("foo");
+LilypondMusicGlyphs.includes("accidentals.doublesharp").postln;
+
+code::
+LilypondMusicGlyphs.includes("foo").postln;
 '''
+abjad: abjad/ly/music_glyphs.py
 ------------------------------------------------------------------------------------------------------------ */
 LilypondMusicGlyphs {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -609,11 +609,14 @@ LilypondMusicGlyphs {
             "z",
             "zero"
         ];
-            
+
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+     /* --------------------------------------------------------------------------------------------------------
+    • includes
+    -------------------------------------------------------------------------------------------------------- */
     *includes { |glyphName|
         ^set.includes(glyphName.asString);
     }
