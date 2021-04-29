@@ -6,15 +6,12 @@ TITLE:: FoscMarkupCommand
 SUMMARY:: Returns a FoscMarkupCommand.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: FoscMarkupCommand
 
 
 USAGE::
 
 '''
-
-• FoscMarkupCommand
-
 code::
 m = FoscMarkupCommand('draw-circle', 0, 1, 2, 3);
 FoscMarkup(m).format;
@@ -36,56 +33,47 @@ FoscMarkupCommand : FoscObject {
     // PUBLIC METHODS: SPECIAL
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
-    Is true when `argument` is a markup command with command and arguments equal to those of this markup command. Otherwise false.
-    
+    Is true when `argument` is a markup command with command and arguments equal
+    to those of this markup command. Otherwise false.
+
     Returns true or false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
     Formats markup command.
 
     Returns string.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.prGetLilypondFormat;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     Hashes markup command.
 
     Returns integer.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString (abjad: __repr__)
 
     Gets markup command interpreter representation.
 
     Returns string.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
 
     Gets string representation of markup command.
 
     Returns string.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     str {
         ^this.prGetLilypondFormat;
@@ -94,17 +82,15 @@ FoscMarkupCommand : FoscObject {
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prEscapeString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prEscapeString { |string|
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetFormatPieces
-    
+
+    '''
     code::
     m = FoscMarkupCommand('draw-circle', 0, 1, 2, 3);
     FoscMarkup(m).format;
@@ -160,9 +146,9 @@ FoscMarkupCommand : FoscObject {
         ^parts;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLilypondFormat
 
+    '''
     code::
     m = FoscMarkupCommand('draw-circle', 0, 1, 2, 3);
     m.prGetLilypondFormat;
@@ -172,30 +158,25 @@ FoscMarkupCommand : FoscObject {
         ^this.prGetFormatPieces.join("\n");
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC PROPERTIES
+    // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • argument
 
     Gets markup command arguments.
 
     Returns array.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • command
 
     Gets markup command name.
 
     Returns string.
 
-    # TODO: change to MarkupCommand.name
-    '''
+    ! TODO: change to MarkupCommand.name
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • forceQuotes
 
     Is true when markup command should force quotes around arguments. Otherwise false.
@@ -205,12 +186,9 @@ FoscMarkupCommand : FoscObject {
     Defaults to false.
 
     Returns true or false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • forceQuotes_
-    '''
     -------------------------------------------------------------------------------------------------------- */
     forceQuotes_ { |bool|
         forceQuotes = bool.asBoolean;
@@ -219,15 +197,18 @@ FoscMarkupCommand : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *combineMarkupCommands
 
     Combines markup command and / or strings.
 
-    LilyPond's '\combine' markup command can only take two arguments, so in order to combine more than two stencils, a cascade of '\combine' commands must be employed.  `combine_markup_commands` simplifies this process.
-        
+    LilyPond's ``\combine`` markup command can only take two arguments, so in
+    order to combine more than two stencils, a cascade of ``\combine`` commands
+    must be employed. 'combine_markup_commands' simplifies this process.
+
     Returns a markup command instance, or a string if that was the only argument.
 
+    '''
+    '''
     @staticmethod
     def combine_markup_commands(*commands):
         from abjad.tools import markuptools
@@ -245,7 +226,6 @@ FoscMarkupCommand : FoscObject {
         for command in commands[2:]:
             combined = MarkupCommand('combine', combined, command)
         return combined
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *combineMarkupCommands {
         ^this.notYetImplemented(thisMethod);
