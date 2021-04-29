@@ -178,8 +178,10 @@ FoscRhythmLeaf : FoscTreeNode {
     code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
-    a.prolations.do { |each| each.pair.postln };  // FIXME
-    b.prolations.do { |each| each.pair.postln };
+    a.prolations.collect { |each| each.pair };
+
+    code::
+    b.prolations.collect { |each| each.pair };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
@@ -190,6 +192,8 @@ FoscRhythmLeaf : FoscTreeNode {
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
     a.properParentage;
+
+    code::
     b.properParentage;
     '''
     -------------------------------------------------------------------------------------------------------- */

@@ -14,11 +14,13 @@ USAGE::
 '''
 code::
 a = FoscRhythm(1/4, #[-2, 2]);
-a.value.do { |each| each.str.postln }; // FIXME: make these work
+a.value.items.collect { |each| each.str }[0];
+'''
 
+'''
 code::
 a = FoscRhythm(1/4, #[-2, 3]);
-a.value.do { |each| each.str.postln };
+a.value.items.collect { |each| each.str }[0];
 
 code::
 a.show;
