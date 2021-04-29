@@ -6,19 +6,12 @@ TITLE:: FoscTieSpecifier
 SUMMARY:: Returns a FoscTieSpecifier.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Tie specifier.
 
 
 USAGE::
 
-'''
-
-• FoscTieSpecifier
-
 !!!TODO: needs to be updated
-
-Tie specifier.
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTieSpecifier : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,11 +33,9 @@ FoscTieSpecifier : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Calls tie specifier on divisions.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |divisions|
         this.prTieAcrossDivisions(divisions);
@@ -55,41 +46,25 @@ FoscTieSpecifier : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prStripTies
 
-    • Without tie specifier
+    '''
+    Without tie specifier
 
     code::
     a = FoscTupletMaker();
     a.(divisions: [2/16, 3/16, 5/32], tupletRatios: [[2, 1.0], [3, 2.0], [4, 3]]);
     a.show;
-
-    img:: ![](../img/maker-tie-specifier-1.png)
     '''
 
-    p = "%/fosc/docs/img/maker-tie-specifier-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    • With tie specifier
+    '''
+    With tie specifier
 
     code::
     m = FoscTieSpecifier(stripTies: true);
     a = FoscTupletMaker(tieSpecifier: m);
     a.(divisions: [2/16, 3/16, 5/32], tupletRatios: [[2, 1.0], [3, 2.0], [4, 3]]);
     a.show;
-
-    img:: ![](../img/maker-tie-specifier-2.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tie-specifier-2".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prStripTies { |divisions|
@@ -100,42 +75,25 @@ FoscTieSpecifier : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prTieAcrossDivisions
 
-
-    • Without ties across divisions
+    '''
+    Without ties across divisions
 
     code::
     a = FoscTupletMaker();
     a.(divisions: [2/16, 3/16, 5/32], tupletRatios: [[2, 1], [3, 2], [4, 3]]);
     a.show;
-
-    img:: ![](../img/maker-tie-specifier-3.png)
     '''
 
-    p = "%/fosc/docs/img/maker-tie-specifier-3".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    • With ties across divisions
+    '''
+    With ties across divisions
 
     code::
     m = FoscTieSpecifier(tieAcrossDivisions: true);
     a = FoscTupletMaker(tieSpecifier: m);
     a.(divisions: [2/16, 3/16, 5/32], tupletRatios: [[2, 1], [3, 2], [4, 3]]);
     a.show;
-
-    img:: ![](../img/maker-tie-specifier-4.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tie-specifier-4".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prTieAcrossDivisions { |divisions|
@@ -170,44 +128,29 @@ FoscTieSpecifier : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prTieConsecutiveNotes
 
-
-    • Without ties across consecutive notes
+    '''
+    Without ties across consecutive notes
 
     code::
     a = FoscTupletMaker();
     a.(divisions: [2/16, 3/16, 5/32], tupletRatios: [[2, 1], [3, 2], [4, 3]]);
     a.show;
-
-    img:: ![](../img/maker-tie-specifier-5.png)
     '''
 
-    p = "%/fosc/docs/img/maker-tie-specifier-5".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    • With ties across consecutive notes
+    '''
+    With ties across consecutive notes
 
     code::
     m = FoscTieSpecifier(tieConsecutiveNotes: true);
     a = FoscTupletMaker(tieSpecifier: m);
     a.(divisions: [2/16, 3/16, 5/32], tupletRatios: [[2, 1], [3, 2, 4, 1], [4, 3]]);
     a.show;
-
-    img:: ![](../img/maker-tie-specifier-6.png)
     '''
 
-    p = "%/fosc/docs/img/maker-tie-specifier-6".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    • With ties across consecutive notes
+    '''
+    With ties across consecutive notes
 
     code::
     a = FoscTupletMaker();
@@ -215,15 +158,6 @@ FoscTieSpecifier : FoscObject {
     FoscPitchSpecifier().(b, [60, 60, 60, 61, 62, [60, 64], [60, 64], 67]);
     FoscTieSpecifier(tieConsecutiveNotes: true).(b);
     a.show;
-
-    img:: ![](../img/maker-tie-specifier-7.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tie-specifier-7".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prTieConsecutiveNotes { |divisions|
@@ -250,30 +184,24 @@ FoscTieSpecifier : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • stripTies
 
     Is true when rhythm-maker should strip all ties from all leaves in each division.
 
     Set to true or false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tieAcrossDivisions
 
     Is true when rhythm maker should tie across divisons. Otherwise false.
 
     Set to true or false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tieConsecutiveNotes
 
     Is true when rhythm-maker should tie consecutive notes. Otherwise false.
 
     Set to true or false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
