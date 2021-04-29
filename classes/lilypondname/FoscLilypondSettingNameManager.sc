@@ -6,23 +6,15 @@ TITLE:: FoscLilypondSettingNameManager
 SUMMARY:: Returns a FoscLilypondSettingNameManager.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: LilyPond setting name manager.
 
 
 USAGE::
 
 '''
-
-• FoscLilypondSettingNameManager (abjad 3.0)
-
-LilyPond setting name manager.
-
-
-• Example 1
-
 code::
 a = FoscNote(60, 1/4);
-set(a);             // a FoscLilypondSettingNameManager
+set(a).postln;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondSettingNameManager : FoscLilypondNameManager {
@@ -30,9 +22,7 @@ FoscLilypondSettingNameManager : FoscLilypondNameManager {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • at (abjad: __getattr__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     at { |name|
         var camelName, typeName, context;
@@ -69,9 +59,7 @@ FoscLilypondSettingNameManager : FoscLilypondNameManager {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prAttributeTuples
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prAttributeTuples {
         var result, prefixedContextName, lilypondType, contextProxy, pairs, triple;
