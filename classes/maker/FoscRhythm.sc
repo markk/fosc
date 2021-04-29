@@ -6,93 +6,52 @@ TITLE:: FoscRhythm
 SUMMARY:: Returns a FoscRhythm.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Rhythm
 
 
 USAGE::
 
 '''
-
-• FoscRhythm
-
-
-• Example 1
-
 code::
 a = FoscRhythm(1/4, #[-2, 2]);
-a.value.do { |each| each.str.postln };
-
-post::
-POSTOUTPUT
-'''
+a.value.do { |each| each.str.postln }; // FIXME: make these work
 
 code::
 a = FoscRhythm(1/4, #[-2, 3]);
 a.value.do { |each| each.str.postln };
-a.show;
 
-img:: ![](../img/maker-rhythm-1.png)
+code::
+a.show;
 '''
 
-p = "%/fosc/docs/img/maker-rhythm-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 Can be nested.
 
 code::
 a = FoscRhythm(3/16, [1, -2, FoscRhythm(2, #[1, 2, 4])]);
 a.show;
-
-img:: ![](../img/maker-rhythm-2.png)
 '''
 
-p = "%/fosc/docs/img/maker-rhythm-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 3
-
+'''
 Ircam-style rhythm-tree syntax.
 
 code::
 a = FoscRhythm(1/4, #[1, -2, [2, [1, 2, 4]]]);
 a.show;
-
-img:: ![](../img/maker-rhythm-3.png)
 '''
 
-p = "%/fosc/docs/img/maker-rhythm-3".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 4 !!! DEPRECATED
+'''
+DEPRECATED
 
 Floats are interpreted as ties.
 
 code::
 a = FoscRhythm(3/16, [1, 2, [2, [2.0, -3]]]);
 a.show;
+nointerpret
 
-img:: ![](../img/maker-rhythm-4.png)
-'''
-
-p = "%/fosc/docs/img/maker-rhythm-4".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
+post::
+ERROR: FoscRhythm::new: bad value: 2.0.
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscRhythm : FoscTreeContainer {
@@ -123,11 +82,9 @@ FoscRhythm : FoscTreeContainer {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • doesNotUnderstand
 
     Delegate to FoscRhythmMixin.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     doesNotUnderstand { |selector ... args|
         if (mixin.respondsTo(selector)) {
@@ -137,9 +94,7 @@ FoscRhythm : FoscTreeContainer {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
-    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |pulseDuration=1|
         var result;
@@ -151,14 +106,16 @@ FoscRhythm : FoscTreeContainer {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
+    '''
     code::
     a = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     b = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     c = FoscRhythm(FoscDuration(2, 4), [2, 5]);
     a == b;     // true
+
+    code::
     a == c;     // false
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -173,25 +130,25 @@ FoscRhythm : FoscTreeContainer {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • !=
 
+    '''
     code::
     a = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     b = FoscRhythm(FoscDuration(2, 4), [-2, 5]);
     c = FoscRhythm(FoscDuration(2, 4), [2, 5]);
     a != b;     // false
+
+    code::
     a != c;     // true
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • illustrate
 
     Illustrates FoscRhythm.
 
     Returns LilyPond file.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     illustrate { |stretch=1|
         var selection, selections;
@@ -201,12 +158,21 @@ FoscRhythm : FoscTreeContainer {
         ^FoscLilypondFile.rhythm([selection], stretch: stretch);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • inspect
 
+    '''
     code::
     a = FoscRhythm(2/4, #[-2, [2, [-2, 3]], 3]);
     a.inspect;
+    nointerpret
+
+    post::
+    1/2
+      2
+      2
+        2
+        3
+      3
     '''
     -------------------------------------------------------------------------------------------------------- */
     inspect {
@@ -220,34 +186,18 @@ FoscRhythm : FoscTreeContainer {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • show
 
+    '''
     code::
     a = FoscRhythm(3/8, #[-2, 2, 3]);
     a.show;
-
-    img:: ![](../img/maker-rhythm-5.png)
     '''
 
-    p = "%/fosc/docs/img/maker-rhythm-5".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
+    '''
     code::
     a = FoscRhythm(3/16, [1, -2, FoscRhythm(2, #[1, 2, 4])]);
     a.show;
-
-    img:: ![](../img/maker-rhythm-6.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-rhythm-6".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     show {
