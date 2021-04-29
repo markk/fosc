@@ -176,7 +176,10 @@ USAGE::
     WARNING/FIXME: will kill non-whitespace from subsequent lines with less leading whitespace!
     -------------------------------------------------------------------------------------------------------- */
     dedent {
-        var indent = this.findRegexpAt("\\s+");
+        var offset, indent;
+        // ignore leading vertical space
+        offset = this.findRegexpAt("\\v*");
+        indent = this.findRegexpAt("\\s+", offset[1]);
         if (indent.isNil) { ^this };
         ^this.splitLines.collect { |l| l[indent[1]..] }.join("\n");
     }
