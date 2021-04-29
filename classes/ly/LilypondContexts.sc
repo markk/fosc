@@ -6,22 +6,22 @@ TITLE:: LilypondContexts
 SUMMARY:: Returns a LilypondContexts.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: LilypondContexts
 
 
 USAGE::
 
 '''
-
-• LilypondContexts
-
-abjad: abjad/ly/contexts.py
+code::
+LilypondContexts.list.printAll.postln;
 
 code::
-LilypondContexts.list.printAll;
-LilypondContexts.includes('ChoirStaff');
-LilypondContexts.includes('foo');
+LilypondContexts.includes('ChoirStaff').postln;
+
+code::
+LilypondContexts.includes('foo').postln;
 '''
+abjad: abjad/ly/contexts.py
 ------------------------------------------------------------------------------------------------------------ */
 LilypondContexts {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1096,6 +1096,9 @@ LilypondContexts {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
+    • includes
+    -------------------------------------------------------------------------------------------------------- */
     *includes { |contextName|
         ^list.includes(contextName.asSymbol);
     }
