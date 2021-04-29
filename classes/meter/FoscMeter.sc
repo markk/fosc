@@ -6,36 +6,72 @@ TITLE:: FoscMeter
 SUMMARY:: Returns a FoscMeter.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: FoscMeter
+
+Meter models a common practice understanding of beats and other levels of
+rhythmic organization structured as a tree. Meter structure corresponds to the
+monotonically increasing sequence of factors in the numerator of a given time
+signature. Successively deeper levels of the tree divide time by successive
+factors.
 
 
 USAGE::
 
+FIXME: work out how to capture output from inspect
+
 '''
-
-• FoscMeter
-
-Meter models a common practice understanding of beats and other levels of rhythmic organization structured as a tree. Meter structure corresponds to the monotonically increasing sequence of factors in the numerator of a given time signature. Successively deeper levels of the tree divide time by successive factors.
-
-• Example 1
-
 code::
 FoscMeter(FoscTimeSignature([5, 4])).inspect;
+'''
+
+'''
+code::
 FoscMeter(FoscDuration(5, 4)).inspect;
+'''
+
+'''
+code::
 FoscMeter(FoscFraction(5, 4)).inspect;
+'''
+
+'''
+code::
 FoscMeter([5, 4]).inspect;
+'''
+
+'''
+code::
 FoscMeter(FoscRhythm([5, 4], [2, 3])).inspect;
+'''
+
+'''
+code::
 FoscMeter(FoscRhythm([5, 4], [1, [7, [3, 2, 2]], 2])).inspect;
+'''
+
+'''
+code::
 FoscMeter([5, 4], increaseMonotonic: true).inspect;
+'''
 
-
+'''
 code::
 a = FoscMeter([5,4]);
 a.inspect;
+
+code::
 a.increaseMonotonic;
+
+code::
 a.denominator;
+
+code::
 a.numerator;
-a.preferredBoundaryDepth;
+
+code::
+a.preferredBoundaryDepth.isNil;
+
+code::
 a.rootNode;
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -87,64 +123,54 @@ FoscMeter : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     Is true when argument is a meter with an rtm format equal to that of this meter. Otherwise false.
 
     Returns true or false.
-
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
 
     Formats meter.
 
     Returns string.
 
-    • Example 1
-
+    '''
     Gets storage format of 7/4:
-
 
     code::
     a = FoscMeter(#[7,4]);
     a.format;
+    '''
 
     >>> print(format(meter))
     abjad.Meter(
         '(7/4 ((3/4 (1/4 1/4 1/4)) (2/4 (1/4 1/4)) (2/4 (1/4 1/4))))'
         )
-    '''
     -------------------------------------------------------------------------------------------------------- */
     format {
         ^this.str;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
 
     Hashes meter.
 
     Returns integer.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • inspect
 
-    • Example 1
-
+    '''
     code::
     a = FoscMeter(#[7,4]);
     a.inspect;
+    '''
 
-    • Example 2
-
+    '''
     code::
     a = FoscMeter(#[7,4], increaseMonotonic: true);
     a.inspect;
@@ -157,17 +183,14 @@ FoscMeter : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • iter
 
     Iterates meter.
 
     Yields pairs.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
 
     !!!TODO: make identical to abjad.
@@ -176,9 +199,7 @@ FoscMeter : FoscObject {
 
     Returns string.
 
-
-    • Example 1
-
+    '''
     code::
     FoscMeter([7, 4]).str;
     '''
@@ -190,9 +211,7 @@ FoscMeter : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prFactors
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prFactors { |numerator|
         var factors;
@@ -204,9 +223,7 @@ FoscMeter : FoscObject {
         ^factors;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRecurse
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prRecurse { |node, factors, denominator, increaseMonotonic=false|
         var factor, preProlatedDuration, child, parts, total, grouping;
@@ -258,85 +275,50 @@ FoscMeter : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRewriteMeter
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().((60..67), [1/32,1/4,3/16,1/16,4/32,3/16,3/32,1/16]));
     FoscMeter.prRewriteMeter(a[0..], FoscMeter(#[4,4]));
     a.show;
-
-    img:: ![](../img/meter-meter-1.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 2
-
+    '''
     FoscContainer used to specify measure boundaries.
 
+    code::
     a = FoscStaff([
         FoscContainer([FoscNote(60, 2/4)]),
         FoscContainer([FoscLeafMaker().([60,62,62,64], [1/32,7/8,1/16,1/32])]),
         FoscContainer([FoscNote(64, 2/4)])
-    code::
     ]);
 
-    code::
     a.leafAt(0).attach(FoscTimeSignature(#[2,4]));
     a.leafAt(1).attach(FoscTimeSignature(#[4,4]));
     a.leafAt(5).attach(FoscTimeSignature(#[2,4]));
 
-    code::
     m = a.selectLeaves;
     m[0..1].tie;
     m[2..3].tie;
     m[4..5].tie;
 
-    code::
     a.show;
-
-    img:: ![](../img/meter-meter-2.png)
     '''
-
-    p = "%/fosc/docs/img/meter-meter-2".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
 
     code::
     FoscMeter.prRewriteMeter(a[1][0..], FoscMeter(#[4,4]));
     a.show;
-
-    img:: ![](../img/meter-meter-3.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-3".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 3
-
+    '''
     Use FoscRhythm to specify custom metrical hierarchy.
 
-
+    code::
     a = FoscStaff([
         FoscContainer([FoscNote(60, 2/4)]),
         FoscContainer([FoscLeafMaker().([60,62,62,64], [1/32,7/8,1/16,1/32])]),
         FoscContainer([FoscNote(64, 2/4)])
-    code::
     ]);
     a.leafAt(0).attach(FoscTimeSignature(#[2,4]));
     a.leafAt(1).attach(FoscTimeSignature(#[4,4]));
@@ -346,23 +328,12 @@ FoscMeter : FoscObject {
     m[2..3].tie;
     m[4..5].tie;
 
-    code::
     m = FoscRhythm(4/4, #[[2,[1,1]],[2,[1,1]]]);
     FoscMeter.prRewriteMeter(a[1][0..], m);
     a.show;
-
-    img:: ![](../img/meter-meter-4.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-4".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 4
-
+    '''
     Limit the maximum number of dots per leaf using 'maximumDotCount'.
 
     No constraint.
@@ -372,16 +343,9 @@ FoscMeter : FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/32,1/8,1/8,15/32]));
     a.leafAt(0).attach(t);
     a.show;
-
-    img:: ![](../img/meter-meter-5.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-5".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
+    '''
     Constrain 'maximumDotCount' to 2.
 
     code::
@@ -390,16 +354,9 @@ FoscMeter : FoscObject {
     a.leafAt(0).attach(t);
     FoscMeter.prRewriteMeter(a[0..], meter: t, maximumDotCount: 2);
     a.show;
-
-    img:: ![](../img/meter-meter-6.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-6".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
+    '''
     Constrain 'maximumDotCount' to 1.
 
     code::
@@ -408,16 +365,9 @@ FoscMeter : FoscObject {
     a.leafAt(0).attach(t);
     FoscMeter.prRewriteMeter(a[0..], meter: t, maximumDotCount: 1);
     a.show;
-
-    img:: ![](../img/meter-meter-7.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-7".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
+    '''
     Constrain 'maximumDotCount' to 0.
 
     code::
@@ -426,36 +376,21 @@ FoscMeter : FoscObject {
     a.leafAt(0).attach(t);
     FoscMeter.prRewriteMeter(a[0..], meter: t, maximumDotCount: 0);
     a.show;
-
-    img:: ![](../img/meter-meter-8.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-8".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-
-    • Example 5
-
-    Split logical ties at different depths of the Meter, if those logical ties cross any offsets at that depth, but do not also both begin and end at any of those offsets.
+    '''
+    Split logical ties at different depths of the Meter, if those logical ties
+    cross any offsets at that depth, but do not also both begin and end at any
+    of those offsets.
 
     code::
     t = FoscTimeSignature(#[9,8]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64], [2/4,2/4,1/8]));
     a.leafAt(0).attach(FoscTimeSignature(t));
     a.show;
-
-    img:: ![](../img/meter-meter-9.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-9".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
+    '''
     Establish meter without specifying 'boundaryDepth'.
 
     code::
@@ -464,17 +399,12 @@ FoscMeter : FoscObject {
     a.leafAt(0).attach(FoscTimeSignature(t));
     FoscMeter.prRewriteMeter(a[0..], meter: t);
     a.show;
-
-    img:: ![](../img/meter-meter-10.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-10".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    With a 'boundaryDepth' of 1, logical ties which cross any offsets created by nodes with a depth of 1 in this Meter’s rhythm tree - 0/8, 3/8, 6/8 and 9/8 - which do not also begin and end at any of those offsets, will be split.
+    '''
+    With a 'boundaryDepth' of 1, logical ties which cross any offsets created by
+    nodes with a depth of 1 in this Meter’s rhythm tree - 0/8, 3/8, 6/8 and 9/8
+    - which do not also begin and end at any of those offsets, will be split.
 
     code::
     t = FoscTimeSignature(#[9,8]);
@@ -482,16 +412,9 @@ FoscMeter : FoscObject {
     a.leafAt(0).attach(FoscTimeSignature(t));
     FoscMeter.prRewriteMeter(a[0..], meter: t, boundaryDepth: 1);
     a.show;
-
-    img:: ![](../img/meter-meter-11.png)
     '''
 
-    p = "%/fosc/docs/img/meter-meter-11".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
+    '''
     Another way of doing this is by setting the 'preferredBoundaryDepth' on the FoscMeter itself.
 
     code::
@@ -501,15 +424,6 @@ FoscMeter : FoscObject {
     m = FoscMeter(t, preferredBoundaryDepth: 1);
     FoscMeter.prRewriteMeter(a[0..], meter: m);
     a.show;
-
-    img:: ![](../img/meter-meter-12.png)
-    '''
-
-    p = "%/fosc/docs/img/meter-meter-12".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     *prRewriteMeter { |components, meter, boundaryDepth, initialOffset, maximumDotCount, rewriteTuplets=false|
@@ -666,7 +580,6 @@ FoscMeter : FoscObject {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • fitMeters
 
     Finds the best-matching sequence of meters for the offsets contained in argument.
@@ -677,7 +590,8 @@ FoscMeter : FoscObject {
 
     Returns array.
 
-
+    '''
+    '''
     • Example XXX
 
 
@@ -734,7 +648,6 @@ FoscMeter : FoscObject {
             )
         meters = session()
         return meters
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *fitMeters {
         ^this.notYetImplemented(thisMethod);
@@ -743,7 +656,6 @@ FoscMeter : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • generateOffsetKernelToDenominator
 
     Generates a dictionary of all offsets in a meter up to denominator.
@@ -754,9 +666,8 @@ FoscMeter : FoscObject {
 
     Returns dictionary.
 
-
-    • Example XXX
-
+    '''
+    '''
     m = FoscMeter((4, 4))
         >>> kernel = meter.generate_offset_kernel_to_denominator(8)
         >>> for offset, weight in sorted(kernel.kernel.items()):
@@ -809,7 +720,6 @@ FoscMeter : FoscObject {
                 kernel[offset] = durationtools.Multiplier(response, total)
 
         return metertools.MetricAccentKernel(kernel)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     generateOffsetKernelToDenominator {
         ^this.notYetImplemented(thisMethod);
@@ -818,42 +728,41 @@ FoscMeter : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • decreaseDurationsMonotonically
 
     Is true when meter divides large primes into collections of 2 and 3 that decrease monotonically. Otherwise false.
 
+    '''
     code::
     FoscMeter([7, 8], decreaseDurationsMonotonically: true).inspect;
     FoscMeter([7, 8], decreaseDurationsMonotonically: false).inspect;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • denominator
 
     Gets denominator of meter.
 
+    '''
     code::
     FoscMeter([7, 8]).denominator;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • depthwiseOffsetInventory
 
     Gets depthwise offset inventory of meter.
 
     Returns array.
 
-    • Example 1
-
+    '''
     code::
     a = FoscMeter([7, 4]);
     a.depthwiseOffsetInventory.do { |offsets, i|
         Post << i << nl;
         offsets.do { |each| Post.space << each.pair << nl };
     };
+    '''
 
     @property
     def depthwise_offset_inventory(self):
@@ -865,7 +774,6 @@ FoscMeter : FoscObject {
                 all_offsets.add(durationtools.Offset(node.start_offset))
             inventory.append(tuple(sorted(all_offsets)))
         return tuple(inventory)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     depthwiseOffsetInventory {
         var inventory, allOffsets, rootNodeInventory, keys, nodes;
@@ -882,11 +790,11 @@ FoscMeter : FoscObject {
         ^inventory;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • duration
 
     Gets duration of meter.
 
+    '''
     code::
     m = FoscMeter([7, 4]);
     m.duration.inspect;
@@ -896,11 +804,11 @@ FoscMeter : FoscObject {
         ^FoscDuration(numerator, denominator);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • impliedTimeSignature
 
     Gets implied time signature of meter.
 
+    '''
     code::
     m = FoscMeter([4, 4]);
     m.impliedTimeSignature.inspect;
@@ -910,17 +818,23 @@ FoscMeter : FoscObject {
         ^FoscTimeSignature(this.pair);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isCompound
 
     Is true when meter is compound.
 
     Compound meters are defined as those equal with a numerator divisible by 3 but not equal 3.
 
+    '''
     code::
     FoscMeter([3, 4]).isCompound;
+
+    code::
     FoscMeter([4, 8]).isCompound;
+
+    code::
     FoscMeter([6, 8]).isCompound;
+
+    code::
     FoscMeter([15, 32]).isCompound;
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -929,7 +843,6 @@ FoscMeter : FoscObject {
         ^(numerator.gcd(3) == 3);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isSimple
 
     Is true when meter is simple. Otherwise false.
@@ -938,10 +851,18 @@ FoscMeter : FoscObject {
 
     Meters with numerator equal to 3 are also defined as simple.
 
+    '''
     code::
     FoscMeter([3, 4]).isSimple;
+
+    code::
+
     FoscMeter([4, 8]).isSimple;
+    code::
+
     FoscMeter([6, 8]).isSimple;
+    code::
+
     FoscMeter([15, 32]).isSimple;
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -949,30 +870,28 @@ FoscMeter : FoscObject {
         ^this.isCompound.not;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • numerator
 
     Gets numerator of meter.
 
     Returns positive integer.
 
-
-    • Example 1
+    '''
     code::
     m = FoscMeter([7, 4]);
     m.numerator;
+    '''
 
     @property
     def numerator(self):
         return self._numerator
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pair
 
     Gets numerator and denominator pair.
 
+    '''
     code::
     FoscMeter([7, 8]).pair;
     '''
@@ -981,43 +900,37 @@ FoscMeter : FoscObject {
         ^[numerator, denominator];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • preferredBoundaryDepth
 
     Gets preferred boundary depth of meter. Used by rewriteMeter method.
 
     Returns integer or nil.
 
-
-    • Example 1
+    '''
     code::
     m = FoscMeter([4, 4]);
     m.preferredBoundaryDepth;
-
-    • Example 2
+    '''
+    '''
     code::
     m = FoscMeter([4, 4], preferredBoundaryDepth: 2);
     m.preferredBoundaryDepth;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rootNode
 
     Gets root node of meter.
 
     Returns rhythm tree node.
 
-
-    • Example 1
-
+    '''
     code::
     m = FoscMeter([7, 4]);
     m.rootNode;
-
+    '''
     @property
     def root_node(self):
         return self._root_node
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
