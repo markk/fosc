@@ -25,12 +25,12 @@ FoscTypedSequenceableCollection.dumpInterface
 ------------------------------------------------------------------------------------------------------------ */
 FoscTypedSequenceableCollection : FoscTypedCollection {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: COMPARISON
+    // PUBLIC INSTANCE METHODS: COMPARISON
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • ==
-    
+
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     b = FoscTypedSequenceableCollection([1, 2], Number);
@@ -41,7 +41,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • !=
-    
+
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     b = FoscTypedSequenceableCollection([1, 2], Number);
@@ -50,7 +50,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: ENUMERATION
+    // PUBLIC INSTANCE METHODS: ENUMERATION
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -68,7 +68,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • iter
-    
+
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a = a.iter;
@@ -80,12 +80,12 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: PROPERTIES
+    // PUBLIC INSTANCE METHODS: PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • includes
-    
+
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.includes(4);
@@ -103,7 +103,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • items
-    
+
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x.items;
@@ -112,11 +112,11 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • size
-    
+
     Size of typed sequenceable collection.
 
     Returns nonnegative integer.
-    
+
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.size;
@@ -128,7 +128,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • at
-    
+
     Gets item at index.
 
     Returns item.
@@ -145,7 +145,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • atAll
-    
+
     Gets items at indices.
 
     Returns items.
@@ -185,7 +185,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • includes
-    
+
     Answer true if item exists in collection.
 
     Returns boolean.
@@ -199,7 +199,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • indexOf (abjad: index)
-    
+
     Return the first index matching item.
 
     Returns integer.
@@ -230,7 +230,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • occurrencesOf (abjad: count)
-    
+
     Return the number of occurrences of item in collection.
 
     Returns integer.
@@ -245,7 +245,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.occurrencesOf(item);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: LIST MODIFICATION
+    // PUBLIC INSTANCE METHODS: LIST MODIFICATION
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -305,7 +305,7 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.removeAt(index);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: TRANSFORMATION
+    // PUBLIC INSTANCE METHODS: TRANSFORMATION
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''

@@ -84,7 +84,7 @@ FoscNote : FoscLeaf {
         var leaf, isCautionary=false, isForced=false, isParenthesized=false;
         if (writtenPitch.isKindOf(FoscLeaf)) {
             leaf = writtenPitch;
-            case 
+            case
             { leaf.isKindOf(FoscChord) } {
                 writtenDuration = leaf.writtenDuration;
                 multiplier = leaf.multiplier;
@@ -116,7 +116,7 @@ FoscNote : FoscLeaf {
         noteHead = FoscNoteHead(writtenPitch, this, isCautionary, isForced, isParenthesized);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS: SPECIAL
+	// PUBLIC INSTANCE METHODS: SPECIAL
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
@@ -139,7 +139,7 @@ FoscNote : FoscLeaf {
     Gets new arguments.
 
     Returns array.
-	
+
  code::
     FoscNote(60, 1/4).storeArgs;
  '''
@@ -161,7 +161,7 @@ FoscNote : FoscLeaf {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetBody
-    
+
     code::
     a = FoscNote(60, 1/4);
     a.prGetBody;
@@ -186,7 +186,7 @@ FoscNote : FoscLeaf {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prGetCompactRepresentation
-    
+
     code::
     a = FoscNote(60, 1/4);
     a.prGetCompactRepresentation;
@@ -217,7 +217,7 @@ FoscNote : FoscLeaf {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prDivide
-    
+
     code::
     a = FoscNote(60, FoscDuration(1, 4));
     b = a.prDivide;
@@ -299,7 +299,7 @@ FoscNote : FoscLeaf {
 
     Returns note-head.
 
-    
+
     • Example 1
 
  code::
@@ -313,7 +313,7 @@ FoscNote : FoscLeaf {
 
     Sets note-head of note.
 
-    
+
     • Example 2
 
     code::
@@ -356,7 +356,7 @@ FoscNote : FoscLeaf {
     code::
     a = FoscNote(60, 1/4);
     a.writtenDuration.str;
-    
+
     code::
     a.writtenDuration_(3/4);
     a.writtenDuration.str;
@@ -379,7 +379,7 @@ FoscNote : FoscLeaf {
     writtenPitch {
         if (noteHead.notNil) {
             if (noteHead.writtenPitch.notNil) { ^noteHead.writtenPitch };
-        };    
+        };
     }
     /* --------------------------------------------------------------------------------------------------------
     '''

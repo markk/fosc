@@ -33,10 +33,10 @@ FoscTypedCollection : FoscObject {
         } {
             if (itemClass.isNil) { ^throw("%: itemClass cannot be nil.".format(this.name)) };
 
-            items.do { |item| 
+            items.do { |item|
                 if (item.isKindOf(itemClass).not) {
-                    ^throw("%:new: item % is the wrong type: %.".format(this.species, item, item.species));  
-                };  
+                    ^throw("%:new: item % is the wrong type: %.".format(this.species, item, item.species));
+                };
             };
         };
         ^super.new.init(items, itemClass);
@@ -46,12 +46,12 @@ FoscTypedCollection : FoscObject {
         itemClass = argItemClass;
 	}
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: COMPARISON
+    // PUBLIC INSTANCE METHODS: COMPARISON
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • ==
-    
+
     code::
     a = FoscTypedCollection([1, 2, 3, 4], Number);
     b = FoscTypedCollection([1, 2], Number);
@@ -65,7 +65,7 @@ FoscTypedCollection : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • !=
-    
+
     code::
     a = FoscTypedCollection([1, 2, 3, 4], Number);
     b = FoscTypedCollection([1, 2], Number);
@@ -357,7 +357,7 @@ FoscTypedCollection : FoscObject {
         ^this.species.new(result, this.itemClass);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: ENUMERATION
+    // PUBLIC INSTANCE METHODS: ENUMERATION
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -378,7 +378,7 @@ FoscTypedCollection : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • iter
-    
+
     code::
     a = FoscTypedCollection([1, 2, 3, 4], Number);
     a = a.iter;
@@ -393,12 +393,12 @@ FoscTypedCollection : FoscObject {
         ^collection.iter;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: PROPERTIES
+    // PUBLIC INSTANCE METHODS: PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • includes
-    
+
     code::
     a = FoscTypedCollection([1, 2, 3, 4], Number);
     a.includes(4);
@@ -439,7 +439,7 @@ FoscTypedCollection : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • items
-    
+
     code::
     x = FoscTypedCollection([1, 2, 3, 4], Number);
     x.items;
@@ -451,11 +451,11 @@ FoscTypedCollection : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • size
-    
+
     Size of typed collection.
 
     Returns nonnegative integer.
-    
+
     code::
     a = FoscTypedCollection([1, 2, 3, 4], Number);
     a.size;
@@ -478,7 +478,7 @@ FoscTypedCollection : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prOnInsertion
-    
+
     Override to operate on item after insertion into collection.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -488,7 +488,7 @@ FoscTypedCollection : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prOnRemoval
-    
+
     Override to operate on item after removal from collection.
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -512,7 +512,7 @@ FoscTypedCollection : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: DISPLAY
+    // PUBLIC INSTANCE METHODS: DISPLAY
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''

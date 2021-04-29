@@ -31,12 +31,12 @@ FoscTypedList : FoscTypedSequenceableCollection {
         collection = collection.asList;
     }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS: LIST MODIFICATION
+	// PUBLIC INSTANCE METHODS: LIST MODIFICATION
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
     • concat
-	
+
 	Concatenates typed list and expr.
 
  	Returns new typed list.
@@ -206,12 +206,12 @@ FoscTypedList : FoscTypedSequenceableCollection {
 		collection.sort(func);
     }
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: PROPERTIES
+    // PUBLIC INSTANCE METHODS: PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
     • at
-    
+
     Gets item at index.
 
     Returns item.
@@ -224,7 +224,7 @@ FoscTypedList : FoscTypedSequenceableCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • atAll
-    
+
     Gets items at indices.
 
     Returns items.
@@ -237,7 +237,7 @@ FoscTypedList : FoscTypedSequenceableCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • includes
-    
+
     Answer true if item exists in collection.
 
     Returns boolean.
@@ -251,7 +251,7 @@ FoscTypedList : FoscTypedSequenceableCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • indexOf (abjad: index)
-    
+
     Return the first index matching item.
 
     Returns nonegative integer.
@@ -264,7 +264,7 @@ FoscTypedList : FoscTypedSequenceableCollection {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • occurrencesOf (abjad: count)
-    
+
     Return the number of occurrences of item in collection.
 
     Returns nonegative integer.
@@ -275,7 +275,7 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: TRANSFORMATION
+    // PUBLIC INSTANCE METHODS: TRANSFORMATION
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''
@@ -308,7 +308,7 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS: DISPLAY
+    // PUBLIC INSTANCE METHODS: DISPLAY
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
     '''

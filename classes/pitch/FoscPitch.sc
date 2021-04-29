@@ -65,7 +65,7 @@ FoscPitch : FoscObject {
 	init { |val, argArrow|
 		var initializer, arrowState;
 		manager = FoscPitchNameManager;
-		
+
         initializer = case
 		{ val.isNumber } {
             FoscNumberedPitch(val);
@@ -82,7 +82,7 @@ FoscPitch : FoscObject {
 		{ val.isKindOf(FoscPitchClass) } {
             FoscPitch(val.pitchClassName ++ "4", val.arrow);
         }
-		{ 
+		{
             throw("Can't initialize % from value: %".format(this.species, val));
         };
 
@@ -95,7 +95,7 @@ FoscPitch : FoscObject {
         };
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS: SPECIAL
+	// PUBLIC INSTANCE METHODS: SPECIAL
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
@@ -134,11 +134,11 @@ FoscPitch : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • >
-    
+
     Is true when arg can be coerced to a pitch and when this pitch is greater than arg. Otherwise false.
 
     Returns true or false.
-    
+
 
     code::
     a = FoscPitch('C#4');
@@ -175,7 +175,7 @@ FoscPitch : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • <
-    
+
     Is true when arg can be coerced to a pitch and when this pitch is less than arg. Otherwise false.
 
     Returns true or false.
@@ -213,7 +213,7 @@ FoscPitch : FoscObject {
 	Adds arg to numberd pitch.
 
 	Returns new numbered pitch.
-	
+
 
  code::
 	x = FoscPitch('C#4');
@@ -244,7 +244,7 @@ FoscPitch : FoscObject {
 	Changes numbered pitch to float.
 
 	Returns float.
-	
+
 
     code::
 	x = FoscPitch('C+4');
@@ -259,10 +259,10 @@ FoscPitch : FoscObject {
     • asInteger (abjad: __int__)
 
 	Changes numbered pitch to integer.
-	
+
 	Returns integer.
-	
- 	
+
+
     code::
 	x = FoscPitch('C+4');
     x.asInt;
@@ -278,8 +278,8 @@ FoscPitch : FoscObject {
 	Negates numbered pitch.
 
 	Returns new numbered pitch.
-	
-	
+
+
     code::
 	a = FoscPitch('C#4');
 	b = a.neg;
@@ -300,7 +300,7 @@ FoscPitch : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • str (abjad: __str__)
-    
+
     code::
     a = FoscPitch('C#4');
     a.str;
@@ -317,7 +317,7 @@ FoscPitch : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • pitchString
-    
+
     code::
     a = FoscPitch('C#4');
     a.pitchString;
@@ -336,7 +336,7 @@ FoscPitch : FoscObject {
         ^this.notYetImplemented(thisMethod);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC PROPERTIES
+	// PUBLIC INSTANCE PROPERTIES
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
@@ -533,7 +533,7 @@ FoscPitch : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
     '''
     • pitchNumber
-    
+
     code::
     FoscPitch('Db~5').pitchNumber;
 
@@ -556,7 +556,7 @@ FoscPitch : FoscObject {
         ^result;
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS: TRANSFORMATIONS
+	// PUBLIC INSTANCE METHODS: TRANSFORMATIONS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
@@ -569,11 +569,11 @@ FoscPitch : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
     '''
     • multiply
-	
+
     Multiplies pitch-class of numbered pitch by n and maintains octave.
-	
+
 	Returns new numbered pitch.
-	
+
 
     code::
     a = FoscPitch(62);
@@ -667,7 +667,7 @@ FoscPitch : FoscObject {
 		^result;
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS: DISPLAY
+	// PUBLIC INSTANCE METHODS: DISPLAY
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
     '''
@@ -736,7 +736,7 @@ FoscPitch : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • prListFormatContributions
-    
+
     - abjad 2.2.1
     def _list_format_contributions(self):
         contributions = []
@@ -752,7 +752,7 @@ FoscPitch : FoscObject {
         override_string = override_string.format(string)
         contributions.append(override_string)
         return contributions
-    
+
     code::
     a = FoscStaff([FoscNote(FoscPitch("C4", arrow: 'down'), [1, 4])]);
     a.show;

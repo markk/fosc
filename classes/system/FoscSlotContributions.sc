@@ -20,7 +20,7 @@ a = FoscSlotContributions();
 a.hasContributions;
 '''
 ------------------------------------------------------------------------------------------------------------ */
-FoscSlotContributions : FoscObject { 												
+FoscSlotContributions : FoscObject {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// INIT
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ FoscSlotContributions : FoscObject {
 		^FoscFormatSpecification(this, storageFormatKwargsNames: names);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC PROPERTIES
+	// PUBLIC INSTANCE PROPERTIES
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
  '''
@@ -165,7 +165,7 @@ FoscSlotContributions : FoscObject {
             )
         return any(getattr(self, contribution_category)
             for contribution_category in contribution_categories)
-	
+
  code::
 	a = FoscSlotContributions();
 	a.hasContributions;
@@ -215,7 +215,7 @@ FoscSlotContributions : FoscObject {
     @property
     def markup(self):
         return self._markup
-    
+
     code::
 	a = FoscSlotContributions();
 	a.markup;
@@ -228,7 +228,7 @@ FoscSlotContributions : FoscObject {
     @property
     def spanners(self):
         return self._spanners
-    
+
     code::
 	a = FoscSlotContributions();
 	a.spanners;
@@ -241,7 +241,7 @@ FoscSlotContributions : FoscObject {
     @property
     def spanner_starts(self):
         return self._spanner_starts
-    
+
     code::
 	a = FoscSlotContributions();
 	a.spannerStarts;
@@ -254,7 +254,7 @@ FoscSlotContributions : FoscObject {
     @property
     def spanner_stops(self):
         return self._spanner_stops
-    
+
     code::
 	a = FoscSlotContributions();
 	a.spannerStops;
@@ -267,7 +267,7 @@ FoscSlotContributions : FoscObject {
     @property
     def stem_tremolos(self):
         return self._stem_tremolos
-    
+
     code::
 	a = FoscSlotContributions();
 	a.stemTremolos;
@@ -276,7 +276,7 @@ FoscSlotContributions : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • tag
-    
+
     code::
     a = FoscSlotContributions();
     a.tag;
@@ -289,14 +289,14 @@ FoscSlotContributions : FoscObject {
     @property
     def trill_pitches(self):
         return self._trill_pitches
-    
+
     code::
 	a = FoscSlotContributions();
 	a.trillSpannerStarts;
     '''
     -------------------------------------------------------------------------------------------------------- */
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS
+	// PUBLIC INSTANCE METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
  '''
@@ -316,10 +316,10 @@ FoscSlotContributions : FoscObject {
     /* --------------------------------------------------------------------------------------------------------
     '''
     • get
-    
+
     def get(self, identifier):
 		return getattr(self, identifier)
-    
+
     code::
 	a = FoscSlotContributions();
 	a.get('indicators');
@@ -343,7 +343,7 @@ FoscSlotContributions : FoscObject {
         self._spanner_stops = tuple(self.spanner_stops)
         self._stem_tremolos = tuple(self.stem_tremolos)
         self._trill_pitches = tuple(self.trill_pitches)
-    
+
     code::
 	a = FoscDuration(1);
 	b = FoscDuration(2);
@@ -383,7 +383,7 @@ FoscSlotContributions : FoscObject {
         self.spanner_stops.extend(slot_contributions.spanner_stops)
         self.stem_tremolos.extend(slot_contributions.stem_tremolos)
         self.trill_pitches.extend(slot_contributions.trill_pitches)
-    
+
     code::
 	a = FoscSlotContributions();
 	a.update(a.copy);

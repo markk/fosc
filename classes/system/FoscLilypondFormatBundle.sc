@@ -65,16 +65,16 @@ FoscLilypondFormatBundle : FoscObject {
 		^FoscFormatSpecification(this, storageFormatKwargsNames: names);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC METHODS
+	// PUBLIC INSTANCE METHODS
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• get
-	
+
 	Gets identifier.
 
 	Returns format contributions object or list.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.get('before');
@@ -98,7 +98,7 @@ FoscLilypondFormatBundle : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• update
-	
+
 	Updates format bundle with all format contributions in formatBundle.
 
 	Returns nil.
@@ -128,7 +128,7 @@ FoscLilypondFormatBundle : FoscObject {
 		grobReverts.addAll(formatBundle.grobReverts);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC PROPERTIES
+	// PUBLIC INSTANCE PROPERTIES
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/* --------------------------------------------------------------------------------------------------------
  '''
@@ -151,11 +151,11 @@ FoscLilypondFormatBundle : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• after
-	
+
 	After slot contributions.
 
 	Returns slot contributions object.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.after;
@@ -164,11 +164,11 @@ FoscLilypondFormatBundle : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• before
-	
+
 	Before slot contributions.
 
 	Returns slot contributions object.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.before;
@@ -177,11 +177,11 @@ FoscLilypondFormatBundle : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• closing
-	
+
 	Closing slot contributions.
 
 	Returns slot contributions object.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.closing;
@@ -190,11 +190,11 @@ FoscLilypondFormatBundle : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• contextSettings
-	
+
 	Context setting format contributions.
 
 	Returns array.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.contextSettings;
@@ -203,11 +203,11 @@ FoscLilypondFormatBundle : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• grobOverrides
-	
+
 	Grob override format contributions.
-	
+
 	Returns array.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.grobOverrides;
@@ -220,7 +220,7 @@ FoscLilypondFormatBundle : FoscObject {
 	Grob revert format contributions.
 
 	Returns array.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.grobReverts;
@@ -229,11 +229,11 @@ FoscLilypondFormatBundle : FoscObject {
 	/* --------------------------------------------------------------------------------------------------------
  '''
 	• opening
-	
+
 	Opening slot contributions.
-	
+
 	Returns slot contributions object.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.opening;
@@ -246,7 +246,7 @@ FoscLilypondFormatBundle : FoscObject {
 	Right slot contributions.
 
 	Returns slot contributions object.
-	
+
  code::
 	a = FoscLilypondFormatBundle();
 	a.right;
