@@ -6,17 +6,10 @@ TITLE:: FoscTupletSpecifier
 SUMMARY:: Returns a FoscTupletSpecifier.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Tuplet specifier.
 
 
 USAGE::
-
-'''
-
-• FoscTupletSpecifier
-
-Tuplet specifier.
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTupletSpecifier : FoscObject {
     var <denominator, <isDiminution, <durationBracket, <extractTrivial, <forceFraction, <rewriteDots;
@@ -43,9 +36,7 @@ FoscTupletSpecifier : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
-    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |selections, divisions|
         this.prApplyDenominator(selections, divisions);
@@ -62,22 +53,13 @@ FoscTupletSpecifier : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prApplyDenominator
 
+    '''
     code::
     m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(denominator: 4).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-1.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tuplet-specifier-1".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prApplyDenominator { |selections, divisions|
@@ -116,22 +98,13 @@ FoscTupletSpecifier : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prExtractTrivial
 
+    '''
     code::
     m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(extractTrivial: true).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-2.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tuplet-specifier-2".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prExtractTrivial { |selections|
@@ -159,22 +132,13 @@ FoscTupletSpecifier : FoscObject {
         ^newSelections;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prForceFraction
 
+    '''
     code::
     m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(forceFraction: true).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-3.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tuplet-specifier-3".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prForceFraction { |selections|
@@ -184,22 +148,13 @@ FoscTupletSpecifier : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRewriteDots
 
+    '''
     code::
     m = FoscTupletMaker().([1/4], #[[2,1],[1],[1,3]]);
     m = FoscTupletSpecifier(rewriteDots: true).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-4.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tuplet-specifier-4".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prRewriteDots { |selections|
@@ -209,43 +164,25 @@ FoscTupletSpecifier : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRewriteRestFilled
 
-
-    • rewrite rest-filled
+    '''
+    rewrite rest-filled
 
     code::
     m = FoscTupletMaker().([1/4], #[[-2,-1],[1],[-1,-3]]);
     // FoscLilypondFile.rhythm(m).show;
     m = FoscTupletSpecifier(rewriteRestFilled: true).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-5.png)
     '''
 
-    p = "%/fosc/docs/img/maker-tuplet-specifier-5".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
-
-
-    • rewrite rest-filled and extract trivial
+    '''
+    rewrite rest-filled and extract trivial
 
     code::
     m = FoscTupletMaker().([1/4], #[[-2,-1],[1],[-1,-4]]);
     m = FoscTupletSpecifier(extractTrivial: true, rewriteRestFilled: true).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-6.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tuplet-specifier-6".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prRewriteRestFilled { |selections|
@@ -275,11 +212,10 @@ FoscTupletSpecifier : FoscObject {
         ^newSelections;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prRewriteSustained
 
-
-    • rewrite sustained
+    '''
+    rewrite sustained
 
     code::
     m = FoscTupletMaker().([1/4], #[[4,1],[4,1],[4,1],[4,1]]);
@@ -287,33 +223,16 @@ FoscTupletSpecifier : FoscObject {
     // FoscLilypondFile.rhythm(m).show;
     m = FoscTupletSpecifier(rewriteSustained: true).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-7.png)
     '''
 
-    p = "%/fosc/docs/img/maker-tuplet-specifier-7".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
-
-
-    • rewrite sustained and extract trivial
+    '''
+    rewrite sustained and extract trivial
 
     code::
     m = FoscTupletMaker().([1/4], #[[4,1],[4,1],[4,1],[4,1]]);
     FoscSelection(m).leaves[1..7].tie;
     m = FoscTupletSpecifier(extractTrivial: true, rewriteSustained: true).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-8.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tuplet-specifier-8".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prRewriteSustained { |selections|
@@ -347,22 +266,13 @@ FoscTupletSpecifier : FoscObject {
         ^newSelections;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prToggleProlation
 
+    '''
     code::
     m = FoscTupletMaker().([1/4], #[[2,1],[4,1],[2,3]]);
     m = FoscTupletSpecifier(isDiminution: false).(m);
     FoscLilypondFile.rhythm(m).show;
-
-    img:: ![](../img/maker-tuplet-specifier-9.png)
-    '''
-
-    p = "%/fosc/docs/img/maker-tuplet-specifier-9".format(Platform.userExtensionDir);
-    FoscLilypondFile.rhythm(m).writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prToggleProlation { |selections|
@@ -377,9 +287,7 @@ FoscTupletSpecifier : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prTrivialize
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prTrivialize { |selections|
         if (trivialize.not) { ^this };
@@ -391,15 +299,17 @@ FoscTupletSpecifier : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prIsRestFilledTuplet
 
     Is true when all leaves in tuplet are rests.
 
+    '''
     code::
     a = FoscTuplet(2/3, [FoscRest(2/4), FoscRest(1/4)]);
     FoscTupletSpecifier.prIsRestFilledTuplet(a);
+    '''
 
+    '''
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 2/4), FoscRest(1/4)]);
     FoscTupletSpecifier.prIsRestFilledTuplet(a);
@@ -410,15 +320,17 @@ FoscTupletSpecifier : FoscObject {
         ^tuplet.selectLeaves.every { |leaf| leaf.isKindOf(FoscRest) };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prIsSustainedTuplet
 
     Is true when 'argument' is sustained tuplet.
 
+    '''
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 3/4)]);
     FoscTupletSpecifier.prIsSustainedTuplet(a);
+    '''
 
+    '''
     code::
     a = FoscTuplet(2/3, [FoscNote(60, 2/4), FoscNote(60, 1/4)]);
     FoscTupletSpecifier.prIsSustainedTuplet(a);
@@ -443,48 +355,30 @@ FoscTupletSpecifier : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • denominator
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • diminution
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • durationBracket
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • extractTrivial
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • forceFraction
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rewriteDots
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rewriteSustained
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • rewriteRestFilled
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • trivialize
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
