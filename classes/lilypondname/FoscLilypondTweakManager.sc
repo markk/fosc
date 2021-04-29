@@ -6,33 +6,33 @@ TITLE:: FoscLilypondTweakManager
 SUMMARY:: Returns a FoscLilypondTweakManager.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: LilyPond tweak manager.
 
 
 USAGE::
 
 '''
-
-• FoscLilypondTweakManager (abjad 3.0)
-
-LilyPond tweak manager.
-
-
-• Example 1
-
 Tweak managers are created by the 'abjad.tweak()' factory function:
 
+FIXME ERROR: FoscLilypondGrobOverride does not respond to tweak.
+
+code::
+b = FoscBeam();
+t = tweak(b);           //###### CORRECT
+nointerpret
+'''
 >>> beam = abjad.Beam()
 >>> abjad.tweak(beam)
 LilyPondTweakManager()
 
-------
-code::
-b = FoscBeam();
-t = tweak(b);           //###### CORRECT
-------
-
+'''
 Set an attribute like this:
+
+code::
+t = tweak(b).color = 'red';
+t.cs;                   //###### CLOSE, BUT NOT CORRECT
+nointerpret
+'''
 
 >>> abjad.tweak(beam).color = 'red'
 
@@ -42,9 +42,6 @@ The state of the tweak manager has changed:
 LilyPondTweakManager(('color', 'red'))
 
 ------
-code::
-t = tweak(b).color = 'red';
-t.cs;                   //###### CLOSE, BUT NOT CORRECT
 ------
 
 And the value of the attribute just set is available like this:
@@ -66,9 +63,7 @@ Traceback (most recent call last):
 AttributeError: LilyPondTweakManager object has no attribute 'foo'.
 
 
-
-• Example X
-
+'''
 code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 a.consistsCommands.add('Horizontal_bracket_engraver');
@@ -79,9 +74,11 @@ tweak(b).color = 'red';
 b.tweaks.prListFormatContributions;
 a.show;
 a.format;
+nointerpret
+'''
 
-
-• Example Y - TEMPORARY - NOT YET WORKING
+'''
+TEMPORARY - NOT YET WORKING
 
 code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], [1/4]));
@@ -93,6 +90,7 @@ c = FoscLilypondTweakManager();
 c.setTweaks(b, #[['color', 'red']]);
 a.show;
 a.format;
+nointerpret
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLilypondTweakManager : FoscLilypondNameManager {
@@ -100,17 +98,13 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • at (abjad: __getattr__)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prAttributeTuples
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prAttributeTuples {
@@ -133,12 +127,9 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prListFormatContributions
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscHairpin('p < f');
     m = tweak(a);
@@ -173,20 +164,22 @@ FoscLilypondTweakManager : FoscLilypondNameManager {
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • setTweaks
 
     Sets 'tweaks' on 'object'.
 
+    '''
     code::
     l = FoscLilypondLiteral("\\f", 'after', directed: true);
     FoscLilypondTweakManager.setTweaks(l, #[['color', 'blue']]);
-    l.tweaks.prListFormatContributions;
+    l.tweaks.prListFormatContributions.postln;
+    '''
 
+    '''
     code::
     l = FoscLilypondLiteral("\\f", 'after', directed: true);
     FoscLilypondTweakManager.setTweaks(l, #['color', 'blue', size, 12]);
-    l.tweaks.prListFormatContributions;
+    l.tweaks.prListFormatContributions.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
