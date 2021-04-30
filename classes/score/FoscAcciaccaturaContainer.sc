@@ -6,17 +6,7 @@ TITLE:: FoscAcciaccaturaContainer
 SUMMARY:: Returns a FoscAcciaccaturaContainer.
 
 
-DESCRIPTION:: TODO
-
-
-USAGE::
-
-'''
-
-• FoscAcciaccaturaContainer
-
-
-Acciaccatura container.
+DESCRIPTION:: Acciaccatura container.
 
 Acciaccaturas are played before the beat.
 
@@ -26,9 +16,9 @@ LilyPond formats one-note acciaccaturas with a slashed stem and a slur.
 
 NOTE: LilyPond fails to format multinote acciaccaturas with a slashed stem. This means that multinote acciaccaturas look exactly like appoggiaturas.
 
+USAGE::
 
-• Example 1
-
+'''
 Acciaccatura note.
 
 code::
@@ -37,19 +27,9 @@ c = FoscAcciaccaturaContainer([FoscNote(60, 1/8)]);
 c[0].attach(FoscArticulation('>'));
 a[2].attach(c);
 a.show;
-
-img:: ![](../img/score-acciaccatura-container-1.png)
 '''
 
-p = "%/fosc/docs/img/score-acciaccatura-container-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 Acciaccatura notes.
 
 code::
@@ -58,16 +38,9 @@ c = FoscAcciaccaturaContainer([FoscNote(60, 1/16), FoscNote(62, 1/16)]);
 c[0].attach(FoscArticulation('>'));
 a[2].attach(c);
 a.format;
+
+code::
 a.show;
-
-img:: ![](../img/score-acciaccatura-container-2.png)
-'''
-
-p = "%/fosc/docs/img/score-acciaccatura-container-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscAcciaccaturaContainer : FoscGraceContainer {
@@ -75,9 +48,7 @@ FoscAcciaccaturaContainer : FoscGraceContainer {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prFormatOpenBracketsSlot
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpenBracketsSlot { |bundle|
         var result;
