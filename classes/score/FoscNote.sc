@@ -6,38 +6,45 @@ TITLE:: FoscNote
 SUMMARY:: Returns a FoscNote.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A note
 
 
 USAGE::
 
 '''
+FIXME: Error: Message 'pitch' not understood.
 
-• FoscNote
+code::nointerpret
+FoscNote().pitch.str;
+'''
+'''
+code::
+FoscNote().writtenDuration.str;
 
 code::
-FoscNote().pitch.str;
-FoscNote().writtenDuration.str;
 FoscNote().str;
+'''
+
+'''
+FIXME: ERROR: Message 'isLilypondPitchName' not understood.
+code::nointerpret
 FoscNote("g'", 1/4).str;
+'''
+
+'''
+code::
 FoscNote("Gb5", 1/4).str;
+
+code::
 FoscNote(60, 1/4).str;
 
 code::
 a = FoscNote(60, 1/4);
 a.show;
-
-img:: ![](../img/score-note-1.png)
 '''
 
-p = "%/fosc/docs/img/score-note-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• implicit conversion of type when another leaf is passed as initialization argument; indicators are preserved
+'''
+Implicit conversion of type when another leaf is passed as initialization argument; indicators are preserved
 
 code::
 m = FoscNote(60, 1/4);
@@ -45,18 +52,10 @@ m.attach(FoscArticulation('>'));
 m.attach(FoscDynamic('p'));
 a = FoscNote(m);
 a.show;
-
-img:: ![](../img/score-note-2.png)
 '''
 
-p = "%/fosc/docs/img/score-note-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• implicit conversion of type when another leaf is passed as initialization argument; indicators are preserved
+'''
+Implicit conversion of type when another leaf is passed as initialization argument; indicators are preserved
 
 code::
 m = FoscChord(#[60,64,67], 1/4);
@@ -64,23 +63,14 @@ m.attach(FoscArticulation('>'));
 m.attach(FoscDynamic('p'));
 a = FoscNote(m);
 a.show;
-
-img:: ![](../img/score-note-3.png)
-'''
-
-p = "%/fosc/docs/img/score-note-3".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscNote : FoscLeaf {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INIT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	var <noteHead;
-	*new { |writtenPitch, writtenDuration, multiplier, tag|
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // INIT
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var <noteHead;
+    *new { |writtenPitch, writtenDuration, multiplier, tag|
         var leaf, isCautionary=false, isForced=false, isParenthesized=false;
         if (writtenPitch.isKindOf(FoscLeaf)) {
             leaf = writtenPitch;
@@ -103,25 +93,25 @@ FoscNote : FoscLeaf {
                 isForced = leaf.noteHead.isForced ? false;
                 isParenthesized = leaf.noteHead.isParenthesized ? false;
                 ^super.new(writtenDuration, multiplier, tag).prCopyOverrideAndSetFromLeaf(leaf)
-                    .initFoscNote(writtenPitch, isCautionary, isForced, isParenthesized);
+                .initFoscNote(writtenPitch, isCautionary, isForced, isParenthesized);
             };
         };
         writtenPitch = writtenPitch ? 60;
         writtenDuration = writtenDuration ?? { FoscDuration(1, 4) };
-		^super.new(writtenDuration, multiplier, tag)
-            .initFoscNote(writtenPitch, isCautionary, isForced, isParenthesized);
-	}
-	initFoscNote { |writtenPitch, isCautionary, isForced, isParenthesized|
+        ^super.new(writtenDuration, multiplier, tag)
+        .initFoscNote(writtenPitch, isCautionary, isForced, isParenthesized);
+    }
+    initFoscNote { |writtenPitch, isCautionary, isForced, isParenthesized|
         //!!!TODO: noteHead = if (writtenPitch.notNil) { FoscNoteHead(writtenPitch, this) } { FoscDrumNoteHead('snare', this) };
         noteHead = FoscNoteHead(writtenPitch, this, isCautionary, isForced, isParenthesized);
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: SPECIAL
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE METHODS: SPECIAL
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
     • asCompileString
 
+    '''
     code::
     FoscNote(60, 1/4).cs;
     '''
@@ -133,35 +123,35 @@ FoscNote : FoscLeaf {
         ^"FoscNote('%', %)".format(pitch, duration);
     }
     /* --------------------------------------------------------------------------------------------------------
- '''
-	• storeArgs
+    • storeArgs
 
     Gets new arguments.
 
     Returns array.
 
- code::
+    '''
+    code::
     FoscNote(60, 1/4).storeArgs;
- '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
-	storeArgs {
+    storeArgs {
         ^[this.writtenPitch, this.writtenDuration];
     }
     /* --------------------------------------------------------------------------------------------------------
- '''
-	• str
+    • str
 
- code::
-	FoscNote(60, 1/4).str;
- '''
-	-------------------------------------------------------------------------------------------------------- */
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PRIVATE INSTANCE METHODS
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /* --------------------------------------------------------------------------------------------------------
     '''
+    code::
+    FoscNote(60, 1/4).str;
+    '''
+    -------------------------------------------------------------------------------------------------------- */
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PRIVATE INSTANCE METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
     • prGetBody
 
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.prGetBody;
@@ -184,9 +174,9 @@ FoscNote : FoscLeaf {
         ^[string];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetCompactRepresentation
 
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.prGetCompactRepresentation;
@@ -196,9 +186,9 @@ FoscNote : FoscLeaf {
         ^this.prGetBody[0];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetCompactRepresentationWithTie
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(60 ! 4, [1/4]));
     a[0..].tie;
@@ -215,24 +205,17 @@ FoscNote : FoscLeaf {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prDivide
 
+    '''
     code::
     a = FoscNote(60, FoscDuration(1, 4));
     b = a.prDivide;
     b[0].show;
     b[1].show;
-
-    img:: ![](../img/score-note-4.png)
     '''
 
-    p = "%/fosc/docs/img/score-note-4".format(Platform.userExtensionDir);
-    b[1].writePNG("%.ly".format(p));
-
-
-
-
+    '''
     code::
     a = FoscNote(60, FoscDuration(1, 4));
     b = a.prDivide(62);
@@ -262,9 +245,7 @@ FoscNote : FoscLeaf {
     //     ^[treble, bass];
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetSoundingPitch
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetSoundingPitch {
         ^this.notYetImplemented(thisMethod);
@@ -280,42 +261,34 @@ FoscNote : FoscLeaf {
         //     sounding_pitch = interval.transpose(self.written_pitch)
         //     return sounding_pitch
     }
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE PROPERTIES
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
- '''
-	• isPitched
- '''
-	-------------------------------------------------------------------------------------------------------- */
-	isPitched {
-		^true;
-	}
-	/* --------------------------------------------------------------------------------------------------------
- '''
-	• noteHead
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE PROPERTIES
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
+    • isPitched
+    -------------------------------------------------------------------------------------------------------- */
+    isPitched {
+        ^true;
+    }
+    /* --------------------------------------------------------------------------------------------------------
+    • noteHead
 
     Gets note-head of note.
 
     Returns note-head.
 
-
-    • Example 1
-
- code::
+    '''
+    code::
     a = FoscNote(60, 1/4);
     a.noteHead.str;
- '''
-	-------------------------------------------------------------------------------------------------------- */
-    /* --------------------------------------------------------------------------------------------------------
     '''
+    -------------------------------------------------------------------------------------------------------- */
+    /* --------------------------------------------------------------------------------------------------------
     • noteHead_
 
     Sets note-head of note.
 
-
-    • Example 2
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.noteHead_(61);
@@ -329,30 +302,24 @@ FoscNote : FoscLeaf {
         { this.noteHead_(FoscNoteHead(object, this)) };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writtenDuration
 
     Gets and sets written duration of note.
 
     Returns duration
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.writtenDuration.str;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writtenDuration_
 
     Sets written duration of note.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.writtenDuration.str;
@@ -361,16 +328,17 @@ FoscNote : FoscLeaf {
     a.writtenDuration_(3/4);
     a.writtenDuration.str;
 
+    code::nointerpret
     a.writtenDuration_(5/4); // throws non-assignable duration error
+
+    post::
+    ERROR: Message 'writtenDuration_' not understood.
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writtenPitch
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.writtenPitch.str;
@@ -382,19 +350,22 @@ FoscNote : FoscLeaf {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writtenPitch_
 
     Sets written pitch of note.
 
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.writtenPitch.str;
-
+    '''
+    '''
     code::
     a = FoscNote(60, 1/4);
     a.writtenPitch_("F#4");
     a.writtenPitch.str;
+
+    code::
     a.noteHead.writtenPitch.str;
     '''
     -------------------------------------------------------------------------------------------------------- */
