@@ -6,61 +6,55 @@ TITLE:: FoscTimespanList
 SUMMARY:: Returns a FoscTimespanList.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Timespan list.
 
+FIXME: examples passing keyword arguments to `show` are ineffective. Need to implement these in `writePNG`.
+
+FIXME: `FoscTimespanList.show` doesn't hide tagline
 
 USAGE::
 
 '''
-
-• FoscTimespanList
-
-Timespan list.
-
-
 Nonverlapping timespan list.
 
+code::
 t = FoscTimespanList([
     FoscTimespan(0, 3),
     FoscTimespan(3, 6),
     FoscTimespan(6, 10)
-code::
 ]);
-
-code::
 t.show(scale: 0.5);
+'''
 
-
+'''
 Nonverlapping timespan list.
 
 t = FoscTimespanList([
     FoscTimespan(0, 10),
     FoscTimespan(10, 20),
     FoscTimespan(30, 40)
-code::
 ]);
-
-code::
 t.show(scale: 0.5);
+'''
 
-
+'''
 Overlapping timespan list.
 
+code::
 t = FoscTimespanList([
     FoscTimespan(0, 6),
     FoscTimespan(5, 12),
     FoscTimespan(-2, 8),
     FoscTimespan(15, 20),
     FoscTimespan(24, 30)
-code::
 ]);
-
-code::
 t.show(scale: 0.5);
+'''
 
-
+'''
 Overlapping timespan list.
 
+code::
 t = FoscTimespanList([
     FoscTimespan(0, 3),
     FoscTimespan(5, 13),
@@ -74,10 +68,7 @@ t = FoscTimespanList([
     FoscTimespan(26, 29),
     FoscTimespan(32, 34),
     FoscTimespan(34, 37),
-code::
 ]);
-
-code::
 t.show(scale: 0.5);
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -92,51 +83,37 @@ FoscTimespanList : FoscTypedList {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(10, 20),
         FoscTimespan(30, 40)
-    code::
     ]);
-
-    code::
     t.cs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • illustrate
 
     Illustrates timespans.
 
     Returns LilyPond file.
 
-
-    • Example 1
-
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(4, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     f = t.illustrate(scale: 0.5);
     f.format;
+
+    code::
     f.show;
-
-    img:: ![](../img/timespan-timespan-list-1.png)
-    '''
-
-    p = "%/fosc/docs/img/timespan-timespan-list-1".format(Platform.userExtensionDir);
-    f.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     illustrate { |key, range, sortkey, scale=1, drawOffsets=true|
@@ -204,27 +181,23 @@ FoscTimespanList : FoscTypedList {
         ^markup.illustrate;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • invert
 
     Inverts timespans.
 
     Returns new timespan list.
 
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(-2, 8),
         FoscTimespan(15, 20),
         FoscTimespan(24, 30),
-    code::
     ]);
-
-    code::
     t.show(scale: 0.5);
 
     code::
     t.invert;
-
-    code::
     t.show(range: #[-2,30], scale: 0.5);
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -241,9 +214,7 @@ FoscTimespanList : FoscTypedList {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • show
-    '''
     -------------------------------------------------------------------------------------------------------- */
     show { |key, range, sortkey, scale=1|
         this.illustrate(key, range, sortkey, scale).show;
@@ -252,28 +223,24 @@ FoscTimespanList : FoscTypedList {
     // PUBLIC INSTANCE METHODS: SET OPERATIONS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • - (abjad: __sub__, -)
 
     Deletes material from receiver that intersects 'timespan'.
 
     Operates in place and returns timespan list.
 
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 16),
         FoscTimespan(5, 12),
         FoscTimespan(-2, 8),
-    code::
     ]);
-
-    code::
     t.show(scale: 0.5);
 
     code::
     a = FoscTimespan(5, 10);
     t - a;
-
-    code::
     t.show(scale: 0.5);
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -293,28 +260,24 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sect (abjad: __and__)
 
     Keeps material from receiver that intersects 'timespan'.
 
     Operates in place and returns timespan list.
 
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 16),
         FoscTimespan(5, 12),
         FoscTimespan(-2, 8),
-    code::
     ]);
-
-    code::
     t.show(scale: 0.5);
 
     code::
     a = FoscTimespan(5, 10);
     t.sect(a);
-
-    code::
     t.show(range: #[-2,16], scale: 0.5);
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -337,40 +300,35 @@ FoscTimespanList : FoscTypedList {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • allAreContiguous
 
     Is true when all timespans are contiguous.
 
     Returns true or false.
 
-
+    '''
     Is true when timespans are contiguous.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.allAreContiguous;
-
-
+    '''
+    '''
     Is false when timespans are not contiguous.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(4, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.allAreContiguous;
-
-
+    '''
+    '''
     Is true when receiver is empty.
 
     code::
@@ -393,40 +351,36 @@ FoscTimespanList : FoscTypedList {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • allAreNonoverlapping
 
     Is true when all timespans are nonoverlapping.
 
     Returns true or false.
 
-
+    '''
+    '''
     Is true when timespans are nonoverlapping.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.allAreNonoverlapping;
-
-
+    '''
+    '''
     Is false when timespans are overlapping.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(2, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.allAreNonoverlapping;
-
-
+    '''
+    '''
     Is true when receiver is empty.
 
     code::
@@ -449,40 +403,35 @@ FoscTimespanList : FoscTypedList {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • allAreWellformed
 
     Is true when all timespans are wellformed.
 
     Returns true or false.
 
-
+    '''
     Is true when all timespans are well-formed.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.allAreWellformed;
-
-
+    '''
+    '''
     Is true when all timespans are well-formed.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(2, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.allAreWellformed;
-
-
+    '''
+    '''
     Is true when receiver is empty.
 
     code::
@@ -494,27 +443,24 @@ FoscTimespanList : FoscTypedList {
         ^collection.every { |each| this.prGetTimespan(each).isWellFormed };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • axis
 
     Gets axis defined as equal to arithmetic mean of start- and stop-offsets.
 
     Return offset or nil.
 
-
+    '''
     Get axis.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.axis.cs;
-
-
+    '''
+    '''
     Returns nil when receiver is empty.
 
     code::
@@ -529,40 +475,34 @@ FoscTimespanList : FoscTypedList {
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • duration
 
     Gets duration of timespan list.
 
     Returns duration.
 
-
+    '''
     Get duration.
 
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10),
-    code::
     ]);
-
-    code::
     t.duration.cs;
 
-
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 16),
         FoscTimespan(5, 12),
         FoscTimespan(-2, 8),
         FoscTimespan(15, 20),
         FoscTimespan(24, 30)
-    code::
     ]);
-
-    code::
     t.duration.cs;
-
-
+    '''
+    '''
     Returns zero when timespan list is empty.
 
     code::
@@ -578,32 +518,28 @@ FoscTimespanList : FoscTypedList {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isSorted
 
     Is true when timespans are in time order.
 
     Returns true or false.
 
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     t.isSorted;
-
-
+    '''
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(6, 10),
         FoscTimespan(3, 6)
-    code::
     ]);
-
-    code::
     t.isSorted;
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -618,7 +554,6 @@ FoscTimespanList : FoscTypedList {
         ^true;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • startOffset
 
     Gets start offset.
@@ -627,9 +562,7 @@ FoscTimespanList : FoscTypedList {
 
     Returns offset or nil.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscTimespan(0, 3);
     b = FoscTimespan(3, 6);
@@ -646,7 +579,6 @@ FoscTimespanList : FoscTypedList {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • stopOffset
 
     Gets stop offset.
@@ -655,9 +587,7 @@ FoscTimespanList : FoscTypedList {
 
     Returns offset or nil.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscTimespan(0, 3);
     b = FoscTimespan(3, 6);
@@ -674,13 +604,11 @@ FoscTimespanList : FoscTypedList {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • timespan
 
     Gets timespan of timespan list.
 
     Returns timespan.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     timespan {
         ^FoscTimespan(this.startOffset, this.stopOffset);
@@ -689,35 +617,31 @@ FoscTimespanList : FoscTypedList {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • computeSect (abjad: compute_logical_and)
 
     Computes setwise intersection (logical AND) of timespans.
 
     Operates in place and returns timespan list.
 
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 12)
-    code::
     ]);
-
-    code::
     t.show(scale: 0.5);
 
     code::
     t.computeSect;
     t.show(range: #[0,12], scale: 0.5);
-
-
+    '''
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 12),
         FoscTimespan(-2, 8)
-    code::
     ]);
-
-    code::
     t.show(range: #[-2,12], scale: 0.5);
 
     code::
@@ -746,36 +670,31 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • computeUnion (abjad: computer_logical_or)
 
     Computes union (logical OR) of timespans.
 
     Operates in place and returns timespan list.
 
-
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 12)
-    code::
     ]);
-
-    code::
     t.show(scale: 0.5);
 
     code::
     t.computeUnion;
     t.show(range: #[0,12], scale: 0.5);
-
-
+    '''
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 12),
         FoscTimespan(-2, 8)
-    code::
     ]);
-
-    code::
     t.show(range: #[-2,12], scale: 0.5);
 
     code::
@@ -806,68 +725,59 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • computeSymmetricDifference (abjad: compute_logical_xor)
 
     Computes symmetric difference (logical XOR) of timespans.
 
     Operates in place and returns timespan list.
 
-
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 12)
-    code::
     ]);
-
-    code::
     t.show(scale: 0.5);
 
     code::
     t.computeSymmetricDifference;
     t.cs;
+
+    code::
     t.show(range: #[0,12], scale: 0.5);
-
-
-
+    '''
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 12),
         FoscTimespan(-2, 2)
-    code::
     ]);
-
-    code::
     t.cs;
 
     code::
     t.computeSymmetricDifference;
     t.cs;
-
-
-
+    '''
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(4, 8),
         FoscTimespan(2, 6)
-    code::
     ]);
-
-    code::
     t.cs;
 
     code::
     t.computeSymmetricDifference;
     t.cs;
-
-
+    '''
+    '''
+    code::
     t = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(0, 10)
-    code::
     ]);
-
-    code::
     t.cs;
 
     code::
@@ -911,81 +821,71 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • computeOverlapFactor
 
     Computes overlap factor of timespans.
 
     Returns multiplier.
-
-
+    '''
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 15),
         FoscTimespan(20, 25),
         FoscTimespan(20, 30),
-    code::
     ]);
+    '''
 
-
-    • Example 1
-
+    '''
     Computes overlap factor across the entire list.
 
     code::
     l.computeOverlapFactor.cs;
+    '''
 
-
-    • Example 2
-
+    '''
     Computes overlap factor within a specific timespan.
 
     code::
     l.computeOverlapFactor(FoscTimespan(-15, 0)).cs;
+    '''
 
-
-    • Example 3
-
+    '''
     Computes overlap factor.
 
     code::
     l.computeOverlapFactor(FoscTimespan(-10, 5)).cs;
+    '''
 
-
-    • Example 4
-
+    '''
     Computes overlap factor.
 
     code::
     l.computeOverlapFactor(FoscTimespan(-5, 10)).cs;
+    '''
 
-
-    • Example 5
-
+    '''
     Computes overlap factor.
 
     code::
     l.computeOverlapFactor(FoscTimespan(0, 15)).cs;
+    '''
 
-
-    • Example 6
-
+    '''
     Computes overlap factor.
 
     code::
     l.computeOverlapFactor(FoscTimespan(5, 20)).cs;
+    '''
 
-
-    • Example 7
-
+    '''
     Computes overlap factor.
 
     code::
     l.computeOverlapFactor(FoscTimespan(10, 25)).cs;
+    '''
 
-
-    • Example 8
-
+    '''
     Computes overlap factor.
 
     code::
@@ -1003,33 +903,24 @@ FoscTimespanList : FoscTypedList {
         ^overlapFactor;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • computeOverlapFactorMapping
 
     Computes overlap factor for each consecutive offset pair in timespans.
 
     Returns mapping.
 
+    '''
+    Computes overlap factor mapping.
 
-    Computs overlap factor mapping.
-
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 10),
         FoscTimespan(5, 15),
         FoscTimespan(20, 25),
         FoscTimespan(20, 30),
-    code::
     ]);
-
-    code::
     m = l.computeOverlapFactorMapping;
-
-    code::
-    m.asSortedArray.do { |each| # a, b = each; a.cs.post; ": ".post; b.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    m.asSortedArray.collect { |each| "%: %".format(each[0].cs, each[1].cs) };
     '''
     -------------------------------------------------------------------------------------------------------- */
     computeOverlapFactorMapping {
@@ -1049,31 +940,23 @@ FoscTimespanList : FoscTypedList {
         ^mapping;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • countOffsets
 
     Counts offsets.
 
+    Returns an array of offsets and counts.
+
+    '''
     code::
-    Returns an array of offsets and counts;
-
-
     a = FoscTimespanList([
         FoscTimespan(-2, 6),
         FoscTimespan(0, 6),
         FoscTimespan(5, 6),
         FoscTimespan(10, 12),
         FoscTimespan(10, 16)
-    code::
     ]);
-
-    code::
     b = a.countOffsets;
-    b.do { |each| [each[0].cs, each[1]].postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    b.collect { |each| [each[0].cs, each[1]] };
     '''
     -------------------------------------------------------------------------------------------------------- */
     countOffsets {
@@ -1088,13 +971,14 @@ FoscTimespanList : FoscTypedList {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • explode
 
     Explodes timespans into timespan lists, avoiding overlap, and distributing density as evenly as possible.
 
     Returns timespan lists.
 
+    '''
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(5, 13),
@@ -1108,37 +992,23 @@ FoscTimespanList : FoscTypedList {
         FoscTimespan(26, 29),
         FoscTimespan(32, 34),
         FoscTimespan(34, 37),
-    code::
     ]);
-
-    code::
     m = l.explode;
-    m.do { |timespanList|  timespanList.cs.postln; Post.nl }; "";
-
-    post::
-    POSTOUTPUT
+    m.collect { |timespanList|  timespanList.cs };
     '''
 
-
-    • TEST
-
+    '''
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 6),
         FoscTimespan(5, 12),
         FoscTimespan(-2, 8),
         FoscTimespan(15, 20),
         FoscTimespan(24, 30)
-    code::
     ]);
 
-    code::
     m = l.explode;
-    m.do { |timespanList|  timespanList.cs.postln; Post.nl }; "";
-
-    post::
-    POSTOUTPUT
-    '''
-
+    m.collect { |timespanList|  timespanList.cs };
     '''
     -------------------------------------------------------------------------------------------------------- */
     explode { |inventoryCount|
@@ -1208,23 +1078,18 @@ FoscTimespanList : FoscTypedList {
         ^resultTimespanLists;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • getTimespansThatSatisfyTimeRelation
 
     • NOTE: use 'select' instead
 
-
+    '''
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     m = FoscTimespan(8, 15);
-
-    code::
     z = l.select { |timespan| timespan.intersectsTimespan(m) };
     z.cs;
     '''
@@ -1233,68 +1098,51 @@ FoscTimespanList : FoscTypedList {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • partition
 
     Partitions timespans into timespan lists.
 
     Returns zero or more timespan lists.
 
-
+    '''
     Partition timespans.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     m = l.partition;
-    m.do { |timespanList| timespanList.cs.postln };
-
-    post::
-    POSTOUTPUT
+    m.collect { |timespanList| timespanList.cs };
     '''
 
-
+    '''
     Partition timespans.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 16),
         FoscTimespan(5, 12),
         FoscTimespan(-2 ,8),
         FoscTimespan(15, 20),
         FoscTimespan(24, 30)
-    code::
     ]);
-
-    code::
     m = l.partition;
-    m.do { |timespanList| timespanList.cs.postln };
-
-    post::
-    POSTOUTPUT
+    m.collect { |timespanList| timespanList.cs };
     '''
 
-
+    '''
     Treats tangent timespans as part of the same group when 'includeTangentTimespans' is true.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     m = l.partition(includeTangentTimespans: true);
-    m.do { |timespanList| timespanList.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    m.collect { |timespanList| timespanList.cs };
     '''
     -------------------------------------------------------------------------------------------------------- */
     partition { |includeTangentTimespans=false|
@@ -1329,41 +1177,36 @@ FoscTimespanList : FoscTypedList {
         ^timespanLists;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reflect
 
     Reflects timespans.
 
     Operates in place and returns timespan list.
 
-
+    '''
     Reflects timespans about timespan list axis.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.show(scale: 0.5);
 
     code::
     l.reflect;
     l.show(scale: 0.5);
-
-
+    '''
+    '''
     Reflects timespans about arbitrary axis.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.show(range: #[0,30], scale: 0.5);
 
     code::
@@ -1389,22 +1232,19 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • removeDegenerateTimespans
 
     Removes degenerate timespans.
 
     Operates in place and returns timespan list.
 
-
+    '''
+    code::
     l = FoscTimespanList([
         FoscTimespan(5, 5),
         FoscTimespan(5, 10),
         FoscTimespan(5, 25)
-    code::
     ]);
-
-    code::
     l.removeDegenerateTimespans;
     l.cs;
     '''
@@ -1418,38 +1258,33 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • roundOffsets
 
     Rounds offsets of timespans in list to multiples of 'multiplier'.
 
     Operates in place and returns timespan list.
 
-
+    '''
     Rounds offsets relative to timespan list start offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.roundOffsets(3);
     l.cs;
-
-
+    '''
+    '''
     Rounds offsets relative to timespan list stop offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 2),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.roundOffsets(5, anchor: 'right');
     l.cs;
     '''
@@ -1469,38 +1304,33 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • scale
 
     Scales timespan by 'multiplier' relative to 'anchor'.
 
     Operates in place and returns timespan list.
 
-
+    '''
     Scales timespans relative to timespan list start offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.scale(2);
     l.cs;
-
-
+    '''
+    '''
     Scales timespans relative to timespan list stop offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.scale(2, anchor: 'right');
     l.cs;
     '''
@@ -1520,17 +1350,15 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sort
 
+    '''
+    code::
     l = FoscTimespanList([
         FoscTimespan(6, 10),
         FoscTimespan(0, 3),
         FoscTimespan(3, 6)
-    code::
     ]);
-
-    code::
     l.sort.cs;
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -1539,48 +1367,36 @@ FoscTimespanList : FoscTypedList {
         ^super.sort(func);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • splitAtOffset
 
     Splits timespans at 'offset'.
 
     Returns array of FoscTimespanLists.
 
-
+    '''
     Splits at offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     m = l.splitAtOffset(4);
-    m.do { |timespanList| timespanList.cs.postln };
-
-    post::
-    POSTOUTPUT
+    m.collect { |timespanList| timespanList.cs };
     '''
 
-
+    '''
     Splits at offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     m = l.splitAtOffset(-1);
-    m.do { |timespanList| timespanList.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    m.collect { |timespanList| timespanList.cs };
     '''
     -------------------------------------------------------------------------------------------------------- */
     splitAtOffset { |offset|
@@ -1616,31 +1432,24 @@ FoscTimespanList : FoscTypedList {
         ^[beforeList, afterList];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • splitAtOffsets
 
     Splits timespans at 'offsets'.
 
     Returns one or more timespan lists.
 
-
+    '''
     Splits at offset3.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(4, 10),
         FoscTimespan(15, 20)
-    code::
     ]);
-
-    code::
     m = l.splitAtOffsets(#[-1,3,6,12,13]);
-    m.do { |timespanList| timespanList.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    m.collect { |timespanList| timespanList.cs };
     '''
     -------------------------------------------------------------------------------------------------------- */
     splitAtOffsets { |offsets|
@@ -1663,38 +1472,33 @@ FoscTimespanList : FoscTypedList {
         ^timespanLists;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • stretch
 
     Stretches timespans by 'multiplier' relative to 'anchor'.
 
     Operates in place and returns timespan list.
 
-
+    '''
     Stretches timespans relative to timespan list start offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.stretch(2);
     l.cs;
-
-
+    '''
+    '''
     Stretches timespans relative to timespan list stop offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.stretch(2, anchor: l.stopOffset);
     l.cs;
     '''
@@ -1715,24 +1519,21 @@ FoscTimespanList : FoscTypedList {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • translate
 
     Translates timespans by 'translation'.
 
     Operates in place and returns timespan list.
 
-
+    '''
     Translate timespan by offset 50.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.translate(50);
     l.cs;
     '''
@@ -1741,38 +1542,33 @@ FoscTimespanList : FoscTypedList {
         ^this.translateOffsets(translation, translation);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • translateOffsets
 
     Translates timespans by 'startOffsetTranslation' and 'stopOffsetTranslation'.
 
     Operates in place and returns timespan list.
 
-
+    '''
     Stretches timespans relative to timespan list start offset.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.translateOffsets(50, 50);
     l.cs;
-
-
+    '''
+    '''
     Translate timespan stop offsets only.
 
+    code::
     l = FoscTimespanList([
         FoscTimespan(0, 3),
         FoscTimespan(3, 6),
         FoscTimespan(6, 10)
-    code::
     ]);
-
-    code::
     l.translateOffsets(stopOffsetTranslation: 20);
     l.cs;
     '''
@@ -1795,9 +1591,7 @@ FoscTimespanList : FoscTypedList {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prItemCoercer
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prItemCoercer { |object|
         case
@@ -1810,9 +1604,9 @@ FoscTimespanList : FoscTypedList {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prMakeTimespanListMarkup
 
+    '''
     code::
     a = FoscTimespan(0, 3);
     b = FoscTimespan(3, 6);
@@ -1916,9 +1710,7 @@ FoscTimespanList : FoscTypedList {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetOffsets
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetOffsets { |object|
         try { ^[object.startOffset, object.stopOffset] };
@@ -1926,9 +1718,7 @@ FoscTimespanList : FoscTypedList {
         throw("%:%: can't get offsets for object: %.".format(this.species, thisMethod.name, object));
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetTimespan
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetTimespan { |argument|
         var startOffset, stopOffset;
