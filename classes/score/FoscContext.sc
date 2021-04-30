@@ -6,24 +6,19 @@ TITLE:: FoscContext
 SUMMARY:: Returns a FoscContext.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A context.
 
 
 USAGE::
-
-'''
-
-• FoscContext
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscContext : FoscContainer {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	classvar <lilypondTypes;
+    classvar <lilypondTypes;
     var <lilypondType, <consistsCommands, <dependentWrappers, <removeCommands, <playbackManager;
     var <defaultLilypondType='Voice';
-	*initClass {
+    *initClass {
         lilypondTypes = #[
             'Score',
             'StaffGroup',
@@ -48,24 +43,22 @@ FoscContext : FoscContainer {
         ];
     }
     *new { |components, lilypondType='Context', isSimultaneous, name, tag, playbackManager|
-		^super.new(components, isSimultaneous, name, tag).initFoscContext(lilypondType, playbackManager);
-	}
-	initFoscContext { |argLilypondType, argPlaybackManager|
-		lilypondType = argLilypondType;
+        ^super.new(components, isSimultaneous, name, tag).initFoscContext(lilypondType, playbackManager);
+    }
+    initFoscContext { |argLilypondType, argPlaybackManager|
+        lilypondType = argLilypondType;
         playbackManager = argPlaybackManager;
-		consistsCommands = List[];
+        consistsCommands = List[];
         dependentWrappers = List[];
-		removeCommands = List[];
-	}
+        removeCommands = List[];
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
- 	/* --------------------------------------------------------------------------------------------------------
-    '''
+    /* --------------------------------------------------------------------------------------------------------
     • asCompileString
 
     !!!TODO: not yet implemented
-    '''
     -------------------------------------------------------------------------------------------------------- */
     //asCompileString {
         // if self[:].are_leaves():
@@ -73,9 +66,7 @@ FoscContext : FoscContainer {
         // return self._get_abbreviated_string_format()
     //}
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • copy
-    '''
     -------------------------------------------------------------------------------------------------------- */
     copy {
         var new;
@@ -85,9 +76,7 @@ FoscContext : FoscContainer {
         ^new;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • storeArgs
-    '''
     -------------------------------------------------------------------------------------------------------- */
     storeArgs {
         ^[[], lilypondType, isSimultaneous, name, playbackManager];
@@ -96,16 +85,16 @@ FoscContext : FoscContainer {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-     '''
-     • prFormatClosingSlot
+    • prFormatClosingSlot
 
-     code::
+    '''
+    code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     b = FoscLilypondFormatManager.bundleFormatContributions(a);
     a.prFormatClosingSlot(b);
-     '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
-	prFormatClosingSlot { |bundle|
+    prFormatClosingSlot { |bundle|
         var result;
         result = [];
         result = result.add(['indicators', bundle.closing.indicators]);
@@ -113,15 +102,15 @@ FoscContext : FoscContainer {
         result = result.add(['comments', bundle.closing.comments]);
         ^this.prFormatSlotContributionsWithIndent(result);
     }
-	/* --------------------------------------------------------------------------------------------------------
-  '''
- 	• prFormatConsistsCommands
+    /* --------------------------------------------------------------------------------------------------------
+    • prFormatConsistsCommands
 
-  code::
+    '''
+    code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.consistsCommands.add('Horizontal_bracket_engraver');
     a.prFormatConsistsCommands;
-  '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatConsistsCommands {
         var result, string;
@@ -132,32 +121,30 @@ FoscContext : FoscContainer {
         };
         ^result;
     }
-	/* --------------------------------------------------------------------------------------------------------
-  '''
- 	• prFormatInvocation
+    /* --------------------------------------------------------------------------------------------------------
+    • prFormatInvocation
 
-  code::
+    '''
+    code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.prFormatInvocation;
 
-  code::
+    code::
     a = FoscVoice([FoscNote(60, 1/4)], name: 'foo');
     a.prFormatInvocation;
-  '''
- 	-------------------------------------------------------------------------------------------------------- */
-	prFormatInvocation {
-		var string;
-		if (name.notNil) {
-			string = "\\context % = \"%\"".format(lilypondType, name);
-		} {
+    '''
+    -------------------------------------------------------------------------------------------------------- */
+    prFormatInvocation {
+        var string;
+        if (name.notNil) {
+            string = "\\context % = \"%\"".format(lilypondType, name);
+        } {
             string = "\\new %".format(lilypondType);
-		};
-		^string;
-	}
+        };
+        ^string;
+    }
     /* --------------------------------------------------------------------------------------------------------
-  '''
- 	• prFormatOpenBracketsSlot
-  '''
+    • prFormatOpenBracketsSlot
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpenBracketsSlot { |bundle|
         var indent, result, bracketsOpen, removeCommands, consistsCommands, overrides, settings;
@@ -196,59 +183,55 @@ FoscContext : FoscContainer {
             result = result.add([identifierPair, contributions]);
         };
         ^result;
-	}
-	/* --------------------------------------------------------------------------------------------------------
-  '''
- 	• prFormatOpeningSlot
-  '''
+    }
+    /* --------------------------------------------------------------------------------------------------------
+    • prFormatOpeningSlot
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpeningSlot { |bundle|
-		var result;
+    var result;
         result = [];
         result = result.add(['comments', bundle.opening.comments]);
         result = result.add(['indicators', bundle.opening.indicators]);
         result = result.add(['commands', bundle.opening.commands]);
         ^this.prFormatSlotContributionsWithIndent(result);
-	}
-	/* --------------------------------------------------------------------------------------------------------
-  '''
- 	• prFormatRemoveCommands
+    }
+    /* --------------------------------------------------------------------------------------------------------
+    • prFormatRemoveCommands
 
-  code::
+    '''
+    code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.removeCommands.add('Horizontal_bracket_engraver');
     a.prFormatRemoveCommands;
-  '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
-	prFormatRemoveCommands {
-		var result, string;
+    prFormatRemoveCommands {
+        var result, string;
         result = [];
-		removeCommands.as(Array).sort.do { |engraver|
+        removeCommands.as(Array).sort.do { |engraver|
             string = "\\remove %".format(engraver);
             result = result.add(string);
         };
-		^result;
-	}
+        ^result;
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-  '''
- 	• prGetLilypondFormat
+    • prGetLilypondFormat
 
-  code::
+    '''
+    code::
     a = FoscVoice([FoscNote(60, 1/4)]);
     a.prGetLilypondFormat;
-  '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
- 	prGetLilypondFormat {
- 		this.prUpdateNow(indicators: true);
+    prGetLilypondFormat {
+        this.prUpdateNow(indicators: true);
         ^this.prFormatComponent;
- 	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetPersistentWrappers
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     prGetPersistentWrappers {
@@ -277,13 +260,13 @@ FoscContext : FoscContainer {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • consistsCommands
 
     Set of LilyPond engravers to include in context definition.
 
     Returns array.
 
+    '''
     code::
     a = FoscStaff([]);
     a.consistsCommands.add('Horizontal_bracket_engraver');
@@ -291,35 +274,33 @@ FoscContext : FoscContainer {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondType
 
     Gets and sets context name of context.
 
     Returns string.
 
+    '''
     code::
     a = FoscStaff([]);
     a.lilypondType;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondType_
-    '''
     -------------------------------------------------------------------------------------------------------- */
     lilypondType_ { |name|
         if (name.isNil) { name = this.name };
         lilypondType = name;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • lilypondContext
 
     Gets LilyPondContext associated with context.
 
     Returns FoscLilypondContext instance.
 
+    '''
     code::
     a = FoscStaff([]);
     a.lilypondContext.name;
@@ -335,13 +316,13 @@ FoscContext : FoscContainer {
         ^lilypondContext;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • removeCommands
 
     Set of LilyPond engravers to remove from context.
 
     Returns set.
 
+    '''
     code::
     a = FoscStaff([]);
     a.removeCommands.add('Horizontal_bracket_engraver');
@@ -349,10 +330,8 @@ FoscContext : FoscContainer {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tag
 
     Gets tag.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
