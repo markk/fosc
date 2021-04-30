@@ -6,153 +6,137 @@ TITLE:: FoscPlayer
 SUMMARY:: Returns a FoscPlayer.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Player
+
+!!!TODO:
+
+- use FoscTag or new FoscPlaybackCommand class for playback commands (see
+  Example 7 below)
+- calibrate amplitude mapping for midi and synth playback managers. See example
+  8 below -- amps are comparatively much louder at lower dynamics for synth
+  playback.
+- handle 'niente' dynamic trend shapes (o<, >o)
 
 
 USAGE::
 
 '''
-
-• FoscPlayer
-
-!!!TODO:
-• use FoscTag or new FoscPlaybackCommand class for playback commands (see Example 7 below)
-• calibrate amplitude mapping for midi and synth playback managers. See example 8 below
-    -- amps are comparatively much louder at lower dynamics for synth playback.
-• handle 'niente' dynamic trend shapes (o<, >o)
-
-
-
-• Example 1
-
 Play a FoscLeaf.
 
-code::
+code::nointerpret
 a = FoscChord(#[60,64,67], 1/4);
 a.play;
+'''
 
-
-• Example 2
-
+'''
 Play a non-simultaneous FoscContainer.
 
-code::
+code::nointerpret
 a = FoscStaff(FoscLeafMaker().((60..72), [1/32]));
 a[0..].hairpin('ppp < fff');
 a.play;
+'''
 
-
-• Example 3
-
+'''
 Play a simultaneous FoscContainer.
 
-code::
+code::nointerpret
 a = FoscStaff(FoscLeafMaker().((60..72), [1/32]));
 b = FoscStaff(FoscLeafMaker().((67..79), [1/32]));
 c = FoscScore([a, b]);
 c.play;
+'''
 
-
-• Example 4
-
+'''
 Play a FoscSelection.
 
 Plays all leaves in order in which they appear in selection.
 
-code::
+code::nointerpret
 a = FoscLeafMaker().((60..72), [1/32]);
 a.play;
+'''
 
-
-• Example 5
-
+'''
 Play a FoscScoreSegment
 
-code::
+code::nointerpret
 a = FoscScoreSegment.read(Threads, 'A1');
 a.play;
+'''
 
+'''
+!!!TODO Play a FoscProject
 
-• Example 6
-
-!!!TODO
-Play a FoscProject
 - will require a 'concat' method for FoscEventSequence
+'''
 
-
-• Example 7
-
+'''
 Assign a midi playback manager to a context.
 
-code::
+code::nointerpret
 m = FoscMIDIManager(chan: 1);
 a = FoscStaff([FoscVoice(FoscLeafMaker().((60..72), [1/32]))], playbackManager: m);
 a[0..].hairpin('ppp < fff');
 a.play;
+'''
 
-
-• Example 8
-
+'''
 Assign a synth playback manager to a context. Defaults to 'default' synthdef.
 
-code::
+code::nointerpret
 s.boot;
 m = FoscSynthPlaybackManager();
 a = FoscStaff([FoscVoice(FoscLeafMaker().((60..72), [1/32]))], playbackManager: m);
 a[0..].hairpin('ppp < fff');
 a.play;
+'''
 
-
-• Example 9
-
+'''
 Assign a synth playback manager to a context. Supply a synthdef to the playback manager.
 
-code::
+code::nointerpret
 SynthDef('foo', { |out, freq=440, amp=0.1, nharms=10, gate=1|
-    var audio, env;
+    var audio, env;
     audio = Blip.ar(freq, nharms, amp);
-    env = Linen.kr(gate, doneAction: 2);
-    OffsetOut.ar(out, Pan2.ar(audio, 0, env));
+    env = Linen.kr(gate, doneAction: 2);
+    OffsetOut.ar(out, Pan2.ar(audio, 0, env));
 }).add;
 
-code::
 m = FoscSynthPlaybackManager(defName: 'foo');
 a = FoscStaff([FoscVoice(FoscLeafMaker().((60..72), [1/32]))], playbackManager: m);
 a[0..].hairpin('ppp < fff');
 a.play;
+'''
 
-
-• Example 10
+'''
+Use lilypond comments as arbitrary user-definable commands. This example uses one of the default commands in FoscMIDIPlaybackManager.
 
 !!!TODO: rather than use FoscLilypondComment, make an explicit class, e.g. FoscPlaybackCommand
 !!! this would mean defining a 'playbackCommand' instance variable in FoscLeaf
 
-Use lilypond comments as arbitrary user-definable commands. This example uses one of the default commands in FoscMIDIPlaybackManager.
-
-code::
+code::nointerpret
 a = FoscStaff(FoscLeafMaker().((60..72), [1/16]));
 a[0].attach(FoscLilypondComment('sustainOn'));
 a[6].attach(FoscLilypondComment('sustainOff'));
 a.play;
+'''
 
-
-• Example 11
+'''
+Add a user-defined playback command to the playback manager.
 
 !!!TODO: rather than use FoscLilypondComment, make an explicit class, e.g. FoscPlaybackCommand
 !!! this would mean defining a 'playbackCommand' instance variable in FoscLeaf
 
-Add a user-defined playback command to the playback manager.
-
-code::
+code::nointerpret
 m = FoscMIDIPlaybackManager(midiChan: 1);
 m.addCommand('foo', { "foo!".postln });
 a = FoscStaff(FoscLeafMaker().((60..72), [1/16]), playbackManager: m);
 a[6].attach(FoscLilypondComment('foo'));
 a.play;
+'''
 
-
-• Example 12
-
+'''
 Grace notes are included in playback.
 
 code::
@@ -160,19 +144,10 @@ a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/4]));
 c = FoscGraceContainer([FoscNote(60, 1/8)], slashed: true, slurred: true);
 c[0].attach(FoscDynamic('ff'));
 a[2].attach(c);
-a.play;
-
-code::
 a.show;
 
-img:: ![](../img/player-player-1.png)
-'''
-
-p = "%/fosc/docs/img/player-player-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
+code::nointerpret
+a.play;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPlayer : FoscObject {
@@ -190,17 +165,15 @@ FoscPlayer : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pause
-    '''
     -------------------------------------------------------------------------------------------------------- */
     pause {
         if (eventStreamPlayer.notNil) { eventStreamPlayer.pause };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • play
 
+    '''
     code::
     a = FoscVoice();
     a.isEmpty;
@@ -218,7 +191,7 @@ FoscPlayer : FoscObject {
             eventStreamPlayer.play;
             ^this;
         };
-        
+
         patterns = [];
 
         recurse = { |music|
@@ -261,7 +234,7 @@ FoscPlayer : FoscObject {
     }
     // play {
     //     var patterns, recurse, pattern, container;
-        
+
     //     patterns = [];
 
     //     recurse = { |music|
@@ -299,17 +272,13 @@ FoscPlayer : FoscObject {
     //     { eventStreamPlayer = Ppar(patterns).play }.defer(0.001);
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • resume
-    '''
     -------------------------------------------------------------------------------------------------------- */
     resume {
         if (eventStreamPlayer.notNil) { eventStreamPlayer.resume };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • stop
-    '''
     -------------------------------------------------------------------------------------------------------- */
     stop {
         if (eventStreamPlayer.notNil) { eventStreamPlayer.stop };
@@ -318,9 +287,7 @@ FoscPlayer : FoscObject {
     // PRIVATE CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prGetAmps
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prGetAmps { |logicalTies, defaultDynamic|
         var indices, pairs, result, indicators, partSizes, size, nextPair, currentDynamic, triple;
@@ -330,7 +297,7 @@ FoscPlayer : FoscObject {
         indices = [];
         pairs = [];
         result = [];
-        
+
         logicalTies.do { |logicalTie, i|
             indicators = logicalTie.head.prGetIndicators([FoscDynamic, FoscDynamicTrend]);
             if (indicators.notEmpty) {
@@ -345,7 +312,7 @@ FoscPlayer : FoscObject {
             size = partSizes[i];
             nextPair = pairs[i + 1];
 
-            case 
+            case
             { pair.size == 1 } {
                 case
                 { pair[0].isKindOf(FoscDynamic) } {
@@ -362,7 +329,7 @@ FoscPlayer : FoscObject {
             };
 
             if (nextPair.notNil) {
-                case 
+                case
                 { nextPair[0].isKindOf(FoscDynamic) } {
                     currentDynamic = nextPair[0];
                     triple = pair ++ [currentDynamic];
@@ -377,9 +344,9 @@ FoscPlayer : FoscObject {
             # startDynamic, dynamicTrend, stopDynamic = triple;
             startVal = startDynamic.scalar;
             stopVal = stopDynamic.scalar;
-            
+
             //!!!TODO: remove the following hack
-            case 
+            case
             { stopVal.isNil && startVal.isNil} {
                 stopVal = startVal = 0.08;
             }
@@ -390,7 +357,7 @@ FoscPlayer : FoscObject {
                 startVal = 0.08;
             };
             //!!!TODO
-                
+
             case
             { dynamicTrend.isNil || { dynamicTrend.shape == "--" } } {
                 result = result.addAll(Array.fill(size, startVal));
@@ -400,16 +367,14 @@ FoscPlayer : FoscObject {
             };
         };
 
-        if (result.isEmpty) { 
+        if (result.isEmpty) {
             result = Array.fill(logicalTies.size, defaultDynamic.scalar);
         };
 
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetPattern
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prGetPattern { |music|
         var manager, logicalTies, amps, event, events;
