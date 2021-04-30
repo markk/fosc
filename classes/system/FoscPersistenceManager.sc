@@ -6,15 +6,10 @@ TITLE:: FoscPersistenceManager
 SUMMARY:: Returns a FoscPersistenceManager.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Persistence manager
 
 
 USAGE::
-
-'''
-
-• FoscPersistenceManager
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscPersistenceManager : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +27,6 @@ FoscPersistenceManager : FoscObject {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asLY
 
     Persists client as LilyPond file.
@@ -40,7 +34,6 @@ FoscPersistenceManager : FoscObject {
     Autogenerates file path when 'path' is nil.
 
     Returns output path and elapsed formatting time when LilyPond output is written.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asLY { |path, illustrateFunction ... args|
         var illustration, lyFileName, lyFile;
@@ -58,29 +51,29 @@ FoscPersistenceManager : FoscObject {
         ^path;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asMIDI
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asMIDI {
         ^this.notYetImplemented(thisMethod);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asPDF
 
     Persists client as PDF.
-    
+
     Autogenerates file path when 'lyPath' is nil.
 
     Returns output path.
 
     If 'clean' is true, ly file is deleted.
-    
 
-    code::
+    '''
+    code::nointerpret
     a = FoscNote(60, 1/4);
     b = a.write.asPDF;
+
+    post::
+    [ /home/user/.config/SuperCollider/fosc-output/0033.pdf, true ]
     '''
     -------------------------------------------------------------------------------------------------------- */
     asPDF { |lyPath, outputPath, illustrateFunction, flags, clean=false ... args|
@@ -94,13 +87,10 @@ FoscPersistenceManager : FoscObject {
         ^[outputPath, success];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asPNG
-    
 
-    • Example 1
-
-    code::
+    '''
+    code::nointerpret
     a = FoscNote(60, 1/4);
     n = "basic-usage/images/002";
     p = "%/docs/%".format(FoscConfiguration.foscRootDirectory, n);
@@ -129,11 +119,9 @@ FoscPersistenceManager : FoscObject {
         ^[outputPath, success];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asSVG
 
-    lilypond -dbackend=svg -dcrop file.ly
-    '''
+    `lilypond -dbackend=svg -dcrop file.ly`
     -------------------------------------------------------------------------------------------------------- */
     asSVG { |lyPath, outputPath, illustrateFunction, crop=true, clean=true ... args|
         // if (crop) { add "-dcrop" to flags string };
@@ -143,12 +131,10 @@ FoscPersistenceManager : FoscObject {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • client
 
     Gets client of persistence manager.
 
     Returns component or selection.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
