@@ -6,78 +6,52 @@ TITLE:: hairpin
 SUMMARY:: Returns a hairpin.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Attaches hairpin indicators to leaves in selection.
 
 
 USAGE::
 
 '''
-
-• hairpin (abjad 3.0)
-
-Attaches hairpin indicators to leaves in selection.
-
-
-• Example 1
-
 code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0..].hairpin('p < f');
 a.show;
-
-img:: ![](../img/spanner-hairpin-1.png)
 '''
 
-p = "%/fosc/docs/img/spanner-hairpin-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0..].hairpin('< f');
 a.format;
+'''
 
-
-• Example 3
-
+'''
 code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
-a[0..].hairpin('f >o');
+a[0..].hairpin('f >o !');
 a.show;
+
+code::
 a.format;
+'''
 
-
-• Example 4
-
+'''
 code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0..].hairpin('p > !');
 a.show;
+
+code::
 a.format;
+'''
 
-
-• Example 5
-
+'''
 Hairpin can be tweaked. Note that tweaks effects the hairpin only, and not the dynamics.
 
 code::
 a = FoscVoice(FoscLeafMaker().(#[60,62,64,65], 1/4));
 a[0..].hairpin('sfz > p', tweaks: #[['color', 'blue']]);
 a.show;
-
-img:: ![](../img/spanner-hairpin-2.png)
-'''
-
-p = "%/fosc/docs/img/spanner-hairpin-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 + FoscSelection {
@@ -122,7 +96,7 @@ a.writePNG("%.ly".format(p));
             };
         }
         { indicators.size == 3 } {
-            # startDynamic, dynamicTrend, stopDynamic = indicators; 
+            # startDynamic, dynamicTrend, stopDynamic = indicators;
         }
         {
             throw("%:%: bad value for indicators: %.".format(this.species, thisMethod.name, indicators));
