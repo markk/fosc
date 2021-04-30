@@ -6,25 +6,23 @@ TITLE:: FoscDescendants
 SUMMARY:: Returns a FoscDescendants.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Descendants of a component.
+
+Descendants is treated as the selection of the component's improper descendants.
 
 
 USAGE::
 
 '''
-
-• FoscDescendants
-
-Descendants of a component.
-
-Descendants is treated as the selection of the component's improper descendants.
-
-
 code::
 a = FoscVoice([FoscNote(60, [1, 4])]);
 b = FoscDescendants(a);
-b.do { |each| each.postln };
+b.items.collect { |each| each };
+
+code::
 b.last;
+
+code::
 b.component;
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -52,7 +50,7 @@ FoscDescendants : FoscSequence {
                         && { crossOffset < component.prGetTimespan.stopOffset }
                     ).not
                 ) {
-                    appendEach = false; 
+                    appendEach = false;
                 };
                 if (appendEach) { result = result.add(component) };
             };
