@@ -6,43 +6,35 @@ TITLE:: FoscSchemeColor
 SUMMARY:: Returns a FoscSchemeColor.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Scheme color
 
+[X11 color names](https://en.wikipedia.org/wiki/X11_color_names)
 
 USAGE::
 
 '''
-
-• FoscSchemeColor
-
 code::
 a = FoscSchemeColor('ForestGreen');
 a.format;
-
+'''
+'''
 code::
 FoscSchemeColor.colorNames;
-• see: https://en.wikipedia.org/wiki/X11_color_names
-
-
+'''
+'''
 code::
 m = FoscMarkup("foobar");
 m = m.withColor(FoscSchemeColor("ForestGreen"));
 m.format;
-
+'''
+'''
 code::
 a = FoscNote(60, 1/4);
 override(a).noteHead.color = FoscSchemeColor('ForestGreen');
 a.format;
+
+code::
 a.show;
-
-img:: ![](../img/scheme-scheme-color-1.png)
-'''
-
-p = "%/fosc/docs/img/scheme-scheme-color-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSchemeColor : FoscScheme {
