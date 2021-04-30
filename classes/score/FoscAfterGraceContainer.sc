@@ -6,20 +6,11 @@ TITLE:: FoscAfterGraceContainer
 SUMMARY:: Returns a FoscAfterGraceContainer.
 
 
-DESCRIPTION:: TODO
-
-
-USAGE::
-
-'''
-
-• FoscAfterGraceContainer
-
-After grace container.
+DESCRIPTION:: After grace container.
 
 LilyPond positions after grace notes at a point 3/4 of the way after the note they follow. The resulting spacing is usually too loose.
 
-Customize afterGraceFraction as shown above.
+Customize afterGraceFraction as shown below.
 
 After grace notes are played at the very end of the note they follow.
 
@@ -30,12 +21,15 @@ After grace notes do not subclass grace notes; but acciacatura containers and ap
 LilyPond formats grace notes with neither a slash nor a slur.
 
 Fill grace containers with notes, rests or chords.
-s
+
 Attach after grace containers to notes, rests or chords.
 
+FIXME: after graces seem not to work.
 
-• Example 1
 
+USAGE::
+
+'''
 After grace notes.
 
 code::
@@ -45,15 +39,6 @@ a[0].attach(l);
 c = FoscAfterGraceContainer([FoscNote("C4", 1/16), FoscNote("D4", 1/16)]);
 a[1].attach(c);
 a.show;
-
-img:: ![](../img/score-after-grace-container-1.png)
-'''
-
-p = "%/fosc/docs/img/score-after-grace-container-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscAfterGraceContainer : FoscContainer {
@@ -62,19 +47,16 @@ FoscAfterGraceContainer : FoscContainer {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     var <carrier;
     /* --------------------------------------------------------------------------------------------------------
-    '''
     def __init__(self, music=None):
         self._carrier = None
         Container.__init__(self, music)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prAttach
-    
+
     def _attach(self, leaf):
         import abjad
         if not isinstance(leaf, abjad.Leaf):
@@ -83,7 +65,6 @@ FoscAfterGraceContainer : FoscContainer {
             raise TypeError(message)
         leaf._after_grace_container = self
         self._carrier = leaf
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prAttach { |leaf|
         if (leaf.isKindOf(FoscLeaf).not) {
@@ -93,16 +74,14 @@ FoscAfterGraceContainer : FoscContainer {
         carrier = leaf;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prDetach
-    
+
     def _detach(self):
         if self._carrier is not None:
             carrier = self._carrier
             carrier._after_grace_container = None
             self._carrier = None
         return self
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prDetach { |leaf|
         var localCarrier;
@@ -114,14 +93,12 @@ FoscAfterGraceContainer : FoscContainer {
         ^this;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prFormatOpenBracketsSlot
-    
+
     def _format_open_brackets_slot(self, bundle):
         result = []
         result.append([('grace_brackets', 'open'), ['{']])
         return tuple(result)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpenBracketsSlot { |bundle|
         var result;
