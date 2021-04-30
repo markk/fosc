@@ -5,15 +5,10 @@ TITLE:: FoscSynthPlaybackManager
 SUMMARY:: Returns a FoscSynthPlaybackManager.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Synth playback manager.
 
 
 USAGE::
-
-'''
-
-• FoscMIDIPlaybackManager
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSynthPlaybackManager {
     classvar defaultCommands;
@@ -41,9 +36,7 @@ FoscSynthPlaybackManager {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • addCommand
-    '''
     -------------------------------------------------------------------------------------------------------- */
     addCommand { |name, func|
         if (commands[name].notNil) {
