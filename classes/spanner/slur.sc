@@ -6,52 +6,25 @@ TITLE:: slur
 SUMMARY:: Returns a slur.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Attaches slur indicators.
 
 
 USAGE::
 
 '''
-
-• slur (abjad 3.0)
-
-Attaches slur indicators.
-
-
-• Example 1
-
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 a[0..].slur;
 a.show;
-
-img:: ![](../img/spanner-slur-1.png)
 '''
 
-p = "%/fosc/docs/img/spanner-slur-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
-
-
-• Example 2
-
+'''
 Phrasing slurs can be tweaked.
 
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 a[0..].slur(tweaks: #[['color', 'blue']]);
 a.show;
-
-img:: ![](../img/spanner-slur-2.png)
-'''
-
-p = "%/fosc/docs/img/spanner-slur-2".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 + FoscSelection {
