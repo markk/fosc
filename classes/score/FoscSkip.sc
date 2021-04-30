@@ -6,25 +6,18 @@ TITLE:: FoscSkip
 SUMMARY:: Returns a FoscSkip.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A skip
 
 
 USAGE::
 
 '''
-
-• FoscSkip
-
-
-• Example 1
-
 code::
 a = FoscSkip(3/16);
 a.format;
+'''
 
-
-• Example 2
-
+'''
 Implicit conversion of type when another leaf is passed as initialization argument. Indicators are preserved.
 
 code::
@@ -32,12 +25,10 @@ n = FoscNote(60, 3/16);
 n.attach(FoscArticulation('>'));
 a = FoscSkip(n);
 a.format;
+'''
 
-
-• Example 3
-
-code::
-With a multiplier;
+'''
+With a multiplier
 
 code::
 a = FoscSkip(1/8, multiplier: 5/8);
@@ -66,13 +57,13 @@ FoscSkip : FoscLeaf {
     // PRIVATE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetBody
 
-    
+    '''
     code::
     FoscSkip(4/8).prGetBody;
-    
+
+    code::nointerpret
     FoscSkip(5/8).prGetBody;    // unsassignable error
 
     code::
@@ -87,9 +78,9 @@ FoscSkip : FoscLeaf {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetCompactRepresentation
 
+    '''
     code::
     FoscSkip(4/8).prGetCompactRepresentation;
     '''
