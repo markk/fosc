@@ -6,33 +6,28 @@ TITLE:: FoscStaffGroup
 SUMMARY:: Returns a FoscStaffGroup.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A staff group.
 
 
 USAGE::
-
-'''
-
-• FoscStaffGroup
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStaffGroup : FoscContext {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INIT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	var <defaultlilypondType='StaffGroup';
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // INIT
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var <defaultlilypondType='StaffGroup';
     *new { |music, lilypondType='StaffGroup', name, tag, playbackManager|
-		^super.new(music, lilypondType, true, name, tag, playbackManager);
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ^super.new(music, lilypondType, true, name, tag, playbackManager);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PRIVATE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prOnInsertionCheck
 
     Override and call corresponding method in superclass.
 
+    '''
     code::
     a = FoscStaffGroup();
     a.append(FoscStaff());
@@ -41,7 +36,7 @@ FoscStaffGroup : FoscContext {
     -------------------------------------------------------------------------------------------------------- */
     prOnInsertionCheck { |index, node|
         if (node.isKindOf(FoscStaff).not) {
-            throw("%: can't insert a % in this container.".format(this.species, node.species)); 
+            throw("%: can't insert a % in this container.".format(this.species, node.species));
         };
         super.prOnInsertionCheck(index, node);
     }
