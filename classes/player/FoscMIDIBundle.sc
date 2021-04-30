@@ -6,29 +6,25 @@ TITLE:: FoscMIDIBundle
 SUMMARY:: Returns a FoscMIDIBundle.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: MIDI bundle
 
+!!!TODO: add articulations ??
 
 USAGE::
 
 '''
+FIXME ERROR: Class not defined
 
-• FoscMIDIBundle
-
-!!!TODO: add articulations ??
-
-
-code::
+code::nointerpret
 a = FoscScoreSegment(Hakon, 'A');
 m = FoscLeafMaker().((60..67), [1/8]);
 m.leafAt(0).attach(FoscMetronomeMark(1/4, 60));
-m.leafAt(0).attach(FoscPlaybackCommand('OR48')); 
-m.leafAt(2).attach(FoscPlaybackCommand('TRI')); 
-m.leafAt(4).attach(FoscPlaybackCommand('M4')); 
+m.leafAt(0).attach(FoscPlaybackCommand('OR48'));
+m.leafAt(2).attach(FoscPlaybackCommand('TRI'));
+m.leafAt(4).attach(FoscPlaybackCommand('M4'));
 m.leafAt(0).attach(FoscDynamic('pppp'));
 a['A'].add(m);
 
-code::
 a.play;
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -64,7 +60,7 @@ FoscMIDIBundle : FoscObject {
             amp: amp
         );
 
-        if (msgs.notNil) {            
+        if (msgs.notNil) {
             msgs.do { |msgArgs|
                 # msg, chan, num, val = msgArgs;
                 switch(msg,
@@ -83,9 +79,9 @@ FoscMIDIBundle : FoscObject {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetCommands
 
+    '''
     code::
     a = FoscNote(60, 1/4);
     x = FoscPlaybackCommand(name: 'sustainOn');
@@ -95,7 +91,7 @@ FoscMIDIBundle : FoscObject {
     -------------------------------------------------------------------------------------------------------- */
     prGetCommands { |leaf|
         var playbackCommands, name, msgs, msgArgs;
-        
+
         playbackCommands = leaf.prGetIndicators(prototype: FoscPlaybackCommand);
         msgs = [];
 
@@ -112,11 +108,9 @@ FoscMIDIBundle : FoscObject {
         ^msgs;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetMIDINote
 
     !!!TODO: get soundingPitch/es rather than writtenPitch
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prGetMIDINote { |leaf|
         var midinote;
@@ -138,9 +132,6 @@ FoscMIDIBundle : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • event
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
-
