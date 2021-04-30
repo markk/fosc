@@ -6,17 +6,7 @@ TITLE:: FoscAppoggiaturaContainer
 SUMMARY:: Returns a FoscAppoggiaturaContainer.
 
 
-DESCRIPTION:: TODO
-
-
-USAGE::
-
-'''
-
-• FoscAppoggiaturaContainer
-
-
-Appoggiatura container.
+DESCRIPTION:: Appoggiatura container.
 
 Appoggiaturas are played on the beat.
 
@@ -25,8 +15,9 @@ LilyPond positions appoggiaturas immediately before main notes.
 LilyPond formats appoggiaturas with a slur but without a slashed stem.
 
 
-• Example 1
+USAGE::
 
+'''
 Appoggiatura notes.
 
 code::
@@ -35,16 +26,9 @@ c = FoscAppoggiaturaContainer([FoscNote(60, 1/16), FoscNote(62, 1/16)]);
 c[0].attach(FoscArticulation('>'));
 a[2].attach(c);
 a.format;
+
+code::
 a.show;
-
-img:: ![](../img/score-appoggiatura-container-1.png)
-'''
-
-p = "%/fosc/docs/img/score-appoggiatura-container-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscAppoggiaturaContainer : FoscGraceContainer {
@@ -52,9 +36,7 @@ FoscAppoggiaturaContainer : FoscGraceContainer {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prFormatOpenBracketsSlot
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prFormatOpenBracketsSlot { |bundle|
         var result;
