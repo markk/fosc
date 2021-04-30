@@ -6,15 +6,10 @@ TITLE:: FoscMIDIManager
 SUMMARY:: Returns a FoscMIDIManager.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: MIDI manager
 
 
 USAGE::
-
-'''
-
-• FoscMIDIManager
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscMIDIManager {
     classvar defaultCommands;
@@ -48,22 +43,18 @@ FoscMIDIManager {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • mapCommandToLilypondObject
-    '''
     -------------------------------------------------------------------------------------------------------- */
     mapCommandNameToLilypondObject { |name, lilypondObject|
         lilypondObjects[name] = lilypondObject;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • mapCommandToMIDIAction
-    '''
     -------------------------------------------------------------------------------------------------------- */
     mapCommandNameToMIDIAction { |name, msg, lilypondObject|
         var type, num, val = msg;
         # type, num, val = msg;
-        //!!!TODO: check that midiOut responds to 'type'  
+        //!!!TODO: check that midiOut responds to 'type'
         if (val.isNil) {
             commands[name] = [type, chan, num];
         } {
