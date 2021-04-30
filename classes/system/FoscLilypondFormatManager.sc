@@ -6,50 +6,40 @@ TITLE:: FoscLilypondFormatManager
 SUMMARY:: Returns a FoscLilypondFormatManager.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Manages Lilypond formatting logic.
 
 
 USAGE::
 
 '''
-
-• FoscLilypondFormatManager
-
-Manages Lilypond formatting logic.
-
-code::
+code::nointerpret
 n = FoscNote(60, [1, 4]);
 //FoscAttach(m = FoscMarkup("groob"), n);
 FoscAttach(FoscDynamic('p'), n);
 FoscAttach(FoscArticulation('>'), n);
 n.prFormatComponent;
 
-code::
+code::nointerpret
 b = FoscLilypondFormatManager.bundleFormatContributions(n);
 b.before.indicators;
 b.opening.indicators;
 b.closing.indicators;
 b.right.indicators;     // abjad: ('%%% \\p %%%',)
-code::
 b.right.articulations;
 
-code::
+code::nointerpret
 n.wrappers.do { |e| e.prGetFormatPieces.postln };
-
-post::
-POSTOUTPUT
 '''
 
 b.contextSettings;      // not yet implemented
 b.grobOverrides;        // not yet implemented
 b.grobReverts;          // not yet implemented
 
-
-code::
+'''
+code::nointerpret
 e = FoscWrapper(FoscNote(60, 1), FoscArticulation('accent'));
 e.indicator;
 b = e.prGetFormatPieces; // FoscLilypondFormatBundle
-code::
 b.right.articulations;
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -57,49 +47,44 @@ FoscLilypondFormatManager : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	classvar <indent="    ";
-	classvar <lilypondColorConstants=#[
-		'black', 'blue', 'center', 'cyan', 'darkblue', 'darkcyan', 'darkgreen', 'darkmagenta', 'darkred',
-		'darkyellow', 'down', 'green', 'grey', 'left', 'magenta', 'red', 'right', 'up', 'white', 'yellow'
-	];
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC CLASS METHODS
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    classvar <indent="    ";
+    classvar <lilypondColorConstants=#[
+        'black', 'blue', 'center', 'cyan', 'darkblue', 'darkcyan', 'darkgreen', 'darkmagenta', 'darkred',
+        'darkyellow', 'down', 'green', 'grey', 'left', 'magenta', 'red', 'right', 'up', 'white', 'yellow'
+    ];
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC CLASS METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *bundleFormatContributions
 
     Gets all format contributions for component.
 
     Returns Lilypond format bundle.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *bundleFormatContributions { |component|
-		var manager, bundle;
-		manager = FoscLilypondFormatManager;
-		bundle = FoscLilypondFormatBundle();
-		manager.prPopulateIndicatorFormatContributions(component, bundle);
-		//manager.prPopulateSpannerFormatContributions(component, bundle);
-		manager.prPopulateContextSettingFormatContributions(component, bundle);
+        var manager, bundle;
+        manager = FoscLilypondFormatManager;
+        bundle = FoscLilypondFormatBundle();
+        manager.prPopulateIndicatorFormatContributions(component, bundle);
+        //manager.prPopulateSpannerFormatContributions(component, bundle);
+        manager.prPopulateContextSettingFormatContributions(component, bundle);
         manager.prPopulateGrobOverrideFormatContributions(component, bundle);
         manager.prPopulateGrobRevertFormatContributions(component, bundle);
         bundle.sortOverrides;
-		^bundle;
-	}
+        ^bundle;
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *formatLilypondAttribute
 
     Formats Lilypond attribute according to Scheme formatting conventions.
 
     Returns string.
 
-
-    • Example 1
-
+    '''
     Co-ordinate attributes
-    
+
     code::
     FoscLilypondFormatManager.formatLilypondAttribute('minimumYExtent');
     FoscLilypondFormatManager.formatLilypondAttribute('xExtent');
@@ -111,7 +96,7 @@ FoscLilypondFormatManager : FoscObject {
     // abjad 3.0
     *formatLilypondAttribute { |attribute|
         var result, coordinateChars;
-        
+
         if (attribute.isKindOf(FoscLilypondLiteral)) { ^attribute.format };
 
         result = attribute.asString;
@@ -123,118 +108,102 @@ FoscLilypondFormatManager : FoscObject {
             if ((each.size == 1) && { coordinateChars.includes(each[0]) }) { each.toUpper } { each.toLower };
         };
         result = result.join("-");
-        
+
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *formatLilypondContextSettingInWithBlock
 
     Formats Lilypond context setting name with value in Lilypond with-block.
 
     Returns string.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *formatLilypondContextSettingInWithBlock { |name, value|
-		var valueParts, result;
-		name = name.asString;
-		value = FoscLilypondFormatManager.formatLilypondValue(value);
-		valueParts = value.split($\n);
-		result = "% = %".format(name, valueParts[0]);
+        var valueParts, result;
+        name = name.asString;
+        value = FoscLilypondFormatManager.formatLilypondValue(value);
+        valueParts = value.split($\n);
+        result = "% = %".format(name, valueParts[0]);
         result = [result];
-		valueParts[1..].do { |each| result = result.add(FoscLilypondFormatManager.indent ++ each) };
-		result = result.join("\n");
-		^result;
-	}
+        valueParts[1..].do { |each| result = result.add(FoscLilypondFormatManager.indent ++ each) };
+        result = result.join("\n");
+        ^result;
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
-    • *formatLilypondContextSettingsInline 
+    • *formatLilypondContextSettingsInline
 
     Formats Lilypond context setting name with value in context.
 
     Returns string.
 
-
-    • Example 1
-
+    '''
     code::
-	FoscLilypondFormatManager.formatLilypondContextSettingInline("StaffSymbol.color_", 'red', "Staff");
+    FoscLilypondFormatManager.formatLilypondContextSettingInline("StaffSymbol.color_", 'red', "Staff");
     '''
     -------------------------------------------------------------------------------------------------------- */
     *formatLilypondContextSettingInline { |name, value, context|
-		var contextString = "", result;
-		name = name.asString;
-		value = FoscLilypondFormatManager.formatLilypondValue(value);
-		if (context.notNil) { contextString = context.asString ++ "." };
-		result = "\\set %% = %".format(contextString, name, value);
-		^result;
-	}
+        var contextString = "", result;
+        name = name.asString;
+        value = FoscLilypondFormatManager.formatLilypondValue(value);
+        if (context.notNil) { contextString = context.asString ++ "." };
+        result = "\\set %% = %".format(contextString, name, value);
+        ^result;
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *formatLilypondValue
 
     Formats Lilypond argument according to Scheme formatting conventions.
 
     Returns string.
-    
 
-	• Example 1
-
+    '''
     code::
-	FoscLilypondFormatManager.formatLilypondValue(false);
-	FoscLilypondFormatManager.formatLilypondValue(\center);
+    FoscLilypondFormatManager.formatLilypondValue(false);
+    FoscLilypondFormatManager.formatLilypondValue(\center);
     FoscLilypondFormatManager.formatLilypondValue(FoscSchemeMoment(1, 24));
-	FoscLilypondFormatManager.formatLilypondValue(5);
-	FoscLilypondFormatManager.formatLilypondValue(\magenta);
-	FoscLilypondFormatManager.formatLilypondValue("lilypond::string");
-	FoscLilypondFormatManager.formatLilypondValue("lilypondstring");
-	FoscLilypondFormatManager.formatLilypondValue("lilypond string");
-	FoscLilypondFormatManager.formatLilypondValue([-1, 1]);
-	FoscLilypondFormatManager.formatLilypondValue(['font-name', "Times"]);
+    FoscLilypondFormatManager.formatLilypondValue(5);
+    FoscLilypondFormatManager.formatLilypondValue(\magenta);
+    FoscLilypondFormatManager.formatLilypondValue("lilypond::string");
+    FoscLilypondFormatManager.formatLilypondValue("lilypondstring");
+    FoscLilypondFormatManager.formatLilypondValue("lilypond string");
+    FoscLilypondFormatManager.formatLilypondValue([-1, 1]);
+    FoscLilypondFormatManager.formatLilypondValue(['font-name', "Times"]);
 
     code::
     FoscLilypondFormatManager.formatLilypondValue(FoscSchemeColor('ForestGreen'));
-
-
-    FoscMarkup
     '''
+    FoscMarkup
     -------------------------------------------------------------------------------------------------------- */
-	*formatLilypondValue { |expr|
-		expr = case
+    *formatLilypondValue { |expr|
+        expr = case
         { expr.respondsTo('prGetLilypondFormat') && { expr.isString.not } } { expr } // pass
-		{ expr.isKindOf(Boolean) } { FoscScheme(expr) }
-		{ #['up', 'down', 'above', 'below', 'left', 'right', 'center'].includes(expr) } { FoscScheme(expr) }
-		{ expr.isKindOf(Number) } { FoscScheme(expr) }
-		{ FoscLilypondFormatManager.lilypondColorConstants.includes(expr.asSymbol) } { FoscScheme(expr) }
-		{ expr.isString && { expr.contains("::") } } { FoscScheme(expr) }
-		{ expr.isString && { expr.contains(" ").not } } { FoscScheme(expr).quoting_("'") }
+        { expr.isKindOf(Boolean) } { FoscScheme(expr) }
+        { #['up', 'down', 'above', 'below', 'left', 'right', 'center'].includes(expr) } { FoscScheme(expr) }
+        { expr.isKindOf(Number) } { FoscScheme(expr) }
+        { FoscLilypondFormatManager.lilypondColorConstants.includes(expr.asSymbol) } { FoscScheme(expr) }
+        { expr.isString && { expr.contains("::") } } { FoscScheme(expr) }
+        { expr.isString && { expr.contains(" ").not } } { FoscScheme(expr).quoting_("'") }
         { expr.isString && { expr.contains(" ") } } { FoscScheme(expr) }
         { expr.isSequenceableCollection && expr.size == 2 } { FoscSchemePair(*expr) }
-		{ FoscScheme(expr).quoting_("'") };
-		^expr.format('lilypond');
-	}
+        { FoscScheme(expr).quoting_("'") };
+        ^expr.format('lilypond');
+    }
     /* --------------------------------------------------------------------------------------------------------
     '''
     • *makeLilypondOverrideString
 
-	Makes Lilypond override string. Returns string.
+    Makes Lilypond override string. Returns string.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscNote(60, 1/4);
     m = override(a);
     m.noteHead.color = 'red';
     m.noteHead.shape = 'square';
     m.prListFormatContributions('override').printAll;
-
-    post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
-	// abjad 3.0
+    // abjad 3.0
     *makeLilypondOverrideString { |grob, attribute, value, context, isOnce=false|
         var result;
         grob = grob.asString.toUpperCamelCase;
@@ -247,44 +216,38 @@ FoscLilypondFormatManager : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *makeLilypondRevertString
 
     Makes Lilypond revert string.
 
     Returns string.
 
-    
-    • Example 1
-
+    '''
     code::
-	FoscLilypondFormatManager.makeLilypondRevertString("StaffSymbol", 'color', "Staff");
+    FoscLilypondFormatManager.makeLilypondRevertString("StaffSymbol", 'color', "Staff");
     '''
     -------------------------------------------------------------------------------------------------------- */
-	// abjad 3.0
+    // abjad 3.0
     *makeLilypondRevertString { |grob, attribute, context|
-		var dotted, result;
-		grob = grob.asString.toUpperCamelCase;
-		dotted = FoscLilypondFormatManager.formatLilypondAttribute(attribute);
+        var dotted, result;
+        grob = grob.asString.toUpperCamelCase;
+        dotted = FoscLilypondFormatManager.formatLilypondAttribute(attribute);
         if (context.notNil) {
             context = context.asString.toUpperCamelCase ++ ".";
         } {
             context = "";
         };
-		result = "\\revert %%.%".format(context, grob, dotted);
-		^result;
-	}
+        result = "\\revert %%.%".format(context, grob, dotted);
+        ^result;
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *makeLilypondTweakString
 
     Makes Lilypond \tweak string.
 
     Returns string.
 
-    
-    • Example 1
-    
+    '''
     code::
     FoscLilypondFormatManager.makeLilypondTweakString('color', 'red', true, 'noteHead');
     '''
@@ -306,11 +269,9 @@ FoscLilypondFormatManager : FoscObject {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *tag
 
     Tags 'strings' with 'tag'.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *tag { |strings, tag, deactivate=false|
@@ -321,7 +282,7 @@ FoscLilypondFormatManager : FoscObject {
         assert(deactivate.isKindOf(Boolean));
         length = strings.collect { |string| string.size }.maxItem;
         localStrings = [];
-        
+
         strings.do { |string|
             if (string.contains("%!").not) {
                 pad = length - string.size;
@@ -332,21 +293,21 @@ FoscLilypondFormatManager : FoscObject {
             string = string ++ localTag;
             localStrings = localStrings.add(string);
         };
-        
+
         if (deactivate) {
             localStrings = localStrings.collect { |string| "%@%" ++ string };
         };
-        
+
         ^localStrings;
     }
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PRIVATE CLASS METHODS
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
- '''
-	• *prCollectIndicators
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PRIVATE CLASS METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
+    • *prCollectIndicators
 
- code::
+    '''
+    code::
     a = FoscNote(60, 1/4);
     b = FoscVoice([a]);
     a.attach(FoscMarkup("foo"));
@@ -354,9 +315,9 @@ FoscLilypondFormatManager : FoscObject {
     c = FoscScore([FoscStaff([b])]);
     c.leafAt(0).attach(FoscTimeSignature([4,4]), context: "Score");
     FoscLilypondFormatManager.prCollectIndicators(a);
-
-
- code::
+    '''
+    '''
+    code::
     a = FoscNote(60, 1/4);
     b = FoscVoice([a]);
     a.attach(FoscMarkup("foo"));
@@ -365,9 +326,9 @@ FoscLilypondFormatManager : FoscObject {
     a.attach(FoscTimeSignature([4,4]), context: "Score");
     a.wrappers.do { |each| [each.indicator, each.context].postln };
     c.format;
- '''
+    '''
     -------------------------------------------------------------------------------------------------------- */
-	// abjad 3.0
+    // abjad 3.0
     *prCollectIndicators { |component|
         var wrappers, parentage, result, indicator, indicators;
         var upMarkupWrappers, downMarkupWrappers, neutralMarkupWrappers, contextWrappers, nonContextWrappers;
@@ -406,7 +367,7 @@ FoscLilypondFormatManager : FoscObject {
                 { wrapper.indicator.direction == 'down' } {
                     downMarkupWrappers = downMarkupWrappers.add(wrapper);
                 }
-                { neutralMarkupWrappers = neutralMarkupWrappers.add(wrapper) }; 
+                { neutralMarkupWrappers = neutralMarkupWrappers.add(wrapper) };
             }
             // store context wrappers
             { wrapper.context.notNil } {
@@ -426,29 +387,17 @@ FoscLilypondFormatManager : FoscObject {
             nonContextWrappers
         ];
         ^indicators;
-    } 
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateContextSettingFormatContributions
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscStaff([FoscNote(60, 1/4)], name: 'foo');
     set(a).instrumentName = FoscMarkup("clar");
     set(a).instrumentName = "clar";
     a.format;
     a.show;
-
-    img:: ![](../img/system-lilypond-format-manager-1.png)
-    '''
-
-    p = "%/fosc/docs/img/system-lilypond-format-manager-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateContextSettingFormatContributions { |component, bundle|
@@ -479,11 +428,9 @@ FoscLilypondFormatManager : FoscObject {
         };
         result = result.sort;
         bundle.contextSettings.addAll(result);
-	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateGrobOverrideFormatContributions
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateGrobOverrideFormatContributions { |component, bundle|
         var result, isOnce, grob, contributions, pitch, arrow, noteHeadContributions;
@@ -505,11 +452,9 @@ FoscLilypondFormatManager : FoscObject {
             contributions = contributions.addAll(noteHeadContributions);
         };
         bundle.grobOverrides.addAll(contributions);
-	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateGrobRevertFormatContributions
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateGrobRevertFormatContributions { |component, bundle|
         var manager, contributions;
@@ -520,23 +465,19 @@ FoscLilypondFormatManager : FoscObject {
         };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateIndicatorFormatContributions
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateIndicatorFormatContributions { |component, bundle|
-		var manager, upMarkup, downMarkup, neutralMarkup, scopedExpressions, nonScopedExpressions;
-		manager = FoscLilypondFormatManager;
-        # upMarkup, downMarkup, neutralMarkup, scopedExpressions, nonScopedExpressions = 
-            FoscLilypondFormatManager.prCollectIndicators(component);
+        var manager, upMarkup, downMarkup, neutralMarkup, scopedExpressions, nonScopedExpressions;
+        manager = FoscLilypondFormatManager;
+        # upMarkup, downMarkup, neutralMarkup, scopedExpressions, nonScopedExpressions =
+        FoscLilypondFormatManager.prCollectIndicators(component);
         manager.prPopulateMarkupFormatContributions(component, bundle, upMarkup, downMarkup, neutralMarkup);
         manager.prPopulateScopedExpressionFormatContributions(component, bundle, scopedExpressions);
-        manager.prPopulateNonscopedExpressionFormatContributions(component, bundle, nonScopedExpressions);  
-	}
+        manager.prPopulateNonscopedExpressionFormatContributions(component, bundle, nonScopedExpressions);
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateMarkupFormatContributions
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     *prPopulateMarkupFormatContributions { |component, bundle, upMarkupWrappers, downMarkupWrappers,
@@ -558,11 +499,9 @@ FoscLilypondFormatManager : FoscObject {
                 bundle.after.markup.addAll(formatPieces);
             };
         };
-	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateNonscopedExpressionFormatContributions
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateNonscopedExpressionFormatContributions { |component, bundle, nonscopedExpressions|
         var indicator, indicatorBundle;
@@ -573,11 +512,9 @@ FoscLilypondFormatManager : FoscObject {
                 if (indicatorBundle.notNil) { bundle.update(indicatorBundle) };
             };
         };
-	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateScopedExpressionFormatContributions
-    '''
     -------------------------------------------------------------------------------------------------------- */
     *prPopulateScopedExpressionFormatContributions { |component, bundle, scopedExpressions|
         var formatPieces, formatSlot;
@@ -588,22 +525,20 @@ FoscLilypondFormatManager : FoscObject {
             } {
                 formatSlot = scopedExpression.indicator.formatSlot;
                 bundle.get(formatSlot).indicators.addAll(formatPieces);
-            }; 
+            };
         };
-	}
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *prPopulateSpannerFormatContributions
-    '''
     -------------------------------------------------------------------------------------------------------- */
- //    *prPopulateSpannerFormatContributions { |component, bundle|
- //        var pairs, spannerBundle, pair, spanner;
- //        pairs = [];
- //        component.prGetParentage.prSpanners.do { |spanner|
- //            spannerBundle = spanner.prGetLilypondFormatBundle(component);
- //            pair = [spanner, spannerBundle];
- //            pairs = pairs.addAll(pair);
- //        };
- //        pairs.pairsDo { |spanner, spannerBundle| bundle.update(spannerBundle) };
-	// }
+    //    *prPopulateSpannerFormatContributions { |component, bundle|
+    //        var pairs, spannerBundle, pair, spanner;
+    //        pairs = [];
+    //        component.prGetParentage.prSpanners.do { |spanner|
+    //            spannerBundle = spanner.prGetLilypondFormatBundle(component);
+    //            pair = [spanner, spannerBundle];
+    //            pairs = pairs.addAll(pair);
+    //        };
+    //        pairs.pairsDo { |spanner, spannerBundle| bundle.update(spannerBundle) };
+    // }
 }
