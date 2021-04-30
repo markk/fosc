@@ -6,33 +6,16 @@ TITLE:: ottava
 SUMMARY:: Returns a ottava.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Attaches ottava indicators.
 
 
 USAGE::
 
 '''
-
-• ottava (abjad 3.0)
-
-Attaches ottava indicators.
-
-
-• Example 1
-
 code::
 a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
 a[0..].ottava;
 a.show;
-
-img:: ![](../img/spanner-ottava-1.png)
-'''
-
-p = "%/fosc/docs/img/spanner-ottava-1".format(Platform.userExtensionDir);
-a.writePNG("%.ly".format(p));
-
-
-
 '''
 ------------------------------------------------------------------------------------------------------------ */
 + FoscSelection {
