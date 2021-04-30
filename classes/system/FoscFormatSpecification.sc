@@ -6,27 +6,21 @@ TITLE:: FoscFormatSpecification
 SUMMARY:: Returns a FoscFormatSpecification.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Specifies the storage format of a given object.
 
 
 USAGE::
-
-'''
-
-• FoscFormatSpecification
-
-Specifies the storage format of a given object.
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscFormatSpecification : FoscObject {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INIT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
- '''
-	•
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // INIT
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
+        •
 
-	__slots__ = (
+    '''
+    '''
+    __slots__ = (
         '_client',
         '_coerce_for_equality',
         '_repr_args_values',
@@ -81,202 +75,202 @@ FoscFormatSpecification : FoscObject {
             storage_format_kwargs_names)
         self._storage_format_text = self._coerce_string(storage_format_text)
         self._template_names = self._coerce_tuple(template_names)
- '''
-	-------------------------------------------------------------------------------------------------------- */
-	var <client, <coerceForEquality, <reprArgsValues, <reprIsBracketed, <reprIsIndented, <reprKwargsNames;
-	var <reprText, <storageFormatArgsValues, <storageFormatIncludesRootPackage, <storageFormatIsBracketed;
-	var <storageFormatIsIndented, <storageFormatKwargsNames, <storageFormatText, <templateNames;
-	*new { |client, coerceForEquality, reprArgsValues, reprIsBracketed, reprIsIndented, reprKwargsNames,
-		reprText, storageFormatArgsValues, storageFormatIncludesRootPackage, storageFormatIsBracketed, storageFormatIsIndented, storageFormatKwargsNames, storageFormatText, templateNames|
+    '''
+    -------------------------------------------------------------------------------------------------------- */
+    var <client, <coerceForEquality, <reprArgsValues, <reprIsBracketed, <reprIsIndented, <reprKwargsNames;
+    var <reprText, <storageFormatArgsValues, <storageFormatIncludesRootPackage, <storageFormatIsBracketed;
+    var <storageFormatIsIndented, <storageFormatKwargsNames, <storageFormatText, <templateNames;
+    *new { |client, coerceForEquality, reprArgsValues, reprIsBracketed, reprIsIndented, reprKwargsNames,
+        reprText, storageFormatArgsValues, storageFormatIncludesRootPackage, storageFormatIsBracketed, storageFormatIsIndented, storageFormatKwargsNames, storageFormatText, templateNames|
 
-		^super.new.init(client, coerceForEquality, reprArgsValues, reprIsBracketed, reprIsIndented, reprKwargsNames, reprText, storageFormatArgsValues, storageFormatIncludesRootPackage,
-			storageFormatIsBracketed, storageFormatIsIndented, storageFormatKwargsNames, storageFormatText,
-			templateNames);
-	}
-	init { |argClient, argCoerceForEquality, argReprArgsValues, argReprIsBracketed, argReprIsIndented,
-		argReprKwargsNames, argReprText, argStorageFormatArgsValues, argStorageFormatIncludesRootPackage,
-		argStorageFormatIsBracketed, argStorageFormatIsIndented, argStorageFormatKwargsNames,
-		argStorageFormatText, argTemplateNames|
+        ^super.new.init(client, coerceForEquality, reprArgsValues, reprIsBracketed, reprIsIndented, reprKwargsNames, reprText, storageFormatArgsValues, storageFormatIncludesRootPackage,
+            storageFormatIsBracketed, storageFormatIsIndented, storageFormatKwargsNames, storageFormatText,
+            templateNames);
+    }
+    init { |argClient, argCoerceForEquality, argReprArgsValues, argReprIsBracketed, argReprIsIndented,
+        argReprKwargsNames, argReprText, argStorageFormatArgsValues, argStorageFormatIncludesRootPackage,
+        argStorageFormatIsBracketed, argStorageFormatIsIndented, argStorageFormatKwargsNames,
+        argStorageFormatText, argTemplateNames|
 
-		client = argClient;
-		coerceForEquality = this.prCoerceBoolean(argCoerceForEquality);
-		reprArgsValues = argReprArgsValues;  // this.coerceTuple(argReprArgsValues);
-		reprIsBracketed = this.prCoerceBoolean(argReprIsBracketed);
-		reprIsIndented = this.prCoerceBoolean(argReprIsIndented);
-		reprKwargsNames = argReprKwargsNames;  // this.coerceTuple(argReprKwargsNames);
-		reprText = this.prCoerceString(argReprText);
-		storageFormatArgsValues = argStorageFormatArgsValues;  // this.coerceTuple(argStorageFormatArgsValues);
-		storageFormatIncludesRootPackage = this.prCoerceBoolean(argStorageFormatIncludesRootPackage);
-		storageFormatIsBracketed = this.prCoerceBoolean(argStorageFormatIsBracketed);
-		storageFormatIsIndented = this.prCoerceBoolean(argStorageFormatIsIndented) ? true;
-		storageFormatKwargsNames = argStorageFormatKwargsNames; // this.coerceTuple(argStorageFormatKwargsNames);
-		storageFormatText = this.prCoerceString(argStorageFormatText);
-		templateNames = argTemplateNames; // this.coerceTuple(argTemplateNames);
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PRIVATE METHODS
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
- '''
-	• prCoerceBoolean
+        client = argClient;
+        coerceForEquality = this.prCoerceBoolean(argCoerceForEquality);
+        reprArgsValues = argReprArgsValues;  // this.coerceTuple(argReprArgsValues);
+        reprIsBracketed = this.prCoerceBoolean(argReprIsBracketed);
+        reprIsIndented = this.prCoerceBoolean(argReprIsIndented);
+        reprKwargsNames = argReprKwargsNames;  // this.coerceTuple(argReprKwargsNames);
+        reprText = this.prCoerceString(argReprText);
+        storageFormatArgsValues = argStorageFormatArgsValues;  // this.coerceTuple(argStorageFormatArgsValues);
+        storageFormatIncludesRootPackage = this.prCoerceBoolean(argStorageFormatIncludesRootPackage);
+        storageFormatIsBracketed = this.prCoerceBoolean(argStorageFormatIsBracketed);
+        storageFormatIsIndented = this.prCoerceBoolean(argStorageFormatIsIndented) ? true;
+        storageFormatKwargsNames = argStorageFormatKwargsNames; // this.coerceTuple(argStorageFormatKwargsNames);
+        storageFormatText = this.prCoerceString(argStorageFormatText);
+        templateNames = argTemplateNames; // this.coerceTuple(argTemplateNames);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PRIVATE METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
+    • prCoerceBoolean
 
-	def _coerce_boolean(self, value):
+    '''
+    code::
+   	a = FoscSlotContributions();
+	  a.prGetFormatSpecification;
+    '''
+    def _coerce_boolean(self, value):
         if value is not None:
             return bool(value)
 
- code::
-   	a = FoscSlotContributions();
-	a.prGetFormatSpecification;
- '''
-	-------------------------------------------------------------------------------------------------------- */
-	prCoerceBoolean { |expr|
-		if (expr.notNil) { ^expr.booleanValue };
-	}
+    -------------------------------------------------------------------------------------------------------- */
+    prCoerceBoolean { |expr|
+        if (expr.notNil) { ^expr.booleanValue };
+    }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     def _coerce_string(self, value):
         if value is not None:
             return str(value)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prCoerceString { |expr|
     	if (expr.notNil) { ^expr.asString };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     def _coerce_tuple(self, value):
         if value is not None:
             return tuple(value)
-    '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def client(self):
             return self._client
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def coerce_for_equality(self):
             return self._coerce_for_equality
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def repr_args_values(self):
             return self._repr_args_values
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def repr_is_bracketed(self):
             return self._repr_is_bracketed
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def repr_is_indented(self):
             return self._repr_is_indented
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def repr_kwargs_names(self):
             return self._repr_kwargs_names
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def repr_text(self):
             return self._repr_text
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def storage_format_args_values(self):
             return self._storage_format_args_values
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def storage_format_includes_root_package(self):
             return self._storage_format_includes_root_package
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def storage_format_is_bracketed(self):
             return self._storage_format_is_bracketed
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def storage_format_is_indented(self):
             return self._storage_format_is_indented
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def storage_format_kwargs_names(self):
             return self._storage_format_kwargs_names
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def storage_format_text(self):
             return self._storage_format_text
-    '''
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
-    '''
     •
+    '''
+    '''
     @property
         def template_names(self):
             return self._template_names
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
