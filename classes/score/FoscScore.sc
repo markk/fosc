@@ -6,98 +6,72 @@ TITLE:: FoscScore
 SUMMARY:: Returns a FoscScore.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A score.
 
 
 USAGE::
-
-'''
-
-• FoscScore
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscScore : FoscContext {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INIT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	var <defaultlilypondType='Staff';
-	*new { |music, lilypondType, name, tag, playbackManager|
-		^super.new(music, lilypondType='Score', true, name, tag, playbackManager);
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // INIT
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var <defaultlilypondType='Staff';
+    *new { |music, lilypondType, name, tag, playbackManager|
+        ^super.new(music, lilypondType='Score', true, name, tag, playbackManager);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
     • addFinalBarLine
 
-    code::
+    '''
+    code::nointerpret
     a = FoscScoreSegment.read(WTGO, 'A1');
     a.show;
-
-    img:: ![](../img/score-score-1.png)
-    '''
-
-    p = "%/fosc/docs/img/score-score-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
-	addFinalBarLine { |abbreviation="|.", toEachVoice=false|
-		var barLine, lastLeaf;
+    addFinalBarLine { |abbreviation="|.", toEachVoice=false|
+        var barLine, lastLeaf;
         if (abbreviation.isKindOf(FoscBarLine)) { abbreviation = abbreviation.abbreviation };
-		barLine = FoscBarLine(abbreviation);
-		if (toEachVoice.not) {
-			lastLeaf = select(this).leaves.last;
-			lastLeaf.attach(barLine);
-		} {
-			FoscIteration(this).components(prototype: FoscVoice).do { |voice, i|
-				lastLeaf = select(voice).leaves.last;
-				lastLeaf.attach(barLine);
-			};
-		};
-		^barLine;
-	}
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+        barLine = FoscBarLine(abbreviation);
+        if (toEachVoice.not) {
+            lastLeaf = select(this).leaves.last;
+            lastLeaf.attach(barLine);
+        } {
+            FoscIteration(this).components(prototype: FoscVoice).do { |voice, i|
+                lastLeaf = select(voice).leaves.last;
+                lastLeaf.attach(barLine);
+            };
+        };
+        ^barLine;
+    }
+    /* --------------------------------------------------------------------------------------------------------
     • addFinalMarkup
 
     !!!TODO: use hidden skip voice for more accurate horizontal spacing
 
+    N.B. I don't know if this is taken from abjad code, but there are much
+    better ways of doing this in lilypond. I would add the markup to the Barline
+    grob. MK
+
+    '''
     code::
     a = FoscScore([FoscStaff(FoscLeafMaker().(#[60,62,64,65], 1/4))]);
     m = FoscMarkup("July 2010 - May 2011", direction: 'down');
     m = m.italic;
     a.addFinalMarkup(m, extraOffset: #[0.5, -2]);
     a.show;
-
-    img:: ![](../img/score-score-2.png)
     '''
 
-    p = "%/fosc/docs/img/score-score-2".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    code::
+    '''
+    code::nointerpret
     a = FoscScoreSegment.read(Threads, 'A1');
     a.score.addFinalMarkup(FoscMarkup.musicGlyph('scripts.ufermata'), extraOffset: #[55, 0]);
     a.show;
-
-    img:: ![](../img/score-score-3.png)
     '''
-
-    p = "%/fosc/docs/img/score-score-3".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-    '''
-	-------------------------------------------------------------------------------------------------------- */
-	addFinalMarkup { |markup, extraOffset|
+    -------------------------------------------------------------------------------------------------------- */
+    addFinalMarkup { |markup, extraOffset|
         var selection, lastLeaf, grobProxy;
         // selection = FoscSelection(this).components(prototype: FoscContext); // top context in score
         // selection.do { |e| e.postln };
@@ -116,33 +90,25 @@ FoscScore : FoscContext {
             grobProxy.extraOffset = extraOffset;
         };
         ^markup;
-	}
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC CLASS METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • *makePianoScore
 
     Makes piano score from leaves.
 
     Returns score.
-        
-    code::
+
+    '''
+    FIXME ERROR: Message 'prDivide' not understood.
+    code::nointerpret
     x = [48, 55, 58, 63, 69];
     y = Array.fill(12, { |i| FoscChord(x + i, FoscDuration(1, 4)) });
     b = FoscScore.makePianoScore(y, isSketch: true);
     override(b).stem.stencil_(false);
     b.show;
-
-    img:: ![](../img/score-score-4.png)
-    '''
-
-    p = "%/fosc/docs/img/score-score-4".format(Platform.userExtensionDir);
-    b.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     *makePianoScore { |leaves, lowestTreblePitch, isSketch=false|
