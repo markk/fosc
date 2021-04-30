@@ -6,15 +6,10 @@ TITLE:: FoscStaffPosition
 SUMMARY:: Returns a FoscStaffPosition.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Staff position
 
 
 USAGE::
-
-'''
-
-• FoscStaffPosition
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscStaffPosition : FoscObject {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,45 +28,37 @@ FoscStaffPosition : FoscObject {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
     Is true when 'object' is a staff position with the same number as this staff position.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     == { |object|
         if (object.isKindOf(this.species).not) { ^false };
         ^(number == object.number);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • <
 
     Is true when staff position is less than 'object'.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     < { |object|
         if (object.isKindOf(this.species).not) { ^false };
         ^(number < object.number);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
         ^"%(%)".format(this.species, number);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • hash
     !!!TODO: not yet implemented
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • str
 
+    '''
     code::
     a = FoscStaffPosition(1);
     a.str;
@@ -84,63 +71,39 @@ FoscStaffPosition : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • number
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • toPitch
 
     Makes named pitch from staff position and 'clef'.
 
-
-    • Example 1
-
+    '''
     Treble clef.
 
     code::
-    (-6..5).do { |i| FoscStaffPosition(i).toPitch('treble').str.postln };
-
-    post::
-    POSTOUTPUT
+    (-6..5).collect { |i| FoscStaffPosition(i).toPitch('treble').str };
     '''
 
-
-    • Example 2
-
+    '''
     Bass clef.
 
     code::
-    (-6..5).do { |i| FoscStaffPosition(i).toPitch('bass').str.postln };
-
-    post::
-    POSTOUTPUT
+    (-6..5).collect { |i| FoscStaffPosition(i).toPitch('bass').str };
     '''
 
-
-    • Example 3
-
+    '''
     Alto clef.
 
     code::
-    (-6..5).do { |i| FoscStaffPosition(i).toPitch('alto').str.postln };
-
-    post::
-    POSTOUTPUT
+    (-6..5).collect { |i| FoscStaffPosition(i).toPitch('alto').str };
     '''
 
-
-    • Example 4
-
+    '''
     Percussion clef.
 
     code::
-    (-6..5).do { |i| FoscStaffPosition(i).toPitch('percussion').str.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    (-6..5).collect { |i| FoscStaffPosition(i).toPitch('percussion').str };
     '''
     -------------------------------------------------------------------------------------------------------- */
     toPitch { |clef='treble'|
