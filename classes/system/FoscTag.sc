@@ -6,18 +6,12 @@ TITLE:: FoscTag
 SUMMARY:: Returns a FoscTag.
 
 
-DESCRIPTION:: TODO
-
-
-USAGE::
-
-'''
-
-• FoscTag
+DESCRIPTION:: Tag
 
 !!!TODO
 - placeholder for now
-'''
+
+USAGE::
 ------------------------------------------------------------------------------------------------------------ */
 FoscTag : FoscObject {
 
