@@ -6,34 +6,25 @@ TITLE:: FoscLogicalTie
 SUMMARY:: Returns a FoscLogicalTie.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A selection of components in a logical tie.
 
 
 USAGE::
-
-'''
-
-• FoscLogicalTie
-
-A selection of components in a logical tie.
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscLogicalTie : FoscSelection {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
+    '''
     code::
     m = FoscStaff(FoscLeafMaker().(#[60,60,62,nil], [1/4,2/4,5/4,3/4]));
     m.selectLeaves[0..1].tie;
-    m.doLogicalTies { |each| each.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    t = [];
+    m.doLogicalTies { |each| t = t.add(each.cs) };
+    t.postln;
     '''
     -------------------------------------------------------------------------------------------------------- */
     asCompileString {
@@ -43,13 +34,13 @@ FoscLogicalTie : FoscSelection {
         ^"%([%\n])".format(this.species, formatBlocks);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • at
 
     Gets item at 'index' in container. Traverses top-level items only.
 
     Returns component or selection.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a[0].str;
@@ -59,13 +50,13 @@ FoscLogicalTie : FoscSelection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • copySeries
 
     Gets item at indices in container. Traverses top-level items only.
 
     Returns component or selection.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     b = a[0..];
@@ -76,9 +67,7 @@ FoscLogicalTie : FoscSelection {
     // PRIVATE INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prAddOrRemoveNotesToAchieveWrittenDuration
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prAddOrRemoveNotesToAchieveWrittenDuration { |newWrittenDuration|
         var maker, durations, leaf, token, difference, extraLeaves, extraTokens;
@@ -138,40 +127,24 @@ FoscLogicalTie : FoscSelection {
         ^this[0].prGetLogicalTie;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prFuseLeavesByImmediateParentend(part._fuse())
 
+    '''
     code::
     a = FoscContainer({ FoscNote(60, 1/4) } ! 4);
     a.selectLeaves[1..2].prAttachTieToLeaves;
     b = a.selectLogicalTies[1];
     b.prFuseLeavesByImmediateParent;
     a.show;
-
-    img:: ![](../img/selection-logical-tie-1.png)
     '''
 
-    p = "%/fosc/docs/img/selection-logical-tie-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
+    '''
     code::
     a = FoscStaff([FoscLeafMaker().(#[60,60], 1/4), FoscTuplet(2/3, { FoscNote(60, 1/8) } ! 3)]);
     a.selectLeaves[0..2].prAttachTieToLeaves;
     b = a.selectLogicalTies[0];
     b.prFuseLeavesByImmediateParent;
     a.show;
-
-    img:: ![](../img/selection-logical-tie-2.png)
-    '''
-
-    p = "%/fosc/docs/img/selection-logical-tie-2".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prFuseLeavesByImmediateParent {
@@ -182,16 +155,17 @@ FoscLogicalTie : FoscSelection {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prGetLeavesGroupedByImmediateParents
 
+    '''
     code::
     a = FoscStaff([FoscLeafMaker().(#[60,62], 1/4), FoscTuplet(2/3, { FoscNote(62, 1/8) } ! 3)]);
     a.selectLeaves[1..2].prAttachTieToLeaves;
     // a.show;
     b = a.selectLogicalTies[1];
     b.prGetLeavesGroupedByImmediateParents;
-
+    '''
+    '''
     code::
     a = FoscStaff({ FoscNote(60, 1/4) } ! 4);
     a.selectLeaves[1..2].prAttachTieToLeaves;
@@ -206,58 +180,29 @@ FoscLogicalTie : FoscSelection {
         ^parts;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prScale
 
-    • Example 1
-
+    '''
     code::
     a = FoscStaff([b = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/8)])]);
     a.prScale(4);
     a.show;
-
-    img:: ![](../img/selection-logical-tie-3.png)
     '''
 
-    p = "%/fosc/docs/img/selection-logical-tie-3".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    • Example 2
-
+    '''
     code::
     b = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a = FoscStaff([b]);
     a.prScale(2.5);
     a.show;
-
-    img:: ![](../img/selection-logical-tie-4.png)
     '''
 
-    p = "%/fosc/docs/img/selection-logical-tie-4".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
-
-    • Example 3
-
+    '''
     code::
     b = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a = FoscStaff([b]);
     a.prScale(FoscMultiplier(1, 3));
     a.show;
-
-    img:: ![](../img/selection-logical-tie-5.png)
-    '''
-
-    p = "%/fosc/docs/img/selection-logical-tie-5".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     prScale { |multiplier|
@@ -269,13 +214,13 @@ FoscLogicalTie : FoscSelection {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • head
 
     Reference to element 0 in logical tie.
 
     Returns component.
 
+    '''
     code::
     a = FoscContainer([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     b = FoscLogicalTie(a[0..]);
@@ -286,18 +231,18 @@ FoscLogicalTie : FoscSelection {
         if (items.notNil) { ^items[0] };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isPitched
 
     Is true when logical tie head is a note or chord.
 
     Returns true or false.
 
-
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a.isPitched;
-
+    '''
+    '''
     code::
     a = FoscLogicalTie([FoscRest(1), FoscRest(1)]);
     a.isPitched;
@@ -308,17 +253,18 @@ FoscLogicalTie : FoscSelection {
         ^false;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isTrivial
 
     Is true when length of logical tie is less than or equal to 1.
 
     Returns true or false.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a.isTrivial;
-
+    '''
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4)]);
     a.isTrivial;
@@ -328,26 +274,26 @@ FoscLogicalTie : FoscSelection {
         ^(this.size <= 1);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • leaves
 
     Leaves in logical tie.
 
     Returns selection.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a.leaves;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tail
 
     Reference to element -1 in logical tie.
 
     Returns component.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     a.tail;
@@ -357,13 +303,13 @@ FoscLogicalTie : FoscSelection {
         if (items.notNil) { ^items[items.lastIndex] };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writtenDuration
 
     Sum of written duration of all components in logical tie.
 
     Returns duration.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 2/4)]);
     a.writtenDuration.cs;
@@ -373,13 +319,13 @@ FoscLogicalTie : FoscSelection {
         ^items.collect { |each| each.writtenDuration }.sum;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writtenPitch
 
     Written pitch of logical tie if logical is pitched.
 
     Returns pitch.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 2/4)]);
     a.writtenPitch.cs;
@@ -389,11 +335,11 @@ FoscLogicalTie : FoscSelection {
         if (this.isPitched) { ^this.head.writtenPitch } { ^nil };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • writtenPitch_
 
     Sets written pitch of logical tie if logical is pitched.
 
+    '''
     code::
     a = FoscLogicalTie([FoscNote(60, 1/4), FoscNote(60, 2/4)]);
     a.writtenPitch_(61);
@@ -407,26 +353,19 @@ FoscLogicalTie : FoscSelection {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • toTuplet
 
     Changes logical tie to tuplet.
 
+    '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64], [1/8, 5/16, 1/4]));
-    //a.show;
+    a.show;
+
+    code::
     m = a[1].prGetLogicalTie;
     m.toTuplet(#[-2,1,1,1,2]);
     a.show;
-
-    img:: ![](../img/selection-logical-tie-6.png)
-    '''
-
-    p = "%/fosc/docs/img/selection-logical-tie-6".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
     -------------------------------------------------------------------------------------------------------- */
     toTuplet { |proportions|
@@ -509,10 +448,9 @@ FoscLogicalTie : FoscSelection {
     // }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // TO BE DEPRECATED
+    // PRIVATE TO BE DEPRECATED
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prAllLeavesAreInSameParent
     !!!TODO: DEPRECATE
 
@@ -520,7 +458,7 @@ FoscLogicalTie : FoscSelection {
 
     Returns true or false.
 
-
+    '''
     code::
     a = FoscContainer([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     b = FoscLogicalTie(a[0..]);
@@ -539,13 +477,13 @@ FoscLogicalTie : FoscSelection {
     //     ^true;
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • tieSpanner
 
     Tie spanner governing logical tie.
 
     Returns tie spanner.
 
+    '''
     code::
     a = FoscContainer([FoscNote(60, 1/4), FoscNote(60, 1/4)]);
     b = FoscSelection(a[0..]);
