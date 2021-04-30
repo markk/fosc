@@ -6,51 +6,46 @@ TITLE:: FoscSchemeVector
 SUMMARY:: Returns a FoscSchemeVector.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Scheme vector
 
+Fosc model of Scheme vector.
 
 USAGE::
 
 '''
-
-• FoscSchemeVector
-
-Fosc model of Scheme vector.
+Scheme vector of boolean values
 
 code::
-// Example 1: Scheme vector of boolean values:
 a = FoscSchemeVector(true, true, false)
-code::
 a.format;
-
+'''
+'''
+Scheme vector of symbols
 code::
-// Example 2: Scheme vector of symbols:
 a = FoscSchemeVector('foo', 'bar', 'blah');
 a.format;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSchemeVector : FoscScheme {
-	*new { |... args|
-		^super.new(*args).quoting_("'");
-	}
+    *new { |... args|
+        ^super.new(*args).quoting_("'");
+    }
 }
-
 /* ------------------------------------------------------------------------------------------------------------
-Constant
-'''
 • FoscSchemeVectorConstant
 
 Fosc model of Scheme vector constant.
 
+'''
+Scheme vector of boolean values
+
 code::
-// Example 1: Scheme vector of boolean values:
 a = FoscSchemeVectorConstant(true, true, false)
-code::
 a.format;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscSchemeVectorConstant : FoscScheme {
-	*new { |... args|
-		^super.new(*args).quoting_("'#");
-	}
+    *new { |... args|
+        ^super.new(*args).quoting_("'#");
+    }
 }
