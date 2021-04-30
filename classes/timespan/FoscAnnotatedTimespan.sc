@@ -6,20 +6,12 @@ TITLE:: FoscAnnotatedTimespan
 SUMMARY:: Returns a FoscAnnotatedTimespan.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: An annotated timespan.
 
 
 USAGE::
 
 '''
-
-• FoscAnnotatedTimespan
-
-An annotated timespan.
-
-
-• Example 1
-
 code::
 t = FoscAnnotatedTimespan(1/4, 7/8, annotation: #['a', 'b', 'c']);
 t.startOffset.str;
@@ -42,13 +34,13 @@ FoscAnnotatedTimespan : FoscTimespan {
     // PUBLIC INSTANCE METHODS: Special Methods
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • asCompileString
 
     Formats timespan.
 
     Returns string.
 
+    '''
     code::
     FoscAnnotatedTimespan(1, 3).cs;
 
@@ -66,19 +58,15 @@ FoscAnnotatedTimespan : FoscTimespan {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • annotation
 
     Gets annotated timespan annotation.
 
     Returns arbitrary object.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • annotation_
 
     Sets annotated timespan annotation.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
