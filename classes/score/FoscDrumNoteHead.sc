@@ -6,39 +6,39 @@ TITLE:: FoscDrumNoteHead
 SUMMARY:: Returns a FoscDrumNoteHead.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A drum note-head.
 
 
 USAGE::
 
 '''
+FIXME ERROR: Can't initialize FoscPitch from value: snare
 
-• FoscDrumNoteHead
+code::nointerpret
+a = FoscDrumNoteHead('snare');
+a.pitch;
+'''
+'''
+code::nointerpret
+FoscDrumNoteHead('foo');
 
-A drum note-head.
-
+post::
+ERROR: Meta_FoscDrumNoteHead::new: name is not in LilypondDrums: foo.
+'''
 >>> note_head = scoretools.DrumNoteHead('snare')
 >>> note_head
 DrumNoteHead('snare')
-
-code::
-a = FoscDrumNoteHead('snare');
-a.pitch;
-
-code::
-FoscDrumNoteHead('foo');
-'''
 ------------------------------------------------------------------------------------------------------------ */
 FoscDrumNoteHead : FoscNoteHead {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INIT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	*new { |writtenPitch='snare', client, isCautionary, isForced, isParenthesized, tweaks|
-		var drumPitch;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // INIT
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    *new { |writtenPitch='snare', client, isCautionary, isForced, isParenthesized, tweaks|
+        var drumPitch;
         if (LilypondDrums.includes(writtenPitch.asSymbol).not) {
-			throw("%::new: name is not in LilypondDrums: %.".format(this.species, writtenPitch));
-		};
+            throw("%::new: name is not in LilypondDrums: %.".format(this.species, writtenPitch));
+        };
         drumPitch = LilypondDrums.at(writtenPitch.asSymbol);
-		^super.new(drumPitch, client, isCautionary, isForced, isParenthesized, tweaks);
-	}
+        ^super.new(drumPitch, client, isCautionary, isForced, isParenthesized, tweaks);
+    }
 }
