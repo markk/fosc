@@ -5,99 +5,96 @@ TITLE:: extSymbol
 SUMMARY:: Returns a extSymbol.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Extensions to Symbol
 
 
 USAGE::
-
-'''
-
-• Symbol
-'''
 ------------------------------------------------------------------------------------------------------------ */
 + Symbol {
-	/* --------------------------------------------------------------------------------------------------------
- '''
-	• toTridirectionalLilypondSymbol
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE METHODS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
+    • toTridirectionalLilypondSymbol
 
-	Changes receiver to tridirectional direction string.
+    Changes receiver to tridirectional direction string.
 
-	Returns string or nil.
+    Returns string or nil.
 
- code::
-	toTridirectionalDirectionString('^');
-	toTridirectionalDirectionString('-');
-	toTridirectionalDirectionString('_');
-	toTridirectionalDirectionString('default');
- '''
+    '''
+    code::nointerpret
+    toTridirectionalDirectionString('^');
+    toTridirectionalDirectionString('-');
+    toTridirectionalDirectionString('_');
+    toTridirectionalDirectionString('default');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     toTridirectionalLilypondString {
-    	var lookup;
-		lookup = (
-			'above': 'up',
-		    '^': 'up',
-		    'up': 'up',
-		    'below': 'down',
-		    '_': 'down',
-		    'down': 'down',
-		    'center': 'center',
-		    '-': 'center',
-		    'center': 'center',
-		    'default': 'center',
-		    'neutral': 'center',
-		    'nil': nil
-		  );
-		^lookup[this];
+        var lookup;
+        lookup = (
+            'above': 'up',
+            '^': 'up',
+            'up': 'up',
+            'below': 'down',
+            '_': 'down',
+            'down': 'down',
+            'center': 'center',
+            '-': 'center',
+            'center': 'center',
+            'default': 'center',
+            'neutral': 'center',
+            'nil': nil
+    	  );
+        ^lookup[this];
     }
     /* --------------------------------------------------------------------------------------------------------
- '''
-	• toTridirectionalLilypondSymbol
+    • toTridirectionalLilypondSymbol
 
-	Changes receiver to tridirectional direction symbol.
+    Changes receiver to tridirectional direction symbol.
 
-	Returns string or nil.
+    Returns string or nil.
 
- code::
-	toTridirectionalDirectionString('^');
-	toTridirectionalDirectionString('-');
-	toTridirectionalDirectionString('_');
-	toTridirectionalDirectionString('default');
- '''
+    '''
+    code::nointerpret
+    toTridirectionalDirectionString('^');
+    toTridirectionalDirectionString('-');
+    toTridirectionalDirectionString('_');
+    toTridirectionalDirectionString('default');
+    '''
     -------------------------------------------------------------------------------------------------------- */
     toTridirectionalLilypondSymbol {
-    	var lookup;
-		lookup = (
-			'above': '^',
-		    '^': '^',
-		    'up': '^',
-		    'below': '_',
-		    '_': '_',
-		    'down': '_',
-		    'center': '-',
-		    '-': '-',
-		    'center': '-',
-		    'default': '-',
-		    'neutral': '-',
-		    'nil': '-'
-		  );
-		^lookup[this];
+        var lookup;
+        lookup = (
+            'above': '^',
+            '^': '^',
+            'up': '^',
+            'below': '_',
+            '_': '_',
+            'down': '_',
+            'center': '-',
+            '-': '-',
+            'center': '-',
+            'default': '-',
+            'neutral': '-',
+            'nil': '-'
+    	  );
+        ^lookup[this];
     }
     /* --------------------------------------------------------------------------------------------------------
- '''
-	• toTridirectionalOrdinalConstant
+    • toTridirectionalOrdinalConstant
 
-	Changes receiver to tridirectional ordinal constant.
+    Changes receiver to tridirectional ordinal constant.
 
-	Returns string or nil.
+    Returns string or nil.
 
- code::
-	toTridirectionalOrdinalConstant('^');
-	toTridirectionalOrdinalConstant('-');
-	toTridirectionalOrdinalConstant('_');
-	toTridirectionalOrdinalConstant('default');
-
- code::
-	lookup = {
+    '''
+    code::nointerpret
+    toTridirectionalOrdinalConstant('^');
+    toTridirectionalOrdinalConstant('-');
+    toTridirectionalOrdinalConstant('_');
+    toTridirectionalOrdinalConstant('default');
+    '''
+    lookup = {
         Up: Up,
         '^': Up,
         'up': Up,
@@ -120,9 +117,8 @@ USAGE::
     message = 'unrecognized expression: {!r}.'
     message = message.format(argument)
     raise ValueError(message)
- '''
     -------------------------------------------------------------------------------------------------------- */
     toTridirectionalOrdinalConstant {
-    	^this.notYetImplemented(thisMethod);
+        ^this.notYetImplemented(thisMethod);
     }
 }
