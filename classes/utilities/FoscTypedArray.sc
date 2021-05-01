@@ -6,18 +6,15 @@ TITLE:: FoscTypedArray
 SUMMARY:: Returns a FoscTypedArray.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A typed array.
 
 
 USAGE::
 
 '''
-
-• FoscTypedArray
-
 code::
 x = FoscTypedArray([1, 2, 3, 4], Number);
-x.inspect;
+x.cs;
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTypedArray : FoscTypedSequenceableCollection {
@@ -31,17 +28,19 @@ FoscTypedArray : FoscTypedSequenceableCollection {
         collection = collection.asArray;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: LIST MODIFICATION
+    // PUBLIC INSTANCE METHODS: List Modification
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ++
 
     Concatenates typed list and expr.
 
     Returns new typed list.
 
-    code::
+    '''
+    FIXME ERROR: Meta_FoscTypedArray:new: item a FoscTypedArray is the wrong type: FoscTypedArray.
+
+    code::nointerpret
     a = FoscTypedArray([1, 2, 3, 4], Number);
     b = FoscTypedArray([5, 6], Number);
     (a ++ b).items;
@@ -49,7 +48,6 @@ FoscTypedArray : FoscTypedSequenceableCollection {
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     b = [5, 6]; // coerce to itemClass
-    code::
     (a ++ b).items;
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -60,13 +58,13 @@ FoscTypedArray : FoscTypedSequenceableCollection {
         ^this.species.new(items, itemClass);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • append
 
     Appends item to typed array.
 
     Returns new typed array.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a = a.add(5);
@@ -81,9 +79,9 @@ FoscTypedArray : FoscTypedSequenceableCollection {
         ^this.species.new(items, itemClass);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • addAll
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a = a.addAll([5, 6, 7]);
@@ -94,13 +92,13 @@ FoscTypedArray : FoscTypedSequenceableCollection {
     //     items.do { |item| this.add(item) };
     // }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • insert
 
     Insert item at index.
 
     Returns new typed array.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a = a.insert(2, 99);
@@ -115,13 +113,13 @@ FoscTypedArray : FoscTypedSequenceableCollection {
         ^this.species.new(items, itemClass);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prepend
 
     Prepends item to typed array.
 
     Returns new typed array.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a = a.prepend(5);
@@ -132,13 +130,13 @@ FoscTypedArray : FoscTypedSequenceableCollection {
         ^this.insert(0, item);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • put
 
     Put item at index.
 
     Returns new typed array.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a = a.put(2, 99);
@@ -155,13 +153,13 @@ FoscTypedArray : FoscTypedSequenceableCollection {
         ^this.species.new(items, itemClass);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • remove
 
     Remove item.
 
     Returns removed item.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a.remove(2);
@@ -169,13 +167,13 @@ FoscTypedArray : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • removeAt
 
     Remove item at index.
 
     Returns removed item.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a.removeAt(1);
@@ -183,13 +181,13 @@ FoscTypedArray : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sort
 
     Sort the contents of the collection using optional comparison function.
 
     Returns new typed array.
 
+    '''
     code::
     a = FoscTypedArray([5, 2, 3, 4], Number);
     a = a.sort;
@@ -207,42 +205,42 @@ FoscTypedArray : FoscTypedSequenceableCollection {
         ^this.species.new(items, itemClass);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: PROPERTIES
+    // PUBLIC INSTANCE METHODS: Properties
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • at
 
     Gets item at index.
 
     Returns item.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a[2];
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • atAll
 
     Gets items at indices.
 
     Returns items.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a[(2..3)];
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • includes
 
     Answer true if item exists in collection.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a.includes(3);
@@ -250,40 +248,40 @@ FoscTypedArray : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • indexOf (abjad: index)
 
     Return the first index matching item.
 
     Returns nonnegative integer.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a.indexOf(3);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • occurrencesOf (abjad: count)
 
     Return the number of occurrences of item in collection.
 
     Returns nonnegative integer.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a.occurrencesOf(3);
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: DISPLAY
+    // PUBLIC INSTANCE METHODS: Display
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • inspect
 
     Inspect items in collection.
 
+    '''
     code::
     a = FoscTypedArray([1, 2, 3, 4], Number);
     a.inspect;
