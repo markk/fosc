@@ -6,15 +6,10 @@ TITLE:: FoscTreeNode
 SUMMARY:: Returns a FoscTreeNode.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A tree node.
 
 
 USAGE::
-
-'''
-
-• FoscTreeNode
-'''
 ------------------------------------------------------------------------------------------------------------- */
 FoscTreeNode : FoscObject {
     var <name, <parent;
@@ -37,25 +32,20 @@ FoscTreeNode : FoscObject {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • depth
-    '''
     -------------------------------------------------------------------------------------------------------- */
     depth {
         if (parent.isNil) { ^0 };
         ^this.properParentage.size;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • depthwiseInventory
 
     A dictionary of all nodes in a rhythm-tree, organized by their depth relative the root node.
 
     Returns dictionary.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscTreeContainer(name: 'a');
     b = FoscTreeContainer(name: 'b');
@@ -65,18 +55,20 @@ FoscTreeNode : FoscObject {
     f = FoscTreeContainer(name: 'f');
     g = FoscTreeContainer(name: 'g');
 
-    code::
     a.addAll([b, c]);
     b.addAll([d, e]);
     c.addAll([f, g]);
 
-    code::
     i = a.depthwiseInventory;
     k = i.keys.as(Array).sort;
+    o = [];
     k.do { |depth, items|
-        "depth: %".format(depth).postln;
-        i[depth].do { |node| depth.do { Post.tab }; node.name.postln };
+        o = o.add("depth: %".format(depth));
+        i[depth].do { |node|
+            o = o.add("%%".format("".padLeft(depth, "\t"), node.name));
+        };
     };
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     depthwiseInventory {
@@ -93,22 +85,19 @@ FoscTreeNode : FoscObject {
         ^inventory;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • index
-    '''
     -------------------------------------------------------------------------------------------------------- */
     index {
         ^this.root.nodes.do { |node, i| if (this == node) { ^i } };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • improperParentage
 
     The improper parentage of a node in a rhythm-tree, being the sequence of node beginning with itself and ending with the root node of the tree.
 
     Returns array of tree nodes.
 
-
+    '''
     code::
     a = FoscTreeContainer();
     b = FoscTreeContainer();
@@ -117,7 +106,11 @@ FoscTreeNode : FoscObject {
     b.add(c);
 
     a.improperParentage == [a];         // true
+
+    code::
     b.improperParentage == [b, a];      // true
+
+    code::
     c.improperParentage == [c, b, a];   // true
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -132,22 +125,19 @@ FoscTreeNode : FoscObject {
         ^parentage;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isRoot
-    '''
     -------------------------------------------------------------------------------------------------------- */
     isRoot {
         ^parent.isNil;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • properParentage
 
     The proper parentage of a node in a rhythm-tree, being the sequence of node beginning with the node's immediate parent and ending with the root node of the tree.
 
     Returns array of tree nodes.
 
-
+    '''
     code::
     a = FoscTreeContainer();
     b = FoscTreeContainer();
@@ -156,7 +146,11 @@ FoscTreeNode : FoscObject {
     b.add(c);
 
     a.properParentage == [];            // true
+
+    code::
     b.properParentage == [a];           // true
+
+    code::
     c.properParentage == [b, a];        // true
     '''
     -------------------------------------------------------------------------------------------------------- */
@@ -164,9 +158,7 @@ FoscTreeNode : FoscObject {
         ^this.improperParentage[1..];
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • root
-    '''
     -------------------------------------------------------------------------------------------------------- */
     root {
         var node;
@@ -175,9 +167,7 @@ FoscTreeNode : FoscObject {
         ^node
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • siblings
-    '''
     -------------------------------------------------------------------------------------------------------- */
     siblings { |includeSelf=false|
         var siblings;
