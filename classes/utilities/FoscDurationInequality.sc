@@ -6,19 +6,20 @@ TITLE:: FoscDurationInequality
 SUMMARY:: Returns a FoscDurationInequality.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Duration inequality
 
 
 USAGE::
 
 '''
-
-• FoscDurationInequality
-
 code::
 a = FoscDurationInequality('<', [3, 4]);
 a.([1, 2]);
+
+code::
 a.(FoscNote(60, 1/4));
+
+code::
 a.(FoscLeafMaker().([60,62],[1/1,1/1]))
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -43,13 +44,11 @@ FoscDurationInequality : FoscInequality {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • value
 
     Calls inequality on 'object'.
 
     Returns true or false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     value { |object|
         var localDuration;
@@ -66,7 +65,7 @@ FoscDurationInequality : FoscInequality {
                 localDuration  = object.prGetPreprolatedDuration;
             } {
                 localDuration = object.duration;
-            };  
+            };
         }
         {
             localDuration = FoscDuration(object);
@@ -77,21 +76,17 @@ FoscDurationInequality : FoscInequality {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • duration
 
     Gets duration.
 
     Returns a duration.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • preprolated
 
     Is true when inequality evaluates preprolated duration.
 
     Returns true or false.
-    '''
     -------------------------------------------------------------------------------------------------------- */
 }
