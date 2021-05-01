@@ -5,49 +5,38 @@ TITLE:: extFloat
 SUMMARY:: Returns a extFloat.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Extensions to Float.
 
 
 USAGE::
-
-'''
-
-• Float
-'''
 ------------------------------------------------------------------------------------------------------------ */
 + Float {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • partitionByRatio
 
     Partitions receiver into parts by ratio.
 
     Returns array of floats.
 
-
-    • Example 1
-
+    '''
     code::
     1.5.partitionByRatio(#[1, 1, 1]);
+    '''
 
-
-    • Example 2
-
+    '''
     code::
     -1.5.partitionByRatio(#[1, 1, 1]);
+    '''
 
-
-    • Example 3
-
+    '''
     code::
     1.5.partitionByRatio(#[1, -1, 1]);
+    '''
 
-
-    • Example 4
-
+    '''
     Support nested rhythm tree syntax.
 
     code::
@@ -59,7 +48,7 @@ USAGE::
 
         result = [];
         signs = [];
-        
+
         recurse = { |val, ratio|
             durs = ratio.slice(nil, 0);
             if (durs.isSequenceableCollection.not) { durs = [durs] };
@@ -84,15 +73,13 @@ USAGE::
         };
 
         result = result.collect { |each, i| each * signs[i] };
-        
+
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • partitionByRatio
 
     DEPRECATED: version without nested rhythm tree support.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     // partitionByRatio { |ratio, precision=1e-12|
     //     var result, lastIndex;
