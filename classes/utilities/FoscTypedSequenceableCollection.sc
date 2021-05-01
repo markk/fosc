@@ -6,117 +6,113 @@ TITLE:: FoscTypedSequenceableCollection
 SUMMARY:: Returns a FoscTypedSequenceableCollection.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A typed sequenceable collection.
 
 
 USAGE::
 
 '''
-
-• FoscTypedSequenceableCollection
-
 code::
 x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
 x.collection;
+
+code::
 x.items;
 
+code::
 FoscTypedSequenceableCollection.dumpInterface
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscTypedSequenceableCollection : FoscTypedCollection {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: COMPARISON
+    // PUBLIC INSTANCE METHODS: Comparison
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • ==
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     b = FoscTypedSequenceableCollection([1, 2], Number);
     a == b;
+
+    code::
     a == a.copy;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • !=
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     b = FoscTypedSequenceableCollection([1, 2], Number);
     a != b;
+
+    code::
     a != a.copy;
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: ENUMERATION
+    // PUBLIC INSTANCE METHODS: Enumeration
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • do
 
+    '''
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x.do { |each| (each * 2).postln };
-
-    post::
-    POSTOUTPUT
-    '''
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • iter
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a = a.iter;
-    5.do { a.next.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    5.collect { a.next };
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: PROPERTIES
+    // PUBLIC INSTANCE METHODS: Properties
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • includes
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.includes(4);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isCollection
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.isCollection;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • items
 
+    '''
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x.items;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • size
 
     Size of typed sequenceable collection.
 
     Returns nonnegative integer.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.size;
@@ -126,13 +122,13 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • at
 
     Gets item at index.
 
     Returns item.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a[2];
@@ -143,13 +139,13 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.at(index);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • atAll
 
     Gets items at indices.
 
     Returns items.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a[(2..3)];
@@ -159,9 +155,9 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.atAll(indices);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • copySeries
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a[1..2];
@@ -183,27 +179,29 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.copySeries(first, second, last);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • includes
 
     Answer true if item exists in collection.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.includes(3);
+
+    code::
     a.includes(5);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • indexOf (abjad: index)
 
     Return the first index matching item.
 
     Returns integer.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.indexOf(3);
@@ -214,11 +212,11 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.indexOf(item);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • last
 
     Return the last item.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.last;
@@ -228,13 +226,13 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.last;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • occurrencesOf (abjad: count)
 
     Return the number of occurrences of item in collection.
 
     Returns integer.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.occurrencesOf(3);
@@ -245,16 +243,15 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.occurrencesOf(item);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: LIST MODIFICATION
+    // PUBLIC INSTANCE METHODS: List Modification
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pop
 
     Removes last item.
 
-    code::
-    Returns removed item;
+    '''
+    Returns removed item
 
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
@@ -269,13 +266,13 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^oldItem;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • remove
 
     Remove item.
 
     Returns removed item.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.remove(2);
@@ -288,13 +285,13 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.remove(item);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • removeAt
 
     Remove item at index.
 
     Returns removed item.
 
+    '''
     code::
     a = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     a.removeAt(1);
@@ -305,12 +302,12 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^collection.removeAt(index);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: TRANSFORMATION
+    // PUBLIC INSTANCE METHODS: Transformation
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • collect
 
+    '''
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x = x.collect { |each| each * 2 };
@@ -323,9 +320,9 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^this.species.new(items, itemClass);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reject
 
+    '''
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x = x.reject { |each| each.even };
@@ -338,9 +335,9 @@ FoscTypedSequenceableCollection : FoscTypedCollection {
         ^this.species.new(items, itemClass);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • select
 
+    '''
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x = x.select { |each| each.even };
