@@ -5,40 +5,33 @@ TITLE:: extSimpleNumber
 SUMMARY:: Returns a extSimpleNumber.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Extensions to SimpleNumber
 
 
 USAGE::
 
 '''
-
-• SimpleNumber
-
-SimpleNumber.dumpInterface
-
-12.format
+code::
+12.format;
 '''
+SimpleNumber.dumpInterface
 ------------------------------------------------------------------------------------------------------------ */
 + SimpleNumber {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • format
-
-    code::
-    x = Array.geom(20, 1000, 7/10);
-    x.do { |n| n.format(precision: 3, width: 8).postln };
-
-    post::
-    POSTOUTPUT
-    '''
 
     Returns a string.
 
-    precision: number of decimal places
-    width: column width
+    - precision: number of decimal places
+    - width: column width
+
+    '''
+    code::
+    x = Array.geom(20, 1000, 7/10);
+    x.collect { |n| n.format(precision: 3, width: 8) }.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     format { |precision=2, width=6|
@@ -48,37 +41,32 @@ SimpleNumber.dumpInterface
         if (precision >= 1) {
             result = "%.%".format(characteristic, mantissa).padLeft(width, " ");
         } {
-            result = "%".format(characteristic).padLeft(width, " ");   
+            result = "%".format(characteristic).padLeft(width, " ");
         };
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • harmonics
 
+    '''
     code::
     36.midicps.harmonics.cpsmidi.round(1/6).round(0.01).printAll;
-    36.midicps.harmonics(indices: (1,3..29)).cpsmidi.round(1/6).round(0.01).printAll;
 
-    post::
-    POSTOUTPUT
-    '''
+    code::
+    36.midicps.harmonics(indices: (1,3..29)).cpsmidi.round(1/6).round(0.01).printAll;
     '''
     -------------------------------------------------------------------------------------------------------- */
     harmonics { |n=32|
         ^n.collect { |mul| this * mul };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • subharmonics
 
     code::
     84.midicps.subharmonics.cpsmidi.round(1/6).round(0.01).printAll;
-    84.midicps.subharmonics(indices: (1,3..29)).cpsmidi.round(1/6).round(0.01).printAll;
 
-    post::
-    POSTOUTPUT
-    '''
+    code::
+    84.midicps.subharmonics(indices: (1,3..29)).cpsmidi.round(1/6).round(0.01).printAll;
     '''
     -------------------------------------------------------------------------------------------------------- */
     subharmonics { |indices|
