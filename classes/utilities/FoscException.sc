@@ -5,22 +5,22 @@ TITLE:: FoscException
 SUMMARY:: Returns a FoscException.
 
 
-DESCRIPTION:: TODO
-
-
-USAGE::
-
-'''
+DESCRIPTION::
 
 • FoscMethodError
 
 Normally used in conjunction with Object:assert.
 
+USAGE::
 
+'''
 Throw an assertion error:
 
-code::
+code::nointerpret
 FoscSegmentMaker(meterSpecifier: 2);
+
+post::
+ERROR: Class not defined.
 '''
 ------------------------------------------------------------------------------------------------------------ */
 FoscMethodError : MethodError {
@@ -39,24 +39,19 @@ FoscMethodError : MethodError {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • errorString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     errorString {
        ^"ERROR: %:%: %".format(receiver, selector, message);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reportError
-    '''
     -------------------------------------------------------------------------------------------------------- */
     reportError {
         this.errorString.postln;
     }
 }
 /* ------------------------------------------------------------------------------------------------------------
-'''
 • FoscValueError
 
 Normally used in conjunction with Object:assert.
@@ -64,7 +59,7 @@ Normally used in conjunction with Object:assert.
 
 Throw an assertion error:
 
-code::
+code::nointerpret
 FoscSegmentMaker(meterSpecifier: 2);
 '''
 ------------------------------------------------------------------------------------------------------------ */
@@ -85,17 +80,13 @@ FoscValueError : MethodError {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • errorString
-    '''
     -------------------------------------------------------------------------------------------------------- */
     errorString {
        ^"ERROR: %:%: bad value for '%': %.".format(receiver, selector, argName, value.cs);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reportError
-    '''
     -------------------------------------------------------------------------------------------------------- */
     reportError {
         this.errorString.postln;
