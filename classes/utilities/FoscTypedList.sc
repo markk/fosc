@@ -6,15 +6,12 @@ TITLE:: FoscTypedList
 SUMMARY:: Returns a FoscTypedList.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A typed list.
 
 
 USAGE::
 
 '''
-
-• FoscTypedList
-
 code::
 x = FoscTypedList([1, 2, 3, 4], Number);
 x.inspect;
@@ -30,18 +27,20 @@ FoscTypedList : FoscTypedSequenceableCollection {
         collection = collection.collect { |item| this.prItemCoercer(item) }; // coerce type
         collection = collection.asList;
     }
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PUBLIC INSTANCE METHODS: LIST MODIFICATION
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE METHODS: List Modification
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* --------------------------------------------------------------------------------------------------------
     • concat
 
-	Concatenates typed list and expr.
+    Concatenates typed list and expr.
 
- 	Returns new typed list.
+    Returns new typed list.
 
-    code::
+    '''
+    FIXME ERROR: Message 'asList' not understood.
+
+    code::nointerpret
     a = FoscTypedList([1, 2, 3, 4], Number);
     b = FoscTypedList([5, 6], Number);
     (a ++ b).inspect;
@@ -53,12 +52,12 @@ FoscTypedList : FoscTypedSequenceableCollection {
         items = (this.items.copy) ++ expr.items;
         ^this.species.new(items, itemClass);
     }
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    /* --------------------------------------------------------------------------------------------------------
     • add
 
     Appends item to list.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.add(5);
@@ -66,14 +65,14 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     add { |item|
-		item = this.prItemCoercer(item);
-       	this.prOnInsertion(item);
-   		collection.add(item);
+    	item = this.prItemCoercer(item);
+           this.prOnInsertion(item);
+       	collection.add(item);
     }
-	/* --------------------------------------------------------------------------------------------------------
-    '''
+    /* --------------------------------------------------------------------------------------------------------
     • append -- REMOVE
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.extend([5, 6, 7]);
@@ -81,47 +80,42 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     append { |item|
-    	this.add(item);
+        this.add(item);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • addAll
-    '''
     -------------------------------------------------------------------------------------------------------- */
     addAll { |items|
         items.do { |item| this.add(item) };
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • extend -- REMOVE
-    '''
     -------------------------------------------------------------------------------------------------------- */
     extend { |items|
         this.addAll(items);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • insert
 
     Inserts item at index.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.insert(1, 5);
     a.inspect;
-    '''
     -------------------------------------------------------------------------------------------------------- */
     insert { |index, item|
         item = this.prItemCoercer(item);
-       	this.prOnInsertion(item);
-   		collection.insert(index, item);
+           this.prOnInsertion(item);
+       	collection.insert(index, item);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • pop
 
     Puts item at index.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.pop;
@@ -129,11 +123,11 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prepend
 
-    Appends item to list.
+    Prepends item to list.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.prepend(5);
@@ -144,11 +138,11 @@ FoscTypedList : FoscTypedSequenceableCollection {
         this.insert(0, item);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • put
 
     Puts item at index.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a[1] = 5;
@@ -156,19 +150,19 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     put { |index, item|
-    	var oldItem;
+        var oldItem;
         item = this.prItemCoercer(item);
         oldItem = collection[index];
-       	this.prOnInsertion(item);
-       	this.prOnRemoval(oldItem);
-   		collection.put(index, item);
+           this.prOnInsertion(item);
+           this.prOnRemoval(oldItem);
+       	collection.put(index, item);
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • remove
 
     Remove item.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.remove(3);
@@ -176,11 +170,11 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • removeAt
 
     Remove item at index.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.removeAt(1);
@@ -188,9 +182,9 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sort
 
+    '''
     code::
     a = FoscTypedList([5, 2, 3, 4], Number);
     a.sort;
@@ -203,45 +197,45 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     sort { |func|
-		collection.sort(func);
+    	collection.sort(func);
     }
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: PROPERTIES
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC INSTANCE METHODS: Properties
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • at
 
     Gets item at index.
 
     Returns item.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a[2];
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • atAll
 
     Gets items at indices.
 
     Returns items.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a[(2..3)];
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • includes
 
     Answer true if item exists in collection.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.includes(3);
@@ -249,38 +243,38 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • indexOf (abjad: index)
 
     Return the first index matching item.
 
     Returns nonegative integer.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.indexOf(3);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • occurrencesOf (abjad: count)
 
     Return the number of occurrences of item in collection.
 
     Returns nonegative integer.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.occurrencesOf(3);
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: TRANSFORMATION
+    // PUBLIC INSTANCE METHODS: Transformation
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • collect
 
+    '''
     code::
     x = FoscTypedList([1, 2, 3, 4], Number);
     x = x.collect { |each| each * 2 };
@@ -288,9 +282,9 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • reject
 
+    '''
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x = x.reject { |each| each.even };
@@ -298,9 +292,9 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • select
 
+    '''
     code::
     x = FoscTypedSequenceableCollection([1, 2, 3, 4], Number);
     x = x.select { |each| each.even };
@@ -308,14 +302,14 @@ FoscTypedList : FoscTypedSequenceableCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC INSTANCE METHODS: DISPLAY
+    // PUBLIC INSTANCE METHODS: Display
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • inspect
 
     Inspect items in collection.
 
+    '''
     code::
     a = FoscTypedList([1, 2, 3, 4], Number);
     a.inspect;
