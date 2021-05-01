@@ -6,43 +6,40 @@ TITLE:: FoscTypedSet
 SUMMARY:: Returns a FoscTypedSet.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: A typed set.
 
 
 USAGE::
 
 '''
-
-• FoscTypedSet
-
 code::
 x = FoscTypedSet([1, 1, 2, 3, 4], Number);
 x.inspect;
 '''
 ------------------------------------------------------------------------------------------------------------ */
-FoscTypedSet : FoscTypedCollection {	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+FoscTypedSet : FoscTypedCollection {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // INIT
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	init { |items, argItemClass|
+    init { |items, argItemClass|
         var set;
         super.init(items, argItemClass);
         set = [];
         collection = collection.collect { |item| this.prItemCoercer(item) };
         collection.do { |item| if (set.includesEqual(item).not) { set = set.add(item) } };
         collection = set;
-	}
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • difference
 
     Set-theoretic difference of receiver and expr.
 
     Returns new typed frozen set.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     b = FoscTypedSet([2, 3, 4], Number);
@@ -52,21 +49,17 @@ FoscTypedSet : FoscTypedCollection {
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.difference(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.difference(b).items.collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • sect
 
     Set-theoretic intersection of receiver and expr.
 
     Returns new typed frozen set.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     b = FoscTypedSet([2, 3, 4], Number);
@@ -76,37 +69,35 @@ FoscTypedSet : FoscTypedCollection {
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.sect(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.sect(b).items.collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isDisjoint
 
     Is true when typed receiver shares no elements with expr. Otherwise false.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     b = FoscTypedSet([4], Number);
     c = FoscTypedSet([3, 4], Number);
     isDisjoint(a, b);
+
+    code::
     isDisjoint(a, c);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isEmpty
 
     Is true when set is empty.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     a.isEmpty;
@@ -117,58 +108,65 @@ FoscTypedSet : FoscTypedCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isSubsetOf
 
     Is true when receiver is a subset of expr. Otherwise false.
 
     Returns boolean.
 
-
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     b = FoscTypedSet([4], Number);
     c = FoscTypedSet([1, 2, 3, 4], Number);
     b.isSubsetOf(a);
+
+    code::
     a.isSubsetOf(c);
 
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3]);
     a.isSubsetOf(b);
+
+    code::
     b.isSubsetOf(a);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • isSupersetOf
 
     Is true when receiver is a superset of expr. Otherwise false.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     b = FoscTypedSet([4], Number);
     c = FoscTypedSet([1, 2, 3, 4], Number);
     b.isSupersetOf(a);
+
+    code::
     c.isSupersetOf(a);
 
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3]);
     a.isSupersetOf(b);
+
+    code::
     b.isSupersetOf(a);
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • notEmpty
 
     Is true when set is not empty.
 
     Returns boolean.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     a.notEmpty;
@@ -179,13 +177,13 @@ FoscTypedSet : FoscTypedCollection {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • symmetricDifference
 
     Symmetric difference of receiver and expr.
 
     Returns new typed frozen set.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     b = FoscTypedSet([2, 3, 4], Number);
@@ -195,21 +193,17 @@ FoscTypedSet : FoscTypedCollection {
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.symmetricDifference(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.symmetricDifference(b).items.collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • union
 
     Union of receiver and expr.
 
     Returns new typed frozen set.
 
+    '''
     code::
     a = FoscTypedSet([1, 2, 3], Number);
     b = FoscTypedSet([2, 3, 4], Number);
@@ -219,11 +213,7 @@ FoscTypedSet : FoscTypedCollection {
     code::
     a = FoscPitchClassSet([1, 2, 3]);
     b = FoscPitchClassSet([2, 3, 4]);
-    a.union(b).do { |each| each.pitchClassNumber.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.union(b).items.collect { |each| each.pitchClassNumber };
     '''
     -------------------------------------------------------------------------------------------------------- */
 }
