@@ -6,15 +6,12 @@ TITLE:: FoscPatternList
 SUMMARY:: Returns a FoscPatternList.
 
 
-DESCRIPTION:: TODO
+DESCRIPTION:: Pattern list.
 
 
 USAGE::
 
 '''
-
-• FoscPatternList
-
 code::
 a = FoscPattern(#[0,1,7], period: 16);
 b = FoscPattern(#[2,4,5], period: 15);
@@ -33,79 +30,57 @@ FoscPatternList : FoscTypedList {
     // PUBLIC INSTANCE METHODS
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • getMatchingPattern
 
     Gets pattern matching 'index'.
 
-
-    • Example 1
-
+    '''
     Get patterns that match the first ten indices.
 
+    code::
     p = FoscPatternList([
         FoscPattern(#[1], 2),
         FoscPattern(#[-3,-2,-1]),
-    code::
     ]);
-    
-    code::
-    10.do { |i| Post << i << Char.space; p.getMatchingPattern(i, 10).cs.postln };
-
-    post::
-    POSTOUTPUT
+    10.collect { |i| [i, p.getMatchingPattern(i, 10).cs] }.join("\n");
     '''
 
-
+    '''
     Get patterns that match the next ten indices. Note that the last three indices no longer match the second pattern.
 
+    code::
     p = FoscPatternList([
         FoscPattern(#[1], 2),
         FoscPattern(#[-3,-2,-1]),
-    code::
     ]);
-
-    code::
-    (10..19).do { |i| Post << i << Char.space; p.getMatchingPattern(i, 10).cs.postln };
-
-    post::
-    POSTOUTPUT
+    (10..19).collect { |i| [i, p.getMatchingPattern(i, 10).cs] }.join("\n");
     '''
 
-
+    '''
     Get patterns that match the first ten indices with 'rotation' set to 1.
 
+    code::
     p = FoscPatternList([
         FoscPattern(#[1], 2),
         FoscPattern(#[-3,-2,-1]),
-    code::
     ]);
-
-    code::
-    10.do { |i| Post << i << Char.space; p.getMatchingPattern(i, 10, rotation: 1).cs.postln };
-
-    post::
-    POSTOUTPUT
+    10.collect { |i| [i, p.getMatchingPattern(i, 10, rotation: 1).cs] }.join("\n");
     '''
 
+    '''
+    FIXME Execution warning: Class 'FoscSegmentList' not found
 
+    code::nointerpret
     p = FoscPatternList([
         FoscSilenceMask(FoscPattern(#[0,4,5])),
         FoscSustainMask(FoscPattern(#[1,11,13]))
-    code::
     ]);
-    
-    code::
-    20.do { |i| p.getMatchingPattern(i, 20).postln; };
-
-    post::
-    POSTOUTPUT
-    '''
+    20.collect { |i| [i, p.getMatchingPattern(i, 20)] }.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     getMatchingPattern { |index, totalLength, rotation|
         this.items.reverseDo { |pattern|
-            case 
+            case
             { pattern.respondsTo('pattern') && { pattern.pattern.notNil } } {
                 if (pattern.pattern.matchesIndex(index, totalLength, rotation)) {
                     ^pattern;
@@ -118,42 +93,31 @@ FoscPatternList : FoscTypedList {
         ^nil;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • getMatchingPayload
 
     Gets payload attached to pattern matching 'index'.
 
 
-    • Example 1
-
+    '''
     Get patterns that match the first ten indices.
 
+    code::
     p = FoscPatternList([
         FoscPattern(#[0], period: 2, payload: 'staccato'),
         FoscPattern(#[-3,-2,-1], payload: 'tenuto'),
-    code::
     ]);
-
-    code::
-    10.do { |i| Post << i << Char.space; p.getMatchingPayload(i, 10).postln };
-
-    post::
-    POSTOUTPUT
+    10.collect { |i| [i, p.getMatchingPattern(i, 10).cs] }.join("\n");
     '''
 
+    '''
+    FIXME Execution warning: Class 'FoscSegmentList' not found
 
+    code::nointerpret
     p = FoscPatternList([
         FoscSilenceMask(FoscPattern(#[0,4,5])),
         FoscSustainMask(FoscPattern(#[1,11,13]))
-    code::
     ]);
-    
-    code::
-    20.do { |i| p.getMatchingPayload(i, 20).postln; };
-
-    post::
-    POSTOUTPUT
-    '''
+    20.collect { |i| [i, p.getMatchingPattern(i, 10).cs] }.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     getMatchingPayload { |index, totalLength, rotation|
@@ -166,12 +130,10 @@ FoscPatternList : FoscTypedList {
     // PRIVATE INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prItemCoercer
-    '''
     -------------------------------------------------------------------------------------------------------- */
     prItemCoercer { |object|
-        case 
+        case
         {
             object.isKindOf(Pattern).not
             && { object.respondsTo('pattern') }
