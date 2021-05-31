@@ -532,6 +532,8 @@ FoscObject {
     m = FoscMarkup('Allegro assai', direction: 'above');
     tweak(m).color = 'red';
     m.format;
+
+    code::
     a[0].attach(m);
     a.format;
     '''
@@ -669,19 +671,11 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
     tweak(a[1].noteHead).color = 'red';
-    a.show;
     a.format;
+
+    code::
+    a.show;
     '''
-    ### abjad:
-    \new Staff
-    {
-        c'4
-        \tweak color #red
-        cs'4
-        d'4
-        ds'4
-    }
-    ###
 
     '''
     Tweaks grob aggregated to note-head
@@ -691,20 +685,11 @@ FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,61,62,63], [1/4]));
     tweak(a[1].noteHead).accidental.color = 'red';
-    a.show;
     a.format;
-    '''
-    ### abjad:
-    \new Staff
+
     code::
-    {
-        c'4
-        \tweak Accidental.color #red
-        cs'4
-        d'4
-        ds'4
-    }
-    ###
+    a.show;
+    '''
 
     '''
     Returns LilyPond tweak manager

@@ -33,25 +33,14 @@ FoscMutation : FoscObject {
     code::
     a = FoscStaff(FoscLeafMaker().((60..67), [1/8]));
     a.show;
-
-    img:: ![](../img/agent-mutation-1.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     code::
     b = mutate(a[0..1]).copy;
     a.addAll(b);
     a.show;
-
-    img:: ![](../img/agent-mutation-2.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-2".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     copy {
@@ -76,8 +65,6 @@ FoscMutation : FoscObject {
 
 
     '''
-    • Example 1
-
     Eject leaves from Container.
 
     code::
@@ -85,25 +72,14 @@ FoscMutation : FoscObject {
     a.selectLeaves[0..1].tie;
     a.selectLeaves[2..3].tie;
     a.show;
-
-    img:: ![](../img/agent-mutation-3.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-3".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     code::
     b = mutate(a).ejectContents;
     c = FoscStaff(b, lilypondType: 'RhythmicStaff');
     c.show;
-
-    img:: ![](../img/agent-mutation-4.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-4".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     ejectContents {
@@ -118,8 +94,6 @@ FoscMutation : FoscObject {
 
 
     '''
-    • Example 1
-
     Extract tuplets.
 
     code::
@@ -129,29 +103,14 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(FoscTimeSignature(#[3,4]));
     a.show;
 
-    img:: ![](../img/agent-mutation-5.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-5".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a[1]).extract;
     mutate(a[0]).extract;
     a.show;
-
-    img:: ![](../img/agent-mutation-6.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-6".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
 
 
     '''
-    • Example 2
-
     Scales tuplet contents and then extracts tuplet.
 
     code::
@@ -161,24 +120,11 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(FoscTimeSignature(#[3,4]));
     a.show;
 
-    img:: ![](../img/agent-mutation-7.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-7".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a[1]).extract(scaleContents: true);
     mutate(a[0]).extract(scaleContents: true);
     a.show;
-
-    img:: ![](../img/agent-mutation-8.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-8".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     extract { |scaleContents=false|
@@ -193,36 +139,26 @@ FoscMutation : FoscObject {
 
 
     '''
-    • Example 1
-
     code::
     a = FoscRhythmMaker();
     b = a.(divisions: [1/4], ratios: #[[2,1],[3,2],[4,3]]);
     a.show;
-
-    img:: ![](../img/agent-mutation-9.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-9".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
 
 
     '''
-    • TODO: BROKEN - removing tuplet leaves from parent
+    TODO: BROKEN - removing tuplet leaves from parent
 
     code::
     a = FoscRhythmMaker();
     b = a.(divisions: [1/4], ratios: #[1,1,1,1,1] ! 2);
     c = FoscSelection(b).leaves.partitionBySizes(#[3,1,4,2]);
     c.items;
+
+    code::
     c.do { |each| mutate(each).fuseLeaves };
     c.show;
-
-    img:: ![](../img/agent-mutation-10.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-10".format(Platform.userExtensionDir);
-    c.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
 
     /* --------------------------------------------------------------------------------------------------------
@@ -262,8 +198,6 @@ FoscMutation : FoscObject {
 
 
     '''
-    • Example 1
-
     !!!TODO: does not copy wrappers when donors[0] is not a leaf (also broken in abjad)
 
     Replaces in-score tuplet (and children of tuplet) with notes.
@@ -276,28 +210,13 @@ FoscMutation : FoscObject {
     a.selectLeaves.hairpin('p < f');
     a.show;
 
-    img:: ![](../img/agent-mutation-11.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-11".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     b = FoscLeafMaker().(#[60,62,64,65,60,62,64,65], [1/16]);
     mutate(m).replace(b, wrappers: true);
     b.show;
-
-    img:: ![](../img/agent-mutation-12.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-12".format(Platform.userExtensionDir);
-    b.writePNG("%.ly".format(p));
-
     '''
-    • Example 2
-
     Copies no wrappers when 'wrappers' is false.
 
     code::
@@ -305,24 +224,10 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(FoscClef('alto'));
     a.show;
 
-    img:: ![](../img/agent-mutation-13.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-13".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a[0]).replace(FoscChord(#[62,64], 1/2));
     a.show;
-
-    img:: ![](../img/agent-mutation-14.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-14".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     Set 'wrappers' to true to copy all wrappers from one leaf to another leaf (and avoid full-score update). Only works from one leaf to another leaf.
@@ -331,39 +236,18 @@ FoscMutation : FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,65,67], [1/2,1/4,1/4]));
     a.show;
 
-    img:: ![](../img/agent-mutation-15.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-15".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     a.leafAt(0).attach(FoscClef('alto'));
     mutate(a[0]).replace(FoscRest(1/2), wrappers: true);
     a.show;
 
-    img:: ![](../img/agent-mutation-16.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-16".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     a = FoscRhythmMaker().([1/4], #[2,1,3] ! 4);
     FoscMeterSpecifier(#[[1,4],[2,4],[1,4]], attachTimeSignatures: true).(a);
     a = FoscSustainMask(FoscPattern.first(3) | FoscPattern.last(3)).(a);
     a = FoscTupletSpecifier(extractTrivial: true, rewriteRestFilled: true).(a);
     FoscStaff(a).show;
-
-    img:: ![](../img/agent-mutation-17.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-17".format(Platform.userExtensionDir);
-    FoscStaff(a).writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     replace { |newContents, wrappers=false|
@@ -439,15 +323,14 @@ FoscMutation : FoscObject {
     n = #["C#4", "D4", "D#4", "E4", "F4", "F#4"];
     a = FoscVoice(n.collect { |each| FoscNote(each, [1, 4]) });
     a.format;
+
+    code::
     mutate(a).respellWithFlats;
     a.format;
+
+    code::
     a.show;
-
-    img:: ![](../img/agent-mutation-18.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-18".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     respellWithFlats {
         FoscIteration(client).leaves(pitched: true).do { |leaf|
@@ -472,16 +355,17 @@ FoscMutation : FoscObject {
     n = #["Db4", "D4", "Eb4", "E4", "F4", "Gb4"];
     a = FoscVoice(n.collect { |each| FoscNote(each, [1, 4]) });
     a.format;
+
+    code::
     mutate(a).respellWithSharps;
     a.format;
-
-
     '''
+
     '''
     //!!! TODO
     FIXME: `ERROR: Message 'new' not understood.`
 
-    code::
+    code::nointerpret
     n = #["Db4", "D4", "Eb4", "E4", "F4", "Gb4"];
     a = FoscVoice(n.collect { |each| FoscNote(each, [1, 4]) });
     p = [1, 3];
@@ -507,33 +391,16 @@ FoscMutation : FoscObject {
 
 
     '''
-    • Example 1
-
     code::
     a = FoscStaff(FoscLeafMaker().((60..67), [1/32,1/4,3/16,1/16,4/32,3/16,3/32,1/16]));
     a.show;
 
-    img:: ![](../img/agent-mutation-19.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-19".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a[0..]).rewriteMeter(FoscMeter(#[4,4]));
     a.show;
-
-    img:: ![](../img/agent-mutation-20.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-20".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
     '''
-    • Example 2
-
     FoscContainer used to specify measure boundaries.
 
     code::
@@ -542,7 +409,6 @@ FoscMutation : FoscObject {
         FoscContainer([FoscLeafMaker().([60,62,62,64], [1/32,7/8,1/16,1/32])]),
         FoscContainer([FoscNote(64, 2/4)])
     ]);
-
     a.leafAt(0).attach(FoscTimeSignature(#[2,4]));
     a.leafAt(1).attach(FoscTimeSignature(#[4,4]));
     a.leafAt(5).attach(FoscTimeSignature(#[2,4]));
@@ -554,28 +420,12 @@ FoscMutation : FoscObject {
 
     a.show;
 
-    img:: ![](../img/agent-mutation-21.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-21".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a[1][0..]).rewriteMeter(FoscMeter(#[4,4]));
     a.show;
-
-    img:: ![](../img/agent-mutation-22.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-22".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 3
-
     Use FoscRhythm to specify custom metrical hierarchy.
 
     code::
@@ -595,18 +445,9 @@ FoscMutation : FoscObject {
     m = FoscRhythm(4/4, #[[2,[1,1]],[2,[1,1]]]);
     mutate(a[1][0..]).rewriteMeter(m);
     a.show;
-
-    img:: ![](../img/agent-mutation-23.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-23".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
-    • Example 4
-
     Limit the maximum number of dots per leaf using 'maximumDotCount'.
 
     No constraint.
@@ -616,13 +457,7 @@ FoscMutation : FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/32,1/8,1/8,15/32]));
     a.leafAt(0).attach(t);
     a.show;
-
-    img:: ![](../img/agent-mutation-24.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-24".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     Constrain 'maximumDotCount' to 2.
@@ -633,13 +468,7 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(t);
     mutate(a[0..]).rewriteMeter(meter: t, maximumDotCount: 2);
     a.show;
-
-    img:: ![](../img/agent-mutation-25.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-25".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     Constrain 'maximumDotCount' to 1.
@@ -650,14 +479,7 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(t);
     mutate(a[0..]).rewriteMeter(meter: t, maximumDotCount: 1);
     a.show;
-
-    img:: ![](../img/agent-mutation-26.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-26".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
 
     '''
     Constrain 'maximumDotCount' to 0.
@@ -668,18 +490,9 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(t);
     mutate(a[0..]).rewriteMeter(meter: t, maximumDotCount: 0);
     a.show;
-
-    img:: ![](../img/agent-mutation-27.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-27".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-
     '''
-    • Example 5
-
     Split logical ties at different depths of the Meter, if those logical ties cross any offsets at that depth, but do not also both begin and end at any of those offsets.
 
     code::
@@ -687,13 +500,7 @@ FoscMutation : FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64], [2/4,2/4,1/8]));
     a.leafAt(0).attach(FoscTimeSignature(t));
     a.show;
-
-    img:: ![](../img/agent-mutation-28.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-28".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     Establish meter without specifying 'boundaryDepth'.
@@ -704,13 +511,7 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(FoscTimeSignature(t));
     mutate(a[0..]).rewriteMeter(meter: t);
     a.show;
-
-    img:: ![](../img/agent-mutation-29.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-29".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     With a 'boundaryDepth' of 1, logical ties which cross any offsets created by nodes with a depth of 1 in this Meter’s rhythm tree - 0/8, 3/8, 6/8 and 9/8 - which do not also begin and end at any of those offsets, will be split.
@@ -721,13 +522,7 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(FoscTimeSignature(t));
     mutate(a[0..]).rewriteMeter(meter: t, boundaryDepth: 1);
     a.show;
-
-    img:: ![](../img/agent-mutation-30.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-30".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
 
     '''
     Another way of doing this is by setting 'preferredBoundaryDepth' on FoscMeter itself.
@@ -739,12 +534,7 @@ FoscMutation : FoscObject {
     m = FoscMeter(t, preferredBoundaryDepth: 1);
     mutate(a[0..]).rewriteMeter(meter: m);
     a.show;
-
-    img:: ![](../img/agent-mutation-31.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-31".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     rewriteMeter { |meter, boundaryDepth, initialOffset, maximumDotCount, rewriteTuplets=true|
         var selection, result;
@@ -762,75 +552,42 @@ FoscMutation : FoscObject {
 
 
     '''
-    • Example 1
-
     Rewrite written pitches for first three notes.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60], 1/16 ! 16));
     mutate(a).rewritePitches(#[72,71,70]);
     a.show;
-
-    img:: ![](../img/agent-mutation-32.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-32".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
     '''
-    • Example 2
-
     Rewrite written pitches using a pattern.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60], 1/16 ! 16));
     mutate(a).rewritePitches(Pseq((72,71..67), inf));
     a.show;
-
-    img:: ![](../img/agent-mutation-33.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-33".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 3
-
     Rewrite written pitches for first three chords.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[[60,64]], 1/16 ! 16));
     mutate(a).rewritePitches(#[[72,69],[71,68],[70,67]]);
     a.show;
-
-    img:: ![](../img/agent-mutation-34.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-34".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 4
-
     Replaces chords with notes.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[[60,64]], 1/16 ! 16));
     mutate(a).rewritePitches(#[72,71,70]);
     a.show;
-
-    img:: ![](../img/agent-mutation-35.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-35".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 5
-
     Replaces notes with chords.
 
     code::
@@ -838,17 +595,9 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(FoscArticulation('>'));
     mutate(a).rewritePitches(#[[72,69],[71,68],[70,67]]);
     a.show;
-
-    img:: ![](../img/agent-mutation-36.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-36".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 6
-
     !!!TODO: BROKEN!
 
     Rewrite written pitches for first three notes in a selection.
@@ -857,17 +606,10 @@ FoscMutation : FoscObject {
     a = FoscLeafMaker().(#[60], 1/16 ! 16);
     mutate(a).rewritePitches(#[72,71,70]);
     a.show;
-
-    img:: ![](../img/agent-mutation-37.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-37".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
 
 
     '''
-    • Example 8
-
     !!!TODO: selections must be added to a container for now, because of bug in FoscIteration:logicalTies.
 
     Rewrite written pitches for notes in an array of selections.
@@ -878,12 +620,7 @@ FoscMutation : FoscObject {
     mutate(a).rewriteBeams(beamEachRun: true);
     mutate(a).rewritePitches(#[60,62,64]);
     a.show;
-
-    img:: ![](../img/agent-mutation-38.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-38".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     rewritePitches { |writtenPitches|
         var selections;
@@ -922,36 +659,18 @@ FoscMutation : FoscObject {
     Scales mutation client by multiplier.
 
     '''
-    • Example 1
-
     Scales note duration by dot-generating multiplier.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     a.show;
 
-    img:: ![](../img/agent-mutation-39.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-39".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a.leafAt(1)).scale(3/2);
     a.show;
-
-    img:: ![](../img/agent-mutation-40.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-40".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 2
-
     Scales nontrivial logical tie duration by dot-generating multiplier.
 
     code::
@@ -959,84 +678,37 @@ FoscMutation : FoscObject {
     a[0..1].tie;
     a.show;
 
-    img:: ![](../img/agent-mutation-41.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-41".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a.leafAt(0).prGetLogicalTie).scale(3/2);
     a.show;
-
-    img:: ![](../img/agent-mutation-42.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-42".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 3
-
     Scales container duration by dot-generating multiplier.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     a.show;
 
-    img:: ![](../img/agent-mutation-43.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-43".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a).scale(3/2);
     a.show;
-
-    img:: ![](../img/agent-mutation-44.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-44".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 4
-
     Scales note by tie-generating multiplier.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     a.show;
 
-    img:: ![](../img/agent-mutation-45.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-45".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a.leafAt(1)).scale(5/4);
     a.show;
-
-    img:: ![](../img/agent-mutation-46.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-46".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
 
 
     '''
-    • Example 5
-
     Scales nontrivial logical tie duration by tie-generating multiplier.
 
     code::
@@ -1044,54 +716,25 @@ FoscMutation : FoscObject {
     a[0..1].tie;
     a.show;
 
-    img:: ![](../img/agent-mutation-47.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-47".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-    '''
     code::
     mutate(a.leafAt(0).prGetLogicalTie).scale(5/4);
     a.show;
-
-    img:: ![](../img/agent-mutation-48.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-48".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 6
-
     Scales container duration by tie-generating multiplier.
 
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     a.show;
 
-    img:: ![](../img/agent-mutation-49.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-49".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a).scale(5/4);
     a.show;
-
-    img:: ![](../img/agent-mutation-50.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-50".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 7 !!!TODO: NOT YET WORKING
+    !!!TODO: NOT YET WORKING
 
     Scales note by tuplet-generating multiplier.
 
@@ -1099,23 +742,10 @@ FoscMutation : FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     a.show;
 
-    img:: ![](../img/agent-mutation-51.png)
-    '''
-
-    p = "%/fosc/docs/img/agent-mutation-51".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
-    '''
     code::
     mutate(a.leafAt(1)).scale(2/3);
     a.show;
-
-    img:: ![](../img/agent-mutation-52.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-52".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     scale { |multiplier|
         if (client.respondsTo('prScale')) {
@@ -1135,8 +765,6 @@ FoscMutation : FoscObject {
     Returns array of selections.
 
     '''
-    • Example 1
-
     Splits leaves.
 
     code::
@@ -1146,17 +774,9 @@ FoscMutation : FoscObject {
     m.hairpin('p < f');
     mutate(m).split(d, tieSplitNotes: false);
     a.show;
-
-    img:: ![](../img/agent-mutation-53.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-53".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 2
-
     Splits leaves cyclically.
 
     code::
@@ -1166,17 +786,9 @@ FoscMutation : FoscObject {
     m.hairpin('p < f');
     mutate(m).split(d, isCyclic: true, tieSplitNotes: false);
     a.show;
-
-    img:: ![](../img/agent-mutation-54.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-54".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 3
-
     Splits tupletted leaves.
 
     code::
@@ -1186,17 +798,9 @@ FoscMutation : FoscObject {
     m.slur;
     mutate(m).split([1/4], tieSplitNotes: false);
     a.show;
-
-    img:: ![](../img/agent-mutation-55.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-55".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 4
-
     Splits leaves cyclically and tie split notes.
 
     code::
@@ -1205,17 +809,10 @@ FoscMutation : FoscObject {
     m.hairpin('p < f');
     mutate(m).split([3/4], isCyclic: true, tieSplitNotes: true);
     a.show;
-
-    img:: ![](../img/agent-mutation-56.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-56".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
 
 
     '''
-    • Example 5
-
     Splits leaves with articulations.
 
     code::
@@ -1226,12 +823,7 @@ FoscMutation : FoscObject {
     a.leafAt(3).attach(FoscLaissezVibrer());
     mutate(a.selectLeaves).split([1/8], isCyclic: true, tieSplitNotes: true);
     a.show;
-
-    img:: ![](../img/agent-mutation-57.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-57".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     split { |durations, isCyclic=false, tieSplitNotes=true, repeatTies=false|
         var components, singleComponentInput, totalComponentDuration, totalSplitDuration, finalOffset;
@@ -1436,8 +1028,6 @@ FoscMutation : FoscObject {
     Wraps mutation client in empty container.
 
     '''
-    • Example 1
-
     Wraps in-score notes in tuplet.
 
     code::
@@ -1449,16 +1039,10 @@ FoscMutation : FoscObject {
         each.slur;
     };
     a.show;
-
-    img:: ![](../img/agent-mutation-58.png)
     '''
 
-    p = "%/fosc/docs/img/agent-mutation-58".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
-
-
     '''
-    • Example 2 !!!TODO: is Measure deprecated in abjad 3.0 ?
+    !!!TODO: is Measure deprecated in abjad 3.0 ?
 
     Wraps leaves in measure.
 
@@ -1467,12 +1051,7 @@ FoscMutation : FoscObject {
     m = FoscMeasure(#[4,8], []);
     mutate(a[..3]).wrap(m);
     a.show;
-
-    img:: ![](../img/agent-mutation-59.png)
     '''
-
-    p = "%/fosc/docs/img/agent-mutation-59".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     // abjad 3.0
     wrap { |container|

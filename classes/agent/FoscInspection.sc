@@ -12,7 +12,7 @@ DESCRIPTION:: Inspection agent.
 USAGE::
 
 '''
-code::
+code::nointerpret
 a = FoscInspection('blerk');
 
 post::
@@ -89,12 +89,7 @@ FoscInspection : FoscObject {
     a.annotate('clef', FoscClef('bass'));
     FoscInspection(a).annotation('clef');
     a.show;
-
-    img:: ![](../img/agent-inspection-1.png)
     '''
-
-    p = "%/fosc/docs/img/agent-inspection-1".format(Platform.userExtensionDir);
-    a.writePNG("%.ly".format(p));
     -------------------------------------------------------------------------------------------------------- */
     annotation { |annotation, default, unwrap=true|
         this.annotationWrappers.do { |wrapper|
@@ -215,15 +210,7 @@ FoscInspection : FoscObject {
     '''
     code::
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/12,1/12,1/12,1/4]));
-    FoscInspection(a).descendants.do { |each| each.postln };
-
-    post::
-    a FoscStaff
-    a FoscTuplet
-    a FoscNote
-    a FoscNote
-    a FoscNote
-    a FoscNote
+    FoscInspection(a).descendants.items;
     '''
     -------------------------------------------------------------------------------------------------------- */
     descendants {
@@ -611,7 +598,7 @@ FoscInspection : FoscObject {
     '''
     FIXME returns: `ERROR: Message 'pitch' not understood.`
 
-    code::
+    code::nointerpret
     a = FoscStaff([
         FoscVoice({ |i| FoscNote(0 + i, [1, 4]) } ! 10),
         FoscVoice({ |i| FoscNote(10 + i, [1, 4]) } ! 10)
@@ -667,7 +654,7 @@ FoscInspection : FoscObject {
     '''
     FIXME returns: `ERROR: Class not defined.`
 
-    code::
+    code::nointerpret
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
     FoscInspection(a[0]).logicalTie.music;
@@ -782,7 +769,7 @@ FoscInspection : FoscObject {
     '''
     FIXME returns: `ERROR: Message 'music' not understood.`
 
-    code::
+    code::nointerpret
     a = FoscNote(60, 1);
     FoscVoice([a]);
     FoscInspection(a).parentage.music;
@@ -931,7 +918,7 @@ FoscInspection : FoscObject {
     '''
     FIXME returns: `ERROR: Class not defined.`
 
-    code::
+    code::nointerpret
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
     FoscInspection(a[0]).spannerOfType(FoscTie);
@@ -969,7 +956,7 @@ FoscInspection : FoscObject {
     '''
     FIXME returns: `ERROR: Class not defined.`
 
-    code::
+    code::nointerpret
     a = [FoscNote(60, 1), FoscNote(60, 2)];
     FoscAttach(FoscTie(), a);
     FoscInspection(a[0]).spanners;

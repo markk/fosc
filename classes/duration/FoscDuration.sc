@@ -603,24 +603,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(num, 16);
-        if (d.isAssignable) { d.str.post; Post.tab; d.dotCount.postln };
+        if (d.isAssignable) { o = o.add("%\t%".format(d.str, d.dotCount)) };
     };
-    nointerpret
-
-    post::
-    1/16	0
-    1/8	0
-    3/16	1
-    1/4	0
-    3/8	1
-    7/16	2
-    1/2	0
-    3/4	1
-    7/8	2
-    15/16	3
-    1/1	0
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     dotCount {
@@ -637,31 +625,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(num, 16);
-        d.str.post;
-        Post.tab;
-        d.equalOrGreaterAssignable.str.postln;
+        o = o.add("%\t%".format(d.str, d.equalOrGreaterAssignable.str));
     };
-    nointerpret
-
-    post::
-    1/16	1/16
-    1/8	1/8
-    3/16	3/16
-    1/4	1/4
-    5/16	3/8
-    3/8	3/8
-    7/16	7/16
-    1/2	1/2
-    9/16	3/4
-    5/8	3/4
-    11/16	3/4
-    3/4	3/4
-    13/16	7/8
-    7/8	7/8
-    15/16	15/16
-    1/1	1/1
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrGreaterAssignable {
@@ -688,31 +657,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(num, 16);
-        d.str.post;
-        Post.tab;
-        d.equalOrGreaterPowerOfTwo.str.postln;
+        o = o.add("%\t%".format(d.str, d.equalOrGreaterPowerOfTwo.str));
     };
-    nointerpret
-
-    post::
-    1/16	1/16
-    1/8	1/8
-    3/16	1/4
-    1/4	1/4
-    5/16	1/2
-    3/8	1/2
-    7/16	1/2
-    1/2	1/2
-    9/16	1/1
-    5/8	1/1
-    11/16	1/1
-    3/4	1/1
-    13/16	1/1
-    7/8	1/1
-    15/16	1/1
-    1/1	1/1
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrGreaterPowerOfTwo {
@@ -727,31 +677,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(num, 16);
-        d.str.post;
-        Post.tab;
-        d.equalOrLesserAssignable.str.postln;
+        o = o.add("%\t%".format(d.str, d.equalOrLesserAssignable.str));
     };
-    nointerpret
-
-    post::
-    1/16	1/16
-    1/8	1/8
-    3/16	3/16
-    1/4	1/4
-    5/16	1/4
-    3/8	3/8
-    7/16	7/16
-    1/2	1/2
-    9/16	1/2
-    5/8	1/2
-    11/16	1/2
-    3/4	3/4
-    13/16	3/4
-    7/8	7/8
-    15/16	15/16
-    1/1	1/1
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrLesserAssignable {
@@ -774,31 +705,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(num, 16);
-        d.str.post;
-        Post.tab;
-        d.equalOrLesserPowerOfTwo.str.postln;
+        o = o.add("%\t%".format(d.str, d.equalOrLesserPowerOfTwo.str));
     };
-    nointerpret
-
-    post::
-    1/16	1/16
-    1/8	1/8
-    3/16	1/8
-    1/4	1/4
-    5/16	1/4
-    3/8	1/4
-    7/16	1/4
-    1/2	1/2
-    9/16	1/2
-    5/8	1/2
-    11/16	1/2
-    3/4	1/2
-    13/16	1/2
-    7/8	1/2
-    15/16	1/2
-    1/1	1/1
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     equalOrLesserPowerOfTwo {
@@ -817,31 +729,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(num, 64);
-        d.str.post;
-        Post.tab;
-        d.flagCount.postln;
+        o = o.add("%\t%".format(d.str, d.flagCount));
     };
-    nointerpret
-
-    post::
-    1/64	4
-    1/32	3
-    3/64	3
-    1/16	2
-    5/64	2
-    3/32	2
-    7/64	2
-    1/8	1
-    9/64	1
-    5/32	1
-    11/64	1
-    3/16	1
-    13/64	1
-    7/32	1
-    15/64	1
-    1/4	0
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     flagCount {
@@ -872,31 +765,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(1, num);
-        d.str.post;
-        Post.tab;
-        d.impliedProlation.str.postln;
+        o = o.add("%\t%".format(d.str, d.impliedProlation.str));
     };
-    nointerpret
-
-    post::
-    1/1	1/1
-    1/2	1/1
-    1/3	2/3
-    1/4	1/1
-    1/5	4/5
-    1/6	2/3
-    1/7	4/7
-    1/8	1/1
-    1/9	8/9
-    1/10	4/5
-    1/11	8/11
-    1/12	2/3
-    1/13	8/13
-    1/14	4/7
-    1/15	8/15
-    1/16	1/1
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     impliedProlation {
@@ -918,31 +792,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(num, 8);
-        d.str.post;
-        Post.tab;
-        d.isAssignable.postln;
+        o = o.add("%\t%".format(d.str, d.isAssignable));
     };
-    nointerpret
-
-    post::
-    1/8	true
-    1/4	true
-    3/8	true
-    1/2	true
-    5/8	false
-    3/4	true
-    7/8	true
-    1/1	true
-    9/8	false
-    5/4	false
-    11/8	false
-    3/2	true
-    13/8	false
-    7/4	true
-    15/8	true
-    2/1	true
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     isAssignable {
@@ -1032,31 +887,12 @@ FoscDuration : FoscFraction {
 
     '''
     code::
+    o = [];
     (1..16).do { |num|
         d = FoscDuration(1, num);
-        d.str.post;
-        Post.tab;
-        d.prolationString.postln;
+        o = o.add("%\t%".format(d.str, d.prolationString));
     };
-    nointerpret
-
-    post::
-    1/1	1:1
-    1/2	2:1
-    1/3	3:1
-    1/4	4:1
-    1/5	5:1
-    1/6	6:1
-    1/7	7:1
-    1/8	8:1
-    1/9	9:1
-    1/10	10:1
-    1/11	11:1
-    1/12	12:1
-    1/13	13:1
-    1/14	14:1
-    1/15	15:1
-    1/16	16:1
+    o.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     prolationString {
