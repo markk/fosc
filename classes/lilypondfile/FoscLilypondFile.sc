@@ -8,6 +8,7 @@ SUMMARY:: Returns a FoscLilypondFile.
 
 DESCRIPTION:: A Lilypond file.
 
+FIXME: should Lilypond file include `stylesheets/default.ily`?
 
 USAGE::
 
