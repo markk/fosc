@@ -78,7 +78,7 @@ FoscIteration : FoscStream {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     b = [];
     FoscIteration(a).components.do { |each| b = b.add(each.cs) };
-    b.join("\n").postln;
+    b.join("\n");
     '''
 
     '''
@@ -86,7 +86,7 @@ FoscIteration : FoscStream {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     b = [];
     FoscIteration(a).components(prototype: FoscNote).do { |each| b = b.add(each.cs) };
-    b.join("\n").postln;
+    b.join("\n");
     '''
 
     '''
@@ -94,7 +94,7 @@ FoscIteration : FoscStream {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65,67,69], [1/8]));
     b = [];
     FoscIteration(a).components(FoscNote, reverse: true).do { |each| b = b.add(each.cs) };
-    b.join("\n").postln;
+    b.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     components { |prototype, exclude, doNotIterateGraceContainers=false, graceNotes=false, reverse=false|

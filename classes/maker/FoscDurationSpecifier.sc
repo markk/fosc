@@ -65,7 +65,9 @@ FoscDurationSpecifier : FoscObject {
     • value
 
     '''
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     m = #[[2,4],[2,4],[2,4],[2,4]];
     a = FoscLeafMaker().(#[60,62,64,65], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier(rewriteMeter: true).([a], meters: m);
@@ -81,7 +83,9 @@ FoscDurationSpecifier : FoscObject {
     '''
 
     '''
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     m = #[[2,4],[2,4],[2,4],[2,4]];
     a = FoscLeafMaker().(#[nil,62,nil,nil], [3/8,6/8,2/8,5/8]);
     a = FoscDurationSpecifier(rewriteMeter: true).([a], meters: m);

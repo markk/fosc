@@ -155,7 +155,7 @@ FoscMutation : FoscObject {
     c = FoscSelection(b).leaves.partitionBySizes(#[3,1,4,2]);
     c.items;
 
-    code::
+    code::nointerpret
     c.do { |each| mutate(each).fuseLeaves };
     c.show;
     '''
@@ -210,9 +210,9 @@ FoscMutation : FoscObject {
     a.selectLeaves.hairpin('p < f');
     a.show;
 
-    code::
+    code::nointerpret
     b = FoscLeafMaker().(#[60,62,64,65,60,62,64,65], [1/16]);
-    mutate(m).replace(b, wrappers: true);
+    mutate(m).replace(b, wrappers: true); // FIXME: ERROR: FoscMutation:replace: set wrappers only with single leaf: a FoscSelection.
     b.show;
     '''
 
@@ -224,8 +224,8 @@ FoscMutation : FoscObject {
     a.leafAt(0).attach(FoscClef('alto'));
     a.show;
 
-    code::
-    mutate(a[0]).replace(FoscChord(#[62,64], 1/2));
+    code::nointerpret
+    mutate(a[0]).replace(FoscChord(#[62,64], 1/2)); // FIXME: MethodError
     a.show;
     '''
 
@@ -236,15 +236,15 @@ FoscMutation : FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,65,67], [1/2,1/4,1/4]));
     a.show;
 
-    code::
+    code::nointerpret
     a.leafAt(0).attach(FoscClef('alto'));
-    mutate(a[0]).replace(FoscRest(1/2), wrappers: true);
+    mutate(a[0]).replace(FoscRest(1/2), wrappers: true); // FIXME: MethodError
     a.show;
 
-    code::
+    code::nointerpret
     a = FoscRhythmMaker().([1/4], #[2,1,3] ! 4);
     FoscMeterSpecifier(#[[1,4],[2,4],[1,4]], attachTimeSignatures: true).(a);
-    a = FoscSustainMask(FoscPattern.first(3) | FoscPattern.last(3)).(a);
+    a = FoscSustainMask(FoscPattern.first(3) | FoscPattern.last(3)).(a); // FIXME Execution warning: Class 'FoscSegmentList' not found
     a = FoscTupletSpecifier(extractTrivial: true, rewriteRestFilled: true).(a);
     FoscStaff(a).show;
     '''
@@ -389,19 +389,25 @@ FoscMutation : FoscObject {
 
     Rewrites the contents of logical ties in an expression to match meter.
 
+    !!! FIXME: rewriteMeter silently crashes docs build on interpret !!!
+
 
     '''
+    !!! FIXME: This crashes docs build.
+
     code::
     a = FoscStaff(FoscLeafMaker().((60..67), [1/32,1/4,3/16,1/16,4/32,3/16,3/32,1/16]));
     a.show;
 
-    code::
+    code::nointerpret
     mutate(a[0..]).rewriteMeter(FoscMeter(#[4,4]));
     a.show;
     '''
 
     '''
     FoscContainer used to specify measure boundaries.
+
+    !!! FIXME: This crashes docs build.
 
     code::
     a = FoscStaff([
@@ -420,7 +426,7 @@ FoscMutation : FoscObject {
 
     a.show;
 
-    code::
+    code::nointerpret
     mutate(a[1][0..]).rewriteMeter(FoscMeter(#[4,4]));
     a.show;
     '''
@@ -428,7 +434,9 @@ FoscMutation : FoscObject {
     '''
     Use FoscRhythm to specify custom metrical hierarchy.
 
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     a = FoscStaff([
         FoscContainer([FoscNote(60, 2/4)]),
         FoscContainer([FoscLeafMaker().([60,62,62,64], [1/32,7/8,1/16,1/32])]),
@@ -462,7 +470,9 @@ FoscMutation : FoscObject {
     '''
     Constrain 'maximumDotCount' to 2.
 
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     t = FoscTimeSignature(#[3,4]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/32,1/8,1/8,15/32]));
     a.leafAt(0).attach(t);
@@ -473,7 +483,9 @@ FoscMutation : FoscObject {
     '''
     Constrain 'maximumDotCount' to 1.
 
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     t = FoscTimeSignature(#[3,4]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/32,1/8,1/8,15/32]));
     a.leafAt(0).attach(t);
@@ -484,7 +496,9 @@ FoscMutation : FoscObject {
     '''
     Constrain 'maximumDotCount' to 0.
 
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     t = FoscTimeSignature(#[3,4]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/32,1/8,1/8,15/32]));
     a.leafAt(0).attach(t);
@@ -493,7 +507,9 @@ FoscMutation : FoscObject {
     '''
 
     '''
-    Split logical ties at different depths of the Meter, if those logical ties cross any offsets at that depth, but do not also both begin and end at any of those offsets.
+    Split logical ties at different depths of the Meter, if those logical ties
+    cross any offsets at that depth, but do not also both begin and end at any
+    of those offsets.
 
     code::
     t = FoscTimeSignature(#[9,8]);
@@ -505,7 +521,7 @@ FoscMutation : FoscObject {
     '''
     Establish meter without specifying 'boundaryDepth'.
 
-    code::
+    code::nointerpret
     t = FoscTimeSignature(#[9,8]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64], [2/4,2/4,1/8]));
     a.leafAt(0).attach(FoscTimeSignature(t));
@@ -514,9 +530,13 @@ FoscMutation : FoscObject {
     '''
 
     '''
-    With a 'boundaryDepth' of 1, logical ties which cross any offsets created by nodes with a depth of 1 in this Meter’s rhythm tree - 0/8, 3/8, 6/8 and 9/8 - which do not also begin and end at any of those offsets, will be split.
+    With a 'boundaryDepth' of 1, logical ties which cross any offsets created by
+    nodes with a depth of 1 in this Meter’s rhythm tree - 0/8, 3/8, 6/8 and 9/8
+    - which do not also begin and end at any of those offsets, will be split.
 
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     t = FoscTimeSignature(#[9,8]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64], [2/4,2/4,1/8]));
     a.leafAt(0).attach(FoscTimeSignature(t));
@@ -527,7 +547,9 @@ FoscMutation : FoscObject {
     '''
     Another way of doing this is by setting 'preferredBoundaryDepth' on FoscMeter itself.
 
-    code::
+    !!! FIXME: This crashes docs build.
+
+    code::nointerpret
     t = FoscTimeSignature(#[9,8]);
     a = FoscStaff(FoscLeafMaker().(#[60,62,64], [2/4,2/4,1/8]));
     a.leafAt(0).attach(FoscTimeSignature(t));
@@ -581,7 +603,7 @@ FoscMutation : FoscObject {
     '''
     Replaces chords with notes.
 
-    code::
+    code::nointerpret
     a = FoscStaff(FoscLeafMaker().(#[[60,64]], 1/16 ! 16));
     mutate(a).rewritePitches(#[72,71,70]);
     a.show;
@@ -590,7 +612,7 @@ FoscMutation : FoscObject {
     '''
     Replaces notes with chords.
 
-    code::
+    code::nointerpret
     a = FoscStaff(FoscLeafMaker().(#[60], 1/16 ! 16));
     a.leafAt(0).attach(FoscArticulation('>'));
     mutate(a).rewritePitches(#[[72,69],[71,68],[70,67]]);
@@ -602,7 +624,7 @@ FoscMutation : FoscObject {
 
     Rewrite written pitches for first three notes in a selection.
 
-    code::
+    code::nointerpret
     a = FoscLeafMaker().(#[60], 1/16 ! 16);
     mutate(a).rewritePitches(#[72,71,70]);
     a.show;
@@ -614,7 +636,7 @@ FoscMutation : FoscObject {
 
     Rewrite written pitches for notes in an array of selections.
 
-    code::
+    code::nointerpret
     a = FoscStaff(FoscRhythmMaker().(divisions: 1/4 ! 4, ratios: #[[1,1,1,1,1]]));
     mutate(a).fuseBySizes(sizes: #[-2,4], isCyclic: true);
     mutate(a).rewriteBeams(beamEachRun: true);
@@ -742,7 +764,7 @@ FoscMutation : FoscObject {
     a = FoscStaff(FoscLeafMaker().(#[60,62,64,65], [1/8]));
     a.show;
 
-    code::
+    code::nointerpret
     mutate(a.leafAt(1)).scale(2/3);
     a.show;
     '''
@@ -764,10 +786,12 @@ FoscMutation : FoscObject {
 
     Returns array of selections.
 
+        FIXME: these examples crash docs build when interpreted
+
     '''
     Splits leaves.
 
-    code::
+    code::nointerpret
     d = [3/16, 7/32];
     a = FoscStaff(FoscLeafMaker().(#[60,64,62,65,60,64,62,65], [1/8]));
     m = a.selectLeaves;
@@ -779,7 +803,7 @@ FoscMutation : FoscObject {
     '''
     Splits leaves cyclically.
 
-    code::
+    code::nointerpret
     d = [3/16, 7/32];
     a = FoscStaff(FoscLeafMaker().(#[60,64,62,65,60,64,62,65], [1/8]));
     m = a.selectLeaves;
@@ -791,7 +815,7 @@ FoscMutation : FoscObject {
     '''
     Splits tupletted leaves.
 
-    code::
+    code::nointerpret
     t = FoscTuplet(2/3, FoscLeafMaker().(#[60,62,64], 1/4));
     a = FoscStaff([t, mutate(t).copy]);
     m = a.selectLeaves;
@@ -803,7 +827,7 @@ FoscMutation : FoscObject {
     '''
     Splits leaves cyclically and tie split notes.
 
-    code::
+    code::nointerpret
     a = FoscStaff(FoscLeafMaker().(#[60,62], [1]));
     m = a.selectLeaves;
     m.hairpin('p < f');
@@ -1046,7 +1070,9 @@ FoscMutation : FoscObject {
 
     Wraps leaves in measure.
 
-    code::
+    FIXME: ERROR: Class not defined.
+
+    code::nointerpret
     a = FoscVoice(FoscLeafMaker().((60..67), [1/8]));
     m = FoscMeasure(#[4,8], []);
     mutate(a[..3]).wrap(m);
