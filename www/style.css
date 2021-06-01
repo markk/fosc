@@ -1,0 +1,8 @@
+pre {
+  border: 1px dotted blue;
+  color: blue;
+}
+pre.supercollider {
+  border: none;
+  background-color: #ddd;
+}
