@@ -14,13 +14,13 @@ USAGE::
 '''
 code::
 a = FoscRhythm(1/4, #[-2, 2]);
-a.value.items.collect { |each| each.str }[0];
+a.value.items.collect { |each| each.format }[0];
 '''
 
 '''
 code::
 a = FoscRhythm(1/4, #[-2, 3]);
-a.value.items.collect { |each| each.str }[0];
+a.value.items.collect { |each| each.format }[0];
 
 code::
 a.show;
@@ -47,10 +47,9 @@ DEPRECATED
 
 Floats are interpreted as ties.
 
-code::
+code::nointerpret
 a = FoscRhythm(3/16, [1, 2, [2, [2.0, -3]]]);
 a.show;
-nointerpret
 
 post::
 ERROR: FoscRhythm::new: bad value: 2.0.
@@ -211,17 +210,15 @@ FoscRhythm : FoscTreeContainer {
     // PUBLIC INSTANCE PROPERTIES
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • duration
 
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm([3, 4], [1, 2, 2, 1, 1]);
     a.duration.cs;
+    '''
 
-    • Example 2
-
+    '''
     code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
@@ -230,30 +227,19 @@ FoscRhythm : FoscTreeContainer {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • durations
 
 
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm(4/4, #[-3, 2, 2]);
-    a.durations.do { |each| each.cs.postln };
-
-    post::
-    POSTOUTPUT
+    a.durations;
     '''
 
-
-    • Example 2
-
+    '''
     code::
     a = FoscRhythm(1/4, #[1, 2, [2, [2, -3]]]);
-    a.durations.do { |each| each.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.durations;
     '''
     -------------------------------------------------------------------------------------------------------- */
     durations {
@@ -263,11 +249,9 @@ FoscRhythm : FoscTreeContainer {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • improperParentage
 
-    • Example 1
-
+    '''
     code::
     b = FoscRhythm(4, [-3, 2]);
     a = FoscRhythm([3, 4], [1, 2, b]);
@@ -277,30 +261,18 @@ FoscRhythm : FoscTreeContainer {
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • offsets
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm(4/4, #[-3, 2, 2]);
-    a.offsets.do { |each| each.cs.postln };
-
-    post::
-    POSTOUTPUT
+    a.offsets;
     '''
 
-
-    • Example 2
-
+    '''
     code::
     a = FoscRhythm(1/4, #[1, 2, [2, [2, -3]]]);
-    a.offsets.do { |each| each.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    a.offsets
     '''
     -------------------------------------------------------------------------------------------------------- */
     offsets {
@@ -315,38 +287,35 @@ FoscRhythm : FoscTreeContainer {
         ^result;
     }
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • parentageRatios
 
     A sequence describing the relative durations of the nodes in a node's improper parentage.
 
-    The first item in the sequence is the preprolatedDuration of the root node, and subsequent items are pairs of the preprolated duration of the next node in the parentage and the total preprolated_duration of that node and its siblings.
+    The first item in the sequence is the preprolatedDuration of the root node,
+    and subsequent items are pairs of the preprolated duration of the next node
+    in the parentage and the total preprolated_duration of that node and its
+    siblings.
 
     Returns array.
-    '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prolation
 
     Prolation of rhythm tree node.
 
     Returns multiplier.
 
-
-    • Example 1
-
+    '''
     code::
     b = FoscRhythm(4, #[-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);
+    a.prolation.cs;
 
     code::
-    a.prolation.cs;
     b.prolation.cs;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • prolations
 
     Prolations of rhythm tree node.
@@ -354,75 +323,57 @@ FoscRhythm : FoscTreeContainer {
     Returns array.
 
 
-    • Example 1
-
+    '''
     code::
     b = FoscRhythm(4, #[-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);
+    a.prolations;
 
     code::
-    a.prolations.do { |each| each.cs.postln };
-    b.prolations.do { |each| each.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    b.prolations;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • properParentage
 
-
-    • Example 1
-
+    '''
     code::
     b = FoscRhythm(4, #[-3, 2]);
     a = FoscRhythm(3/4, [1, 2, b]);
+    a.properParentage;
 
     code::
-    a.properParentage;
     b.properParentage;
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • startOffset
 
     The starting offset of a node in a rhythm-tree relative to the root.
 
     Returns a FoscOffset.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm(1, #[1, [1, [1, 1]], [1, [1, 1]]]);
-    a.do { |node| node.depth.do { Post.tab }; node.startOffset.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    b = [];
+    a.do { |node| b = b.add("".padLeft(node.depth, "\t") ++ node.startOffset.cs) };
+    b.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     /* --------------------------------------------------------------------------------------------------------
-    '''
     • stopOffset
 
     The stopping offset of a node in a rhythm-tree relative to the root.
 
     Returns a FoscOffset.
 
-
-    • Example 1
-
+    '''
     code::
     a = FoscRhythm(1, #[1, [1, [1, 1]], [1, [1, 1]]]);
-    a.do { |node| "node.depth.do { Post.tab }"; node.stopOffset.cs.postln };
-
-    post::
-    POSTOUTPUT
-    '''
+    b = [];
+    a.do { |node| b = b.add("".padLeft(node.depth, "\t") ++ node.stopOffset.cs) };
+    b.join("\n");
     '''
     -------------------------------------------------------------------------------------------------------- */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
